@@ -1,7 +1,14 @@
-@font-face {
-  font-family: "klim";
-  src: url("./Test Financier Display/TestFinancierDisplay-Black.otf");
-}
+// @font-face {
+//   font-family: "klim";
+//   src: url("./Test Financier Display/TestFinancierDisplay-Black.otf");
+// }
+
+@include font-face(
+  "klim",
+  "./Test Financier Display/TestFinancierDisplay-Black",
+//   400,
+//   normal
+);
 
 h1 {
   font-family: "klim";
