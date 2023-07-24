@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "klim";
+  src: url("./Test Financier Display/TestFinancierDisplay-Black.otf") format("woff"), url("./Test Financier Display/TestFinancierDisplay-Black.eot") format("embedded-opentype"), url("./Test Financier Display/TestFinancierDisplay-Black.ttf") format("truetype"), url("./Test Financier Display/TestFinancierDisplay-Black.svg#klim") format("svg");
+}
+h1 {
+  font-family: "klim";
+}/*# sourceMappingURL=style.css.map */
