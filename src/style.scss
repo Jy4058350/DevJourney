@@ -2,6 +2,7 @@
 //   font-family: "klim";
 //   src: url("./Test Financier Display/TestFinancierDisplay-Black.otf");
 // }
+@use 'mixin' as *;
 
 @include font-face(
   "klim",
