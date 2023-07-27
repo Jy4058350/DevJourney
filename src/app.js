@@ -16,12 +16,17 @@ async function init() {
   document.body.appendChild(renderer.domElement);
 
   const texloder = new THREE.TextureLoader();
-  const texture = await texloder.loadAsync("./img/1.jpeg");
+  const texture1 = await texloder.loadAsync("./img/1.jpeg");
+  const texture2 = await texloder.loadAsync("./img/2.jpeg");
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshBasicMaterial({
-    map: texture,
+    map: texture2,
   });
+  setTimeout(() => {
+    material.map = texture1;
+  }, 2000);
+
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
