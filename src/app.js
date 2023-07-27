@@ -13,7 +13,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const texloder = new THREE.TextureLoader();
-const texture = texloder.load("./img/1.jpeg");
+const texture = await texloder.loadAsync("./img/1.jpeg");
 
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
