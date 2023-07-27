@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 init();
 
@@ -32,11 +33,15 @@ async function init() {
 
   camera.position.z = 2;
 
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
   function animate() {
     requestAnimationFrame(animate);
+    controls.update();
 
-    cube.rotation.x += 0.002;
-    cube.rotation.y += 0.002;
+    // cube.rotation.x += 0.002;
+    // cube.rotation.y += 0.002;
 
     renderer.render(scene, camera);
   }
