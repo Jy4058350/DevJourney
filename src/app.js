@@ -12,8 +12,16 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+const texloder = new THREE.TextureLoader();
+const texture = texloder.load("./img/1.jpeg");
+
+
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.5 });
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ff00,
+  transparent: true,
+  opacity: 0.5,
+});
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
