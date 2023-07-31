@@ -5,6 +5,8 @@ import { iNode } from "/iNode";
 init();
 const item = iNode.qs(".item");
 console.log(item);
+const items = iNode.qsa(".item");
+console.log(items);
 
 async function init() {
   const scene = new THREE.Scene();

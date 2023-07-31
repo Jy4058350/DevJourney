@@ -8,7 +8,8 @@ function qs(selector, scope) {
 }
 
 function qsa(selector, scope) {
-  return (scope || document).querySelectorAll(selector);
+  const qsa = (scope || document).querySelectorAll(selector);
+  return Array.from(qsa);
 }
 
 export { iNode };
