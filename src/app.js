@@ -1,7 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { iNode } from "/iNode";
 
 init();
+const item = iNode.qs(".item");
+console.log(item);
 
 async function init() {
   const scene = new THREE.Scene();
