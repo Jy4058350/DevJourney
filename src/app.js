@@ -56,13 +56,18 @@ async function init() {
   const axis = new THREE.AxesHelper(5);
   scene.add(axis);
 
+  let updateCount = 0;
   function animate() {
     requestAnimationFrame(animate);
+    if (updateCount < 20) {
+      // Perform the update only twice
+      material.uniforms.uTick.value += 50;
+      updateCount++;
+    }
     controls.update();
 
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
-    material.uniforms.uTick.value += 20;
 
     renderer.render(scene, camera);
   }
