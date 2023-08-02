@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "/iNode";
+import vertexShader from "./vertex.glsl";
+import fragmentShader from "./fragment.glsl";
 
 init();
 const item = iNode.qs(".item");
@@ -34,24 +36,8 @@ async function init() {
     uniforms: {
       uTex: { value: await loadTex("./img/1.jpeg") },
     },
-    vertexShader: `
-    varying vec2 vUv;
-
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-    `,
-    fragmentShader: `
-    varying vec2 vUv;
-    uniform sampler2D uTex;
-
-    void main() {
-      vec4 texColor = texture(uTex, vUv);
-      gl_FragColor = texColor;
-
-    }
-    `,
+    vertexShader,
+    fragmentShader,
   });
   // setTimeout(() => {
   //   material.map = texture1;
