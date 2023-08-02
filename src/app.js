@@ -62,7 +62,7 @@ async function init() {
 
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
-    material.uniforms.uTick.value++;
+    material.uniforms.uTick.value += 20;
 
     renderer.render(scene, camera);
   }
