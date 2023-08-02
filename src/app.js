@@ -30,15 +30,36 @@ async function init() {
   // const texture2 = await texloder.loadAsync("./img/2.jpeg");
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({
-    map: texture2,
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      uTex: { value: await loadTex("./img/1.jpeg") },
+    },
+    vertexShader: `
+    varying vec2 vUv;
+
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+    `,
+    fragmentShader: `
+    varying vec2 vUv;
+    uniform sampler2D uTex;
+
+    void main() {
+      vec4 texColor = texture(uTex, vUv);
+      gl_FragColor = texColor;
+
+    }
+    `,
   });
-  setTimeout(() => {
-    material.map = texture1;
-  }, 2000);
+  // setTimeout(() => {
+  //   material.map = texture1;
+  // }, 2000);
 
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
+  console.log(geometry);
 
   camera.position.z = 2;
 
@@ -52,8 +73,8 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    cube.rotation.x += 0.002;
-    cube.rotation.y += 0.002;
+    // cube.rotation.x += 0.002;
+    // cube.rotation.y += 0.002;
 
     renderer.render(scene, camera);
   }
