@@ -73,8 +73,8 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    // cube.rotation.x += 0.002;
-    // cube.rotation.y += 0.002;
+    cube.rotation.x += 0.002;
+    cube.rotation.y += 0.002;
 
     renderer.render(scene, camera);
   }
