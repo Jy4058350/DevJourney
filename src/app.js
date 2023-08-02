@@ -35,6 +35,7 @@ async function init() {
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex: { value: await loadTex("./img/1.jpeg") },
+      uTick: { value: 0 },
     },
     vertexShader,
     fragmentShader,
@@ -61,6 +62,7 @@ async function init() {
 
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
+    material.uniforms.uTick.value++;
 
     renderer.render(scene, camera);
   }
