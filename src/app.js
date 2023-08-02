@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "/iNode";
+import vertexShader from "./vertex.glsl";
+import fragmentShader from "./fragment.glsl";
 
 init();
 const item = iNode.qs(".item");
@@ -17,24 +19,33 @@ async function init() {
     1000
   );
 
-  const renderer = new THREE.WebGLRenderer();
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  const texloder = new THREE.TextureLoader();
-  const texture1 = await texloder.loadAsync("./img/1.jpeg");
-  const texture2 = await texloder.loadAsync("./img/2.jpeg");
+  async function loadTex(url) {
+    const texloder = new THREE.TextureLoader();
+    const texture = await texloder.loadAsync(url);
+    return texture;
+  }
+  // const texture1 = await texloder.loadAsync("./img/1.jpeg");
+  // const texture2 = await texloder.loadAsync("./img/2.jpeg");
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({
-    map: texture2,
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      uTex: { value: await loadTex("./img/1.jpeg") },
+    },
+    vertexShader,
+    fragmentShader,
   });
-  setTimeout(() => {
-    material.map = texture1;
-  }, 2000);
+  // setTimeout(() => {
+  //   material.map = texture1;
+  // }, 2000);
 
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
+  console.log(geometry);
 
   camera.position.z = 2;
 
