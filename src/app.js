@@ -21,9 +21,13 @@ async function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  const texloder = new THREE.TextureLoader();
-  const texture1 = await texloder.loadAsync("./img/1.jpeg");
-  const texture2 = await texloder.loadAsync("./img/2.jpeg");
+  async function loadTex(url) {
+    const texloder = new THREE.TextureLoader();
+    const texture = await texloder.loadAsync(url);
+    return texture;
+  }
+  // const texture1 = await texloder.loadAsync("./img/1.jpeg");
+  // const texture2 = await texloder.loadAsync("./img/2.jpeg");
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshBasicMaterial({
