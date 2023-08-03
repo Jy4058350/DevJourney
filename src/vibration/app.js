@@ -26,8 +26,7 @@ async function init() {
   async function loadTex(url) {
     const texloder = new THREE.TextureLoader();
     const texture = await texloder.loadAsync(url);
-    texture.format = THREE.RGBAFormat;
-    texture.alpha = true;
+
     return texture;
   }
   // const texture1 = await texloder.loadAsync("./img/1.jpeg");

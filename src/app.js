@@ -63,15 +63,13 @@ async function init() {
   let updateCount = 0;
   function animate() {
     requestAnimationFrame(animate);
-    if (updateCount < 20) {
-      // Perform the update only twice
-      material.uniforms.uTick.value += 40;
-      updateCount++;
-    }
+    
+    material.uniforms.uTick.value += 40;
+    updateCount++;
     controls.update();
 
-    cube.rotation.x += 0.002;
-    cube.rotation.y += 0.002;
+    // cube.rotation.x += 0.002;
+    // cube.rotation.y += 0.002;
 
     renderer.render(scene, camera);
   }
