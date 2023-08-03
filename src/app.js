@@ -3,6 +3,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "/iNode";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
+import createTextGeometry from "createTextGeometry";
+
 
 init();
 const item = iNode.qs(".item");
@@ -25,10 +27,9 @@ async function init() {
 
   const text = "Hello World!";
 
-
-  
-  const textGeometry = new THREE.TextGeometry(text, {
-    font: await new THREE.FontLoader().load("./TestCalibre-BlackItalic.otf"),
+  const textGeometry = createTextGeometry({
+    text: text,
+    font: await new THREE.FontLoader().loadAsync("path/to/your/font.json"),
     size: 0.5,
     height: 0.2,
     curveSegments: 12,
@@ -37,14 +38,37 @@ async function init() {
     bevelSize: 0.02,
     bevelOffset: 0,
     bevelSegments: 5,
-
   });
 
-  const textMaterial = new THREE.MeshBasciMaterial({
-   color: 0x00ff00,
-   transparent: true,
-   opacity: 0.5,
-   
+  // async function loadText(url) {
+  //   const texloder = new THREE.TextureLoader();
+  //   const texture = await texloder.loadAsync(url);
+  //   texture.format = THREE.RGBAFormat;
+  //   texture.alpha = true;
+  //   return texture;
+  // }
+
+  // const textGeometry = new THREE.TextGeometry(text, {
+  //   // font: await new THREE.FontLoader().load("./TestCalibre-BlackItalic.otf"),
+  //   size: 0.5,
+  //   height: 0.2,
+  //   curveSegments: 12,
+  //   bevelEnabled: true,
+  //   bevelThickness: 0.03,
+  //   bevelSize: 0.02,
+  //   bevelOffset: 0,
+  //   bevelSegments: 5,
+  // });
+
+  const textMaterial = new THREE.MeshBasicMaterial({
+    // uniforms: {
+    //   uTex: { value: await loadText("./TestCalibre-BlackItalic.otf") },
+    //   uTick: { value: 0 },
+      color: 0x00ff00,
+      transparent: true,
+      opacity: 0.5,
+    // },
+
     // uniforms: {
     //   uTex: { value: await loadTex("./img/loading.png") },
     //   uTick: { value: 0 },
