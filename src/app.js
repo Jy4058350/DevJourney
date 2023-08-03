@@ -3,8 +3,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "/iNode";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
-import createTextGeometry from "createTextGeometry";
-
 
 init();
 const item = iNode.qs(".item");
@@ -25,64 +23,34 @@ async function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  const text = "Hello World!";
+  async function loadTex(url) {
+    const texloder = new THREE.TextureLoader();
+    const texture = await texloder.loadAsync(url);
+    texture.format = THREE.RGBAFormat;
+    texture.alpha = true;
+    return texture;
+  }
+  // const texture1 = await texloder.loadAsync("./img/1.jpeg");
+  // const texture2 = await texloder.loadAsync("./img/2.jpeg");
 
-  const textGeometry = createTextGeometry({
-    text: text,
-    font: await new THREE.FontLoader().loadAsync("path/to/your/font.json"),
-    size: 0.5,
-    height: 0.2,
-    curveSegments: 12,
-    bevelEnabled: true,
-    bevelThickness: 0.03,
-    bevelSize: 0.02,
-    bevelOffset: 0,
-    bevelSegments: 5,
-  });
-
-  // async function loadText(url) {
-  //   const texloder = new THREE.TextureLoader();
-  //   const texture = await texloder.loadAsync(url);
-  //   texture.format = THREE.RGBAFormat;
-  //   texture.alpha = true;
-  //   return texture;
-  // }
-
-  // const textGeometry = new THREE.TextGeometry(text, {
-  //   // font: await new THREE.FontLoader().load("./TestCalibre-BlackItalic.otf"),
-  //   size: 0.5,
-  //   height: 0.2,
-  //   curveSegments: 12,
-  //   bevelEnabled: true,
-  //   bevelThickness: 0.03,
-  //   bevelSize: 0.02,
-  //   bevelOffset: 0,
-  //   bevelSegments: 5,
-  // });
-
-  const textMaterial = new THREE.MeshBasicMaterial({
-    // uniforms: {
-    //   uTex: { value: await loadText("./TestCalibre-BlackItalic.otf") },
-    //   uTick: { value: 0 },
-      color: 0x00ff00,
-      transparent: true,
-      opacity: 0.5,
-    // },
-
-    // uniforms: {
-    //   uTex: { value: await loadTex("./img/loading.png") },
-    //   uTick: { value: 0 },
-    // },
+  const geometry = new THREE.PlaneGeometry(1, 1, 1);
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      uTex: { value: await loadTex("./img/loading.png") },
+      uTick: { value: 0 },
+    },
     vertexShader,
     fragmentShader,
+    transparent: true, // Enable alpha blending
+  alphaTest: 0.0, // S
   });
   // setTimeout(() => {
   //   material.map = texture1;
   // }, 2000);
 
-  const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-  scene.add(textMesh);
-  // console.log(geometry);
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+  console.log(geometry);
 
   camera.position.z = 2;
 
@@ -102,8 +70,8 @@ async function init() {
     }
     controls.update();
 
-    // cube.rotation.x += 0.2;
-    // cube.rotation.y += 0.2;
+    cube.rotation.x += 0.002;
+    cube.rotation.y += 0.002;
 
     renderer.render(scene, camera);
   }
