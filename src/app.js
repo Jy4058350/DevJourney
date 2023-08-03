@@ -41,8 +41,8 @@ async function init() {
     },
     vertexShader,
     fragmentShader,
-    transparent: true, // Enable alpha blending
-  alphaTest: 0.0, // S
+    transparent: true,
+    alphaTest: 0.0,
   });
   // setTimeout(() => {
   //   material.map = texture1;
@@ -63,7 +63,8 @@ async function init() {
   let updateCount = 0;
   function animate() {
     requestAnimationFrame(animate);
-    
+
+    // Perform the update only twice
     material.uniforms.uTick.value += 40;
     updateCount++;
     controls.update();
