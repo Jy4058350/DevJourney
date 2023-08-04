@@ -2,6 +2,8 @@
  * Three.js
  * https://threejs.org/
  */
+
+import gsap from "gsap";
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -52,15 +54,33 @@ async function init() {
   const folder1 = gui.addFolder("slider0");
   folder1.open();
 
-  folder1.add(material.uniforms.uProgress, "value", 0, 1, 0.01);
-  folder1.add(material.uniforms.uProgress2, "value", 0, 1, 0.01);
-  folder1.add(material.uniforms.uProgress3, "value", 0, 1, 0.01);
+  folder1
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.01)
+    .name("tex1進行度");
+  folder1
+    .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
+    .name("tex2進行度");
+  folder1
+    .add(material.uniforms.uProgress3, "value", 0, 2, 0.01)
+    .name("animetion")
+    .listen();
+  const datData = { next: !!material.uniforms.uProgress3.value };
+  folder1
+    .add(datData, "next")
+    .name("next")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress3, {
+        value: datData.next ? 2 : 0,
+        duration: 3,
+        ease: "power2.inOut",
+      });
+    });
 
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    // material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
-    // material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
+    material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
+    material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
 
     // material.uniforms.uTick.value++;
     renderer.render(scene, camera);
