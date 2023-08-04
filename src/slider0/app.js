@@ -54,13 +54,13 @@ async function init() {
 
   folder1.add(material.uniforms.uProgress, "value", 0, 1, 0.01);
   folder1.add(material.uniforms.uProgress2, "value", 0, 1, 0.01);
-  folder1.add(material.uniforms.uProgress3, "value", 0, 1, 0.01);
+  folder1.add(material.uniforms.uProgress3, "value", 0, 2, 0.01);
 
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    // material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
-    // material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
+    material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
+    material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
 
     // material.uniforms.uTick.value++;
     renderer.render(scene, camera);
