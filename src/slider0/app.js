@@ -28,7 +28,7 @@ async function init() {
     const texLoader = new THREE.TextureLoader();
     const texture = await texLoader.loadAsync(url);
     texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
     return texture;
   }
 
@@ -55,10 +55,10 @@ async function init() {
   folder1.open();
 
   folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.01)
+    .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
     .name("tex1進行度");
   folder1
-    .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
+    .add(material.uniforms.uProgress2, "value", 0, 2, 0.01)
     .name("tex2進行度");
   folder1
     .add(material.uniforms.uProgress3, "value", 0, 2, 0.01)
