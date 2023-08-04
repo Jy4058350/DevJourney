@@ -7,36 +7,29 @@ varying vec2 vUv;
 uniform sampler2D uTexCurrent;
 uniform sampler2D uTexNext;
 uniform float uTick;
-// uniform vec2 uNoiseScale;
 uniform float uProgress;
+uniform float uProgress2;
+
+// Function to convert color to grayscale
+vec4 toGrayscale(vec4 color) {
+  float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+  return vec4(gray, gray, gray, color.a);
+}
 
 void main() {
 
-  // ヨコシマのノイズ
-  // float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
+  vec4 tex1 = texture(uTexCurrent, vUv);
+  vec4 tex2 = texture(uTexNext, vUv);
 
-  vec4 texCurrent = texture(uTexCurrent, vUv);
-  vec4 texNext = texture(uTexNext, vUv);
-  // gl_FragColor = tex1;
-  // gl_FragColor = tex2;
+  // Calculate the grayscale transition progress from tex1 to gray based on uProgress
+  float grayscaleProgress = smoothstep(0.0, 1.0, uProgress);
 
-  gl_FragColor = mix(texCurrent, texNext, uProgress);
+  // Convert tex1 to grayscale based on the grayscale transition progress
+  vec4 grayscaleTex1 = mix(tex1, toGrayscale(tex1), grayscaleProgress);
+
+  // Calculate the transition progress from tex1 to tex2 based on uProgress
+  float transitionProgress = step(1.0, uProgress);
+
+  // Apply alpha blending between grayscaleTex1 and tex2 based on the transition progress
+  gl_FragColor = mix(grayscaleTex1, tex2, transitionProgress);
 }
-
-
-
-
-
-
-// void main() {
-
-//   // ヨコシマのノイズ
-//   // float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
-
-//   vec4 texCurrent = texture(uTexCurrent, vUv);
-//   vec4 texNext = texture(uTexNext, vUv);
-//   // gl_FragColor = tex1;
-//   // gl_FragColor = tex2;
-
-//   gl_FragColor = mix(texCurrent, texNext, uProgress);
-// }

@@ -33,10 +33,11 @@ async function init() {
   const geometry = new THREE.PlaneGeometry(40, 25);
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      uTexCurrent: { value: await loadTex("/img/output0.jpg") },
+      uTexCurrent: { value: await loadTex("/img/output3.jpg") },
       uTexNext: { value: await loadTex("/img/output1.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
+      uProgress2: { value: 0 },
       uNoiseScale: { value: new THREE.Vector2(10, 10) },
     },
     vertexShader,
