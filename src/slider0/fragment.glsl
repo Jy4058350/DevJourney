@@ -24,7 +24,12 @@ void main() {
   // Stage 2: Convert tex1 to grayscale and make it transparent based on uProgress
   float grayscaleProgress = smoothstep(0.0, 1.0, uProgress);
   vec4 grayscaleTex1 = mix(colorTex1, toGrayscale(colorTex1), grayscaleProgress);
-  grayscaleTex1.a = 1.0 - grayscaleProgress; // Set alpha value based on grayscale progress
+
+// 調整したい暗さの倍率を設定
+  float darkness = 1.0; // 0.0から1.0の範囲で調整
+
+// グレースケールのテクスチャを暗くする
+  grayscaleTex1.rgb *= darkness;
 
 // Stage 2.5: Convert tex2 to grayscale based on uProgress3
   float grayscaleProgress2 = smoothstep(1.0, 0.0, uProgress2);
