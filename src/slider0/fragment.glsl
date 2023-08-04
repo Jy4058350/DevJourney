@@ -14,7 +14,7 @@ void main() {
   // ヨコシマのノイズ
    float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
 
-  vec4 texCurrent = texture(uTexCurrent, vUv);
-  vec4 texNext = texture(uTexNext, vUv);
-  gl_FragColor = texCurrent;
+  vec4 tex1 = texture(uTexCurrent, vUv);
+  vec4 tex2 = texture(uTexNext, vUv);
+  gl_FragColor = tex2;
 }

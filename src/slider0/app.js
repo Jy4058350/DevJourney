@@ -30,7 +30,7 @@ async function init() {
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(20, 10);
+  const geometry = new THREE.PlaneGeometry(120, 80);
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTexCurrent: { value: await loadTex("/img/output0.jpg") },
