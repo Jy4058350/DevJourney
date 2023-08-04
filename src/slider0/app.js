@@ -38,6 +38,7 @@ async function init() {
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uProgress2: { value: 0 },
+      uProgress3: { value: 0 },
       uNoiseScale: { value: new THREE.Vector2(10, 10) },
     },
     vertexShader,
@@ -56,6 +57,8 @@ async function init() {
   folder1.add(material.uniforms.uNoiseScale.value, "x", 0, 100, 1);
   folder1.add(material.uniforms.uNoiseScale.value, "y", 0, 100, 1);
   folder1.add(material.uniforms.uProgress, "value", 0, 1, 0.01);
+  folder1.add(material.uniforms.uProgress2, "value", 0, 1, 0.01);
+  folder1.add(material.uniforms.uProgress3, "value", 0, 1, 0.01);
 
   let i = 0;
   function animate() {
