@@ -59,8 +59,8 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
-    material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
+    // material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
+    // material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
 
     // material.uniforms.uTick.value++;
     renderer.render(scene, camera);
