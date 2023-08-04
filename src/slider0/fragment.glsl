@@ -26,7 +26,7 @@ void main() {
   vec4 grayscaleTex1 = mix(colorTex1, toGrayscale(colorTex1), grayscaleProgress);
 
 // Stage 2.5: Convert tex2 to grayscale based on uProgress3
-  float grayscaleProgress2 = smoothstep(0.0, 1.0, uProgress2);
+  float grayscaleProgress2 = smoothstep(1.0, 0.0, uProgress2);
   vec4 grayscaleTex2 = mix(tex2, toGrayscale(tex2), grayscaleProgress2);
 
   // Stage 3: Transition from tex1 to tex2 based on uProgress2
