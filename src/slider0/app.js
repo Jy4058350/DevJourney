@@ -39,7 +39,6 @@ async function init() {
       uProgress: { value: 0 },
       uProgress2: { value: 0 },
       uProgress3: { value: 0 },
-      uNoiseScale: { value: new THREE.Vector2(10, 10) },
     },
     vertexShader,
     fragmentShader,
@@ -49,12 +48,10 @@ async function init() {
 
   camera.position.z = 30;
 
-  // lil gui
   const gui = new GUI();
   const folder1 = gui.addFolder("slider0");
   folder1.open();
 
-  
   folder1.add(material.uniforms.uProgress, "value", 0, 1, 0.01);
   folder1.add(material.uniforms.uProgress2, "value", 0, 1, 0.01);
   folder1.add(material.uniforms.uProgress3, "value", 0, 1, 0.01);
@@ -62,10 +59,10 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
+    material.uniforms.uProgress.value = material.uniforms.uProgress3.value;
+    material.uniforms.uProgress2.value = material.uniforms.uProgress3.value;
 
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
-    material.uniforms.uTick.value++;
+    // material.uniforms.uTick.value++;
     renderer.render(scene, camera);
   }
 
