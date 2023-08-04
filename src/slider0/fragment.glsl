@@ -16,7 +16,7 @@ vec4 toGrayscale(vec4 color) {
 
 void main() {
   vec4 tex1 = texture(uTexCurrent, vUv);
-  vec4 tex2 = texture(uTexNext, vUv);
+   vec4 tex2 = texture(uTexNext, vec2(vUv.x, vUv.y - uProgress3)); // テクスチャを下にスライド
 
   // Stage 1: Display tex1 in color
   vec4 colorTex1 = tex1;
