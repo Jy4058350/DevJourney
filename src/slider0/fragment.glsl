@@ -31,9 +31,17 @@ void main() {
 // グレースケールのテクスチャを暗くする
   grayscaleTex1.rgb *= darkness;
 
+   // 調整したい暗さの倍率を設定
+  float darkness2 = 1.0; // 0.0から1.0の範囲で調整
+
 // Stage 2.5: Convert tex2 to grayscale based on uProgress3
   float grayscaleProgress2 = smoothstep(1.0, 0.0, uProgress2);
-  vec4 grayscaleTex2 = mix(tex2, toGrayscale(tex2), grayscaleProgress2);
+  float adjustedGrayscaleProgress2 = pow(grayscaleProgress2, darkness2); // 調整したい暗さを適用
+  vec4 grayscaleTex2 = mix(tex2, toGrayscale(tex2), adjustedGrayscaleProgress2);
+
+// グレースケールのテクスチャを暗くする
+  grayscaleTex2.rgb *= darkness2;
+
   grayscaleTex2.a = 1.0 - grayscaleProgress2; // Set alpha value based on grayscale progress 2
 
   // Stage 3: Transition from tex1 to tex2 based on uProgress2
