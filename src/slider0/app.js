@@ -34,7 +34,8 @@ import GUI from "lil-gui";
    const geometry = new THREE.PlaneGeometry(20, 10);
    const material = new THREE.ShaderMaterial({
      uniforms: {
-       uTex: { value: await loadTex('/img/output2.jpg') },
+       uTexCurrent: { value: await loadTex('/img/output0.jpg') },
+       uTexNext: { value: await loadTex('/img/output1.jpg') },
        uTick: { value: 0 },
        uNoiseScale: { value: new THREE.Vector2(10, 10) }
      },
