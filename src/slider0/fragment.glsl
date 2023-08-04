@@ -20,5 +20,5 @@ void main() {
   // gl_FragColor = tex1;
   // gl_FragColor = tex2;
 
-  gl_FragColor = mix(texCurrent, texNext, uProgress) ;
-  }
+  gl_FragColor = mix(texCurrent, texNext, uProgress);
+}
