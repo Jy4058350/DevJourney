@@ -21,9 +21,10 @@ void main() {
   // Stage 1: Display tex1 in color
   vec4 colorTex1 = tex1;
 
-  // Stage 2: Convert tex1 to grayscale based on uProgress
+  // Stage 2: Convert tex1 to grayscale and make it transparent based on uProgress
   float grayscaleProgress = smoothstep(0.0, 1.0, uProgress);
   vec4 grayscaleTex1 = mix(colorTex1, toGrayscale(colorTex1), grayscaleProgress);
+  grayscaleTex1.a = 1.0 - grayscaleProgress; // Set alpha value based on grayscale progress
 
 // Stage 2.5: Convert tex2 to grayscale based on uProgress3
   float grayscaleProgress2 = smoothstep(1.0, 0.0, uProgress2);
