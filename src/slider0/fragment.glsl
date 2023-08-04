@@ -7,13 +7,13 @@ varying vec2 vUv;
 uniform sampler2D uTexCurrent;
 uniform sampler2D uTexNext;
 uniform float uTick;
-uniform vec2 uNoiseScale;
+// uniform vec2 uNoiseScale;
 uniform float uProgress;
 
 void main() {
 
   // ヨコシマのノイズ
-  float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
+  // float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
 
   vec4 texCurrent = texture(uTexCurrent, vUv);
   vec4 texNext = texture(uTexNext, vUv);
@@ -22,3 +22,21 @@ void main() {
 
   gl_FragColor = mix(texCurrent, texNext, uProgress);
 }
+
+
+
+
+
+
+// void main() {
+
+//   // ヨコシマのノイズ
+//   // float n = noise3(vec3(vUv.x * uNoiseScale.x, vUv.y * uNoiseScale.y, uTick * 0.01));
+
+//   vec4 texCurrent = texture(uTexCurrent, vUv);
+//   vec4 texNext = texture(uTexNext, vUv);
+//   // gl_FragColor = tex1;
+//   // gl_FragColor = tex2;
+
+//   gl_FragColor = mix(texCurrent, texNext, uProgress);
+// }
