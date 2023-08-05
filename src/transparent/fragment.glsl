@@ -37,7 +37,7 @@ void main() {
   float grayscaleProgress = smoothstep(0.5, 1.0, uProgress);
 
   // Use uProgress to transition from fadedColor1 to grayscale
-  vec4 finalColor = mix(fadedColor1, toGrayscale(color1), grayscaleProgress);
+  vec4 finalColor = mix(fadedColor1, color1, grayscaleProgress);
 
   gl_FragColor = finalColor;
 }
