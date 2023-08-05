@@ -1,6 +1,15 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  glsl-easings:
+    specifier: ^1.0.0
+    version: 1.0.0
+  glsl-hsl2rgb:
+    specifier: ^1.1.0
+    version: 1.1.0
+  glsl-map:
+    specifier: ^1.0.1
+    version: 1.0.1
   glsl-noise:
     specifier: ^0.0.0
     version: 0.0.0
@@ -476,6 +485,14 @@ packages:
       is-glob: 4.0.3
     dev: true
 
+  /glsl-easings@1.0.0:
+    resolution: {integrity: sha512-blfWMqztNRVI4sJNyPlA9uV4T7xIm//Ie6fGGtnQPs3FpCj5YOWt/QIVFRMWpsBQhehRRGoaKG2yDw6tkAlmeA==}
+    dev: false
+
+  /glsl-hsl2rgb@1.1.0:
+    resolution: {integrity: sha512-dlxkgfTzjQ86DWngdozxRFqCSNWCoH186DmfZpLqt+JhtqdoeuI+/1TMKMULAw1FjFqfbTqAgSNXupNfjNSWQw==}
+    dev: false
+
   /glsl-inject-defines@1.0.3:
     resolution: {integrity: sha512-W49jIhuDtF6w+7wCMcClk27a2hq8znvHtlGnrYkSWEr8tHe9eA2dcnohlcAmxLYBSpSSdzOkRdyPTrx9fw49+A==}
     dependencies:
@@ -483,6 +500,10 @@ packages:
       glsl-token-string: 1.0.1
       glsl-tokenizer: 2.1.5
     dev: true
+
+  /glsl-map@1.0.1:
+    resolution: {integrity: sha512-zu6jSaOnqi1Sm+0t7vkN3gnb64BoAuyq5pE5TJrZ9mzV4uoxVNMj093RQnhx+Kt1+WJuHs1KuUYwcW7MU3O79g==}
+    dev: false
 
   /glsl-noise@0.0.0:
     resolution: {integrity: sha512-b/ZCF6amfAUb7dJM/MxRs7AetQEahYzJ8PtgfrmEdtw6uyGOr+ZSGtgjFm6mfsBkxJ4d2W7kg+Nlqzqvn3Bc0w==}

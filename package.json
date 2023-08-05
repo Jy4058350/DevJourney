@@ -15,6 +15,9 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
+    "glsl-easings": "^1.0.0",
+    "glsl-hsl2rgb": "^1.1.0",
+    "glsl-map": "^1.0.1",
     "glsl-noise": "^0.0.0",
     "glsl-rotate": "^2.0.0",
     "gsap": "^3.11.4",
