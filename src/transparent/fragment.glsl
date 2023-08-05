@@ -16,7 +16,7 @@ void main() {
   float yCoordinate = vUv.y * (1.0 - uProgress);
   
   // Use the calculated y-coordinate to make color1 gradually transparent from bottom
-  gl_FragColor = mix(color1, vec4(0.0), smoothstep(0.0, 0.1, yCoordinate));
+  gl_FragColor = mix(color1, vec4(0.0), smoothstep(0.0, 0.4, yCoordinate));
 
 
   
