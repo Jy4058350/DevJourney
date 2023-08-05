@@ -56,13 +56,13 @@ async function init() {
   folder1.open();
 
   folder1
-    .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.01)
     .name("tex1進行度").listen();
   folder1
-    .add(material.uniforms.uProgress2, "value", 0, 2, 0.01)
+    .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
     .name("tex2進行度");
   folder1
-    .add(material.uniforms.uProgress3, "value", 0, 2, 0.01)
+    .add(material.uniforms.uProgress3, "value", 0, 1, 0.01)
     .name("animetion")
     .listen();
   const datData = { next: !!material.uniforms.uProgress3.value };
@@ -71,7 +71,7 @@ async function init() {
     .name("next")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 2 : 0,
+        value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
       });
