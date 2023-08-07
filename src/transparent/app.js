@@ -33,7 +33,7 @@ async function init() {
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(20, 10);
+  const geometry = new THREE.PlaneGeometry(50, 25);
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -60,17 +60,37 @@ async function init() {
     .name("tex1進行度").listen();
   folder1
     .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
-    .name("tex2進行度");
+    .name("color_gray").listen();
   folder1
     .add(material.uniforms.uProgress3, "value", 0, 1, 0.01)
-    .name("animetion")
+    .name("transparentFromBottom")
     .listen();
-  const datData = { next: !!material.uniforms.uProgress3.value };
+  const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
-    .name("next")
+    .name("next_tex1")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("tex2_from color to gray")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress2, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("tex2_grayToTransparent")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress3, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
