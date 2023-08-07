@@ -42,8 +42,8 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+  const plane = new THREE.Mesh(geometry, material);
+  scene.add(plane);
 
   camera.position.z = 30;
 
@@ -65,6 +65,10 @@ async function init() {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
+        onUpdate: () => {
+          // Update the plane's position along the z-axis based on uProgress
+          Plane.position.z = material.uniforms.uProgress.value * 10;
+        },
       });
     });
 
