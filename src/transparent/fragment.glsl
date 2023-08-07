@@ -52,8 +52,11 @@ void main() {
 // Calculate the y-coordinate with respect to uProgress2
   float grayChange2 = vUv.y * uProgress2;
   float yCoordinate2 = vUv.y * (1.0 - uProgress3);
-//カラーをグレースケールに変換
+//グレーをカラーに変換
   vec4 startColor2 = mix(toGrayscale(color2), color2, (grayChange2) * 1.0);
+  //カラーをグレーに変換
+  vec4 gray = mix(color2, toGrayscale(color2), uProgress2);
+
 
   // Calculate the factor for fading from the bottom
   float fadeFactor = smoothstep(1.0, 0.0, (vUv.y * (2.0 - uProgress3)));
