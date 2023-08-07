@@ -40,16 +40,21 @@ void main() {
 // Use uProgress to transition from fadedColor1 to grayscale
   vec4 finalColor1 = mix(fadedColor1, color1, grayscaleProgress1);
 
-
-
 // Calculate the y-coordinate with respect to uProgress2
   float yCoordinate2 = vUv.y * (1.0 - uProgress2);
+  float grayChange = vUv.y * uProgress2;
+//カラーをグレースケールに変換
+  vec4 startColor2 = mix(color2, toGrayscale(color2), (grayChange) * 2.0);
+
   // Use the calculated y-coordinate to make color2 gradually transparent from bottom
-  vec4 fadeColor2 = mix(toGrayscale(color2), vec4(0.0), smoothstep(0.0, 0.4, yCoordinate2));
+  vec4 fadeColor2 = mix(toGrayscale(color2), vec4(0.0), smoothstep(0.0, 1.0, yCoordinate2));
   // Calculate a separate progress value for the grayscale transition
   float grayscaleProgress2 = smoothstep(0.5, 1.0, uProgress2);
   vec4 finalColor2 = mix(fadeColor2, color2, grayscaleProgress2);
 
   gl_FragColor = finalColor1;
   gl_FragColor = finalColor2;
+  gl_FragColor = fadeColor2;
+  gl_FragColor = startColor2;
+  // gl_FragColor = color2;
 }
