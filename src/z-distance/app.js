@@ -31,7 +31,7 @@ async function init() {
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(50, 25);
+  const geometry = new THREE.PlaneGeometry(25, 12.5);
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -67,7 +67,7 @@ async function init() {
         ease: "ease",
         onUpdate: () => {
           // Update the plane's position along the z-axis based on uProgress
-          Plane.position.z = material.uniforms.uProgress.value * 10;
+          plane.position.z = material.uniforms.uProgress.value * 1.5;
         },
       });
     });
