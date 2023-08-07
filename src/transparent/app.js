@@ -60,7 +60,7 @@ async function init() {
     .name("tex1進行度").listen();
   folder1
     .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
-    .name("tex2進行度").listen();
+    .name("color_gray").listen();
   folder1
     .add(material.uniforms.uProgress3, "value", 0, 1, 0.01)
     .name("animetion")
@@ -78,7 +78,7 @@ async function init() {
     });
   folder1
     .add(datData, "next")
-    .name("next_tex2")
+    .name("tex2_from color to gray")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress2, {
         value: datData.next ? 1 : 0,
