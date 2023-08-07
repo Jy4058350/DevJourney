@@ -68,9 +68,19 @@ async function init() {
   const datData = { next: !!material.uniforms.uProgress3.value };
   folder1
     .add(datData, "next")
-    .name("next")
+    .name("next_tex1")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("next_tex2")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress2, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
