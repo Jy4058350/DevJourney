@@ -9,6 +9,6 @@ void main() {
 
   vec4 color = texture2D(uTex1, vUv);
 
-  gl_FlagColor = color;
+  gl_FragColor = color;
 
 }
