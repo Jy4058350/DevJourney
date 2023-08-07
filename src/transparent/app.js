@@ -42,6 +42,7 @@ async function init() {
       uProgress: { value: 0 },
       uProgress2: { value: 0 },
       uProgress3: { value: 0 },
+      uProgress4: { value: 0 },
     },
     vertexShader,
     fragmentShader,
@@ -56,21 +57,34 @@ async function init() {
   folder1.open();
 
   folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.01)
-    .name("tex1進行度").listen();
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+    .name("tex1 color_gray").listen();
   folder1
-    .add(material.uniforms.uProgress2, "value", 0, 1, 0.01)
+    .add(material.uniforms.uProgress4, "value", 0, 1, 0.1)
+    .name("tex1transparentFromBottom").listen();
+  folder1
+    .add(material.uniforms.uProgress2, "value", 0, 1, 0.1)
     .name("color_gray").listen();
   folder1
-    .add(material.uniforms.uProgress3, "value", 0, 1, 0.01)
+    .add(material.uniforms.uProgress3, "value", 0, 1, 0.1)
     .name("transparentFromBottom")
     .listen();
   const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
-    .name("next_tex1")
+    .name("next_color_gray")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("next_transparentFromBottom")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress4, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
