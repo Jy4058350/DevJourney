@@ -63,9 +63,9 @@ async function init() {
     .name("color_gray").listen();
   folder1
     .add(material.uniforms.uProgress3, "value", 0, 1, 0.01)
-    .name("animetion")
+    .name("transparentFromBottom")
     .listen();
-  const datData = { next: !!material.uniforms.uProgress3.value };
+  const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
     .name("next_tex1")
@@ -81,6 +81,16 @@ async function init() {
     .name("tex2_from color to gray")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress2, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("tex2_grayToTransparent")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress3, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",

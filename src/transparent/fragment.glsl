@@ -6,6 +6,7 @@ uniform sampler2D uTex2;
 uniform float uTick;
 uniform float uProgress;
 uniform float uProgress2;
+uniform float uProgress3;
 
 // Function to convert color to grayscale
 vec4 toGrayscale(vec4 color) {
@@ -41,13 +42,16 @@ void main() {
   vec4 finalColor1 = mix(fadedColor1, color1, grayscaleProgress1);
 
 // Calculate the y-coordinate with respect to uProgress2
-  float yCoordinate2 = vUv.y * (1.0 - uProgress2);
   float grayChange = vUv.y * uProgress2;
+  float yCoordinate2 = vUv.y * (1.0 - uProgress3);
 //カラーをグレースケールに変換
-  vec4 startColor2 = mix(color2, toGrayscale(color2), (grayChange) * 2.0);
+  vec4 startColor2 = mix(color2, toGrayscale(color2), (grayChange) * 1.5);
 
+  // Calculate the factor for fading from the bottom
+  float fadeFactor = smoothstep(1.0, 0.0, (vUv.y * (2.0 - uProgress3)));
   // Use the calculated y-coordinate to make color2 gradually transparent from bottom
-  vec4 fadeColor2 = mix(toGrayscale(color2), vec4(0.0), smoothstep(0.0, 1.0, yCoordinate2));
+  vec4 fadeColor2 = mix(startColor2, vec4(0.0), fadeFactor);
+
   // Calculate a separate progress value for the grayscale transition
   float grayscaleProgress2 = smoothstep(0.5, 1.0, uProgress2);
   vec4 finalColor2 = mix(fadeColor2, color2, grayscaleProgress2);
@@ -55,6 +59,6 @@ void main() {
   gl_FragColor = finalColor1;
   gl_FragColor = finalColor2;
   gl_FragColor = fadeColor2;
-  gl_FragColor = startColor2;
+  // gl_FragColor = startColor2;
   // gl_FragColor = color2;
 }
