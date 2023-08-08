@@ -50,8 +50,8 @@ async function init() {
   const geometry = new THREE.PlaneGeometry(25, 12.5);
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
+      uTex1: { value: await loadTex("/img/output0.jpg") },
+      uTex2: { value: await loadTex("/img/output1.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
     },
@@ -60,7 +60,7 @@ async function init() {
   });
   const rtmesh = new THREE.Mesh(geometry, material);
 
-  const geo = new THREE.PlaneGeometry(20, 10);
+  const geo = new THREE.PlaneGeometry(40, 20);
   const mate = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
