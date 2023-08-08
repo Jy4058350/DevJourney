@@ -60,7 +60,7 @@ async function init() {
   });
   const rtmesh = new THREE.Mesh(geometry, material);
 
-  const geo = new THREE.BoxGeometry(4, 4, 4);
+  const geo = new THREE.PlaneGeometry(20, 10);
   const mate = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -109,9 +109,9 @@ async function init() {
 
     renderer.render(scene, camera);
 
-    mesh.rotation.x += 0.01;
-    mesh.position.x += 0.01;
-    rtmesh.rotation.y += 0.01;
+    // mesh.rotation.x += 0.01;
+    // mesh.position.x += 0.01;
+    // rtmesh.rotation.y += 0.01;
 
     controls.update();
   }
