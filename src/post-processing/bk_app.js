@@ -18,6 +18,8 @@ async function init() {
   document.body.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
 
+//レンダーターゲット
+  const renderTarget = new THREE.WebGLRenderTarget(500, 500);
 
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -25,10 +27,18 @@ async function init() {
     0.1,
     1000
   );
-  camera.position.z = 30;//set()methodにあとで変更する
-
+  const rtCamera = camera.clone();
+  rtCamera.aspect = 1;
+  rtCamera.updateProjectionMatrix();
+  const rtScene = new THREE.Scene();
+  rtScene.background = new THREE.Color(0x444444);
+  rtCamera.position.set(0, 0, 10);
+  camera.position.z = 10;
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
+  
+  // camera.position.z = 30; //set()methodにあとで変更する
+
 
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
@@ -49,15 +59,25 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const mesh = new THREE.Mesh(geometry, material);
+  const rtmesh = new THREE.Mesh(geometry, material);
+  const geo = new THREE.BoxGeometry(4,4,4);
+  const mate = new THREE.ShaderMaterial({
+    uniforms: {
+      uTex1: { value: await loadTex("/img/output3.jpg") },
+      uTex2: { value: await loadTex("/img/output2.jpg") },
+      uTick: { value: 0 },
+      uProgress: { value: 0 },
+    },
+    vertexShader,
+    fragmentShader,
+  });
+  const mesh = new THREE.Mesh(geo, mate);
   scene.add(mesh);
 
-
+  scene.add(rtmesh);
 
   const axis = new THREE.AxesHelper(100);
   scene.add(axis);
-
-  
 
   const gui = new GUI();
   const folder1 = gui.addFolder("z-distance");
