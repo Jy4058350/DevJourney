@@ -34,6 +34,7 @@ async function init() {
   rtScene.background = new THREE.Color(0x444444);
   rtCamera.position.set(0, 0, 10);
   camera.position.z = 10;
+
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
 
@@ -108,7 +109,7 @@ async function init() {
     renderer.setRenderTarget(null);
 
     renderer.render(scene, camera);
-
+    mesh.position.z = -10;
     // mesh.rotation.x += 0.01;
     // mesh.position.x += 0.01;
     // rtmesh.rotation.y += 0.01;
