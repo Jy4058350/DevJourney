@@ -18,7 +18,7 @@ async function init() {
   document.body.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
 
-//レンダーターゲット
+  //レンダーターゲット
   const renderTarget = new THREE.WebGLRenderTarget(500, 500);
 
   const camera = new THREE.PerspectiveCamera(
@@ -36,9 +36,8 @@ async function init() {
   camera.position.z = 10;
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
-  
-  // camera.position.z = 30; //set()methodにあとで変更する
 
+  // camera.position.z = 30; //set()methodにあとで変更する
 
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
@@ -60,7 +59,8 @@ async function init() {
     fragmentShader,
   });
   const rtmesh = new THREE.Mesh(geometry, material);
-  const geo = new THREE.BoxGeometry(4,4,4);
+
+  const geo = new THREE.BoxGeometry(4, 4, 4);
   const mate = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -103,12 +103,17 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    controls.update();
-
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
+    renderer.setRenderTarget(renderTarget);
+    renderer.render(rtScene, rtCamera);
+    renderer.setRenderTarget(null);
 
     renderer.render(scene, camera);
+
+    mesh.rotation.x += 0.01;
+    mesh.position.x += 0.01;
+    rtmesh.rotation.y += 0.01;
+
+    controls.update();
   }
 
   animate();

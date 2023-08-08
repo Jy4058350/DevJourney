@@ -57,6 +57,10 @@ function animate() {
   requestAnimationFrame(animate);
 
   // メインのレンダラーの描写
+  renderer.setRenderTarget(renderTarget);
+  renderer.render(rtScene, rtCamera);
+  renderer.setRenderTarget(null);
+
   renderer.render(scene, camera);
 
   rtMesh.rotation.x += 0.01;
