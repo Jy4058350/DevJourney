@@ -7,6 +7,7 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 init();
 async function init() {
@@ -50,10 +51,12 @@ async function init() {
   const axis = new THREE.AxesHelper(100);
   scene.add(axis);
 
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
   const gui = new GUI();
   const folder1 = gui.addFolder("z-distance");
   folder1.open();
-
 
   folder1
     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
@@ -75,7 +78,7 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    
+    controls.update();
 
     // cube.rotation.x = cube.rotation.x + 0.01;
     // cube.rotation.y += 0.01;
