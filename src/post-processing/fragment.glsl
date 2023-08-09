@@ -2,6 +2,7 @@ precision mediump float;
 
 varying vec2 vUv;
 uniform sampler2D uTex1;
+uniform sampler2D uTex2;
 uniform float uTick;
 uniform float uProgress;
 
@@ -9,11 +10,10 @@ void main() {
 
   vec2 uv = vUv;
 
-  uv = uv * (1.0 - (uProgress * 0.1));
-  // uv *= 1.0 + uProgress;//上記と同じ
+  vec4 color1 = texture2D(uTex1, uv);
+  vec4 color2 = texture2D(uTex2, uv);
 
-  vec4 color = texture2D(uTex1, uv);
-
+  vec4 color = mix(color1, color2, uProgress);
   gl_FragColor = color;
 
 }

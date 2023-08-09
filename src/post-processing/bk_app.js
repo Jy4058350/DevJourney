@@ -4,7 +4,9 @@
  */
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
+import vertexShader1 from "./vertex1.glsl";
 import fragmentShader from "./fragment.glsl";
+import fragmentShader1 from "./fragment1.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -31,9 +33,9 @@ async function init() {
   rtCamera.aspect = 1;
   rtCamera.updateProjectionMatrix();
   const rtScene = new THREE.Scene();
-  rtScene.background = new THREE.Color(0x444444);
+  // rtScene.background = new THREE.Color(0x444444);
   rtCamera.position.set(0, 0, 10);
-  camera.position.z = 10;
+  camera.position.z = 15;
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -64,13 +66,14 @@ async function init() {
   const geo = new THREE.PlaneGeometry(40, 20);
   const mate = new THREE.ShaderMaterial({
     uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
+      uTex3: { value: await loadTex("/img/output3.jpg") },
+      uTex4: { value: await loadTex("/img/output2.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
+      uProgress2: { value: 0 },
     },
-    vertexShader,
-    fragmentShader,
+    vertexShader: vertexShader1,
+    fragmentShader: fragmentShader1,
   });
   const mesh = new THREE.Mesh(geo, mate);
   scene.add(mesh);
