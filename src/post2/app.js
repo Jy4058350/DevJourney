@@ -39,9 +39,13 @@ async function init() {
       uTex2: { value: await loadTex("/img/output5.jpg") },
       uTex3: { value: await loadTex("/img/output6.jpg") },
       uTex4: { value: await loadTex("/img/output7.jpg") },
+      uTex5: { value: await loadTex("/img/output8.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uProgress2: { value: 0 },
+      uProgress3: { value: 0 },
+      uProgress4: { value: 0 },
+      uProgress5: { value: 0 },
       uIndex: { value: 0 },
     },
     vertexShader,
@@ -63,7 +67,7 @@ async function init() {
   folder1.open();
 
   folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+    .add(material.uniforms.uProgress4, "value", 0, 1, 0.1)
     .name("mix")
     .listen();
 
@@ -72,7 +76,7 @@ async function init() {
     .add(datData, "next")
     .name("mix next")
     .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
+      gsap.to(material.uniforms.uProgress4, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
@@ -83,63 +87,74 @@ async function init() {
     material.uniforms.uTex1.value.image.onload,
     material.uniforms.uTex2.value.image.onload,
     material.uniforms.uTex3.value.image.onload,
+    material.uniforms.uTex4.value.image.onload,
+    material.uniforms.uTex5.value.image.onload,
   ]);
 
   startGsapAnimation();
 
   function startGsapAnimation() {
-    let uIndex = 0;
-    function update() {
-      gsap.to(material.uniforms.uTick, {
-        value: 10.0, //目標値
-        duration: 0.1, //時間
-        ease: "ease", //イージング
-        onComplete: () => {
-          if (uIndex === 0) {
-            gsap.to(material.uniforms.uProgress, {
-              value: 1.0, //目標値
-              duration: 2.0, //時間
-              ease: "ease", //イージング
-              onComplete: () => {
-                uIndex++;
-                update();
-                console.log("uIndex=1");
-                console.log(uIndex);
-              },
-            });
-          } else if (uIndex === 1) {
-            gsap.to(material.uniforms.uProgress, {
+    const tl = new gsap.timeline({
+      onComplete: () => {
+        console.log("Animation sequence complete");
+      },
+    });
+    tl.to(material.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        console.log("Animation sequence1 complete");
+        console.log(material.uniforms.uProgress.value);
+        material.uniforms.uIndex.value = 0;
+        console.log(material.uniforms.uIndex.value);
+        // Switch to the next texture
+        tl.to(material.uniforms.uProgress2, {
+          value: 1.0,
+          duration: 3.0,
+          onComplete: () => {
+            console.log("Animation sequence2 complete");
+            console.log(material.uniforms.uProgress2.value);
+            console.log(material.uniforms.uIndex.value);
+            material.uniforms.uIndex.value = 1;
+            // Switch back to the first texture
+            tl.to(material.uniforms.uProgress3, {
               value: 1.0,
-              duration: 4.0,
-              ease: "ease",
+              duration: 3.0,
               onComplete: () => {
-                uIndex++;
-                update();
-                console.log("uIndex=2");
-                console.log(uIndex);
+                console.log("Animation sequence3 complete");
+                console.log(material.uniforms.uProgress3.value);
+                console.log(material.uniforms.uIndex.value);
+                material.uniforms.uIndex.value = 2;
+                tl.to(material.uniforms.uProgress4, {
+                  value: 1.0,
+                  duration: 3.0,
+                  onComplete: () => {
+                    console.log("Animation sequence4 complete");
+                    console.log(material.uniforms.uProgress4.value);
+                    console.log(material.uniforms.uIndex.value);
+                    material.uniforms.uIndex.value = 3;
+                    tl.to(material.uniforms.uProgress5, {
+                      value: 1.0,
+                      duration: 3.0,
+                      onComplete: () => {
+                        console.log("Animation sequence5 complete");
+                        console.log(material.uniforms.uProgress5.value);
+                        console.log(material.uniforms.uIndex.value);
+                        material.uniforms.uIndex.value = 4;
+                      },
+                    });
+                  },
+                });
               },
             });
-          } else if (uIndex === 2) {
-            gsap.to(material.uniforms.uProgress, {
-              value: 1.0,
-              duration: 4.0,
-              ease: "ease",
-              onComplete: () => {
-                uIndex++;
-                update();
-                console.log("uIndex=3");
-                console.log(uIndex);
-              },
-            });
-          }
-        },
-      });
+          },
+        });
+      },
+    });
 
-      console.log(uIndex);
-    }
-    update();
+    tl.play();
   }
-
 
   let i = 0;
   function animate() {
