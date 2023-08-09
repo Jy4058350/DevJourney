@@ -95,6 +95,8 @@ async function init() {
     .name("rtmesh")
     .listen();
 
+  let animationProgress = 0;
+
   const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
@@ -104,6 +106,9 @@ async function init() {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
+        onUpdate: () => {
+          animationProgress = material.uniforms.uProgress.value;
+        },
       });
     });
   folder1
@@ -117,7 +122,17 @@ async function init() {
       });
     });
 
+  gsap.to(material.uniforms.uProgress, {
+    value: 1,
+    duration: 3,
+    ease: "ease",
+    onUpdate: () => {
+      animationProgress = material.uniforms.uProgress.value;
+    },
+  });
+
   let i = 0;
+
   function animate() {
     requestAnimationFrame(animate);
     renderer.setRenderTarget(renderTarget);
@@ -126,9 +141,12 @@ async function init() {
 
     renderer.render(scene, camera);
     mesh.position.z = -10;
+    mesh.position.y = -20;
     // mesh.rotation.x += 0.01;
     // mesh.position.x += 0.01;
     // rtmesh.rotation.y += 0.01;
+
+    material.uniforms.uProgress.value = animationProgress;
 
     controls.update();
   }
