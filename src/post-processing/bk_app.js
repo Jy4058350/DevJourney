@@ -55,8 +55,14 @@ async function init() {
     uniforms: {
       uTex1: { value: await loadTex("/img/output0.jpg") },
       uTex2: { value: await loadTex("/img/output1.jpg") },
+      uTex3: { value: await loadTex("/img/output4.jpg") },
+      uTex4: { value: await loadTex("/img/output5.jpg") },
+      uTex5: { value: await loadTex("/img/output6.jpg") },
+      uTex6: { value: await loadTex("/img/output7.jpg") },
+      uTex7: { value: await loadTex("/img/output8.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
+      uProgress2: { value: 0 }, //アニメーションの速度
     },
     vertexShader,
     fragmentShader,
@@ -122,29 +128,31 @@ async function init() {
       });
     });
 
-    function animateMaterial() {
-      gsap.to(material.uniforms.uProgress, {
-        value: 1,
-        duration: 3,
-        ease: "ease",
-        onComplete: () => {
-          animationProgress = 0;
-          animateMaterial();
-        
-        },
-        onUpdate: () => {
-          animationProgress = material.uniforms.uProgress.value;
-        },
-      });
+  function animateMaterial() {
+    gsap.to(material.uniforms.uProgress, {
+      value: 1,
+      duration: 60,
+      // ease: "ease",
+      onComplete: () => {
+        animationProgress = 0;
+        material.uniforms.uProgress.value = 0;
+        animateMaterial();
+      },
+      onUpdate: () => {
+        animationProgress = material.uniforms.uProgress.value;
+      },
+    });
+  }
 
-    }
-
-    animateMaterial();
+  animateMaterial();
 
   let i = 0;
 
   function animate() {
     requestAnimationFrame(animate);
+
+    material.uniforms.uTick.value += 0.001;
+
     renderer.setRenderTarget(renderTarget);
     renderer.render(rtScene, rtCamera);
     renderer.setRenderTarget(null);
