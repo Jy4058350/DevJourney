@@ -69,7 +69,6 @@ async function init() {
       uTex3: { value: await loadTex("/img/output3.jpg") },
       uTex4: { value: await loadTex("/img/output2.jpg") },
       uTick: { value: 0 },
-      uProgress: { value: 0 },
       uProgress2: { value: 0 },
     },
     vertexShader: vertexShader1,
@@ -89,15 +88,29 @@ async function init() {
 
   folder1
     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("zaxis")
+    .name("mesh")
+    .listen();
+  folder1
+    .add(mate.uniforms.uProgress2, "value", 0, 1, 0.1)
+    .name("rtmesh")
     .listen();
 
   const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
-    .name("moving axis")
+    .name("mesh")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+  folder1
+    .add(datData, "next")
+    .name("rtmesh")
+    .onChange(() => {
+      gsap.to(mate.uniforms.uProgress2, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
