@@ -122,14 +122,24 @@ async function init() {
       });
     });
 
-  gsap.to(material.uniforms.uProgress, {
-    value: 1,
-    duration: 3,
-    ease: "ease",
-    onUpdate: () => {
-      animationProgress = material.uniforms.uProgress.value;
-    },
-  });
+    function animateMaterial() {
+      gsap.to(material.uniforms.uProgress, {
+        value: 1,
+        duration: 3,
+        ease: "ease",
+        onComplete: () => {
+          animationProgress = 0;
+          animateMaterial();
+        
+        },
+        onUpdate: () => {
+          animationProgress = material.uniforms.uProgress.value;
+        },
+      });
+
+    }
+
+    animateMaterial();
 
   let i = 0;
 
