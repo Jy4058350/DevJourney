@@ -142,6 +142,8 @@ async function init() {
                         console.log(material.uniforms.uProgress5.value);
                         console.log(material.uniforms.uIndex.value);
                         material.uniforms.uIndex.value = 4;
+
+                        
                       },
                     });
                   },
@@ -162,12 +164,26 @@ async function init() {
     controls.update();
 
     material.uniforms.uTick.value += 0.01;
-
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
+    if (material.uniforms.uProgress.value = 1.0) {
+    // リセットした後のアニメーションが完了した場合
+    gsap.to(plane.position, {
+      z: 0,  // リセット位置
+      duration: 5.,
+      onComplete: () => {
+        // リセット完了後、ズームアウトのアニメーションを実行
+        gsap.to(plane.position, {
+          z: -material.uniforms.uTick.value * 0.3,  // ズームアウト後の位置
+          duration: 5.0,
+          ease: "ease",
+        });
+      },
+    });
+  } else {
+    // 通常のアニメーション処理
+    plane.position.z = -material.uniforms.uTick.value * 0.3;
+  }
 
     renderer.render(scene, camera);
-    // console.log(uIndex)
   }
 
   animate();
