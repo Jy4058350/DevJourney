@@ -97,11 +97,19 @@ async function init() {
     const tl = new gsap.timeline({
       onComplete: () => {
         console.log("Animation sequence complete");
+        plane.position.z = 0;
+        material.uniforms.uProgress.value = 0;
+        material.uniforms.uProgress2.value = 0;
+        material.uniforms.uProgress3.value = 0;
+        material.uniforms.uProgress4.value = 0;
+        material.uniforms.uProgress5.value = 0;
+
+        startGsapAnimation();
       },
     });
     tl.to(material.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         console.log("Animation sequence1 complete");
@@ -111,7 +119,7 @@ async function init() {
         // Switch to the next texture
         tl.to(material.uniforms.uProgress2, {
           value: 1.0,
-          duration: 3.0,
+          duration: 10.0,
           onComplete: () => {
             console.log("Animation sequence2 complete");
             console.log(material.uniforms.uProgress2.value);
@@ -120,7 +128,7 @@ async function init() {
             // Switch back to the first texture
             tl.to(material.uniforms.uProgress3, {
               value: 1.0,
-              duration: 3.0,
+              duration: 10.0,
               onComplete: () => {
                 console.log("Animation sequence3 complete");
                 console.log(material.uniforms.uProgress3.value);
@@ -128,7 +136,7 @@ async function init() {
                 material.uniforms.uIndex.value = 2;
                 tl.to(material.uniforms.uProgress4, {
                   value: 1.0,
-                  duration: 3.0,
+                  duration: 10.0,
                   onComplete: () => {
                     console.log("Animation sequence4 complete");
                     console.log(material.uniforms.uProgress4.value);
@@ -136,14 +144,12 @@ async function init() {
                     material.uniforms.uIndex.value = 3;
                     tl.to(material.uniforms.uProgress5, {
                       value: 1.0,
-                      duration: 3.0,
+                      duration: 10.0,
                       onComplete: () => {
                         console.log("Animation sequence5 complete");
                         console.log(material.uniforms.uProgress5.value);
                         console.log(material.uniforms.uIndex.value);
                         material.uniforms.uIndex.value = 4;
-
-                        
                       },
                     });
                   },
@@ -154,7 +160,7 @@ async function init() {
         });
       },
     });
-
+    
     tl.play();
   }
 
@@ -164,24 +170,7 @@ async function init() {
     controls.update();
 
     material.uniforms.uTick.value += 0.01;
-    if (material.uniforms.uProgress.value = 1.0) {
-    // リセットした後のアニメーションが完了した場合
-    gsap.to(plane.position, {
-      z: 0,  // リセット位置
-      duration: 5.,
-      onComplete: () => {
-        // リセット完了後、ズームアウトのアニメーションを実行
-        gsap.to(plane.position, {
-          z: -material.uniforms.uTick.value * 0.3,  // ズームアウト後の位置
-          duration: 5.0,
-          ease: "ease",
-        });
-      },
-    });
-  } else {
-    // 通常のアニメーション処理
-    plane.position.z = -material.uniforms.uTick.value * 0.3;
-  }
+    plane.position.z -= 0.001;
 
     renderer.render(scene, camera);
   }
