@@ -43,12 +43,16 @@ async function init() {
       uTex5: { value: await loadTex("/img/output8.jpg") },
       uTick: { value: 0 },
       uIndex: { value: 0 },
+      color1: { value: 0 },
+      color2: { value: 0 },
+      color3: { value: 0 },
+      color4: { value: 0 },
       uProgress: { value: 0 },
       uProgress1: { value: 0 },
       uProgress2: { value: 0 },
       uProgress3: { value: 0 },
-      color1: { value: 0 },
-      color2: { value: 0 },
+      uProgress4: { value: 0 },
+      uProgress5: { value: 0 },
     },
     vertexShader,
     fragmentShader,
@@ -98,7 +102,7 @@ async function init() {
         animateZDecrease(zAnimationDuration, animateZDecreaseAmount, initialZ);
       },
     })
-      .to(material.uniforms.uProgress, {
+      .to(material.uniforms.color1, {
         value: 1,
         duration: 3,
         ease: "ease",
@@ -106,7 +110,7 @@ async function init() {
           const initialZ = plane.position.z;
           const zAnimationDuration = 3.0;
           const animateZDecreaseAmount = 0.001;
-          animateZDecrease(
+          zAnimationTimeline = animateZDecrease(
             zAnimationDuration,
             animateZDecreaseAmount,
             initialZ
@@ -120,20 +124,20 @@ async function init() {
       })
       .to(material.uniforms.uProgress1, {
         value: 1,
-        duration: 3,
+        duration: 1,
         ease: "ease",
-        onComplete: () => {
-          revertZposition(300, 0.01);
-        },
       })
       .to(material.uniforms.uIndex, {
         value: 2,
-        duration: 0.00001,
+        duration: 0.0001,
         ease: "ease",
+        onComplete: () => {
+          revertZposition(100, 0.01);
+        },
       })
       .to(material.uniforms.uProgress2, {
         value: 1,
-        duration: 5,
+        duration: 0.5,
         ease: "ease",
       })
       .to(material.uniforms.uIndex, {
@@ -143,7 +147,17 @@ async function init() {
       })
       .to(material.uniforms.uProgress3, {
         value: 1,
-        duration: 5,
+        duration: 3,
+        ease: "ease",
+      })
+      .to(material.uniforms.uIndex, {
+        value: 4,
+        duration: 0.00001,
+        ease: "ease",
+      })
+      .to(material.uniforms.color2, {
+        value: 1,
+        duration: 3,
         ease: "ease",
       });
   };
@@ -187,6 +201,13 @@ async function init() {
         delay: (steps - 1 - i) * (3 / steps),
         ease: "linear",
       });
+    }
+  }
+
+  // zポジション制御のキャンセル
+  function cancelZpositionAnimation() {
+    if (zAnimationTimeline) {
+      zAnimationTimeline.kill();
     }
   }
 

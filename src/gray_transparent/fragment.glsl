@@ -18,7 +18,7 @@ vec4 toGray(vec4 color) {
 void main() {
 
   vec2 uv = vUv;
-  float yCoordinate1 = vUv.y * (1.0 - uProgress1);
+  float yCoordinate1 = vUv.y * (0.3 - uProgress1);
 
   //color
   vec4 color1 = texture2D(uTex1, uv);
@@ -28,19 +28,24 @@ void main() {
   vec4 grayColor1 = toGray((color1));
   vec4 grayColor2 = toGray((color2));
 
-  //transparency
+  //graycolored
 
   if(uIndex == 0.0) {
-    gl_FragColor = mix(color1, color1, uProgress);
+    gl_FragColor = color1;
   } else if(uIndex == 1.0) {
-    // color1をbottomからgrayColor1に変換
-    gl_FragColor = mix(color1, grayColor1, 1.0 - yCoordinate1);
+    // color1をbottomからgray&transparentに変換
+    float alpha = mix(1.0, 0.5, uProgress1);
+    gl_FragColor = mix(color1 * alpha, grayColor1, (1.0 - yCoordinate1));
   } else if(uIndex == 2.0) {
-    // grayColor1とgrayColor2をミックス
-    gl_FragColor = mix(grayColor1, grayColor2, uProgress2);
+    // index=1のgrayColor1とgrayColor2をミックス
+    float alpha = mix(1.0, 0.5, uProgress1);
+    vec4 modifiedGrayColor1 = mix(color1 * alpha, grayColor1 * alpha, (1.0 - yCoordinate1));
+    gl_FragColor = mix(modifiedGrayColor1, grayColor2, uProgress2);
   } else if(uIndex == 3.0) {
     // grayColor2をcolor2に変換
     gl_FragColor = mix(grayColor2, color2, uProgress3);
+  } else if(uIndex ==4.0) {
+    gl_FragColor = color2;
   }
 
   // gl_FragColor = toGray(color1);
