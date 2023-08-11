@@ -88,15 +88,16 @@ async function init() {
       value: 1,
       duration: 0.5,
       ease: "ease",
+      onComplete: () => {
+        animateZDecrease();
+      },
     })
       .to(material.uniforms.color1, {
         value: 1,
         duration: 3,
         ease: "ease",
         onComplete: () => {
-          gsap.to(plane.position, {
-            z: plane.position.z -10,
-          })
+          animateZDecrease();
         },
       })
       .to(material.uniforms.uProgress1, {
@@ -125,6 +126,25 @@ async function init() {
         ease: "ease",
       });
   };
+
+  // zポジション減少関数
+  function animateZDecrease() {
+    const zAnimationDuration = 3;
+    const animateZDecrease = 0.01;
+    const zAnimationSteps = Math.floor(zAnimationDuration / animateZDecrease);
+    let z = plane.position.z;
+
+    for (let i = 0; i < zAnimationSteps; i++) {
+      const zTarget = z - animateZDecrease;
+      gsap.to(plane.position, {
+        z: zTarget,
+        duration: zAnimationDuration / zAnimationSteps,
+        delay: i * (zAnimationDuration / zAnimationSteps),
+        ease: "linear",
+      });
+      z = zTarget;
+    }
+  }
 
   addAnimation();
 
