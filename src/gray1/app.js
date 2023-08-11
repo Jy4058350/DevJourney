@@ -93,7 +93,11 @@ async function init() {
         value: 1,
         duration: 3,
         ease: "ease",
-        onComplete: () => {},
+        onComplete: () => {
+          gsap.to(plane.position, {
+            z: plane.position.z -10,
+          })
+        },
       })
       .to(material.uniforms.uProgress1, {
         value: 1,
