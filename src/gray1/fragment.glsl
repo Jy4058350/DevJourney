@@ -27,13 +27,13 @@ void main() {
   if(uIndex == 0.0) {
     gl_FragColor = color1;
   } else if(uIndex == 1.0) {
-    // color1をグレイ１に変換
+    // color1をgrayColor1に変換
     gl_FragColor = mix(color1, grayColor1, uProgress1);
   } else if(uIndex == 2.0) {
-    // グレイ１とグレイ２をミックス
+    // grayColor1とgrayColor2をミックス
     gl_FragColor = mix(grayColor1, grayColor2, uProgress2);
   } else if(uIndex == 3.0) {
-    // グレイ２をカラーに変換
+    // grayColor2をcolor2に変換
     gl_FragColor = mix(grayColor2, color2, uProgress3);
   }
 
