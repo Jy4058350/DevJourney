@@ -53,6 +53,10 @@ async function init() {
       uProgress3: { value: 0 },
       uProgress4: { value: 0 },
       uProgress5: { value: 0 },
+      uProgress6: { value: 0 },
+      uProgress7: { value: 0 },
+      uProgress8: { value: 0 },
+      uProgress9: { value: 0 },
     },
     vertexShader,
     fragmentShader,
@@ -73,7 +77,7 @@ async function init() {
   folder1.open();
 
   folder1
-    .add(material.uniforms.uProgress1, "value", 0, 1, 0.1)
+    .add(material.uniforms.uProgress4, "value", 0, 1, 0.1)
     .name("gray")
     .listen();
 
@@ -82,7 +86,7 @@ async function init() {
     .add(datData, "next")
     .name("graydown")
     .onChange(() => {
-      gsap.to(material.uniforms.uProgress1, {
+      gsap.to(material.uniforms.uProgress4, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
@@ -127,7 +131,7 @@ async function init() {
       })
       .to(material.uniforms.uProgress2, {
         value: 1,
-        duration: 2.5,
+        duration: 0.3,
         ease: "ease",
       })
       .to(material.uniforms.uIndex, {
@@ -140,7 +144,7 @@ async function init() {
       })
       .to(material.uniforms.uProgress3, {
         value: 1,
-        duration: 0.5,
+        duration: 3,
         ease: "ease",
       })
       .to(material.uniforms.uIndex, {
@@ -154,14 +158,32 @@ async function init() {
         ease: "ease",
         onComplete: () => {},
       })
-      .to(material.uniforms.color2, {
+      .to(material.uniforms.uIndex, {
+        value: 5,
+        duration: 0.00001,
+        ease: "ease",
+      })
+      .to(material.uniforms.uProgress4, {
         value: 1,
+        duration: 0.3,
+        ease: "ease",
+      })
+      .to(material.uniforms.uIndex, {
+        value: 6,
+        duration: 0.00001,
+        ease: "ease",
+      })
+      .to(material.uniforms.uProgress5, {
+        value: 1,
+        duration: 0.3,
+        ease: "ease",
+      })
+      .to(material.uniforms.uIndex, {
+        value: 7,
         duration: 3,
         ease: "ease",
       });
   };
-
-  // ...（以下のコードはそのまま）...
 
   // zポジション減少関数
   function animateZDecrease(
@@ -251,8 +273,6 @@ async function init() {
   //       // ... 省略
   //     });
   // }
-
-  addAnimation();
 
   addAnimation();
 
