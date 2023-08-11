@@ -18,7 +18,7 @@ vec4 toGray(vec4 color) {
 void main() {
 
   vec2 uv = vUv;
-  float yCoordinate1 = vUv.y * (0.3 - uProgress1);
+  float yCoordinate1 = vUv.y * (1.0 - uProgress1);
 
   //color
   vec4 color1 = texture2D(uTex1, uv);

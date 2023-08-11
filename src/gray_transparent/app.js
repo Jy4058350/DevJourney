@@ -89,38 +89,28 @@ async function init() {
       });
     });
 
+  const animateZDecreaseAmount = 0.0001; // 移動量の制御パラメータ
+  let zAnimationTimeline;
+
   const addAnimation = () => {
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
     tl.to(material.uniforms.uIndex, {
       value: 0,
-      duration: 0.0001,
+      duration: 0.001,
       ease: "ease",
-      onComplete: () => {
-        const initialZ = plane.position.z;
-        const zAnimationDuration = 3.0;
-        const animateZDecreaseAmount = 0.001;
-        animateZDecrease(zAnimationDuration, animateZDecreaseAmount, initialZ);
-      },
+      onComplete: () => {},
     })
       .to(material.uniforms.color1, {
         value: 1,
         duration: 3,
         ease: "ease",
-        onComplete: () => {
-          const initialZ = plane.position.z;
-          const zAnimationDuration = 3.0;
-          const animateZDecreaseAmount = 0.001;
-          zAnimationTimeline = animateZDecrease(
-            zAnimationDuration,
-            animateZDecreaseAmount,
-            initialZ
-          );
-        },
+        onComplete: () => {},
       })
       .to(material.uniforms.uIndex, {
         value: 1,
         duration: 0.0001,
         ease: "ease",
+        onComplete: () => {},
       })
       .to(material.uniforms.uProgress1, {
         value: 1,
@@ -129,25 +119,28 @@ async function init() {
       })
       .to(material.uniforms.uIndex, {
         value: 2,
-        duration: 0.0001,
+        duration: 0.001,
         ease: "ease",
         onComplete: () => {
-          revertZposition(100, 0.01);
+          // ここに完了時のコールバックを追加
         },
       })
       .to(material.uniforms.uProgress2, {
         value: 1,
-        duration: 0.5,
+        duration: 2.5,
         ease: "ease",
       })
       .to(material.uniforms.uIndex, {
         value: 3,
         duration: 0.00001,
         ease: "ease",
+        onComplete: () => {
+          // ここに完了時のコールバックを追加
+        },
       })
       .to(material.uniforms.uProgress3, {
         value: 1,
-        duration: 3,
+        duration: 0.5,
         ease: "ease",
       })
       .to(material.uniforms.uIndex, {
@@ -159,23 +152,30 @@ async function init() {
         value: 1,
         duration: 3,
         ease: "ease",
+        onComplete: () => {},
+      })
+      .to(material.uniforms.color2, {
+        value: 1,
+        duration: 3,
+        ease: "ease",
       });
   };
+
+  // ...（以下のコードはそのまま）...
 
   // zポジション減少関数
   function animateZDecrease(
     zAnimationDuration,
     animateZDecreaseAmount,
-    initialZ
+    initialZ,
+    onCompleteCallback
   ) {
     const zAnimationSteps = Math.floor(
       zAnimationDuration / animateZDecreaseAmount
     );
-    let zValues = [];
 
     for (let i = 0; i < zAnimationSteps; i++) {
       const zTarget = initialZ - i * animateZDecreaseAmount;
-      zValues.push(zTarget);
 
       gsap.to(plane.position, {
         z: zTarget,
@@ -185,6 +185,9 @@ async function init() {
         onComplete: () => {
           if (i === zAnimationSteps - 1) {
             console.log(" Z position animation complete");
+            if (onCompleteCallback) {
+              onCompleteCallback();
+            }
           }
         },
       });
@@ -192,14 +195,20 @@ async function init() {
   }
 
   //zポジションを元に戻す関数
-  function revertZposition(steps, decreaseAmount) {
+  function revertZposition(steps, decreaseAmount, onCompleteCallback) {
     for (let i = steps - 1; i >= 0; i--) {
       const zRevertTarget = plane.position.z + (steps - 1 - i) * decreaseAmount;
+
       gsap.to(plane.position, {
         z: zRevertTarget,
         duration: 3 / steps,
         delay: (steps - 1 - i) * (3 / steps),
         ease: "linear",
+        onComplete: () => {
+          if (i === 0 && onCompleteCallback) {
+            onCompleteCallback();
+          }
+        },
       });
     }
   }
@@ -210,6 +219,40 @@ async function init() {
       zAnimationTimeline.kill();
     }
   }
+
+  // 使い方の例
+  // function addAnimation() {
+  //   const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+  //   tl.to(material.uniforms.uIndex, {
+  //     value: 0,
+  //     duration: 0.0001,
+  //     ease: "ease",
+  //     onComplete: () => {},
+  //   })
+  //     .to(material.uniforms.color1, {
+  //       value: 1,
+  //       duration: 3,
+  //       ease: "ease",
+  //       onComplete: () => {
+  //         const initialZ = plane.position.z;
+  //         const zAnimationDuration = 3.0;
+  //         const animateZDecreaseAmount = 0.0001;
+  //         zAnimationTimeline = animateZDecrease(
+  //           zAnimationDuration,
+  //           animateZDecreaseAmount,
+  //           initialZ,
+  //           () => {
+  //             revertZposition(100, 0.01);
+  //           }
+  //         );
+  //       },
+  //     })
+  //     .to(material.uniforms.uIndex, {
+  //       // ... 省略
+  //     });
+  // }
+
+  addAnimation();
 
   addAnimation();
 
