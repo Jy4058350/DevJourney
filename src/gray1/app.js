@@ -89,7 +89,8 @@ async function init() {
       duration: 0.5,
       ease: "ease",
       onComplete: () => {
-        animateZDecrease();
+        const initialZ = plane.position.z;
+        animateZDecrease(initialZ);
       },
     })
       .to(material.uniforms.color1, {
@@ -97,7 +98,8 @@ async function init() {
         duration: 3,
         ease: "ease",
         onComplete: () => {
-          animateZDecrease();
+          const initialZ = plane.position.z;
+          animateZDecrease(initialZ);
         },
       })
       .to(material.uniforms.uProgress1, {
@@ -128,21 +130,28 @@ async function init() {
   };
 
   // zポジション減少関数
-  function animateZDecrease() {
+  function animateZDecrease(initialZ) {
     const zAnimationDuration = 3;
     const animateZDecrease = 0.01;
     const zAnimationSteps = Math.floor(zAnimationDuration / animateZDecrease);
-    let z = plane.position.z;
+    let zValues = [];
 
     for (let i = 0; i < zAnimationSteps; i++) {
-      const zTarget = z - animateZDecrease;
+      const zTarget = initialZ - i * animateZDecrease;
+      zValues.push(zTarget);
+
       gsap.to(plane.position, {
         z: zTarget,
         duration: zAnimationDuration / zAnimationSteps,
         delay: i * (zAnimationDuration / zAnimationSteps),
         ease: "linear",
+        onComplete: () => {
+          if (i === zAnimationSteps - 1) {
+            console.log(" Z position animation complete");
+            console.log(zValues);
+          }
+        },
       });
-      z = zTarget;
     }
   }
 
