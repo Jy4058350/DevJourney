@@ -18,18 +18,23 @@ vec4 toGray(vec4 color) {
 void main() {
 
   vec2 uv = vUv;
+  float yCoordinate = vUv.y * (1.0 - uProgress1);
 
+  //color
   vec4 color1 = texture2D(uTex1, uv);
   vec4 color2 = texture2D(uTex3, uv);
 
+  //gracy
   vec4 grayColor1 = toGray((color1));
   vec4 grayColor2 = toGray((color2));
+
+  //transparency
 
   if(uIndex == 0.0) {
     gl_FragColor = color1;
   } else if(uIndex == 1.0) {
-    // color1をgrayColor1に変換
-    gl_FragColor = mix(color1, grayColor1, uProgress1);
+    // color1をbottomからgrayColor1に変換
+    gl_FragColor = mix(color1, grayColor1, 1.0 - yCoordinate);
   } else if(uIndex == 2.0) {
     // grayColor1とgrayColor2をミックス
     gl_FragColor = mix(grayColor1, grayColor2, uProgress2);

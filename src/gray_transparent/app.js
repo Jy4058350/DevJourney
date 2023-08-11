@@ -102,7 +102,7 @@ async function init() {
         ease: "ease",
         onComplete: () => {
           const initialZ = plane.position.z;
-          animateZDecrease(initialZ);
+       
         },
       })
       .to(material.uniforms.uProgress1, {
