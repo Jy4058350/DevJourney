@@ -4,6 +4,7 @@ varying vec2 vUv;
 uniform float uIndex;
 uniform sampler2D uTex1;
 uniform sampler2D uTex2;
+uniform sampler2D uTex3;
 uniform float uProgress;
 uniform float uProgress1;
 uniform float uProgress2;
@@ -19,7 +20,7 @@ void main() {
   vec2 uv = vUv;
 
   vec4 color1 = texture2D(uTex1, uv);
-  vec4 color2 = texture2D(uTex2, uv);
+  vec4 color2 = texture2D(uTex3, uv);
 
   vec4 grayColor1 = toGray((color1));
   vec4 grayColor2 = toGray((color2));
