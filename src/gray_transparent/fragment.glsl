@@ -22,7 +22,7 @@ void main() {
 
   //color
   vec4 color1 = texture2D(uTex1, uv);
-  vec4 color2 = texture2D(uTex3, uv);
+  vec4 color2 = texture2D(uTex2, uv);
 
   //gracy
   vec4 grayColor1 = toGray((color1));
@@ -31,7 +31,7 @@ void main() {
   //transparency
 
   if(uIndex == 0.0) {
-    gl_FragColor = color1;
+    gl_FragColor = mix(color1, color1, uProgress);
   } else if(uIndex == 1.0) {
     // color1をbottomからgrayColor1に変換
     gl_FragColor = mix(color1, grayColor1, 1.0 - yCoordinate1);

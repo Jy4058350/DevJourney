@@ -42,7 +42,7 @@ async function init() {
       uTex4: { value: await loadTex("/img/output7.jpg") },
       uTex5: { value: await loadTex("/img/output8.jpg") },
       uTick: { value: 0 },
-      uIndex: { value: 2 },
+      uIndex: { value: 0 },
       uProgress: { value: 0 },
       uProgress1: { value: 0 },
       uProgress2: { value: 0 },
@@ -88,22 +88,35 @@ async function init() {
   const addAnimation = () => {
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
     tl.to(material.uniforms.uIndex, {
-      value: 1,
-      duration: 0.5,
+      value: 0,
+      duration: 0.0001,
       ease: "ease",
       onComplete: () => {
         const initialZ = plane.position.z;
-        animateZDecrease(initialZ);
+        const zAnimationDuration = 3.0;
+        const animateZDecreaseAmount = 0.001;
+        animateZDecrease(zAnimationDuration, animateZDecreaseAmount, initialZ);
       },
     })
-      .to(material.uniforms.color1, {
+      .to(material.uniforms.uProgress, {
         value: 1,
         duration: 3,
         ease: "ease",
         onComplete: () => {
           const initialZ = plane.position.z;
-       
+          const zAnimationDuration = 3.0;
+          const animateZDecreaseAmount = 0.001;
+          animateZDecrease(
+            zAnimationDuration,
+            animateZDecreaseAmount,
+            initialZ
+          );
         },
+      })
+      .to(material.uniforms.uIndex, {
+        value: 1,
+        duration: 0.0001,
+        ease: "ease",
       })
       .to(material.uniforms.uProgress1, {
         value: 1,
@@ -136,14 +149,18 @@ async function init() {
   };
 
   // zポジション減少関数
-  function animateZDecrease(initialZ) {
-    const zAnimationDuration = 2.5;
-    const animateZDecrease = 0.01;
-    const zAnimationSteps = Math.floor(zAnimationDuration / animateZDecrease);
+  function animateZDecrease(
+    zAnimationDuration,
+    animateZDecreaseAmount,
+    initialZ
+  ) {
+    const zAnimationSteps = Math.floor(
+      zAnimationDuration / animateZDecreaseAmount
+    );
     let zValues = [];
 
     for (let i = 0; i < zAnimationSteps; i++) {
-      const zTarget = initialZ - i * animateZDecrease;
+      const zTarget = initialZ - i * animateZDecreaseAmount;
       zValues.push(zTarget);
 
       gsap.to(plane.position, {
