@@ -104,8 +104,11 @@ async function init() {
       })
       .to(material.uniforms.uProgress1, {
         value: 1,
-        duration: 2,
+        duration: 3,
         ease: "ease",
+        onComplete: () => {
+          revertZposition(300, 0.01);
+        },
       })
       .to(material.uniforms.uIndex, {
         value: 2,
@@ -148,9 +151,21 @@ async function init() {
         onComplete: () => {
           if (i === zAnimationSteps - 1) {
             console.log(" Z position animation complete");
-            console.log(zValues);
           }
         },
+      });
+    }
+  }
+
+  //zポジションを元に戻す関数
+  function revertZposition(steps, decreaseAmount) {
+    for (let i = steps - 1; i >= 0; i--) {
+      const zRevertTarget = plane.position.z + (steps - 1 - i) * decreaseAmount;
+      gsap.to(plane.position, {
+        z: zRevertTarget,
+        duration: 3 / steps,
+        delay: (steps - 1 - i) * (3 / steps),
+        ease: "linear",
       });
     }
   }
