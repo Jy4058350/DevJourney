@@ -134,7 +134,7 @@ async function init() {
 
   // zポジション減少関数
   function animateZDecrease(initialZ) {
-    const zAnimationDuration = 3;
+    const zAnimationDuration = 2.5;
     const animateZDecrease = 0.01;
     const zAnimationSteps = Math.floor(zAnimationDuration / animateZDecrease);
     let zValues = [];
