@@ -37,13 +37,8 @@ void main() {
     tempProgress = 0.0;
   }
 
-  vec4 gray(vec4 color) {
-    float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-    return vec4(gray, gray, gray, color.a);
-  }
-
   if(tempIndex == 0.0) {
-    vec4 finalColor = mix(mix(color1, gray(color1)), mix(gray(color2), color2), tempProgress);
+    vec4 finalColor = mix(color1, color2, tempProgress);
     gl_FragColor = finalColor;
     // gl_FragColor = color1;
   } else if(tempIndex == 1.0) {
