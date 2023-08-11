@@ -99,7 +99,6 @@ async function init() {
         value: 1,
         duration: 2,
         ease: "ease",
-      
       })
       .to(material.uniforms.uIndex, {
         value: 2,
@@ -107,6 +106,16 @@ async function init() {
         ease: "ease",
       })
       .to(material.uniforms.uProgress2, {
+        value: 1,
+        duration: 5,
+        ease: "ease",
+      })
+      .to(material.uniforms.uIndex, {
+        value: 3,
+        duration: 0.00001,
+        ease: "ease",
+      })
+      .to(material.uniforms.uProgress3, {
         value: 1,
         duration: 5,
         ease: "ease",
