@@ -40,10 +40,12 @@ async function init() {
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uProgress1: { value: 0 },
+      uNoise: { value: new THREE.Vector2(10, 10) },
     },
     vertexShader,
     fragmentShader,
   });
+  console.log(material.uniforms.uNoise.value);
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
 
