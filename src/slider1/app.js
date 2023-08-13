@@ -56,23 +56,26 @@ async function init() {
   controls.enableDamping = true;
 
   const gui = new GUI();
-  const folder1 = gui.addFolder("z-distance");
+  const folder1 = gui.addFolder("slide");
   folder1.open();
 
   folder1
     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("zaxis")
+    .name("myslider")
     .listen();
 
   const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
-    .name("moving axis")
+    .name("moving ")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
         value: datData.next ? 1 : 0,
         duration: 3,
         ease: "ease",
+        onComplete: () => {
+          console.log(datData.next);
+        },
       });
     });
 
@@ -81,8 +84,7 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
+    material.uniforms.uTick.value += 0.1;
 
     renderer.render(scene, camera);
   }
