@@ -93,18 +93,7 @@ async function init() {
     renderer.render(scene, camera);
   }
 
-  
   animate();
-
-
-  // function qs(selector, scope) {
-  //   return (scope || document).querySelector(selector);
-  // }
-  
-  // function qsa(selector, scope) {
-  //   const qsa = (scope || document).querySelectorAll(selector);
-  //   return Array.from(qsa);
-  // }
 
   const hovered = iNode.qsa(".hovered");
   const openSubmenu = iNode.qs(".open-submenu");
@@ -129,7 +118,4 @@ async function init() {
       openSubmenu.classList.remove("active");
     }
   });
-
-
-
 }
