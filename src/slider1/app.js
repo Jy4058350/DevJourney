@@ -101,7 +101,16 @@ async function init() {
   hovered.addEventListener("mouseenter", () => {
     openSubMenu.classList.add("active");
   });
+
+  openSubMenu.addEventListener("mouseenter", () => {
+    openSubMenu.classList.add("active");
+  });
+
   hovered.addEventListener("mouseout", () => {
-    openSubMenu.classList.remove("active")
-  })
+    openSubMenu.classList.remove("active");
+  });
+
+  openSubMenu.addEventListener("mouseout", () => {
+    openSubMenu.classList.remove("active");
+  });
 }
