@@ -93,6 +93,7 @@ async function init() {
     renderer.render(scene, camera);
   }
 
+  
   animate();
 
 
@@ -105,8 +106,8 @@ async function init() {
   //   return Array.from(qsa);
   // }
 
-  const hovered = qsa(".hovered");
-  const openSubmenu = qs(".open-submenu");
+  const hovered = iNode.qsa(".hovered");
+  const openSubmenu = iNode.qs(".open-submenu");
 
   hovered.forEach((item) => {
     item.addEventListener("mouseenter", () => {
