@@ -93,4 +93,15 @@ async function init() {
   }
 
   animate();
+
+  const hovered = document.querySelector(".hovered");
+  const openSubMenu = document.querySelector(".open-submenu");
+  console.log(openSubMenu);
+
+  hovered.addEventListener("mouseenter", () => {
+    openSubMenu.classList.add("active");
+  });
+  hovered.addEventListener("mouseout", () => {
+    openSubMenu.classList.remove("active")
+  })
 }

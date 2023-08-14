@@ -125,4 +125,9 @@ function printMat(targetMatrix, col = 4, label = "") {
     );
     console.table(mat2D);
   });
+
+
+const hovered = document.querySelector(".hovered");
+console.log(hovered);
+
 }
