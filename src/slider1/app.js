@@ -8,6 +8,7 @@ import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { iNode } from "../iNode";
 
 init();
 async function init() {
@@ -95,14 +96,14 @@ async function init() {
   animate();
 
 
-  function qs(selector, scope) {
-    return (scope || document).querySelector(selector);
-  }
+  // function qs(selector, scope) {
+  //   return (scope || document).querySelector(selector);
+  // }
   
-  function qsa(selector, scope) {
-    const qsa = (scope || document).querySelectorAll(selector);
-    return Array.from(qsa);
-  }
+  // function qsa(selector, scope) {
+  //   const qsa = (scope || document).querySelectorAll(selector);
+  //   return Array.from(qsa);
+  // }
 
   const hovered = qsa(".hovered");
   const openSubmenu = qs(".open-submenu");
