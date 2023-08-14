@@ -36,7 +36,11 @@ async function init() {
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(50, 25);
+  function setUpGeometry() {
+    const geometry = new THREE.PlaneGeometry(50, 25);
+    return geometry;
+  }
+  const geometry = setUpGeometry();
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output6.jpg") },
