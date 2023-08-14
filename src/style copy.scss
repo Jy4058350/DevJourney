@@ -1,0 +1,12 @@
+@use "mixin" as *;
+
+@include font-face(
+  "klim",
+  "./_font/Test Financier Display/TestFinancierDisplay-Black",
+  //   400,
+  //   normal
+);
+
+h1 {
+  font-family: "klim";
+}
