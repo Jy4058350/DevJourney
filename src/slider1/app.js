@@ -96,10 +96,14 @@ async function init() {
 
   const hovered = document.querySelector(".hovered");
   const openSubMenu = document.querySelector(".open-submenu");
-  console.log(openSubMenu);
 
   hovered.addEventListener("mouseenter", () => {
     openSubMenu.classList.add("active");
+    const subMenuItem = openSubMenu.querySelectorAll(".open-submenu-child");
+    console.log(subMenuItem);
+    subMenuItem.forEach((item) => {
+      item.classList.add("active");
+    })
   });
 
   openSubMenu.addEventListener("mouseenter", () => {
@@ -108,6 +112,10 @@ async function init() {
 
   hovered.addEventListener("mouseout", () => {
     openSubMenu.classList.remove("active");
+    const subMenuItem = openSubMenu.querySelectorAll(".open-submenu-child");
+    subMenuItem.forEach((item) => {
+      item.classList.remove("active");
+    })
   });
 
   openSubMenu.addEventListener("mouseout", () => {

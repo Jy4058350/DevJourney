@@ -283,6 +283,9 @@ a {
   left: 0;
   background-color: #fefefe;
 }
+.open-submenu-child.active {
+  opacity: 1;
+}
 
 .all,
 .all-item {

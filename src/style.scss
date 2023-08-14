@@ -260,6 +260,11 @@ a {
   bottom: 0;
   left: 0;
   background-color: #fefefe;
+
+  &.active {
+    opacity: 1;
+    // transform: translateY(-10px);
+  }
 }
 .all,
 .all-item {
