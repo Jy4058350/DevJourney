@@ -8,6 +8,7 @@ import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { iNode } from "../iNode";
 
 init();
 async function init() {
@@ -94,8 +95,8 @@ async function init() {
 
   animate();
 
-  const hovered = document.querySelectorAll(".hovered");
-  const openSubmenu = document.querySelector(".open-submenu");
+  const hovered = iNode.qsa(".hovered");
+  const openSubmenu = iNode.qs(".open-submenu");
 
   hovered.forEach((item) => {
     item.addEventListener("mouseenter", () => {
