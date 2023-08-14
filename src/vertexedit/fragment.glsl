@@ -5,6 +5,7 @@ uniform sampler2D uTex1;
 uniform sampler2D uTex2;
 uniform float uTick;
 uniform float uProgress;
+varying float vExpandTime;
 
 void main() {
 
@@ -12,6 +13,6 @@ void main() {
   vec4 color1 = texture2D(uTex1, uv);
   vec4 color2 = texture2D(uTex2, uv);
 
-  gl_FragColor = mix(color1, color2, uProgress);
+  gl_FragColor = vec4(vExpandTime, 0.,0.,1.);
 
 }

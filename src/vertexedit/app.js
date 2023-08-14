@@ -37,21 +37,23 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 2;
-    const hSeg = 2;
+    const wSeg = 10;
+    const hSeg = 10;
     const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     //頂点の数　（x軸の分割数widthSegement+1）*（y軸の分割数heightSegment+1）
 
     const expandVertices = [];
 
     const maxCount = (wSeg + 1) * (hSeg + 1);
-    for(let i = 0; i < maxCount; i++) {
+    for (let i = 0; i < maxCount; i++) {
       //拡大時間は０から１で格納
       const expandTime = i / maxCount;
       expandVertices.push(expandTime);
-
     }
-    console.log(expandVertices);
+    geometry.setAttribute(
+      "aExpandTime",
+      new THREE.Float32BufferAttribute(expandVertices, 1)
+    );
 
     return geometry;
   }
