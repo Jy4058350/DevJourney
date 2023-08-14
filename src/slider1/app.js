@@ -94,8 +94,18 @@ async function init() {
 
   animate();
 
-  const hovered = document.querySelectorAll(".hovered");
-  const openSubmenu = document.querySelector(".open-submenu");
+
+  function qs(selector, scope) {
+    return (scope || document).querySelector(selector);
+  }
+  
+  function qsa(selector, scope) {
+    const qsa = (scope || document).querySelectorAll(selector);
+    return Array.from(qsa);
+  }
+
+  const hovered = qsa(".hovered");
+  const openSubmenu = qs(".open-submenu");
 
   hovered.forEach((item) => {
     item.addEventListener("mouseenter", () => {
@@ -117,4 +127,7 @@ async function init() {
       openSubmenu.classList.remove("active");
     }
   });
+
+
+
 }
