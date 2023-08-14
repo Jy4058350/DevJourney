@@ -1,4 +1,5 @@
 varying vec2 vUv;
+attribute float aExpandTime;
 
 void main() {
     vUv = uv;
