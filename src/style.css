@@ -122,6 +122,9 @@ a {
   letter-spacing: 0.05em;
   display: inline-block;
 }
+.women:hover {
+  color: gray;
+}
 
 .sub-menu-item {
   position: absolute;
@@ -144,6 +147,9 @@ a {
   left: 28.99%;
   letter-spacing: 0.05em;
   display: inline-block;
+}
+.history:hover {
+  color: gray;
 }
 
 .sub-menu-inner {
@@ -168,6 +174,9 @@ a {
   letter-spacing: 0.05em;
   display: inline-block;
 }
+.work-out:hover {
+  color: gray;
+}
 
 .vector-icon {
   position: absolute;
@@ -191,6 +200,9 @@ a {
   letter-spacing: 0.05em;
   display: inline-block;
 }
+.location:hover {
+  color: gray;
+}
 
 .sub-menu-child1 {
   position: absolute;
@@ -213,6 +225,9 @@ a {
   left: 87.51%;
   letter-spacing: 0.05em;
   display: inline-block;
+}
+.about-us:hover {
+  color: gray;
 }
 
 .sub-menu-child2 {
@@ -264,6 +279,7 @@ a {
 }
 
 .open-submenu {
+  background-color: #fefefe;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
@@ -281,7 +297,6 @@ a {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: #fefefe;
 }
 .open-submenu-child.active {
   opacity: 1;

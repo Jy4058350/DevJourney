@@ -94,31 +94,27 @@ async function init() {
 
   animate();
 
-  const hovered = document.querySelector(".hovered");
-  const openSubMenu = document.querySelector(".open-submenu");
+  const hovered = document.querySelectorAll(".hovered");
+  const openSubmenu = document.querySelector(".open-submenu");
 
-  hovered.addEventListener("mouseenter", () => {
-    openSubMenu.classList.add("active");
-    const subMenuItem = openSubMenu.querySelectorAll(".open-submenu-child");
-    console.log(subMenuItem);
-    subMenuItem.forEach((item) => {
+  hovered.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
       item.classList.add("active");
-    })
+      openSubmenu.classList.add("active");
+    });
   });
 
-  openSubMenu.addEventListener("mouseenter", () => {
-    openSubMenu.classList.add("active");
-  });
-
-  hovered.addEventListener("mouseout", () => {
-    openSubMenu.classList.remove("active");
-    const subMenuItem = openSubMenu.querySelectorAll(".open-submenu-child");
-    subMenuItem.forEach((item) => {
+  hovered.forEach((item) => {
+    item.addEventListener("mouseleave", () => {
       item.classList.remove("active");
-    })
+      if (!openSubmenu.matches(":hover")) {
+        openSubmenu.classList.remove("active");
+      }
+    });
   });
-
-  openSubMenu.addEventListener("mouseout", () => {
-    openSubMenu.classList.remove("active");
+  openSubmenu.addEventListener("mouseleave", () => {
+    if (!openSubmenu.matches(":hover")) {
+      openSubmenu.classList.remove("active");
+    }
   });
 }
