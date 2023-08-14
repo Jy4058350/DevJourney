@@ -93,4 +93,28 @@ async function init() {
   }
 
   animate();
+
+  const hovered = document.querySelectorAll(".hovered");
+  const openSubmenu = document.querySelector(".open-submenu");
+
+  hovered.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      item.classList.add("active");
+      openSubmenu.classList.add("active");
+    });
+  });
+
+  hovered.forEach((item) => {
+    item.addEventListener("mouseleave", () => {
+      item.classList.remove("active");
+      if (!openSubmenu.matches(":hover")) {
+        openSubmenu.classList.remove("active");
+      }
+    });
+  });
+  openSubmenu.addEventListener("mouseleave", () => {
+    if (!openSubmenu.matches(":hover")) {
+      openSubmenu.classList.remove("active");
+    }
+  });
 }
