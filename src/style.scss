@@ -31,6 +31,10 @@ body {
   height: 572px;
   object-fit: cover;
 }
+a {
+  text-decoration: none;
+  color: white;
+}
 .b,
 .sliderbutton-icon {
   position: absolute;
@@ -68,6 +72,10 @@ body {
 .read-more1 {
   position: absolute;
 }
+.men:hover {
+  color:gray;
+}
+
 .read-more {
   top: 508px;
   left: 36px;
@@ -231,6 +239,11 @@ body {
   width: 262px;
   height: 17px;
 }
+
+.open-submenu {
+  opacity: 0;
+}
+
 .open-submenu-child {
   position: absolute;
   height: 100%;
@@ -288,6 +301,8 @@ body {
   width: 10.58%;
   top: 77.82%;
 }
+
+
 .garrett-sears-rxvfca3fq4i-unsp-icon,
 .open-submenu-item {
   position: absolute;
@@ -380,8 +395,7 @@ body {
   letter-spacing: 0.5em;
 }
 .dev,
-.titls,
-.wrapper {
+.titls {
   position: absolute;
 }
 .titls {

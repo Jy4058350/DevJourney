@@ -30,6 +30,11 @@ body {
      object-fit: cover;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
 .b,
 .sliderbutton-icon {
   position: absolute;
@@ -71,6 +76,10 @@ body {
 .read-more,
 .read-more1 {
   position: absolute;
+}
+
+.men:hover {
+  color: gray;
 }
 
 .read-more {
@@ -254,6 +263,10 @@ body {
   height: 17px;
 }
 
+.open-submenu {
+  opacity: 0;
+}
+
 .open-submenu-child {
   position: absolute;
   height: 100%;
@@ -423,8 +436,7 @@ body {
 }
 
 .dev,
-.titls,
-.wrapper {
+.titls {
   position: absolute;
 }
 
