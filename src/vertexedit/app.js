@@ -23,10 +23,10 @@ async function init() {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
-  // document.body.appendChild(renderer.domElement);
-  const outputEl = iNode.qs(".output");
-  console.log(outputEl);
-  outputEl.appendChild(renderer.domElement);
+  document.body.appendChild(renderer.domElement);
+  // const outputEl = iNode.qs(".output");
+  // console.log(outputEl);
+  // outputEl.appendChild(renderer.domElement);
 
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
@@ -84,13 +84,8 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
-
     renderer.render(scene, camera);
   }
 
   animate();
-
-  
 }
