@@ -19,7 +19,7 @@ async function init() {
   iNode.qs(".test").appendChild(renderer.domElement);
 
   //レンダーターゲットの設定
-  const renderTarget = new THREE.WebGLRenderTarget(500, 500);
+  const renderTarget = new THREE.WebGLRenderTarget(1280, 850);
 
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -29,6 +29,7 @@ async function init() {
   );
   const rtCamera = camera.clone();
   rtCamera.aspect = 1;
+  rtCamera.updateProjectionMatrix();
   const rtScene = new THREE.Scene();
 
   const scene = new THREE.Scene();
@@ -41,7 +42,7 @@ async function init() {
     return texture;
   }
 
-  const rtGeo = new THREE.PlaneGeometry(50, 25);
+  const rtGeo = new THREE.PlaneGeometry(256, 170);
   const rtMate = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output4.jpg") },
@@ -54,7 +55,7 @@ async function init() {
   });
   const rtMesh = new THREE.Mesh(rtGeo, rtMate);
 
-  const geo = new THREE.PlaneGeometry(50, 25);
+  const geo = new THREE.PlaneGeometry(128, 95);
   const mate = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     map: renderTarget.texture,
@@ -63,8 +64,8 @@ async function init() {
   rtScene.add(rtMesh);
   scene.add(mesh);
 
-  rtCamera.position.z = 5;
-  camera.position.z = 30;
+  rtCamera.position.set(0, 0, 100);
+  camera.position.z = 80;
 
   const axis = new THREE.AxesHelper(100);
   rtScene.add(axis);
