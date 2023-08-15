@@ -63,6 +63,7 @@ async function init() {
   rtScene.add(rtMesh);
   scene.add(mesh);
 
+  rtCamera.position.z = 5;
   camera.position.z = 30;
 
   const axis = new THREE.AxesHelper(100);

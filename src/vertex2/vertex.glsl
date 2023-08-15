@@ -20,7 +20,7 @@ void main() {
     float adjustedProgress = ease(clamp(fastProgress * (1.0 + aExpandTime * delayFactor), 0.0, 1.0));
 
     // 調整した progress に基づいて位置を変更
-    pos.z += adjustedProgress * -10.0;
+    pos.z += adjustedProgress * -1.0;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
