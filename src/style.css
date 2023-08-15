@@ -14,7 +14,8 @@ body {
   --color-white: #fff;
   --color-gainsboro-100: #d9d9d9;
   --color-gray-100: #7e7e7e;
-  --color-gray-200: rgba(255, 255, 255, 0);
+  --color-gray-200: #2e2e2e;
+  --color-green-100: #028a34;
   --color-black: #000;
   /* border radiuses */
   --br-8xs: 5px;
@@ -281,6 +282,7 @@ a {
 
 .open-submenu {
   background-color: #fefefe;
+  border-radius: 10px;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
@@ -309,10 +311,11 @@ a {
   top: 13.31%;
   left: 1.33%;
   font-size: var(--font-size-mini);
+  color: var(--color-gray-200);
 }
 
 .all-item {
-  top: 90.32%;
+  top: 81%;
   left: 79.92%;
 }
 
@@ -327,6 +330,14 @@ a {
   top: 28.23%;
   left: 1.95%;
   display: inline-block;
+  color: var(--color-gray-200);
+}
+.a-aaa:hover,
+.b-bbb:hover,
+.c-ccc:hover,
+.d-ddd:hover,
+.e-eee:hover {
+  color: var(--color-green-100);
 }
 
 .b-bbb,
@@ -369,10 +380,11 @@ a {
 .open-submenu-item {
   right: 0.94%;
   left: 65.94%;
-  background-color: var(--color-gainsboro-100);
+  background-color: var(--color-gainsboro-200);
 }
 
 .garrett-sears-rxvfca3fq4i-unsp-icon {
+  border-radius: 10px;
   right: 1.02%;
   left: 65.86%;
   max-width: 100%;
