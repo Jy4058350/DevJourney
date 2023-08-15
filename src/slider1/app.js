@@ -97,6 +97,8 @@ async function init() {
 
   const hovered = iNode.qsa(".hovered");
   const openSubmenu = iNode.qs(".open-submenu");
+  const header = iNode.qs(".header");
+  const dev = iNode.qs(".dev");
 
   hovered.forEach((item) => {
     item.addEventListener("mouseenter", () => {
@@ -116,6 +118,28 @@ async function init() {
   openSubmenu.addEventListener("mouseleave", () => {
     if (!openSubmenu.matches(":hover")) {
       openSubmenu.classList.remove("active");
+    }
+  });
+
+  header.addEventListener("mouseenter", () => {
+    dev.classList.add("white");
+    header.classList.add("white");
+    hovered.forEach((item) => {
+      item.classList.add("white");
+    });
+  });
+  header.addEventListener("mouseleave", () => {
+    dev.classList.remove("white");
+    if (!openSubmenu.matches(":hover")) {
+      header.classList.remove("white");
+    }
+    hovered.forEach((item) => {
+      if (!openSubmenu.matches(":hover")) {
+        item.classList.remove("white");
+      }
+    });
+    if(!openSubmenu.matches(":hover")){
+      header.classList.remove("white");
     }
   });
 }
