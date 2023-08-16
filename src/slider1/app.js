@@ -112,6 +112,8 @@ async function init() {
       item.classList.remove("active");
       if (!openSubmenu.matches(":hover")) {
         openSubmenu.classList.remove("active");
+        header.classList.remove("white");
+
       }
     });
   });
@@ -130,8 +132,8 @@ async function init() {
   });
   header.addEventListener("mouseleave", () => {
     dev.classList.remove("white");
+    header.classList.remove("white");
     if (!openSubmenu.matches(":hover")) {
-      header.classList.remove("white");
     }
     hovered.forEach((item) => {
       if (!openSubmenu.matches(":hover")) {

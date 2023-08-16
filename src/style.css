@@ -503,6 +503,7 @@ a {
 }
 
 .header {
+  z-index: 100;
   top: 39px;
   height: 150px;
   font-size: var(--font-size-xs);
