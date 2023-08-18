@@ -1,7 +1,4 @@
-/**
- * Three.js
- * https://threejs.org/
- */
+import "./try.scss";
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
