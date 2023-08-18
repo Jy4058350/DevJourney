@@ -53,6 +53,7 @@ export default defineConfig({
       input: {
         index: resolve(root, "index.html"),
         test: resolve(root, "test.html"),
+        try: resolve(root, "try.html"),
       },
     },
   },
