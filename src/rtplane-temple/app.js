@@ -56,7 +56,7 @@ async function init() {
   const rtScene = new Scene();
   world.scene = new Scene();
 
-  rtCamera.position.set(0, 0, 40);
+  rtCamera.position.set(0, 0, 26.1);
   world.camera.position.set(0, 0, 40);
 
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
@@ -76,6 +76,21 @@ async function init() {
     map: renderTarget.texture,
   });
   const mesh = new Mesh(geo, mate);
+
+  // meshのジオメトリのアスペクト比を取得
+  const meshAspect =
+    mesh.geometry.parameters.width / mesh.geometry.parameters.height;
+
+  // rtMeshのジオメトリを調整してアスペクト比を合わせる
+  rtMesh.geometry = new PlaneGeometry(
+    rtMesh.geometry.parameters.width,
+    rtMesh.geometry.parameters.width / meshAspect
+  );
+
+
+
+  
+
   world.scene.add(mesh);
 
   world.scene.background = new Color(0xffffff);
@@ -129,23 +144,20 @@ async function init() {
   const width = height * aspect;
 
   console.log("Mesh Size on Screen:", width, height);
-  
 
-// カメラの視野角とビューポートのアスペクト比を取得
-const fov1 = rtCamera.fov * (Math.PI / 180); // ラジアンに変換
-const aspect1 = rtCamera.aspect;
+  // カメラの視野角とビューポートのアスペクト比を取得
+  const fov1 = rtCamera.fov * (Math.PI / 180); // ラジアンに変換
+  const aspect1 =
+    rtMesh.geometry.parameters.width / rtMesh.geometry.parameters.height;
 
-// カメラからメッシュまでの距離を計算
-const distance1 = rtCamera.position.distanceTo(rtMesh.position);
+  // カメラからメッシュまでの距離を計算
+  const distance1 = rtCamera.position.distanceTo(rtMesh.position);
 
-// メッシュのスクリーン上での表示サイズを計算
-const height1 = 2 * Math.tan(fov1 / 2) * distance1;
-const width1 = height1 * aspect1;
+  // メッシュのスクリーン上での表示サイズを計算
+  const height1 = 2 * Math.tan(fov1 / 2) * distance1;
+  const width1 = height1 * aspect1;
 
-console.log("rtMesh Size on Screen:", width1, height1);
-
-
-
+  console.log("rtMesh Size on Screen:", width1, height1);
 
   let i = 0;
   function animate() {
