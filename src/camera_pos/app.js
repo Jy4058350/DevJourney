@@ -98,7 +98,12 @@ async function init() {
       });
     });
 
-  const div1 = iNode.qs("#div-1");
+  const els = iNode.qsa("[data-webgl]");
+els.forEach((el) => {
+  console.log(el);
+  el.getBoundingClientRect();
+})
+
   const rect = div1.getBoundingClientRect();
   console.log(rect);
   console.log(canvasRect);
