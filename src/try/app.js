@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../inode.js";
 
+const world = {};
+
 init();
 const canvas = iNode.qs("#test");
 console.log(canvas);
@@ -20,7 +22,7 @@ async function init() {
   );
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  world.renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
   document.body.appendChild(renderer.domElement);
 
