@@ -5,6 +5,7 @@
 import "./test.scss";
 import {
   WebGLRenderer,
+  WebGLRenderTarget,
   Scene,
   PerspectiveCamera,
   TextureLoader,
@@ -12,8 +13,12 @@ import {
   ShaderMaterial,
   Mesh,
   AxesHelper,
+  Vector2,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
+  MeshBasicMaterial,
 } from "three";
-import * as THREE from "three";
+// import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -25,6 +30,7 @@ const world = {};
 init();
 
 async function init() {
+  //メインレンダー
   const canvas = iNode.qs("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
@@ -32,7 +38,7 @@ async function init() {
     antialias: true,
   });
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-  world.renderer.setClearColor(0x000000, 0);
+  world.renderer.setClearColor(0x00000, 0);
 
   world.scene = new Scene();
   world.camera = new PerspectiveCamera(
@@ -43,8 +49,24 @@ async function init() {
   );
   world.camera.position.z = 30;
 
-  const geometry = new PlaneGeometry(50, 25);
-  const material = new ShaderMaterial({
+  //レンダーターゲット
+  const renderTargetCanvas = iNode.qs("canvas");
+
+  world.renderTarget = new WebGLRenderTarget(
+    renderTargetCanvas.width,
+    renderTargetCanvas.height,
+    {
+      canvas: renderTargetCanvas,
+      antialias: true,
+    }
+  );
+  world.rtCamera = world.camera.clone();
+  world.rtScene = new Scene();
+
+  const commonGeoSize = new Vector2(50, 25);
+
+  const rtGeo = new PlaneGeometry(commonGeoSize.x, commonGeoSize.y);
+  const rtMate = new ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
@@ -54,15 +76,23 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
+  const geo = new PlaneGeometry(commonGeoSize.x, commonGeoSize.y);
+  const mate = new MeshBasicMaterial({
+    color: 0xffffff,
+    // transparent: true,
+    map: world.renderTarget.texture,
+  });
 
-  const mesh = new Mesh(geometry, material);
+  const mesh = new Mesh(geo, mate);
+  const rtmesh = new Mesh(rtGeo, rtMate);
   world.scene.add(mesh);
+  world.rtScene.add(rtmesh);
 
   async function loadTex(url) {
     const texLoader = new TextureLoader();
     const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
+    texture.wrapS = ClampToEdgeWrapping;
+    texture.wrapT = MirroredRepeatWrapping;
     return texture;
   }
 
@@ -76,12 +106,9 @@ async function init() {
   const folder1 = gui.addFolder("");
   folder1.open();
 
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("")
-    .listen();
+  folder1.add(rtMate.uniforms.uProgress, "value", 0, 1, 0.1).name("").listen();
 
-  const datData = { next: !!material.uniforms.uProgress.value };
+  const datData = { next: !!rtMate.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
     .name("")
@@ -96,9 +123,13 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+
+    world.renderer.setRenderTarget(world.renderTarget);
+    world.renderer.render(world.rtScene, world.rtCamera);
+    world.renderer.setRenderTarget(null);
 
     world.renderer.render(world.scene, world.camera);
+    controls.update();
   }
 
   animate();

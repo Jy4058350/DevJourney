@@ -5,7 +5,6 @@
 import "./test.scss";
 import {
   WebGLRenderer,
-  WebGLRenderTarget,
   Scene,
   PerspectiveCamera,
   TextureLoader,
@@ -26,7 +25,6 @@ const world = {};
 init();
 
 async function init() {
-  //メインレンダー
   const canvas = iNode.qs("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
@@ -45,22 +43,8 @@ async function init() {
   );
   world.camera.position.z = 30;
 
-  //レンダーターゲット
-  const renderTargetCanvas = iNode.qs("canvas");
-  const renderTargetCanvasRect = renderTargetCanvas.getBoundingClientRect();
-  world.renderTarget = new WebGLRenderTarget(
-    renderTargetCanvas.width,
-    renderTargetCanvas.height,
-    {
-      canvas: renderTargetCanvas,
-      antialias: true,
-    }
-  );
-  world.rtCamera = world.camera.clone();
-  world.rtScene = new Scene();
-
-  const rtGeo = new PlaneGeometry(50, 25);
-  const rtMate = new ShaderMaterial({
+  const geometry = new PlaneGeometry(50, 25);
+  const material = new ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
@@ -70,16 +54,9 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const geo = new PlaneGeometry(50, 25);
-  const mate = new THREE.MeshBasicMaterial({
-    color: 0xff0000,
-    map: world.renderTarget.texture,
-  });
 
-  const mesh = new Mesh(geo, mate);
-  const rtmesh = new Mesh(rtGeo, rtMate);
+  const mesh = new Mesh(geometry, material);
   world.scene.add(mesh);
-  world.rtScene.add(rtmesh);
 
   async function loadTex(url) {
     const texLoader = new TextureLoader();
@@ -99,9 +76,12 @@ async function init() {
   const folder1 = gui.addFolder("");
   folder1.open();
 
-  folder1.add(rtMate.uniforms.uProgress, "value", 0, 1, 0.1).name("").listen();
+  folder1
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+    .name("")
+    .listen();
 
-  const datData = { next: !!rtMate.uniforms.uProgress.value };
+  const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
     .name("")
@@ -116,13 +96,9 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-
-    world.renderer.setRenderTarget(world.renderTarget);
-    world.renderer.render(world.rtScene, world.rtCamera);
-    world.renderer.setRenderTarget(null);
+    controls.update();
 
     world.renderer.render(world.scene, world.camera);
-    controls.update();
   }
 
   animate();
