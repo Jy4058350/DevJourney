@@ -1,5 +1,16 @@
 import "./try.scss";
-import { WebGLRenderer, Scene } from "three";
+import {
+  WebGLRenderer,
+  Scene,
+  Mesh,
+  PerspectiveCamera,
+  PlaneGeometry,
+  ShaderMaterial,
+  TextureLoader,
+  AxesHelper,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
+} from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -10,11 +21,18 @@ import { iNode } from "../inode.js";
 const world = {};
 
 init();
-const canvas = iNode.qs("#canvas");
-const canvasRect = canvas.getBoundingClientRect();
-console.log(canvasRect);
 
 async function init() {
+  const canvas = iNode.qs("#canvas");
+  world.renderer = new WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  const canvasRect = canvas.getBoundingClientRect();
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setPixelRatio(window.devicePixelRatio);
+  world.renderer.setClearColor(0x000000, 0);
+  // world.body.appendChild(renderer.domElement);
   world.scene = new Scene();
   world.camera = new PerspectiveCamera(
     75,
@@ -22,27 +40,18 @@ async function init() {
     0.1,
     1000
   );
-
-  world.renderer = new WebGLRenderer({
-    canvas,
-    antialias: true,
-  });
-  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-  world.renderer.setPixelRatio(window.devicePixelRatio);
-  world.renderer.setClearColor(0x000000, 0);
-  // world.body.appendChild(renderer.domElement);
   world.camera.position.z = 30;
 
   async function loadTex(url) {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = new TextureLoader();
     const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
+    texture.wrapS = ClampToEdgeWrapping;
+    texture.wrapT = MirroredRepeatWrapping;
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(50, 25);
-  const material = new THREE.ShaderMaterial({
+  const geometry = new PlaneGeometry(50, 25);
+  const material = new ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
@@ -52,15 +61,13 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const plane = new THREE.Mesh(geometry, material);
-  scene.add(plane);
+  const mesh = new Mesh(geometry, material);
+  world.scene.add(mesh);
 
-  
+  const axis = new AxesHelper(100);
+  world.scene.add(axis);
 
-  const axis = new THREE.AxesHelper(100);
-  scene.add(axis);
-
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
   const gui = new GUI();
@@ -92,7 +99,7 @@ async function init() {
     // cube.rotation.x = cube.rotation.x + 0.01;
     // cube.rotation.y += 0.01;
 
-    renderer.render(scene, camera);
+    world.renderer.render(world.scene, world.camera);
   }
 
   animate();
