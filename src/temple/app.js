@@ -102,6 +102,11 @@ async function init() {
       });
     });
 
+  const data_webgl = iNode.qs("[data-webgl]");
+  const rect = data_webgl.getBoundingClientRect();
+  const { x, y } = getWorldPosition(rect, canvasRect);
+  mesh.position.set(x, y, 0);
+
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
@@ -111,4 +116,10 @@ async function init() {
   }
 
   animate();
+}
+
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
 }
