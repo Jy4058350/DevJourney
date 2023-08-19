@@ -6,9 +6,37 @@
     <title>
       Memorandum of understanding and practice journey when implementing
     </title>
-    <script type="module" src="./rtplane-temple/app.js"></script>
+    <script type="module" src="./camera_pos/app.js"></script>
   </head>
   <body>
+    <div data-webgl></div>
+    <section data-webgl></section>
+    <img data-webgl src="../img/output1.jpg" />
+    <style>
+      [data-webgl] {
+        background: green;
+        opacity: 0.3;
+      }
+      div {
+        margin-top: 50px;
+        margin-left: 410px;
+        width: 128px;
+        height: 72px;
+      }
+      section {
+        margin: 150px;
+        width: 128px;
+        height: 72px;
+      }
+      img {
+        margin: 100px;
+        width: 128px;
+        height: 72px;
+      }
+      body {
+        height: 200vh;
+      }
+    </style>
     <canvas id="canvas"></canvas>
   </body>
 </html>

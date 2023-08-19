@@ -34,6 +34,8 @@ async function init() {
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
   world.renderer.setClearColor(0x000000, 0);
 
+  world.scene = new Scene();
+
   const cameraWidth = canvasRect.width;
   const cameraHeight = canvasRect.height;
   const near = 1500;
@@ -43,29 +45,8 @@ async function init() {
   const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
   const fov = radian * (180 / Math.PI);
 
-  world.scene = new Scene();
-  world.camera = new PerspectiveCamera(
-    fov,
-    cameraWidth / cameraHeight,
-    near,
-    far
-  );
+  world.camera = new PerspectiveCamera(fov, aspect, near, far);
   world.camera.position.z = cameraZ;
-
-  const geometry = new PlaneGeometry(127, 72);
-  const material = new ShaderMaterial({
-    uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
-      uTick: { value: 0 },
-      uProgress: { value: 0 },
-    },
-    vertexShader,
-    fragmentShader,
-  });
-
-  const mesh = new Mesh(geometry, material);
-  world.scene.add(mesh);
 
   async function loadTex(url) {
     const texLoader = new TextureLoader();
@@ -81,34 +62,63 @@ async function init() {
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const gui = new GUI();
-  const folder1 = gui.addFolder("");
-  folder1.open();
+  const els = iNode.qsa("[data-webgl]");
+  els.forEach(async (el) => {
+    const rect = el.getBoundingClientRect();
 
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("")
-    .listen();
-
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-      });
+    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const material = new ShaderMaterial({
+      uniforms: {
+        uTex1: { value: await loadTex("/img/output3.jpg") },
+        uTex2: { value: await loadTex("/img/output2.jpg") },
+        uTick: { value: 0 },
+        uProgress: { value: 0 },
+      },
+      vertexShader,
+      fragmentShader,
     });
+
+    const mesh = new Mesh(geometry, material);
+    world.scene.add(mesh);
+
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+
+    const gui = new GUI();
+    const folder1 = gui.addFolder("");
+    folder1.open();
+
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("")
+      .listen();
+
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 1 : 0,
+          duration: 3,
+          ease: "ease",
+        });
+      });
+  });
 
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    // controls.update();
+    controls.update();
 
     world.renderer.render(world.scene, world.camera);
   }
 
   animate();
+}
+//world座標を割り出す関数を作る
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
 }
