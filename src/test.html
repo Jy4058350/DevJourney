@@ -11,20 +11,30 @@
   <body>
     <div data-webgl></div>
     <section data-webgl></section>
-    <img data-webgl src="../img/output1.jpg"></img>
+    <img data-webgl src="../img/output1.jpg" />
     <style>
-      #div-1 {
-        margin: 500px;
-        width: 128px;
-        height: 72px;
-        background-color: green;
-        top:200px;
-        left:200px;
-        /* position: fixed; */
+      [data-webgl] {
+        background: green;
         opacity: 0.3;
       }
+      div {
+        margin-top: 50px;
+        margin-left: 410px;
+        width: 128px;
+        height: 72px;
+      }
+      section {
+        margin: 150px;
+        width: 128px;
+        height: 72px;
+      }
+      img {
+        margin: 100px;
+        width: 128px;
+        height: 72px;
+      }
       body {
-        height: 200vh
+        height: 200vh;
       }
     </style>
     <canvas id="canvas"></canvas>
