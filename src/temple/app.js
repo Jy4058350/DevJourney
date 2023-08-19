@@ -34,16 +34,25 @@ async function init() {
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
   world.renderer.setClearColor(0x000000, 0);
 
+  const cameraWidth = canvasRect.width;
+  const cameraHeight = canvasRect.height;
+  const near = 1500;
+  const far = 4000;
+  const aspect = cameraWidth / cameraHeight;
+  const cameraZ = 2000;
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+  const fov = radian * (180 / Math.PI);
+
   world.scene = new Scene();
   world.camera = new PerspectiveCamera(
-    75,
-    canvasRect.width / canvasRect.height,
-    0.1,
-    1000
+    fov,
+    cameraWidth / cameraHeight,
+    near,
+    far
   );
-  world.camera.position.z = 30;
+  world.camera.position.z = cameraZ;
 
-  const geometry = new PlaneGeometry(50, 25);
+  const geometry = new PlaneGeometry(127, 72);
   const material = new ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -96,7 +105,7 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+    // controls.update();
 
     world.renderer.render(world.scene, world.camera);
   }

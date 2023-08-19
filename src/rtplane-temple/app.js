@@ -41,35 +41,40 @@ async function init() {
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
   world.renderer.setClearColor(0xfffff, 0);
 
-  //レンダーターゲット
-  const renderTarget = new WebGLRenderTarget(500, 500);
+  const cameraWidth = canvasRect.width;
+  const cameraHeight = canvasRect.height;
+  const near = 1500;
+  const far = 8000;
+  const aspect = cameraWidth / cameraHeight;
+  const cameraZ = 2000;
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+  const fov = radian * (180 / Math.PI);
 
-  world.camera = new PerspectiveCamera(
-    75,
-    canvasRect.width / canvasRect.height,
-    0.1,
-    1000
-  );
+  //レンダーターゲット
+  const renderTarget = new WebGLRenderTarget(100, 100);
+
+  world.camera = new PerspectiveCamera(fov, aspect, near, far);
+
   const rtCamera = world.camera.clone();
   rtCamera.aspect = 1;
   rtCamera.updateProjectionMatrix();
   const rtScene = new Scene();
   world.scene = new Scene();
 
-  rtCamera.position.set(0, 0, 26.1);
-  world.camera.position.set(0, 0, 40);
+  rtCamera.position.z = cameraZ;
+  world.camera.position.z = cameraZ;
 
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const rtGeo = new PlaneGeometry(40, 40);
+  const rtGeo = new PlaneGeometry(100, 100);
   const rtMate = new THREE.MeshBasicMaterial({
     color: 0x009dff,
     side: DoubleSide,
   });
   const rtMesh = new Mesh(rtGeo, rtMate);
 
-  const geo = new PlaneGeometry(40, 40);
+  const geo = new PlaneGeometry(100, 100);
   const mate = new THREE.MeshBasicMaterial({
     color: 0x009dff,
     side: DoubleSide,
@@ -87,27 +92,23 @@ async function init() {
     rtMesh.geometry.parameters.width / meshAspect
   );
 
-
-
-  
-
   world.scene.add(mesh);
 
   world.scene.background = new Color(0xffffff);
 
-  // const light = new PointLight(0xffffff, 10, 1000);
-  // light.position.set(100, 100, 100);
-  // const pHelper = new PointLightHelper(light);
-  // world.scene.add(light, pHelper);
-  // rtScene.add(light, pHelper);
-  // const light1 = new PointLight(0xffffff, 100, 1000);
-  // light.position.set(0, 0, 0);
-  // const pHelper1 = new PointLightHelper(light1);
-  // world.scene.add(light1, pHelper1);
-  // rtScene.add(light1, pHelper1);
-  // const light2 = new PointLight(0xffffff, 100, 1000);
-  // light.position.set(-100, -100, -100);
-  // rtScene.add(light2);
+  const light = new PointLight(0xffffff, 10, 1000);
+  light.position.set(100, 100, 100);
+  const pHelper = new PointLightHelper(light);
+  world.scene.add(light, pHelper);
+  rtScene.add(light, pHelper);
+  const light1 = new PointLight(0xffffff, 100, 1000);
+  light.position.set(0, 0, 0);
+  const pHelper1 = new PointLightHelper(light1);
+  world.scene.add(light1, pHelper1);
+  rtScene.add(light1, pHelper1);
+  const light2 = new PointLight(0xffffff, 100, 1000);
+  light.position.set(-100, -100, -100);
+  rtScene.add(light2);
 
   rtScene.add(rtMesh);
 
@@ -132,32 +133,32 @@ async function init() {
     rtMesh.geometry.parameters.depth
   );
 
-  // カメラの視野角とビューポートのアスペクト比を取得
-  const fov = world.camera.fov * (Math.PI / 180); // ラジアンに変換
-  const aspect = world.camera.aspect;
+  // // カメラの視野角とビューポートのアスペクト比を取得
+  // const fov = world.camera.fov * (Math.PI / 180); // ラジアンに変換
+  // const aspect = world.camera.aspect;
 
-  // カメラからメッシュまでの距離を計算
-  const distance = world.camera.position.distanceTo(mesh.position);
+  // // カメラからメッシュまでの距離を計算
+  // const distance = world.camera.position.distanceTo(mesh.position);
 
-  // メッシュのスクリーン上での表示サイズを計算
-  const height = 2 * Math.tan(fov / 2) * distance;
-  const width = height * aspect;
+  // // メッシュのスクリーン上での表示サイズを計算
+  // const height = 2 * Math.tan(fov / 2) * distance;
+  // const width = height * aspect;
 
-  console.log("Mesh Size on Screen:", width, height);
+  // console.log("Mesh Size on Screen:", width, height);
 
-  // カメラの視野角とビューポートのアスペクト比を取得
-  const fov1 = rtCamera.fov * (Math.PI / 180); // ラジアンに変換
-  const aspect1 =
-    rtMesh.geometry.parameters.width / rtMesh.geometry.parameters.height;
+  // // カメラの視野角とビューポートのアスペクト比を取得
+  // const fov1 = rtCamera.fov * (Math.PI / 180); // ラジアンに変換
+  // const aspect1 =
+  //   rtMesh.geometry.parameters.width / rtMesh.geometry.parameters.height;
 
-  // カメラからメッシュまでの距離を計算
-  const distance1 = rtCamera.position.distanceTo(rtMesh.position);
+  // // カメラからメッシュまでの距離を計算
+  // const distance1 = rtCamera.position.distanceTo(rtMesh.position);
 
-  // メッシュのスクリーン上での表示サイズを計算
-  const height1 = 2 * Math.tan(fov1 / 2) * distance1;
-  const width1 = height1 * aspect1;
+  // // メッシュのスクリーン上での表示サイズを計算
+  // const height1 = 2 * Math.tan(fov1 / 2) * distance1;
+  // const width1 = height1 * aspect1;
 
-  console.log("rtMesh Size on Screen:", width1, height1);
+  // console.log("rtMesh Size on Screen:", width1, height1);
 
   let i = 0;
   function animate() {
