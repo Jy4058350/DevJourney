@@ -6,18 +6,23 @@
     <title>
       Memorandum of understanding and practice journey when implementing
     </title>
-    <script type="module" src="./rtplane-temple/app.js"></script>
+    <script type="module" src="./camera_pos/app.js"></script>
   </head>
   <body>
-    <div class="div"></div>
+    <div id="div-1"></div>
     <style>
-      .div {
-        width: 100px;
-        height: 100px;
+      #div-1 {
+        margin: 500px;
+        width: 128px;
+        height: 72px;
         background-color: green;
         top:200px;
         left:200px;
-        position: fixed;
+        /* position: fixed; */
+        opacity: 0.3;
+      }
+      body {
+        height: 200vh
       }
     </style>
     <canvas id="canvas"></canvas>

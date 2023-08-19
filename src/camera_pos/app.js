@@ -77,26 +77,34 @@ async function init() {
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  // const gui = new GUI();
-  // const folder1 = gui.addFolder("");
-  // folder1.open();
+  const gui = new GUI();
+  const folder1 = gui.addFolder("");
+  folder1.open();
 
-  // folder1
-  //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-  //   .name("")
-  //   .listen();
+  folder1
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+    .name("")
+    .listen();
 
-  // const datData = { next: !!material.uniforms.uProgress.value };
-  // folder1
-  //   .add(datData, "next")
-  //   .name("")
-  //   .onChange(() => {
-  //     gsap.to(material.uniforms.uProgress, {
-  //       value: datData.next ? 1 : 0,
-  //       duration: 3,
-  //       ease: "ease",
-  //     });
-  //   });
+  const datData = { next: !!material.uniforms.uProgress.value };
+  folder1
+    .add(datData, "next")
+    .name("")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
+
+  const div1 = iNode.qs("#div-1");
+  const rect = div1.getBoundingClientRect();
+  console.log(rect);
+  console.log(canvasRect);
+  const { x, y } = getWorldPosition(rect, canvasRect);
+  console.log(x, y);
+  mesh.position.set(x, y, 0);
 
   let i = 0;
   function animate() {
@@ -108,3 +116,9 @@ async function init() {
 
   animate();
 }
+//world座標を割り出す関数を作る
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
+};
