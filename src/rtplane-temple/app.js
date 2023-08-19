@@ -67,14 +67,14 @@ async function init() {
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const rtGeo = new PlaneGeometry(100, 100);
+  const rtGeo = new PlaneGeometry(128, 72);
   const rtMate = new THREE.MeshBasicMaterial({
     color: 0x009dff,
     side: DoubleSide,
   });
   const rtMesh = new Mesh(rtGeo, rtMate);
 
-  const geo = new PlaneGeometry(100, 100);
+  const geo = new PlaneGeometry(128, 72);
   const mate = new THREE.MeshBasicMaterial({
     color: 0x009dff,
     side: DoubleSide,
