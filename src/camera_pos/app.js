@@ -42,7 +42,7 @@ async function init() {
   const far = 4000;
   const aspect = cameraWidth / cameraHeight;
   const cameraZ = 2000;
-  const radian = Math.atan(cameraHeight / 2 / 2 / cameraZ);
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
   const fov = radian * (180 / Math.PI);
 
   world.camera = new PerspectiveCamera(fov, aspect, near, far);
@@ -77,26 +77,26 @@ async function init() {
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const gui = new GUI();
-  const folder1 = gui.addFolder("");
-  folder1.open();
+  // const gui = new GUI();
+  // const folder1 = gui.addFolder("");
+  // folder1.open();
 
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("")
-    .listen();
+  // folder1
+  //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+  //   .name("")
+  //   .listen();
 
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-      });
-    });
+  // const datData = { next: !!material.uniforms.uProgress.value };
+  // folder1
+  //   .add(datData, "next")
+  //   .name("")
+  //   .onChange(() => {
+  //     gsap.to(material.uniforms.uProgress, {
+  //       value: datData.next ? 1 : 0,
+  //       duration: 3,
+  //       ease: "ease",
+  //     });
+  //   });
 
   let i = 0;
   function animate() {
