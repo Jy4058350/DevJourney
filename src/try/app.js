@@ -16,7 +16,7 @@ import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { iNode } from "../inode.js";
+import { iNode } from "../iNode.js";
 
 const world = {};
 
