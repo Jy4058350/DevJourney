@@ -1,5 +1,5 @@
 import "./try.scss";
-import * as THREE from "three";
+import { WebGLRenderer, Scene } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -15,15 +15,15 @@ const canvasRect = canvas.getBoundingClientRect();
 console.log(canvasRect);
 
 async function init() {
-  world.scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
+  world.scene = new Scene();
+  world.camera = new PerspectiveCamera(
     75,
-    window.innerWidth / window.innerHeight,
+    canvasRect.width / canvasRect.height,
     0.1,
     1000
   );
 
-  world.renderer = new THREE.WebGLRenderer({
+  world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
   });
@@ -31,6 +31,7 @@ async function init() {
   world.renderer.setPixelRatio(window.devicePixelRatio);
   world.renderer.setClearColor(0x000000, 0);
   // world.body.appendChild(renderer.domElement);
+  world.camera.position.z = 30;
 
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
@@ -54,7 +55,7 @@ async function init() {
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
 
-  camera.position.z = 30;
+  
 
   const axis = new THREE.AxesHelper(100);
   scene.add(axis);
