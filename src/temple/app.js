@@ -55,7 +55,7 @@ async function init() {
   const geometry = new PlaneGeometry(127, 72);
   const material = new ShaderMaterial({
     uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
+      uTex1: { value: await loadTex("/img/output1.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
