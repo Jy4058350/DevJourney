@@ -67,32 +67,15 @@ async function init() {
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const rtGeo = new PlaneGeometry(128, 72);
-  const rtMate = new THREE.MeshBasicMaterial({
-    color: 0x009dff,
-    side: DoubleSide,
-  });
-  const rtMesh = new Mesh(rtGeo, rtMate);
+  // // meshのジオメトリのアスペクト比を取得
+  // const meshAspect =
+  //   mesh.geometry.parameters.width / mesh.geometry.parameters.height;
 
-  const geo = new PlaneGeometry(128, 72);
-  const mate = new THREE.MeshBasicMaterial({
-    color: 0x009dff,
-    side: DoubleSide,
-    map: renderTarget.texture,
-  });
-  const mesh = new Mesh(geo, mate);
-
-  // meshのジオメトリのアスペクト比を取得
-  const meshAspect =
-    mesh.geometry.parameters.width / mesh.geometry.parameters.height;
-
-  // rtMeshのジオメトリを調整してアスペクト比を合わせる
-  rtMesh.geometry = new PlaneGeometry(
-    rtMesh.geometry.parameters.width,
-    rtMesh.geometry.parameters.width / meshAspect
-  );
-
-  world.scene.add(mesh);
+  // // rtMeshのジオメトリを調整してアスペクト比を合わせる
+  // rtMesh.geometry = new PlaneGeometry(
+  //   rtMesh.geometry.parameters.width,
+  //   rtMesh.geometry.parameters.width / meshAspect
+  // );
 
   world.scene.background = new Color(0xffffff);
 
@@ -110,28 +93,18 @@ async function init() {
   light.position.set(-100, -100, -100);
   rtScene.add(light2);
 
-  rtScene.add(rtMesh);
-
-  async function loadTex(url) {
-    const texLoader = new TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
-    return texture;
-  }
-
-  console.log(
-    "Mesh 1 Size:",
-    mesh.geometry.parameters.width,
-    mesh.geometry.parameters.height,
-    mesh.geometry.parameters.depth
-  );
-  console.log(
-    "Mesh 2 Size:",
-    rtMesh.geometry.parameters.width,
-    rtMesh.geometry.parameters.height,
-    rtMesh.geometry.parameters.depth
-  );
+  // console.log(
+  //   "Mesh 1 Size:",
+  //   mesh.geometry.parameters.width,
+  //   mesh.geometry.parameters.height,
+  //   mesh.geometry.parameters.depth
+  // );
+  // console.log(
+  //   "Mesh 2 Size:",
+  //   rtMesh.geometry.parameters.width,
+  //   rtMesh.geometry.parameters.height,
+  //   rtMesh.geometry.parameters.depth
+  // );
 
   // // カメラの視野角とビューポートのアスペクト比を取得
   // const fov = world.camera.fov * (Math.PI / 180); // ラジアンに変換
@@ -160,10 +133,30 @@ async function init() {
 
   // console.log("rtMesh Size on Screen:", width1, height1);
 
-  const webgl = iNode.qs("[data-webgl]");
-  const rect = webgl.getBoundingClientRect();
-  const { x, y } = getWorldPosition(rect, canvasRect);
-  mesh.position.set(x, y, 0);
+  const els = iNode.qsa("[data-webgl]");
+  els.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+
+    const rtGeo = new PlaneGeometry(rect.width, rect.height);
+    const rtMate = new THREE.MeshBasicMaterial({
+      color: 0x009dff,
+      side: DoubleSide,
+    });
+    const rtMesh = new Mesh(rtGeo, rtMate);
+
+    const geo = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const mate = new THREE.MeshBasicMaterial({
+      color: 0x009dff,
+      side: DoubleSide,
+      map: renderTarget.texture,
+    });
+    const mesh = new Mesh(geo, mate);
+    world.scene.add(mesh);
+    rtScene.add(rtMesh);
+
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+  });
 
   let i = 0;
   function animate() {
@@ -182,6 +175,14 @@ async function init() {
   }
 
   animate();
+}
+
+async function loadTex(url) {
+  const texLoader = new TextureLoader();
+  const texture = await texLoader.loadAsync(url);
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.MirroredRepeatWrapping;
+  return texture;
 }
 
 function getWorldPosition(rect, canvasRect) {
