@@ -5,6 +5,7 @@
 import "./test.scss";
 import {
   WebGLRenderer,
+  WebGLRenderTarget,
   Scene,
   PerspectiveCamera,
   TextureLoader,
@@ -45,10 +46,16 @@ async function init() {
   world.camera.position.z = 30;
 
   //レンダーターゲット
-  world.renderTarget = new WebGLRenderer({
-    canvas,
-    antialias: true,
-  });
+  const renderTargetCanvas = iNode.qs("canvas");
+  const renderTargetCanvasRect = renderTargetCanvas.getBoundingClientRect();
+  world.renderTarget = new WebGLRenderTarget(
+    renderTargetCanvas.width,
+    renderTargetCanvas.height,
+    {
+      canvas: renderTargetCanvas,
+      antialias: true,
+    }
+  );
   world.rtCamera = world.camera.clone();
   world.rtScene = new Scene();
 
