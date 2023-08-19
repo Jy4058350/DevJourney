@@ -18,6 +18,7 @@ import {
   Color,
   PointLight,
   WebGLRenderTarget,
+  PointLightHelper,
 } from "three";
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
@@ -38,12 +39,10 @@ async function init() {
     antialias: true,
   });
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-  world.renderer.setClearColor(0x000000, 0);
+  world.renderer.setClearColor(0xfffff, 0);
 
-
-//レンダーターゲット
-const renderTarget = new WebGLRenderTarget(500, 500);
-
+  //レンダーターゲット
+  const renderTarget = new WebGLRenderTarget(500, 500);
 
   world.camera = new PerspectiveCamera(
     75,
@@ -53,41 +52,46 @@ const renderTarget = new WebGLRenderTarget(500, 500);
   );
   const rtCamera = world.camera.clone();
   rtCamera.aspect = 1;
+  rtCamera.updateProjectionMatrix();
   const rtScene = new Scene();
   world.scene = new Scene();
 
-  world.camera.position.set(-10, -10, 10);
+  rtCamera.position.set(0, 0, 5);
+  world.camera.position.set(0, 0, 5);
 
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const rtGeo = new BoxGeometry(4, 4, 4);
-  const rtMate = new MeshLambertMaterial({
+  const rtGeo = new PlaneGeometry(4, 4);
+  const rtMate = new THREE.MeshBasicMaterial({
     color: 0x009dff,
     side: DoubleSide,
   });
   const rtMesh = new Mesh(rtGeo, rtMate);
 
-  const geo = new BoxGeometry(4, 4, 4);
+  const geo = new PlaneGeometry(4, 4);
   const mate = new THREE.MeshBasicMaterial({
-    color: 0x009dff,
+    // color: 0x009dff,
     side: DoubleSide,
     map: renderTarget.texture,
   });
   const mesh = new Mesh(geo, mate);
   world.scene.add(mesh);
 
+  world.scene.background = new Color(0xffffff);
 
- 
-  world.scene.background = new Color(0xeeeeee);
-  const light = new PointLight(0xffffff, 1, 0);
-  light.position.set(10, 20, 10);
-  rtScene.add(light);
-  const light1 = new PointLight(0xffffff, 1, 0);
-  light.position.set(10, 10, 10);
-  rtScene.add(light1);
-  const light2 = new PointLight(0xffffff, 1, 0);
-  light.position.set(-10, -20, -10);
+  const light = new PointLight(0xffffff, 10, 1000);
+  light.position.set(100, 100, 100);
+  const pHelper = new PointLightHelper(light);
+  world.scene.add(light, pHelper);
+  rtScene.add(light, pHelper);
+  const light1 = new PointLight(0xffffff, 100, 1000);
+  light.position.set(0, 0, 0);
+  const pHelper1 = new PointLightHelper(light1);
+  world.scene.add(light1, pHelper1);
+  rtScene.add(light1, pHelper1);
+  const light2 = new PointLight(0xffffff, 100, 1000);
+  light.position.set(-100, -100, -100);
   rtScene.add(light2);
 
   rtScene.add(rtMesh);
@@ -108,8 +112,8 @@ const renderTarget = new WebGLRenderTarget(500, 500);
     world.renderer.render(rtScene, rtCamera);
     world.renderer.setRenderTarget(null);
 
-    rtMesh.rotation.x += 0.01;
-    rtMesh.rotation.y += 0.01;
+    // rtMesh.rotation.x += 0.01;
+    // rtMesh.rotation.y += 0.01;
 
     world.renderer.render(world.scene, world.camera);
     controls.update();
