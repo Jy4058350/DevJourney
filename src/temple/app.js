@@ -2,38 +2,49 @@
  * Three.js
  * https://threejs.org/
  */
+import "./test.scss";
+import {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  TextureLoader,
+  PlaneGeometry,
+  ShaderMaterial,
+  Mesh,
+  AxesHelper,
+} from "three";
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { iNode } from "../iNode";
 
+const world = {};
 init();
+
 async function init() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
+  const canvas = iNode.qs("#canvas");
+  const canvasRect = canvas.getBoundingClientRect();
+  world.renderer = new WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setClearColor(0x000000, 0);
+
+  world.scene = new Scene();
+  world.camera = new PerspectiveCamera(
     75,
-    window.innerWidth / window.innerHeight,
+    canvasRect.width / canvasRect.height,
     0.1,
     1000
   );
+  world.camera.position.z = 30;
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0xffffff);
-  document.body.appendChild(renderer.domElement);
-
-  async function loadTex(url) {
-    const texLoader = new THREE.TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
-    return texture;
-  }
-
-  const geometry = new THREE.PlaneGeometry(50, 25);
-  const material = new THREE.ShaderMaterial({
+  const geometry = new PlaneGeometry(50, 25);
+  const material = new ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
@@ -43,30 +54,37 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const plane = new THREE.Mesh(geometry, material);
-  scene.add(plane);
 
-  camera.position.z = 30;
+  const mesh = new Mesh(geometry, material);
+  world.scene.add(mesh);
 
-  const axis = new THREE.AxesHelper(100);
-  scene.add(axis);
+  async function loadTex(url) {
+    const texLoader = new TextureLoader();
+    const texture = await texLoader.loadAsync(url);
+    texture.wrapS = THREE.ClampToEdgeWrapping;
+    texture.wrapT = THREE.MirroredRepeatWrapping;
+    return texture;
+  }
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const axis = new AxesHelper(100);
+  world.scene.add(axis);
+
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
   const gui = new GUI();
-  const folder1 = gui.addFolder("z-distance");
+  const folder1 = gui.addFolder("");
   folder1.open();
 
   folder1
     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("zaxis")
+    .name("")
     .listen();
 
   const datData = { next: !!material.uniforms.uProgress.value };
   folder1
     .add(datData, "next")
-    .name("moving axis")
+    .name("")
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
         value: datData.next ? 1 : 0,
@@ -80,10 +98,7 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
-
-    renderer.render(scene, camera);
+    world.renderer.render(world.scene, world.camera);
   }
 
   animate();
