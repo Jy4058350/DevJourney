@@ -10,10 +10,12 @@ import { iNode } from "../inode.js";
 const world = {};
 
 init();
-const canvas = iNode.qs("#test");
-console.log(canvas);
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
+console.log(canvasRect);
+
 async function init() {
-  const scene = new THREE.Scene();
+  world.scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -21,10 +23,14 @@ async function init() {
     1000
   );
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  world.renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0xffffff);
-  document.body.appendChild(renderer.domElement);
+  world.renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setPixelRatio(window.devicePixelRatio);
+  world.renderer.setClearColor(0x000000, 0);
+  // world.body.appendChild(renderer.domElement);
 
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
