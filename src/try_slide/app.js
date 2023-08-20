@@ -96,21 +96,21 @@ async function init() {
     world.scene.add(mesh);
 
     const gui = new GUI();
-    const folder1 = gui.addFolder("z-distance");
+    const folder1 = gui.addFolder("slider");
     folder1.open();
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("zaxis")
+      .name("vertical")
       .listen();
 
     const datData = { next: !!material.uniforms.uProgress.value };
     folder1
       .add(datData, "next")
-      .name("moving axis")
+      .name("updown")
       .onChange(() => {
         gsap.to(material.uniforms.uProgress, {
-          value: datData.next ? 1 : 0,
+          value: datData.next ? 0 : 1,
           duration: 1,
           ease: "ease",
         });
