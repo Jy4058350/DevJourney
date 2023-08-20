@@ -54,14 +54,6 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  async function loadTex(url) {
-    const texLoader = new TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = ClampToEdgeWrapping;
-    texture.wrapT = MirroredRepeatWrapping;
-    return texture;
-  }
-
   const axis = new AxesHelper(100);
   world.scene.add(axis);
 
@@ -86,6 +78,17 @@ async function init() {
     });
     const mesh = new Mesh(geometry, material);
     mesh.position.set(x, y, 0);
+
+    const o = {
+      geometry,
+      material,
+      mesh,
+      rect,
+      $: {
+        el,
+      },
+    };
+
     world.scene.add(mesh);
 
     const gui = new GUI();
@@ -110,7 +113,6 @@ async function init() {
       });
   });
 
-  let i = 0;
   render();
   function render() {
     requestAnimationFrame(render);
@@ -124,4 +126,12 @@ function getWorldPosition(rect, canvasRect) {
   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
   return { x, y };
+}
+
+async function loadTex(url) {
+  const texLoader = new TextureLoader();
+  const texture = await texLoader.loadAsync(url);
+  texture.wrapS = ClampToEdgeWrapping;
+  texture.wrapT = MirroredRepeatWrapping;
+  return texture;
 }
