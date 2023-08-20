@@ -78,6 +78,7 @@ async function init() {
 
     const { x, y } = getWorldPosition(rect, canvasRect);
     mesh.position.set(x, y, 0);
+    console.log(mesh.position);
 
     const gui = new GUI();
     const folder1 = gui.addFolder("");
@@ -105,10 +106,8 @@ async function init() {
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
-
     world.renderer.render(world.scene, world.camera);
   }
-
   animate();
 }
 

@@ -116,8 +116,13 @@ async function init() {
 
   render();
   function render() {
+   
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
+
+    
+
+    
 
     controls.update();
     world.renderer.render(world.scene, world.camera);
