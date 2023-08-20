@@ -92,26 +92,26 @@ async function init() {
     os.push(o);
     world.scene.add(mesh);
 
-  //   const gui = new GUI();
-  //   const folder1 = gui.addFolder("z-distance");
-  //   folder1.open();
+    const gui = new GUI();
+    const folder1 = gui.addFolder("z-distance");
+    folder1.open();
 
-  //   folder1
-  //     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-  //     .name("zaxis")
-  //     .listen();
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("zaxis")
+      .listen();
 
-  //   const datData = { next: !!material.uniforms.uProgress.value };
-  //   folder1
-  //     .add(datData, "next")
-  //     .name("moving axis")
-  //     .onChange(() => {
-  //       gsap.to(material.uniforms.uProgress, {
-  //         value: datData.next ? 1 : 0,
-  //         duration: 3,
-  //         ease: "ease",
-  //       });
-  //     });
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("moving axis")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 1 : 0,
+          duration: 3,
+          ease: "ease",
+        });
+      });
   });
 
   render();
@@ -119,7 +119,7 @@ async function init() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
 
-    // controls.update();
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
