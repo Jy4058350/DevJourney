@@ -41,7 +41,7 @@ async function init() {
   const aspect = cameraWidth / cameraHeight;
   const near = 1500;
   const far = 4000;
-  const cameraZ = 2000;
+  const cameraZ = 2500;
   const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
   const fov = radian * (180 / Math.PI);
 
@@ -72,7 +72,6 @@ async function init() {
   els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
-   
 
     const geometry = new PlaneGeometry(128, 72);
     const material = new ShaderMaterial({
@@ -112,17 +111,13 @@ async function init() {
   });
 
   let i = 0;
-  function animate() {
-    requestAnimationFrame(animate);
+  render();
+  function render() {
+    requestAnimationFrame(render);
     controls.update();
-
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
 
     world.renderer.render(world.scene, world.camera);
   }
-
-  animate();
 }
 
 function getWorldPosition(rect, canvasRect) {
