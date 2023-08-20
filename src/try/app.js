@@ -19,6 +19,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode.js";
 
 const world = {};
+const os = [];
+const canvasRect = canvas.getBoundingClientRect();
 
 init();
 
@@ -28,7 +30,6 @@ async function init() {
     canvas,
     antialias: true,
   });
-  const canvasRect = canvas.getBoundingClientRect();
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
   world.renderer.setPixelRatio(window.devicePixelRatio);
   world.renderer.setClearColor(0x000000, 0);
@@ -88,7 +89,7 @@ async function init() {
         el,
       },
     };
-
+    os.push(o);
     world.scene.add(mesh);
 
     const gui = new GUI();
@@ -116,10 +117,21 @@ async function init() {
   render();
   function render() {
     requestAnimationFrame(render);
-    controls.update();
+    os.forEach((o) => scroll(o));
 
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
+}
+
+function scroll(o) {
+  const {
+    $: { el },
+    mesh,
+  } = o;
+  const rect = el.getBoundingClientRect();
+  const { y } = getWorldPosition(rect, canvasRect);
+  mesh.position.y = y;
 }
 
 function getWorldPosition(rect, canvasRect) {
