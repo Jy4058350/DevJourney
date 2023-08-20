@@ -10,10 +10,11 @@ void main() {
 
   vec2 uv = vUv;
   //uTickをデフォルトは0.0では動かないので1.0を足している
-  float time = uTick + 1.0;
+  // float time = uTick + 1.0;
 
 //slideを右から左に移動させる　 uTickはスピード調整用で20にしたら挙動がはやくなる
-  uv.x += time * uProgress;
+  uv.y += uTick * uProgress;
+  // uv.x += time * uProgress;
 
   vec4 color1 = texture2D(uTex1, uv);
 

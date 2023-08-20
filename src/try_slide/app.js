@@ -71,8 +71,8 @@ async function init() {
       uniforms: {
         uTex1: { value: await loadTex("/img/output3.jpg") },
         uTex2: { value: await loadTex("/img/output2.jpg") },
-        uTick: { value: 0 },
-        uProgress: { value: 0 },
+        uTick: { value: 1 },
+        uProgress: { value: 1 },
       },
       vertexShader,
       fragmentShader,
@@ -111,7 +111,7 @@ async function init() {
       .onChange(() => {
         gsap.to(material.uniforms.uProgress, {
           value: datData.next ? 1 : 0,
-          duration: 3,
+          duration: 1,
           ease: "ease",
         });
       });
