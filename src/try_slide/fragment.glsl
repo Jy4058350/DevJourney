@@ -4,6 +4,7 @@ varying vec2 vUv;
 uniform sampler2D uTex1;
 uniform sampler2D uTex2;
 uniform sampler2D uTex3;
+uniform sampler2D uMask;
 uniform float uTick;
 uniform float uProgress;
 
@@ -15,6 +16,7 @@ void main() {
   vec2 uv = vUv;
   vec2 uv2 = -vUv;
   vec2 uv3 = -vUv;
+  vec2 uv0 = vUv;
 
   float progress = ease(uProgress);
 
@@ -36,17 +38,21 @@ void main() {
       break;
     }
   }
-
+  vec4 color0aa = texture2D(uTex1, uv0);
+  vec4 color0 = texture2D(uTex1, uv0);
   vec4 color1 = texture2D(uTex1, uv);
   vec4 color2 = texture2D(uTex2, uv2);
   vec4 color3 = texture2D(uTex3, uv3);
-  vec4 color1a = vec4(color1.rgb, alpha); // アルファ値を設定
+  vec4 maskColor = texture2D(uMask, uv0);//マスクの色を取得
+  vec4 color0a = vec4(color0.rgb * maskColor.r, 0.7);//アルファ値を調整して薄くしているグレーにする
+  vec4 color1a = vec4(color1.rgb * maskColor.r, alpha); // アルファ値を設定
 
   vec4 colorz = vec4(color3.rgb, alpha);//グラデーションを３回すライドさせる
 
   // gl_FragColor = color1a;//color1を上にスライドかつ透明にする
   vec4 grad1 = mix(color1a, colorz, uProgress);//color1とグラデーションを混ぜる
   vec4 color1b = mix(color1a, color3, uProgress);
-  
-  gl_FragColor = mix(color1b, color2, uProgress);
+
+  gl_FragColor = mix(color0aa, color0a, uProgress);//colorをグレーにするにはuTickをつかっていないuvをとってこないといけない
+  // gl_FragColor = mix(color1b, color2, uProgress);
 }
