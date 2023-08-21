@@ -80,6 +80,7 @@ async function init() {
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
+    material.uniforms.uTex3.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
 
     const mesh = new Mesh(geometry, material);
     mesh.position.set(x, y, 0);
