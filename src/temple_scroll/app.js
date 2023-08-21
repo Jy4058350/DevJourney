@@ -157,14 +157,20 @@ function initScroller() {
   const el = iNode.qs("[data-webgl]");
   console.log(el);
 
+  const pinTrigger = document.querySelector(".pin-trigger"); // ピンを維持するトリガー要素
+
   gsap.to(el, {
-    x: 300,
+    
     scrollTrigger: {
       trigger: el,
-      start: "center center",
-      end: "center 30%",
+      start: "center top",
+      endTrigger: "body bottom",
+      // end: "top top",
       scrub: true,
       pin: true,
+      pinSpacing: false,
     },
   });
+
+
 }
