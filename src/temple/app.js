@@ -24,11 +24,11 @@ import { iNode } from "../iNode";
 
 const world = {};
 const os = [];
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
 init();
 
 async function init() {
-  const canvas = iNode.qs("#canvas");
-  const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
@@ -91,14 +91,6 @@ async function init() {
     };
     os.push(o);
 
-    os.forEach((o) => {
-      const {
-        $: { el },
-        mesh,
-      } = o;
-      const rect = el.getBoundingClientRect();
-    });
-
     const gui = new GUI();
     const folder1 = gui.addFolder("");
     folder1.open();
@@ -124,7 +116,7 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    // scroll(o);
+    os.forEach((o) => scroll(o)); //この記述を覚える！！
     controls.update();
     world.renderer.render(world.scene, world.camera);
   }
@@ -146,6 +138,11 @@ function getWorldPosition(rect, canvasRect) {
 }
 
 function scroll(o) {
+  const {
+    $: { el },
+    mesh,
+  } = o;
+  const rect = el.getBoundingClientRect();
   const { y } = getWorldPosition(rect, canvasRect);
   mesh.position.y = y;
 }
