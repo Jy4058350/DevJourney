@@ -23,11 +23,12 @@ import { iNode } from "../iNode";
 
 const world = {};
 const os = []; //operation systemの略
+
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
 init();
 
 async function init() {
-  const canvas = iNode.qs("#canvas");
-  const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
