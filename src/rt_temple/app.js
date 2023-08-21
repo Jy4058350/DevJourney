@@ -135,8 +135,8 @@ async function init() {
   controls.enableDamping = true;
 
   let i = 0;
-  function animate() {
-    requestAnimationFrame(animate);
+  function render() {
+    requestAnimationFrame(render);
 
     world.renderer.setRenderTarget(world.renderTarget);
     world.renderer.render(world.rtScene, world.rtCamera);
@@ -148,7 +148,7 @@ async function init() {
     controls.update();
   }
 
-  animate();
+  render();
 }
 
 async function loadTex(url) {

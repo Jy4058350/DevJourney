@@ -12,12 +12,14 @@ import {
   ShaderMaterial,
   Mesh,
   AxesHelper,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
 } from "three";
-import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
+import { ScrollTrigger} from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
@@ -113,6 +115,8 @@ async function init() {
       });
   });
 
+  initScroller();
+
   let i = 0;
   render();
   function render() {
@@ -127,8 +131,8 @@ async function init() {
 async function loadTex(url) {
   const texLoader = new TextureLoader();
   const texture = await texLoader.loadAsync(url);
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.MirroredRepeatWrapping;
+  texture.wrapS = ClampToEdgeWrapping;
+  texture.wrapT = MirroredRepeatWrapping;
   return texture;
 }
 
@@ -146,4 +150,10 @@ function scroll(o) {
   const rect = el.getBoundingClientRect();
   const { y } = getWorldPosition(rect, canvasRect);
   mesh.position.y = y;
+}
+
+function initScroller() {
+  gsap.registerPlugin(ScrollTrigger);
+  const el = iNode.qs("[data-webgl]");
+  console.log(el);
 }
