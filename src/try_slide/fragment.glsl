@@ -7,14 +7,20 @@ uniform sampler2D uTex3;
 uniform float uTick;
 uniform float uProgress;
 
+#pragma glslify: ease = require(glsl-easings/quartic-in)
+// #pragma glslify: ease = require(glsl-easings/cubic-out)
+// #pragma glslify: ease = require(glsl-easings/cubic-in-out)
+
 void main() {
   vec2 uv = vUv;
   vec2 uv2 = -vUv;
   vec2 uv3 = -vUv;
 
+  float progress = ease(uProgress);
+
   // slideを上下に移動させる
-  uv.y -= uTick * uProgress;
-  uv3.y -= (uTick + 5.0) * uProgress;
+  uv.y -= uTick * progress;
+  uv3.y -= (uTick + 3.0) * uProgress;
 
   // セグメントの数　intは整数型であることを示す
   const int numSegments = 20;
