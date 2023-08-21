@@ -141,7 +141,8 @@ function scroll(o) {
   const {
     $: { el },
     mesh,
-    rect,
-    canvasRect,
   } = o;
+  const rect = el.getBoundingClientRect();
+  const { y } = getWorldPosition(rect, canvasRect);
+  mesh.position.y = y;
 }
