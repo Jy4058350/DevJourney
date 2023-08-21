@@ -12,8 +12,9 @@ import {
   ShaderMaterial,
   Mesh,
   AxesHelper,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
 } from "three";
-import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -22,6 +23,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 const world = {};
+const os = [];
 init();
 
 async function init() {
@@ -64,7 +66,7 @@ async function init() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: await loadTex("/img/output1.jpg") },
+        uTex1: { value: await loadTex("/img/output5.jpg") },
         uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
@@ -78,7 +80,24 @@ async function init() {
 
     const { x, y } = getWorldPosition(rect, canvasRect);
     mesh.position.set(x, y, 0);
-    console.log(mesh.position);
+
+    const o = {
+      $: { el },
+      mesh,
+      geometry,
+      material,
+      rect,
+      canvasRect,
+    };
+    os.push(o);
+
+    os.forEach((o) => {
+      const {
+        $: { el },
+        mesh,
+      } = o;
+      const rect = el.getBoundingClientRect();
+    });
 
     const gui = new GUI();
     const folder1 = gui.addFolder("");
@@ -105,6 +124,7 @@ async function init() {
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
+    // scroll(o);
     controls.update();
     world.renderer.render(world.scene, world.camera);
   }
@@ -114,8 +134,8 @@ async function init() {
 async function loadTex(url) {
   const texLoader = new TextureLoader();
   const texture = await texLoader.loadAsync(url);
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.MirroredRepeatWrapping;
+  texture.wrapS = ClampToEdgeWrapping;
+  texture.wrapT = MirroredRepeatWrapping;
   return texture;
 }
 
@@ -123,4 +143,9 @@ function getWorldPosition(rect, canvasRect) {
   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
   return { x, y };
+}
+
+function scroll(o) {
+  const { y } = getWorldPosition(rect, canvasRect);
+  mesh.position.y = y;
 }
