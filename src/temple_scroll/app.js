@@ -19,7 +19,7 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
-import { ScrollTrigger} from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
@@ -59,8 +59,8 @@ async function init() {
   const axis = new AxesHelper(100);
   world.scene.add(axis);
 
-  const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
+  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  // controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
@@ -123,7 +123,7 @@ async function init() {
     requestAnimationFrame(render);
     //スクロール処理
     os.forEach((o) => scroll(o));
-    controls.update();
+    // controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
@@ -156,4 +156,15 @@ function initScroller() {
   gsap.registerPlugin(ScrollTrigger);
   const el = iNode.qs("[data-webgl]");
   console.log(el);
+
+  gsap.to(el, {
+    x: 300,
+    scrollTrigger: {
+      trigger: el,
+      start: "center center",
+      end: "center 30%",
+      scrub: true,
+      pin: true,
+    },
+  });
 }
