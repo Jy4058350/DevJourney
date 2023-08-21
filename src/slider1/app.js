@@ -56,65 +56,65 @@ async function init() {
 
   // document.body.appendChild(world.renderer.domElement);
 
-  const geometry = new PlaneGeometry(100, 100);
-  const material = new ShaderMaterial({
-    uniforms: {
-      uTexCurrent: { value: await loadTex("/img/output4.jpg") },
-      uTexNext: { value: await loadTex("/img/output5.jpg") },
-      uTexDisp: { value: await loadTex("/img/displacement/4.png") },
-      uTick: { value: 0 },
-      uProgress: { value: 0 },
-      uProgress1: { value: 0 },
-      uNoise: { value: new Vector2(10, 10) },
-    },
-    vertexShader,
-    fragmentShader,
-  });
-  const mesh = new Mesh(geometry, material);
-  world.scene.add(mesh);
-
-  const data_webgl = iNode.qs(".rectangle-div");
-  const rect = data_webgl.getBoundingClientRect();
-  const { x, y } = getWorldPosition(rect, canvasRect);
-  mesh.position.set(x, y, 0);
-
   const axis = new AxesHelper(100);
   world.scene.add(axis);
 
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const gui = new GUI();
-  const folder1 = gui.addFolder("slide");
-  folder1.open();
-
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("myslider")
-    .listen();
-
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("moving ")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-        onComplete: () => {
-          console.log(datData.next);
-        },
-      });
+  const els = iNode.qsa("[data-webgl]");
+  els.forEach(async (el) => {
+    const rect = el.getBoundingClientRect();
+    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const material = new ShaderMaterial({
+      uniforms: {
+        uTexCurrent: { value: await loadTex("/img/output4.jpg") },
+        uTexNext: { value: await loadTex("/img/output5.jpg") },
+        uTexDisp: { value: await loadTex("/img/displacement/4.png") },
+        uTick: { value: 0 },
+        uProgress: { value: 0 },
+        uProgress1: { value: 0 },
+        uNoise: { value: new Vector2(10, 10) },
+      },
+      vertexShader,
+      fragmentShader,
     });
+    const mesh = new Mesh(geometry, material);
+    world.scene.add(mesh);
+
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+
+    const gui = new GUI();
+    const folder1 = gui.addFolder("slide");
+    folder1.open();
+
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("myslider")
+      .listen();
+
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("moving ")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 1 : 0,
+          duration: 3,
+          ease: "ease",
+          onComplete: () => {
+            console.log(datData.next);
+          },
+        });
+      });
+  });
 
   let i = 0;
-  animate();
-  function animate() {
-    requestAnimationFrame(animate);
+  render();
+  function render() {
+    requestAnimationFrame(render);
     controls.update();
-
-    // material.uniforms.uTick.value += 0.1;
 
     world.renderer.render(world.scene, world.camera);
   }
@@ -133,70 +133,68 @@ async function init() {
     return { x, y };
   }
 
+  const hovered = iNode.qsa(".hovered");
+  const openSubmenu = iNode.qs(".open-submenu");
+  const header = iNode.qs(".header");
+  const dev = iNode.qs(".dev");
+  const account = iNode.qs(".account");
 
-    const hovered = iNode.qsa(".hovered");
-    const openSubmenu = iNode.qs(".open-submenu");
-    const header = iNode.qs(".header");
-    const dev = iNode.qs(".dev");
-    const account = iNode.qs(".account");
-
-    hovered.forEach((item) => {
-      item.addEventListener("mouseenter", () => {
-        item.classList.add("active");
-        openSubmenu.classList.add("active");
-        header.classList.add("white");
-        dev.classList.add("white");
-        account.classList.add("white");
-        hovered.forEach((item) => {
-          item.classList.add("white");
-        });
-      });
-    });
-
-    hovered.forEach((item) => {
-      item.addEventListener("mouseleave", () => {
-        if (!openSubmenu.matches(":hover")) {
-          item.classList.remove("active");
-          openSubmenu.classList.remove("active");
-          // header.classList.remove("white");
-          // dev.classList.remove("white");
-          account.classList.remove("white");
-          // hovered.forEach((item) => {
-          //   item.classList.remove("white");
-          // });
-        }
-      });
-    });
-    openSubmenu.addEventListener("mouseleave", () => {
-      if (!openSubmenu.matches(":hover")) {
-        openSubmenu.classList.remove("active");
-        header.classList.remove("white");
-        dev.classList.remove("white");
-        account.classList.remove("white");
-        hovered.forEach((item) => {
-          item.classList.remove("white");
-        });
-      }
-    });
-
-    header.addEventListener("mouseenter", () => {
-      dev.classList.add("white");
+  hovered.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      item.classList.add("active");
+      openSubmenu.classList.add("active");
       header.classList.add("white");
+      dev.classList.add("white");
+      account.classList.add("white");
       hovered.forEach((item) => {
         item.classList.add("white");
       });
     });
-    header.addEventListener("mouseleave", () => {
-      if (!openSubmenu.matches(".active")) {
-        header.classList.remove("white");
-        dev.classList.remove("white");
-        hovered.forEach((item) => {
-          item.classList.remove("white");
-        });
-      }
-      if (!openSubmenu.matches(".active")) {
-        header.classList.remove("white");
+  });
+
+  hovered.forEach((item) => {
+    item.addEventListener("mouseleave", () => {
+      if (!openSubmenu.matches(":hover")) {
+        item.classList.remove("active");
+        openSubmenu.classList.remove("active");
+        // header.classList.remove("white");
+        // dev.classList.remove("white");
+        account.classList.remove("white");
+        // hovered.forEach((item) => {
+        //   item.classList.remove("white");
+        // });
       }
     });
-}
+  });
+  openSubmenu.addEventListener("mouseleave", () => {
+    if (!openSubmenu.matches(":hover")) {
+      openSubmenu.classList.remove("active");
+      header.classList.remove("white");
+      dev.classList.remove("white");
+      account.classList.remove("white");
+      hovered.forEach((item) => {
+        item.classList.remove("white");
+      });
+    }
+  });
 
+  header.addEventListener("mouseenter", () => {
+    dev.classList.add("white");
+    header.classList.add("white");
+    hovered.forEach((item) => {
+      item.classList.add("white");
+    });
+  });
+  header.addEventListener("mouseleave", () => {
+    if (!openSubmenu.matches(".active")) {
+      header.classList.remove("white");
+      dev.classList.remove("white");
+      hovered.forEach((item) => {
+        item.classList.remove("white");
+      });
+    }
+    if (!openSubmenu.matches(".active")) {
+      header.classList.remove("white");
+    }
+  });
+}
