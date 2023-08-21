@@ -2,7 +2,21 @@
  * Three.js
  * https://threejs.org/
  */
-import * as THREE from "three";
+import "../style.scss";
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  PlaneGeometry,
+  ShaderMaterial,
+  Vector2,
+  Mesh,
+  AxesHelper,
+  TextureLoader,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
+} from "three";
+// import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -10,31 +24,27 @@ import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
+const world = {};
+
 init();
 async function init() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
+  const scene = new Scene();
+  const canvasRect = canvas.getBoundingClientRect();
+
+  const camera = new PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
   );
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  const renderer = new WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
   document.body.appendChild(renderer.domElement);
 
-  async function loadTex(url) {
-    const texLoader = new THREE.TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
-    return texture;
-  }
-
-  const geometry = new THREE.PlaneGeometry(50, 25);
-  const material = new THREE.ShaderMaterial({
+  const geometry = new PlaneGeometry(50, 25);
+  const material = new ShaderMaterial({
     uniforms: {
       uTexCurrent: { value: await loadTex("/img/output4.jpg") },
       uTexNext: { value: await loadTex("/img/output5.jpg") },
@@ -42,18 +52,17 @@ async function init() {
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uProgress1: { value: 0 },
-      uNoise: { value: new THREE.Vector2(10, 10) },
+      uNoise: { value: new Vector2(10, 10) },
     },
     vertexShader,
     fragmentShader,
   });
-  console.log(material.uniforms.uNoise.value);
-  const plane = new THREE.Mesh(geometry, material);
+  const plane = new Mesh(geometry, material);
   scene.add(plane);
 
   camera.position.z = 30;
 
-  const axis = new THREE.AxesHelper(100);
+  const axis = new AxesHelper(100);
   scene.add(axis);
 
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -84,6 +93,7 @@ async function init() {
     });
 
   let i = 0;
+  animate();
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -93,7 +103,13 @@ async function init() {
     renderer.render(scene, camera);
   }
 
-  animate();
+  async function loadTex(url) {
+    const texLoader = new TextureLoader();
+    const texture = await texLoader.loadAsync(url);
+    texture.wrapS = ClampToEdgeWrapping;
+    texture.wrapT = MirroredRepeatWrapping;
+    return texture;
+  }
 
   const hovered = iNode.qsa(".hovered");
   const openSubmenu = iNode.qs(".open-submenu");
@@ -136,8 +152,7 @@ async function init() {
       account.classList.remove("white");
       hovered.forEach((item) => {
         item.classList.remove("white");
-      }
-      );
+      });
     }
   });
 
