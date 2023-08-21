@@ -63,12 +63,12 @@ async function init() {
   world.rtCamera = world.camera.clone();
   world.rtScene = new Scene();
 
-  const commonGeoSize = new Vector2(50, 25);
+  const commonGeoSize = new Vector2(64, 80);
 
   const rtGeo = new PlaneGeometry(commonGeoSize.x, commonGeoSize.y);
   const rtMate = new ShaderMaterial({
     uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
+      uTex1: { value: await loadTex("/img/output1.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },

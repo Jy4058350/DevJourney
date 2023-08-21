@@ -158,6 +158,8 @@ async function init() {
     renderer.render(rtScene, rtCamera);
     renderer.setRenderTarget(null);
 
+    rtMesh.rotation.y += 0.01;
+
     controls.update();
 
     renderer.render(scene, camera);

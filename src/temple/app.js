@@ -52,63 +52,75 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  const geometry = new PlaneGeometry(127, 72);
-  const material = new ShaderMaterial({
-    uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
-      uTick: { value: 0 },
-      uProgress: { value: 0 },
-    },
-    vertexShader,
-    fragmentShader,
-  });
-
-  const mesh = new Mesh(geometry, material);
-  world.scene.add(mesh);
-
-  async function loadTex(url) {
-    const texLoader = new TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
-    return texture;
-  }
-
   const axis = new AxesHelper(100);
   world.scene.add(axis);
 
   const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
-  const gui = new GUI();
-  const folder1 = gui.addFolder("");
-  folder1.open();
-
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("")
-    .listen();
-
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-      });
+  const els = iNode.qsa("[data-webgl]");
+  els.forEach(async (el) => {
+    const rect = el.getBoundingClientRect();
+    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const material = new ShaderMaterial({
+      uniforms: {
+        uTex1: { value: await loadTex("/img/output1.jpg") },
+        uTex2: { value: await loadTex("/img/output2.jpg") },
+        uTick: { value: 0 },
+        uProgress: { value: 0 },
+      },
+      vertexShader,
+      fragmentShader,
     });
+
+    const mesh = new Mesh(geometry, material);
+    world.scene.add(mesh);
+
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+    console.log(mesh.position);
+
+    const gui = new GUI();
+    const folder1 = gui.addFolder("");
+    folder1.open();
+
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("")
+      .listen();
+
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 1 : 0,
+          duration: 3,
+          ease: "ease",
+        });
+      });
+  });
 
   let i = 0;
   function animate() {
     requestAnimationFrame(animate);
-    // controls.update();
-
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
-
   animate();
+}
+
+async function loadTex(url) {
+  const texLoader = new TextureLoader();
+  const texture = await texLoader.loadAsync(url);
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.MirroredRepeatWrapping;
+  return texture;
+}
+
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
 }

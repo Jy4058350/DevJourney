@@ -7,8 +7,9 @@ uniform float uProgress;
 
 void main() {
 
-  vec2 uv = vUv;
-  vec4 color = texture2D(uTex1, uv);
+  vec2 fuv = vUv;
+  fuv.y = fract(fuv.y * 2.0);
+  vec4 color = texture(uTex1, fuv);
 
   gl_FragColor = color;
 

@@ -70,13 +70,18 @@ async function init() {
     const material = new ShaderMaterial({
       uniforms: {
         uTex1: { value: await loadTex("/img/output3.jpg") },
-        uTex2: { value: await loadTex("/img/output2.jpg") },
-        uTick: { value: 0 },
+        uTex2: { value: await loadTex("/img/output4.jpg") },
+        uTex3: { value: await loadTex("/img/texture1.png") },
+        uTick: { value: 1 },
         uProgress: { value: 0 },
       },
       vertexShader,
       fragmentShader,
     });
+    material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
+    material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
+    material.uniforms.uTex3.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
+
     const mesh = new Mesh(geometry, material);
     mesh.position.set(x, y, 0);
 
@@ -92,26 +97,26 @@ async function init() {
     os.push(o);
     world.scene.add(mesh);
 
-  //   const gui = new GUI();
-  //   const folder1 = gui.addFolder("z-distance");
-  //   folder1.open();
+    const gui = new GUI();
+    const folder1 = gui.addFolder("slider");
+    folder1.open();
 
-  //   folder1
-  //     .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-  //     .name("zaxis")
-  //     .listen();
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("vertical")
+      .listen();
 
-  //   const datData = { next: !!material.uniforms.uProgress.value };
-  //   folder1
-  //     .add(datData, "next")
-  //     .name("moving axis")
-  //     .onChange(() => {
-  //       gsap.to(material.uniforms.uProgress, {
-  //         value: datData.next ? 1 : 0,
-  //         duration: 3,
-  //         ease: "ease",
-  //       });
-  //     });
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("updown")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 0 : 1,
+          duration: 2,
+          ease: "ease",
+        });
+      });
   });
 
   render();
@@ -119,7 +124,7 @@ async function init() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
 
-    // controls.update();
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
