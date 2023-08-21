@@ -22,6 +22,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 const world = {};
+const os = []; //operation systemの略
 init();
 
 async function init() {
@@ -87,6 +88,7 @@ async function init() {
       geometry,
       material,
     };
+    os.push(o);
 
     const gui = new GUI();
     const folder1 = gui.addFolder("");
@@ -111,12 +113,13 @@ async function init() {
   });
 
   let i = 0;
+  render();
   function render() {
     requestAnimationFrame(render);
+    os.forEach((o) => scroll(o));
     controls.update();
     world.renderer.render(world.scene, world.camera);
   }
-  render();
 }
 
 async function loadTex(url) {
