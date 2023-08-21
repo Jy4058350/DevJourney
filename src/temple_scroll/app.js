@@ -116,6 +116,7 @@ async function init() {
   render();
   function render() {
     requestAnimationFrame(render);
+    //スクロール処理
     os.forEach((o) => scroll(o));
     controls.update();
     world.renderer.render(world.scene, world.camera);
@@ -136,4 +137,11 @@ function getWorldPosition(rect, canvasRect) {
   return { x, y };
 }
 
-function scroll(o) {}
+function scroll(o) {
+  const {
+    $: { el },
+    mesh,
+    rect,
+    canvasRect,
+  } = o;
+}
