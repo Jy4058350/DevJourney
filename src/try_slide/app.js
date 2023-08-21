@@ -70,9 +70,10 @@ async function init() {
     const material = new ShaderMaterial({
       uniforms: {
         uTex1: { value: await loadTex("/img/output3.jpg") },
-        uTex2: { value: await loadTex("/img/output2.jpg") },
+        uTex2: { value: await loadTex("/img/output4.jpg") },
+        uTex3: { value: await loadTex("/img/texture1.png") },
         uTick: { value: 1 },
-        uProgress: { value: 1 },
+        uProgress: { value: 0 },
       },
       vertexShader,
       fragmentShader,
