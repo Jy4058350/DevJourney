@@ -16,7 +16,6 @@ import {
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
 } from "three";
-// import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -25,23 +24,24 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 const world = {};
+console.log(world);
 
 init();
 async function init() {
-  const scene = new Scene();
+  world.scene = new Scene();
   const canvasRect = canvas.getBoundingClientRect();
 
-  const camera = new PerspectiveCamera(
+  world.camera = new PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
   );
 
-  const renderer = new WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0xffffff);
-  document.body.appendChild(renderer.domElement);
+  world.renderer = new WebGLRenderer({ antialias: true });
+  world.renderer.setSize(window.innerWidth, window.innerHeight);
+  world.renderer.setClearColor(0xffffff);
+  // document.body.appendChild(renderer.domElement);
 
   const geometry = new PlaneGeometry(50, 25);
   const material = new ShaderMaterial({
@@ -58,14 +58,14 @@ async function init() {
     fragmentShader,
   });
   const plane = new Mesh(geometry, material);
-  scene.add(plane);
+  world.scene.add(plane);
 
-  camera.position.z = 30;
+  world.camera.position.z = 30;
 
   const axis = new AxesHelper(100);
-  scene.add(axis);
+  world.scene.add(axis);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
   controls.enableDamping = true;
 
   const gui = new GUI();
@@ -100,7 +100,7 @@ async function init() {
 
     material.uniforms.uTick.value += 0.1;
 
-    renderer.render(scene, camera);
+    world.renderer.render(world.scene, world.camera);
   }
 
   async function loadTex(url) {
