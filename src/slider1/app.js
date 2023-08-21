@@ -4,15 +4,15 @@
  */
 import "../style.scss";
 import {
+  WebGLRenderer,
   Scene,
   PerspectiveCamera,
-  WebGLRenderer,
+  TextureLoader,
   PlaneGeometry,
   ShaderMaterial,
-  Vector2,
   Mesh,
   AxesHelper,
-  TextureLoader,
+  Vector2,
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
 } from "three";
@@ -24,34 +24,39 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 const world = {};
-console.log(world);
 
 init();
 async function init() {
-  world.scene = new Scene();
   const canvas = iNode.qs("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
-  console.log(canvasRect);
-  const cameraWidth = canvasRect.width;
-  const cameraHeight = canvasRect.height;
-  const aspect = cameraWidth / cameraHeight;
-  const near = 1500;
-  const far = 4000;
-  const cameraZ = 2500;
-  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
-  const fov = radian * (180 / Math.PI);
-
-  world.camera = new PerspectiveCamera(fov, aspect, near, far);
-
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
   });
-  world.renderer.setSize(cameraWidth, cameraHeight);
-  world.renderer.setClearColor(0xffffff);
-  // document.body.appendChild(renderer.domElement);
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setClearColor(0xffffff, 0);
 
-  const geometry = new PlaneGeometry(50, 25);
+  const cameraWidth = canvasRect.width;
+  const cameraHeight = canvasRect.height;
+  const near = 1500;
+  const far = 4000;
+  const aspect = cameraWidth / cameraHeight;
+  const cameraZ = 2000;
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+  const fov = radian * (180 / Math.PI);
+
+  world.scene = new Scene();
+  world.camera = new PerspectiveCamera(
+    fov,
+    cameraWidth / cameraHeight,
+    near,
+    far
+  );
+  world.camera.position.z = cameraZ;
+
+  // document.body.appendChild(world.renderer.domElement);
+
+  const geometry = new PlaneGeometry(100, 100);
   const material = new ShaderMaterial({
     uniforms: {
       uTexCurrent: { value: await loadTex("/img/output4.jpg") },
@@ -68,7 +73,10 @@ async function init() {
   const mesh = new Mesh(geometry, material);
   world.scene.add(mesh);
 
-  world.camera.position.z = 30;
+  const data_webgl = iNode.qs(".rectangle-div");
+  const rect = data_webgl.getBoundingClientRect();
+  const { x, y } = getWorldPosition(rect, canvasRect);
+  mesh.position.set(x, y, 0);
 
   const axis = new AxesHelper(100);
   world.scene.add(axis);
@@ -106,7 +114,7 @@ async function init() {
     requestAnimationFrame(animate);
     controls.update();
 
-    material.uniforms.uTick.value += 0.1;
+    // material.uniforms.uTick.value += 0.1;
 
     world.renderer.render(world.scene, world.camera);
   }
@@ -119,86 +127,73 @@ async function init() {
     return texture;
   }
 
-  const rectangle_div = iNode.qs(".rectangle-div");
-  const rectangle_divRect = rectangle_div.getBoundingClientRect();
-  console.log(rectangle_divRect);
-  const { x, y } = getWorldPosition(rectangle_divRect, canvasRect);
-  console.log(x, y);
+  //   const hovered = iNode.qsa(".hovered");
+  //   const openSubmenu = iNode.qs(".open-submenu");
+  //   const header = iNode.qs(".header");
+  //   const dev = iNode.qs(".dev");
+  //   const account = iNode.qs(".account");
 
-  function getWorldPosition(rectangle_divRect, canvasRect) {
-    const x =
-      rectangle_divRect.left +
-      rectangle_divRect.width / 2 -
-      canvasRect.width / 2;
-    const y =
-      -rectangle_divRect.top -
-      rectangle_divRect.height / 2 +
-      canvasRect.height / 2;
-    return { x, y };
-  }
+  //   hovered.forEach((item) => {
+  //     item.addEventListener("mouseenter", () => {
+  //       item.classList.add("active");
+  //       openSubmenu.classList.add("active");
+  //       header.classList.add("white");
+  //       dev.classList.add("white");
+  //       account.classList.add("white");
+  //       hovered.forEach((item) => {
+  //         item.classList.add("white");
+  //       });
+  //     });
+  //   });
 
-  const hovered = iNode.qsa(".hovered");
-  const openSubmenu = iNode.qs(".open-submenu");
-  const header = iNode.qs(".header");
-  const dev = iNode.qs(".dev");
-  const account = iNode.qs(".account");
+  //   hovered.forEach((item) => {
+  //     item.addEventListener("mouseleave", () => {
+  //       if (!openSubmenu.matches(":hover")) {
+  //         item.classList.remove("active");
+  //         openSubmenu.classList.remove("active");
+  //         // header.classList.remove("white");
+  //         // dev.classList.remove("white");
+  //         account.classList.remove("white");
+  //         // hovered.forEach((item) => {
+  //         //   item.classList.remove("white");
+  //         // });
+  //       }
+  //     });
+  //   });
+  //   openSubmenu.addEventListener("mouseleave", () => {
+  //     if (!openSubmenu.matches(":hover")) {
+  //       openSubmenu.classList.remove("active");
+  //       header.classList.remove("white");
+  //       dev.classList.remove("white");
+  //       account.classList.remove("white");
+  //       hovered.forEach((item) => {
+  //         item.classList.remove("white");
+  //       });
+  //     }
+  //   });
 
-  hovered.forEach((item) => {
-    item.addEventListener("mouseenter", () => {
-      item.classList.add("active");
-      openSubmenu.classList.add("active");
-      header.classList.add("white");
-      dev.classList.add("white");
-      account.classList.add("white");
-      hovered.forEach((item) => {
-        item.classList.add("white");
-      });
-    });
-  });
-
-  hovered.forEach((item) => {
-    item.addEventListener("mouseleave", () => {
-      if (!openSubmenu.matches(":hover")) {
-        item.classList.remove("active");
-        openSubmenu.classList.remove("active");
-        // header.classList.remove("white");
-        // dev.classList.remove("white");
-        account.classList.remove("white");
-        // hovered.forEach((item) => {
-        //   item.classList.remove("white");
-        // });
-      }
-    });
-  });
-  openSubmenu.addEventListener("mouseleave", () => {
-    if (!openSubmenu.matches(":hover")) {
-      openSubmenu.classList.remove("active");
-      header.classList.remove("white");
-      dev.classList.remove("white");
-      account.classList.remove("white");
-      hovered.forEach((item) => {
-        item.classList.remove("white");
-      });
-    }
-  });
-
-  header.addEventListener("mouseenter", () => {
-    dev.classList.add("white");
-    header.classList.add("white");
-    hovered.forEach((item) => {
-      item.classList.add("white");
-    });
-  });
-  header.addEventListener("mouseleave", () => {
-    if (!openSubmenu.matches(".active")) {
-      header.classList.remove("white");
-      dev.classList.remove("white");
-      hovered.forEach((item) => {
-        item.classList.remove("white");
-      });
-    }
-    if (!openSubmenu.matches(".active")) {
-      header.classList.remove("white");
-    }
-  });
+  //   header.addEventListener("mouseenter", () => {
+  //     dev.classList.add("white");
+  //     header.classList.add("white");
+  //     hovered.forEach((item) => {
+  //       item.classList.add("white");
+  //     });
+  //   });
+  //   header.addEventListener("mouseleave", () => {
+  //     if (!openSubmenu.matches(".active")) {
+  //       header.classList.remove("white");
+  //       dev.classList.remove("white");
+  //       hovered.forEach((item) => {
+  //         item.classList.remove("white");
+  //       });
+  //     }
+  //     if (!openSubmenu.matches(".active")) {
+  //       header.classList.remove("white");
+  //     }
+  //   });
+}
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
 }
