@@ -3,6 +3,11 @@ body {
   line-height: normal;
 }
 
+#canvas {
+  width: 400px;
+  height: 400px;
+}
+
 :root {
   /* fonts */
   --font-istok-web: "Istok Web";
@@ -506,6 +511,7 @@ a {
 .px-1-inner,
 .rectangle-div {
   background-color: var(--color-gainsboro-100);
+  opacity: 0.3;
 }
 .rectangle-div {
   position: absolute;
@@ -513,6 +519,7 @@ a {
   left: 788px;
   width: 326px;
   height: 224px;
+ 
 }
 .frame-child {
   position: relative;

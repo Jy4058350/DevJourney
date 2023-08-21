@@ -29,17 +29,25 @@ console.log(world);
 init();
 async function init() {
   world.scene = new Scene();
+  const canvas = iNode.qs("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
+  console.log(canvasRect);
+  const cameraWidth = canvasRect.width;
+  const cameraHeight = canvasRect.height;
+  const aspect = cameraWidth / cameraHeight;
+  const near = 1500;
+  const far = 4000;
+  const cameraZ = 2500;
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+  const fov = radian * (180 / Math.PI);
 
-  world.camera = new PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  world.camera = new PerspectiveCamera(fov, aspect, near, far);
 
-  world.renderer = new WebGLRenderer({ antialias: true });
-  world.renderer.setSize(window.innerWidth, window.innerHeight);
+  world.renderer = new WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  world.renderer.setSize(cameraWidth, cameraHeight);
   world.renderer.setClearColor(0xffffff);
   // document.body.appendChild(renderer.domElement);
 
@@ -57,8 +65,8 @@ async function init() {
     vertexShader,
     fragmentShader,
   });
-  const plane = new Mesh(geometry, material);
-  world.scene.add(plane);
+  const mesh = new Mesh(geometry, material);
+  world.scene.add(mesh);
 
   world.camera.position.z = 30;
 
@@ -109,6 +117,24 @@ async function init() {
     texture.wrapS = ClampToEdgeWrapping;
     texture.wrapT = MirroredRepeatWrapping;
     return texture;
+  }
+
+  const rectangle_div = iNode.qs(".rectangle-div");
+  const rectangle_divRect = rectangle_div.getBoundingClientRect();
+  console.log(rectangle_divRect);
+  const { x, y } = getWorldPosition(rectangle_divRect, canvasRect);
+  console.log(x, y);
+
+  function getWorldPosition(rectangle_divRect, canvasRect) {
+    const x =
+      rectangle_divRect.left +
+      rectangle_divRect.width / 2 -
+      canvasRect.width / 2;
+    const y =
+      -rectangle_divRect.top -
+      rectangle_divRect.height / 2 +
+      canvasRect.height / 2;
+    return { x, y };
   }
 
   const hovered = iNode.qsa(".hovered");
