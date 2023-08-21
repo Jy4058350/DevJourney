@@ -2,7 +2,20 @@
  * Three.js
  * https://threejs.org/
  */
-import * as THREE from "three";
+import "../style.scss";
+import {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  TextureLoader,
+  PlaneGeometry,
+  ShaderMaterial,
+  Mesh,
+  AxesHelper,
+  Vector2,
+  ClampToEdgeWrapping,
+  MirroredRepeatWrapping,
+} from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
@@ -10,90 +23,115 @@ import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
+const world = {};
+
 init();
 async function init() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  const canvas = iNode.qs("#canvas");
+  const canvasRect = canvas.getBoundingClientRect();
+  world.renderer = new WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setClearColor(0xffffff, 0);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0xffffff);
-  document.body.appendChild(renderer.domElement);
+  const cameraWidth = canvasRect.width;
+  const cameraHeight = canvasRect.height;
+  const near = 1500;
+  const far = 4000;
+  const aspect = cameraWidth / cameraHeight;
+  const cameraZ = 2000;
+  const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+  const fov = radian * (180 / Math.PI);
+
+  world.scene = new Scene();
+  world.camera = new PerspectiveCamera(
+    fov,
+    cameraWidth / cameraHeight,
+    near,
+    far
+  );
+  world.camera.position.z = cameraZ;
+
+  // document.body.appendChild(world.renderer.domElement);
+
+  const axis = new AxesHelper(100);
+  world.scene.add(axis);
+
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  controls.enableDamping = true;
+
+  const els = iNode.qsa("[data-webgl]");
+  els.forEach(async (el) => {
+    const rect = el.getBoundingClientRect();
+    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const material = new ShaderMaterial({
+      uniforms: {
+        uTexCurrent: { value: await loadTex("/img/output4.jpg") },
+        uTexNext: { value: await loadTex("/img/output5.jpg") },
+        uTexDisp: { value: await loadTex("/img/displacement/4.png") },
+        uTick: { value: 0 },
+        uProgress: { value: 0 },
+        uProgress1: { value: 0 },
+        uNoise: { value: new Vector2(10, 10) },
+      },
+      vertexShader,
+      fragmentShader,
+    });
+    const mesh = new Mesh(geometry, material);
+    world.scene.add(mesh);
+
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+
+    const gui = new GUI();
+    const folder1 = gui.addFolder("slide");
+    folder1.open();
+
+    folder1
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("myslider")
+      .listen();
+
+    const datData = { next: !!material.uniforms.uProgress.value };
+    folder1
+      .add(datData, "next")
+      .name("moving ")
+      .onChange(() => {
+        gsap.to(material.uniforms.uProgress, {
+          value: datData.next ? 1 : 0,
+          duration: 3,
+          ease: "ease",
+          onComplete: () => {
+            console.log(datData.next);
+          },
+        });
+      });
+  });
+
+  let i = 0;
+  render();
+  function render() {
+    requestAnimationFrame(render);
+    controls.update();
+
+    world.renderer.render(world.scene, world.camera);
+  }
 
   async function loadTex(url) {
-    const texLoader = new THREE.TextureLoader();
+    const texLoader = new TextureLoader();
     const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
+    texture.wrapS = ClampToEdgeWrapping;
+    texture.wrapT = MirroredRepeatWrapping;
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(50, 25);
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      uTexCurrent: { value: await loadTex("/img/output4.jpg") },
-      uTexNext: { value: await loadTex("/img/output5.jpg") },
-      uTexDisp: { value: await loadTex("/img/displacement/4.png") },
-      uTick: { value: 0 },
-      uProgress: { value: 0 },
-      uProgress1: { value: 0 },
-      uNoise: { value: new THREE.Vector2(10, 10) },
-    },
-    vertexShader,
-    fragmentShader,
-  });
-  console.log(material.uniforms.uNoise.value);
-  const plane = new THREE.Mesh(geometry, material);
-  scene.add(plane);
-
-  camera.position.z = 30;
-
-  const axis = new THREE.AxesHelper(100);
-  scene.add(axis);
-
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-
-  const gui = new GUI();
-  const folder1 = gui.addFolder("slide");
-  folder1.open();
-
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("myslider")
-    .listen();
-
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("moving ")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-        onComplete: () => {
-          console.log(datData.next);
-        },
-      });
-    });
-
-  let i = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-
-    material.uniforms.uTick.value += 0.1;
-
-    renderer.render(scene, camera);
+  function getWorldPosition(rect, canvasRect) {
+    const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+    const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+    return { x, y };
   }
-
-  animate();
 
   const hovered = iNode.qsa(".hovered");
   const openSubmenu = iNode.qs(".open-submenu");
@@ -136,8 +174,7 @@ async function init() {
       account.classList.remove("white");
       hovered.forEach((item) => {
         item.classList.remove("white");
-      }
-      );
+      });
     }
   });
 
