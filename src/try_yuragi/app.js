@@ -10,6 +10,7 @@ import {
   AxesHelper,
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
+  BufferAttribute,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -66,10 +67,34 @@ async function init() {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
 
-    const geometry = new PlaneGeometry(256*4, 144*4);
+    function setupGeometry() {
+      const widthSeg = 10;
+      const heightSeg = 10;
+      const delayVertices = [];
+      const geometry = new PlaneGeometry(
+        rect.width,
+        rect.height,
+        widthSeg,
+        heightSeg
+      );
+      //頂点の数　widthSeg+1 * heightSeg+1
+      const maxCount = (widthSeg + 1) * (heightSeg + 1);
+      for (let i = 0; i < maxCount; i++) {
+        const delayDuration = (1 / maxCount) * i;
+        delayVertices.push(delayDuration);
+      }
+      geometry.setAttribute(
+        "aDelay",
+        new BufferAttribute(new Float32Array(delayVertices), 1)
+      );
+      return geometry;
+    }
+
+    const geometry = setupGeometry();
+    window.geometry = geometry;
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: await loadTex("/img/output3.jpg") },
+        uTex1: { value: await loadTex("/img/output5.jpg") },
         uTex2: { value: await loadTex("/img/output4.jpg") },
         uTex3: { value: await loadTex("/img/texture1.png") },
         uTick: { value: 1 },
@@ -77,6 +102,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
+      // wireframe: true,
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
@@ -124,7 +150,7 @@ async function init() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
 
-    // controls.update();
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
