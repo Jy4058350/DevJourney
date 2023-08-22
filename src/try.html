@@ -7,23 +7,29 @@
       Memorandum of understanding and practice journey when implementing
     </title>
     <!-- <link rel="stylesheet" href="style copy.css" /> -->
-    <script type="module" src="./try_yuragi/app.js"></script>
+    <script type="module" src="./try_yuragi_Vertexinfo2/app.js"></script>
   </head>
   <body>
-    <div class="test" data-webgl></div>
+    <div class="wrap">
+      <div class="test" data-webgl></div>
+    </div>
     <canvas id="canvas"></canvas>
 
     <style>
+    
       .test {
         margin-top: 200px;
         margin-left: 200px;
         width: 768px;
         height: 832px;
         background: green;
-        opacity: 0;
+        opacity: 0.0;
+        overflow: hidden;
+        z-index: 1;
       }
       body {
         height: 200vh;
+        background: white;
       }
     </style>
   </body>
