@@ -5,7 +5,6 @@
 import "./test.scss";
 import {
   WebGLRenderer,
-  WebGLRenderTarget,
   Scene,
   PerspectiveCamera,
   TextureLoader,
@@ -13,85 +12,63 @@ import {
   ShaderMaterial,
   Mesh,
   AxesHelper,
-  Vector2,
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
-  MeshBasicMaterial,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
+const world = {};
+const os = []; //operation systemの略
+
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
-const world = {};
-const os = [];
 init();
 
 async function init() {
-  //メインレンダー
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
   });
   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-  world.renderer.setClearColor(0x00000, 0);
-  world.scene = new Scene();
+  world.renderer.setClearColor(0x000000, 0);
 
-  const cameraZ = 2000;
   const cameraWidth = canvasRect.width;
   const cameraHeight = canvasRect.height;
-  const aspect = cameraWidth / cameraHeight;
   const near = 1500;
   const far = 4000;
+  const aspect = cameraWidth / cameraHeight;
+  const cameraZ = 2000;
   const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
   const fov = radian * (180 / Math.PI);
 
-  world.camera = new PerspectiveCamera(fov, aspect, near, far);
+  world.scene = new Scene();
+  world.camera = new PerspectiveCamera(
+    fov,
+    cameraWidth / cameraHeight,
+    near,
+    far
+  );
   world.camera.position.z = cameraZ;
 
-  //レンダーターゲット
-  const renderTargetCanvas = iNode.qs("canvas");
+  const axis = new AxesHelper(100);
+  world.scene.add(axis);
 
-  world.renderTarget = new WebGLRenderTarget(
-    renderTargetCanvas.width,
-    renderTargetCanvas.height,
-    {
-      canvas: renderTargetCanvas,
-      antialias: true,
-    }
-  );
-  world.rtCamera = world.camera.clone();
-  world.rtScene = new Scene();
-  const commonGeoSize = new Vector2(100, 100);
+  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  // controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
-    const geo = new PlaneGeometry(commonGeoSize.x, commonGeoSize.y);
-    const mate = new MeshBasicMaterial({
-      color: 0xffffff,
-      // transparent: true,
-      map: world.renderTarget.texture,
-    });
-    const mesh = new Mesh(geo, mate);
-    world.scene.add(mesh);
-    const o = {
-      $: { el },
-      mesh,
-      geo,
-      mate,
-      rect,
-    };
-    os.push(o);
-
-    const rtGeo = new PlaneGeometry(commonGeoSize.x, commonGeoSize.y);
-    const rtMate = new ShaderMaterial({
+    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+    const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: await loadTex("/img/output3.jpg") },
+        uTex1: { value: await loadTex("/img/output1.jpg") },
         uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
@@ -100,22 +77,32 @@ async function init() {
       fragmentShader,
     });
 
-    const rtmesh = new Mesh(rtGeo, rtMate);
-    world.rtScene.add(rtmesh);
+    const mesh = new Mesh(geometry, material);
+    world.scene.add(mesh);
 
-    const axis = new AxesHelper(100);
-    world.scene.add(axis);
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
+
+    const o = {
+      mesh,
+      $: { el },
+      rect,
+      canvasRect,
+      geometry,
+      material,
+    };
+    os.push(o);
 
     const gui = new GUI();
     const folder1 = gui.addFolder("");
     folder1.open();
 
     folder1
-      .add(rtMate.uniforms.uProgress, "value", 0, 1, 0.1)
+      .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("")
       .listen();
 
-    const datData = { next: !!rtMate.uniforms.uProgress.value };
+    const datData = { next: !!material.uniforms.uProgress.value };
     folder1
       .add(datData, "next")
       .name("")
@@ -126,29 +113,21 @@ async function init() {
           ease: "ease",
         });
       });
-
-    const { x, y } = getWorldPosition(rect, canvasRect);
-    mesh.position.set(x, y, 0);
   });
 
-  const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
+  initScroller();
 
   let i = 0;
+  render();
   function render() {
     requestAnimationFrame(render);
-
-    world.renderer.setRenderTarget(world.renderTarget);
-    world.renderer.render(world.rtScene, world.rtCamera);
-    world.renderer.setRenderTarget(null);
-
-    world.renderer.render(world.scene, world.camera);
-
+    //スクロール処理
     os.forEach((o) => scroll(o));
-    controls.update();
+  
+   
+    // controls.update();
+    world.renderer.render(world.scene, world.camera);
   }
-
-  render();
 }
 
 async function loadTex(url) {
@@ -173,4 +152,36 @@ function scroll(o) {
   const rect = el.getBoundingClientRect();
   const { y } = getWorldPosition(rect, canvasRect);
   mesh.position.y = y;
+}
+
+function initScroller() {
+  gsap.registerPlugin(ScrollTrigger);
+  const el = iNode.qs("[data-webgl]");
+
+  const rect = el.getBoundingClientRect();
+  const x = rect.left + 300;
+  const pos = getWorldPosition({ left: x, width: rect.widht }, canvasRect);
+  
+  gsap.to(os[0].mesh.position, {
+    x: pos.x,
+    scrollTrigger: {
+      trigger: el,
+      start: "center 70%",
+      // endTrigger: "body bottom",
+      end: "center 30%",
+      scrub: true,
+      // pin: true,
+    },
+  });
+  gsap.to(el, {
+    x: 300,
+    scrollTrigger: {
+      trigger: el,
+      start: "center 20%",
+      endTrigger: "body bottom",
+      end: "top top",
+      scrub: true,
+      pin: true,
+    },
+  });
 }

@@ -66,7 +66,7 @@ async function init() {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
 
-    const geometry = new PlaneGeometry(256, 144);
+    const geometry = new PlaneGeometry(256*4, 144*4);
     const material = new ShaderMaterial({
       uniforms: {
         uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -124,7 +124,7 @@ async function init() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
 
-    controls.update();
+    // controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
