@@ -84,8 +84,8 @@ async function init() {
     mesh.position.set(x, y, 0);
 
     const o = {
-      $: { el },
       mesh,
+      $: { el },
       rect,
       canvasRect,
       geometry,
@@ -123,6 +123,8 @@ async function init() {
     requestAnimationFrame(render);
     //スクロール処理
     os.forEach((o) => scroll(o));
+  
+   
     // controls.update();
     world.renderer.render(world.scene, world.camera);
   }
@@ -148,8 +150,7 @@ function scroll(o) {
     mesh,
   } = o;
   const rect = el.getBoundingClientRect();
-  const { x, y } = getWorldPosition(rect, canvasRect);
-  mesh.position.x = x;
+  const { y } = getWorldPosition(rect, canvasRect);
   mesh.position.y = y;
 }
 
@@ -157,18 +158,30 @@ function initScroller() {
   gsap.registerPlugin(ScrollTrigger);
   const el = iNode.qs("[data-webgl]");
 
- 
-
+  const rect = el.getBoundingClientRect();
+  const x = rect.left + 300;
+  const pos = getWorldPosition({ left: x, width: rect.widht }, canvasRect);
+  
+  gsap.to(os[0].mesh.position, {
+    x: pos.x,
+    scrollTrigger: {
+      trigger: el,
+      start: "center 70%",
+      // endTrigger: "body bottom",
+      end: "center 30%",
+      scrub: true,
+      // pin: true,
+    },
+  });
   gsap.to(el, {
-    x: 150,
+    x: 300,
     scrollTrigger: {
       trigger: el,
       start: "center 20%",
       endTrigger: "body bottom",
-      // end: "top top",
+      end: "top top",
       scrub: true,
       pin: true,
-      pinSpacing: false,
     },
   });
 }
