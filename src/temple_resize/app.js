@@ -156,15 +156,17 @@ function resize(o, newCanvasRect) {
     rect,
   } = o;
   const resizingRect = el.getBoundingClientRect();
-  console.log(rect);
-  console.log(rect.width, rect.height);
   const { x, y } = getWorldPosition(rect, newCanvasRect);
   mesh.position.set(x, y, 0);
 
   //大きさの変更
-// geometry.scale(2,2,2);
-geometry.scale(resizingRect.width/rect.width, resizingRect.height/rect.height, 1);
-o.rect = resizingRect;
+  // geometry.scale(2,2,2);
+  geometry.scale(
+    resizingRect.width / rect.width,
+    resizingRect.height / rect.height,
+    1
+  );
+  o.rect = resizingRect;
 }
 
 function initResize() {
@@ -173,17 +175,29 @@ function initResize() {
     clearTimeout(timer);
     timer = setTimeout(() => {
       console.log("resize");
-//canvasサイズの変更
-const newCanvasRect = canvas.getBoundingClientRect();
-console.log(newCanvasRect.width,newCanvasRect.height)
-world.renderer.setSize(newCanvasRect.width,newCanvasRect.height,false);
+      //canvasサイズの変更
+      const newCanvasRect = canvas.getBoundingClientRect();
+      console.log(newCanvasRect.width, newCanvasRect.height);
+      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
 
-//meshの位置とサイズの変更
-os.forEach((o) => resize(o, newCanvasRect));
+      //meshの位置とサイズの変更
+      os.forEach((o) => resize(o, newCanvasRect));
 
-// cameraのProjectionMatrixの更新
+      // cameraのProjectionMatrixの更新
+      const cameraWidth = newCanvasRect.width;
+      const cameraHeight = newCanvasRect.height;
+      const near = 1500;
+      const far = 4000;
+      const aspect = cameraWidth / cameraHeight;
+      const cameraZ = 2000;
+      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+      const fov = radian * (180 / Math.PI);
 
-
+      world.camera.fov = fov;
+      world.camera.near = near;
+      world.camera.far = far;
+      world.camera.aspect = aspect;
+      world.camera.updateProjectionMatrix();
     }, 500);
   });
 }
