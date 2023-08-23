@@ -152,14 +152,19 @@ function resize(o, newCanvasRect) {
   const {
     $: { el },
     mesh,
+    geometry,
+    rect,
   } = o;
-  const rect = el.getBoundingClientRect();
+  const resizingRect = el.getBoundingClientRect();
+  console.log(rect);
   console.log(rect.width, rect.height);
   const { x, y } = getWorldPosition(rect, newCanvasRect);
   mesh.position.set(x, y, 0);
 
   //大きさの変更
-
+// geometry.scale(2,2,2);
+geometry.scale(resizingRect.width/rect.width, resizingRect.height/rect.height, 1);
+o.rect = resizingRect;
 }
 
 function initResize() {
