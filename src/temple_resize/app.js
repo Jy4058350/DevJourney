@@ -19,13 +19,11 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 const world = {};
-const os = []; //operation systemの略
-
+const os = [];
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 init();
@@ -59,8 +57,8 @@ async function init() {
   const axis = new AxesHelper(100);
   world.scene.add(axis);
 
-  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  // controls.enableDamping = true;
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
@@ -68,8 +66,7 @@ async function init() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: await loadTex("/img/output1.jpg") },
-        uTex2: { value: await loadTex("/img/output2.jpg") },
+        uTex: { value: await loadTex("img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
       },
@@ -80,16 +77,18 @@ async function init() {
     const mesh = new Mesh(geometry, material);
     world.scene.add(mesh);
 
+    initResize();
+
     const { x, y } = getWorldPosition(rect, canvasRect);
     mesh.position.set(x, y, 0);
 
     const o = {
-      mesh,
       $: { el },
-      rect,
-      canvasRect,
+      mesh,
       geometry,
       material,
+      rect,
+      canvasRect,
     };
     os.push(o);
 
@@ -115,19 +114,14 @@ async function init() {
       });
   });
 
-  initScroller();
-
   let i = 0;
-  render();
-  function render() {
-    requestAnimationFrame(render);
-    //スクロール処理
-    os.forEach((o) => scroll(o));
-  
-   
-    // controls.update();
+  function animate() {
+    requestAnimationFrame(animate);
+    os.forEach((o) => scroll(o)); //この記述を覚える！！
+    controls.update();
     world.renderer.render(world.scene, world.camera);
   }
+  animate();
 }
 
 async function loadTex(url) {
@@ -154,34 +148,56 @@ function scroll(o) {
   mesh.position.y = y;
 }
 
-function initScroller() {
-  gsap.registerPlugin(ScrollTrigger);
-  const el = iNode.qs("[data-webgl]");
+function resize(o, newCanvasRect) {
+  const {
+    $: { el },
+    mesh,
+    geometry,
+    rect,
+  } = o;
+  const resizingRect = el.getBoundingClientRect();
+  const { x, y } = getWorldPosition(rect, newCanvasRect);
+  mesh.position.set(x, y, 0);
 
-  const rect = el.getBoundingClientRect();
-  const x = rect.left + 300;
-  const pos = getWorldPosition({ left: x, width: rect.widht }, canvasRect);
-  
-  // gsap.to(os[0].mesh.position, {
-  //   x: pos.x,
-  //   scrollTrigger: {
-  //     trigger: el,
-  //     start: "center 70%",
-  //     // endTrigger: "body bottom",
-  //     end: "center 30%",
-  //     scrub: true,
-  //     // pin: true,
-  //   },
-  // });
-  // gsap.to(el, {
-  //   x: 300,
-  //   scrollTrigger: {
-  //     trigger: el,
-  //     start: "center 20%",
-  //     endTrigger: "body bottom",
-  //     end: "top top",
-  //     scrub: true,
-  //     pin: true,
-  //   },
-  // });
+  //大きさの変更
+  // geometry.scale(2,2,2);
+  geometry.scale(
+    resizingRect.width / rect.width,
+    resizingRect.height / rect.height,
+    1
+  );
+  o.rect = resizingRect;
+}
+
+function initResize() {
+  let timer = 0;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      console.log("resize");
+      //canvasサイズの変更
+      const newCanvasRect = canvas.getBoundingClientRect();
+      console.log(newCanvasRect.width, newCanvasRect.height);
+      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
+
+      //meshの位置とサイズの変更
+      os.forEach((o) => resize(o, newCanvasRect));
+
+      // cameraのProjectionMatrixの更新
+      const cameraWidth = newCanvasRect.width;
+      const cameraHeight = newCanvasRect.height;
+      const near = 1500;
+      const far = 4000;
+      const aspect = cameraWidth / cameraHeight;
+      const cameraZ = 2000;
+      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+      const fov = radian * (180 / Math.PI);
+
+      world.camera.fov = fov;
+      world.camera.near = near;
+      world.camera.far = far;
+      world.camera.aspect = aspect;
+      world.camera.updateProjectionMatrix();
+    }, 500);
+  });
 }
