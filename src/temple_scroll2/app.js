@@ -162,26 +162,26 @@ function initScroller() {
   const x = rect.left + 300;
   const pos = getWorldPosition({ left: x, width: rect.widht }, canvasRect);
   
-  gsap.to(os[0].mesh.position, {
-    x: pos.x,
-    scrollTrigger: {
-      trigger: el,
-      start: "center 70%",
-      // endTrigger: "body bottom",
-      end: "center 30%",
-      scrub: true,
-      // pin: true,
-    },
-  });
-  gsap.to(el, {
-    x: 300,
-    scrollTrigger: {
-      trigger: el,
-      start: "center 20%",
-      endTrigger: "body bottom",
-      end: "top top",
-      scrub: true,
-      pin: true,
-    },
-  });
+  // gsap.to(os[0].mesh.position, {
+  //   x: pos.x,
+  //   scrollTrigger: {
+  //     trigger: el,
+  //     start: "center 70%",
+  //     // endTrigger: "body bottom",
+  //     end: "center 30%",
+  //     scrub: true,
+  //     // pin: true,
+  //   },
+  // });
+  // gsap.to(el, {
+  //   x: 300,
+  //   scrollTrigger: {
+  //     trigger: el,
+  //     start: "center 20%",
+  //     endTrigger: "body bottom",
+  //     end: "top top",
+  //     scrub: true,
+  //     pin: true,
+  //   },
+  // });
 }
