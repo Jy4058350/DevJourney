@@ -74,8 +74,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 30;
-      const heightSeg = 30;
+      const widthSeg = 60;
+      const heightSeg = 60;
       const random = [];
       const geometry = new PlaneGeometry(
         rect.width,
@@ -218,10 +218,15 @@ function raycast() {
 
     if (intersect?.object === _mesh) {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
-      _mesh.material.uniforms.uHover.value = 1;
+      _mesh.material.uniforms.uHover.__endValue = 1;
     } else {
-      _mesh.material.uniforms.uHover.value = 0;
+      _mesh.material.uniforms.uHover.__endValue = 0;
     }
+    _mesh.material.uniforms.uHover.value = lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
   }
 }
 //線形補完

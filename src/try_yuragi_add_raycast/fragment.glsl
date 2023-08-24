@@ -20,8 +20,12 @@ void main() {
   vec4 color1 = texture2D(uTex1, vUv);
 
   gl_FragColor = vec4(vDelay, 0.0, 0.0, 1.0);
+  color1 += uHover;
+  color1.g *= uMouse.x;
   gl_FragColor = color1;
 
-  vec2 mouse = step(uMouse, vUv);
-  gl_FragColor = vec4(mouse, uHover, 1.0);
+  // vec2 mouse = step(uMouse, vUv);
+  // gl_FragColor = vec4(uMouse, 0.5, 1.0);
+  // gl_FragColor = vec4(uMouse, uHover, 1.0);
+  
 }
