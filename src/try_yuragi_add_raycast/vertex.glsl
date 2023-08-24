@@ -72,6 +72,7 @@ uniform float uProgress;
 varying vec2 vUv;
 varying float vDelay;
 attribute float aRandom;
+uniform vec2 uMouse;
 
 void main() {
     vUv = uv;
