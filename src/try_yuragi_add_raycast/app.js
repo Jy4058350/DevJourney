@@ -62,11 +62,11 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  const axis = new AxesHelper(100);
-  world.scene.add(axis);
+  // const axis = new AxesHelper(100);
+  // world.scene.add(axis);
 
-  const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
+  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  // controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
@@ -220,7 +220,7 @@ function raycast() {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
       _mesh.material.uniforms.uHover.value = 1;
     } else {
-      // _mesh.material.uniforms.uHover.value = 0;
+      _mesh.material.uniforms.uHover.value = 0;
     }
   }
 }
