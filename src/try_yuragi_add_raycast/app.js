@@ -13,6 +13,8 @@ import {
   BufferAttribute,
   BoxGeometry,
   Color,
+  Raycaster,
+  Vector2,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -24,6 +26,8 @@ import { iNode } from "../iNode.js";
 const world = {};
 const os = [];
 const canvasRect = canvas.getBoundingClientRect();
+const raycaster = new Raycaster();
+const pointer = new Vector2();
 
 init();
 
@@ -58,11 +62,11 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  const axis = new AxesHelper(100);
-  world.scene.add(axis);
+  // const axis = new AxesHelper(100);
+  // world.scene.add(axis);
 
-  const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
+  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  // controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
@@ -70,8 +74,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 30;
-      const heightSeg = 30;
+      const widthSeg = 60;
+      const heightSeg = 60;
       const random = [];
       const geometry = new PlaneGeometry(
         rect.width,
@@ -89,7 +93,7 @@ async function init() {
         const randomInt = getRandomInt(1, maxCount);
         const randomDuration = (1 / maxCount) * randomInt;
         random.push(randomDuration);
-        console.log(randomInt, randomDuration);
+        // console.log(randomInt, randomDuration);
       }
       geometry.setAttribute(
         "aRandom",
@@ -102,10 +106,12 @@ async function init() {
     window.geometry = geometry;
     const material = new ShaderMaterial({
       uniforms: {
+        uMouse: { value: new Vector2(0.4, 0.4) },
         uTex1: { value: await loadTex("/img/output5.jpg") },
         uTex2: { value: await loadTex("/img/output4.jpg") },
         uTex3: { value: await loadTex("/img/texture1.png") },
-        uTick: { value: 1 },
+        uHover: { value: 0 },
+        uTick: { value: 0 },
         uProgress: { value: 0 },
         uEmissionColor: { value: new Color(0x00ff00) }, // エミッションの色
         uEmissionStrength: { value: 1.0 }, // エミッションの強度
@@ -160,8 +166,8 @@ async function init() {
   function render() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
-
-    controls.update();
+    raycast();
+    // controls.update();
     world.renderer.render(world.scene, world.camera);
   }
 }
@@ -189,3 +195,46 @@ async function loadTex(url) {
   texture.wrapT = MirroredRepeatWrapping;
   return texture;
 }
+
+function onPointerMove(event) {
+  // calculate pointer position in normalized device coordinates
+  // (-1 to +1) for both components
+
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function raycast() {
+  // const { mesh } = o;
+  // update the picking ray with the camera and pointer position
+  raycaster.setFromCamera(pointer, world.camera);
+
+  // calculate objects intersecting the picking ray
+  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersect = intersects[0];
+
+  for (let i = 0; i < world.scene.children.length; i++) {
+    const _mesh = world.scene.children[i];
+
+    if (intersect?.object === _mesh) {
+      _mesh.material.uniforms.uMouse.value = intersect.uv;
+      _mesh.material.uniforms.uHover.__endValue = 1;
+    } else {
+      _mesh.material.uniforms.uHover.__endValue = 0;
+    }
+    _mesh.material.uniforms.uHover.value = lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
+  }
+}
+//線形補完
+function lerp(start, end, amt) {
+  //amtは0~1の間 amountの略
+  let current = (1 - amt) * start + amt * end;
+  if (Math.abs(end - current) < 0.0001) current = end;
+  return current;
+}
+
+window.addEventListener("pointermove", onPointerMove);
