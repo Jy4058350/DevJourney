@@ -27,5 +27,5 @@ float gleft = uv.x;
 float bgrade = uv.x + uProgress;
 
 
-  gl_FragColor = vec4(bgrade, 0.0, 0.5, 1.0);
+  gl_FragColor = vec4(ubot, 0.0, 0.5, 1.0);
 }
