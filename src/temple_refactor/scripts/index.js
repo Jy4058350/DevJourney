@@ -1,7 +1,5 @@
-/**
- * Three.js
- * https://threejs.org/
- */
-import "../test.scss";
-// import "../..//temple_refactor/test.scss";
-// import "./test.scss";
+
+import "../styles/test.scss";
+import { init } from "./bootstrap";
+
+init();

@@ -12,15 +12,17 @@ import {
     Raycaster,
     Vector2,
   } from "three";
-  import vertexShader from "./vertex.glsl";
-  import fragmentShader from "./fragment.glsl";
+  import vertexShader from "../vertex.glsl";
+  import fragmentShader from "../fragment.glsl";
   import GUI from "lil-gui";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   import { iNode } from "../../iNode";
+
+  import  world from "./glsl/world"
   
-  const world = {};
+  
   const os = [];
   const canvas = iNode.qs("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
@@ -30,7 +32,7 @@ import {
   
   init();
   
-  async function init() {
+  export async function init() {
     world.renderer = new WebGLRenderer({
       canvas,
       antialias: true,
