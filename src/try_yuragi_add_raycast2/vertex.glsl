@@ -79,10 +79,10 @@ void main() {
     vDelay = aRandom;
 
     vec3 pos = position;
-    float progress = clamp(uProgress * 1.0 - aRandom * 1.0, 0.0, 1.0);
+    float progress = clamp(uProgress * 1.3 - aRandom * 0.3, 0.0, 1.0);
 
     // Modify the Z position using uProgress to create the desired effect
-    float displacement = sin(progress * 3.14) * 100.0;
+    float displacement = sin(3.0 * progress * 3.14) * progress * 100.0;
     pos.z += displacement;
 
     // Set gl_Position
