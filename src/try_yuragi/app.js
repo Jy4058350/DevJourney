@@ -71,18 +71,18 @@ async function init() {
       const widthSeg = 2;
       const heightSeg = 2;
 
-      const totalSegments = widthSeg * heightSeg;
+      const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
       // console.log(innerSegmentCount); // 内側の頂点の数
       const innerSegments = []; // 内側の頂点のインデックス
       console.log(totalSegments);
-      const totalCount = [];
+      const count = [];
 
       for (let i = 0; i < totalSegments; i++) {
-        totalCount.push(i);
+        count.push(i);
       }
 
-      console.log(totalCount);
+      console.log(count);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
@@ -118,7 +118,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
-      // wireframe: true,
+      wireframe: true,
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
