@@ -74,6 +74,7 @@ async function init() {
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
+        uHover: { value: 0 },
         uTex1: { value: await loadTex("/img/output1.jpg") },
         uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
@@ -123,7 +124,6 @@ async function init() {
 
   // initScroll();
   initResize();
-  
 
   function render() {
     requestAnimationFrame(render);
@@ -246,8 +246,22 @@ function raycast() {
   for (let i = 0; i < world.scene.children.length; i++) {
     const _mesh = world.scene.children[i];
 
-    if (intersect?.object === _mesh)
+    if (intersect?.object === _mesh) {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
+      _mesh.material.uniforms.uHover.__endValue = 1;
+    } else {
+      _mesh.material.uniforms.uHover.__endValue = 0;
+    }
+    _mesh.material.uniforms.uHover.value = lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
+  }
+  function lerp(start, end, amt) {
+    let current = (1 - amt) * start + amt * end;
+    if (Math.abs(end - current) < 0.0001) current = end;
+    return current;
   }
 }
 
