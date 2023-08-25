@@ -78,6 +78,11 @@ async function init() {
       console.log(totalSegments);
       const count = [];
 
+      const a = 6;
+      const row = Math.floor(a / (widthSeg + 1));//セグメントがどの行に位置しているかを計算
+      const col = Math.floor(a / (heightSeg + 1));//セグメントがどの列に位置しているかを計算
+      // console.log(row);
+      // console.log(col);
       for (let i = 0; i < totalSegments; i++) {
         count.push(i);
       }
