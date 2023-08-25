@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 2;
-      const heightSeg = 2;
+      const widthSeg = 3;
+      const heightSeg = 3;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -95,6 +95,13 @@ async function init() {
 
       console.log(count);
       console.log(innerSegments);
+
+      const kikCounts = [];
+
+      for (let i = 1; i < innerSegments.length; i++) {
+          kikCounts.push(i);
+      }
+      console.log(kikCounts);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
