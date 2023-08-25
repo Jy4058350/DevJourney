@@ -78,16 +78,23 @@ async function init() {
       console.log(totalSegments);
       const count = [];
 
-      const a = 6;
-      const row = Math.floor(a / (widthSeg + 1));//セグメントがどの行に位置しているかを計算
-      const col = Math.floor(a / (heightSeg + 1));//セグメントがどの列に位置しているかを計算
-      // console.log(row);
-      // console.log(col);
+      
+      
+      
       for (let i = 0; i < totalSegments; i++) {
+        const row = Math.floor(i / (widthSeg + 1));//セグメントがどの行に位置しているかを計算
+        const col = Math.floor(i / (heightSeg + 1));//セグメントがどの列に位置しているかを計算
+        // console.log(row);
+        // console.log(col);
+        if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
+          innerSegments.push(i);
+        }
+     
         count.push(i);
       }
 
       console.log(count);
+      console.log(innerSegments);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
