@@ -75,22 +75,14 @@ async function init() {
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
       // console.log(innerSegmentCount); // 内側の頂点の数
       const innerSegments = []; // 内側の頂点のインデックス
+      console.log(totalSegments);
+      const totalCount = [];
 
       for (let i = 0; i < totalSegments; i++) {
-        if (
-          i % widthSeg !== 0 &&
-          (i + 1) % widthSeg !== 0 &&
-          i >= widthSeg &&
-          i < totalSegments - widthSeg
-        ) {
-          innerSegments.push(i + 1);
-        }
-        
+        totalCount.push(i);
       }
-      console.log(innerSegments);
 
-
-
+      console.log(totalCount);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
