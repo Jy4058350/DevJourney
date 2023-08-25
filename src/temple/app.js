@@ -14,11 +14,14 @@ import {
   AxesHelper,
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
+  Raycaster,
+  Vector2,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
@@ -26,6 +29,10 @@ const world = {};
 const os = [];
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
+
+const raycaster = new Raycaster();
+const pointer = new Vector2();
+
 init();
 
 async function init() {
@@ -54,11 +61,11 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  const axis = new AxesHelper(100);
-  world.scene.add(axis);
+  // const axis = new AxesHelper(100);
+  // world.scene.add(axis);
 
-  const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
+  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  // controls.enableDamping = true;
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
@@ -66,7 +73,8 @@ async function init() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: await loadTex("/img/output5.jpg") },
+        uMouse: { value: new Vector2(0.5, 0.5) },
+        uTex1: { value: await loadTex("/img/output1.jpg") },
         uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
@@ -113,14 +121,18 @@ async function init() {
       });
   });
 
-  let i = 0;
-  function animate() {
-    requestAnimationFrame(animate);
+  // initScroll();
+  initResize();
+  
+
+  function render() {
+    requestAnimationFrame(render);
     os.forEach((o) => scroll(o)); //この記述を覚える！！
-    controls.update();
+    // controls.update();
+    raycast();
     world.renderer.render(world.scene, world.camera);
   }
-  animate();
+  render();
 }
 
 async function loadTex(url) {
@@ -146,3 +158,97 @@ function scroll(o) {
   const { y } = getWorldPosition(rect, canvasRect);
   mesh.position.y = y;
 }
+
+function initScroll() {
+  gsap.registerPlugin(ScrollTrigger);
+  const el = iNode.qs("[data-webgl]");
+
+  const rect = el.getBoundingClientRect();
+  const x = rect.left + 300;
+  const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
+
+  // gsap.to(os[0].mesh.position, {
+  //   x: pos.x,
+  //   scrollTrigger: {
+  //     trigger: el,
+  //     start: "center 70%",
+  //     end: "center center",
+  //     scrub: true,
+  //     pin: true,
+  //   },
+  // });
+}
+
+function resize(o, newCanvasRect) {
+  //位置の変更
+  const {
+    mesh,
+    rect,
+    $: { el },
+    geometry,
+  } = o;
+  const resizingRect = el.getBoundingClientRect();
+  const { x, y } = getWorldPosition(rect, newCanvasRect);
+  mesh.position.set(x, y, 0);
+
+  //大きさの変更
+  geometry.scale(
+    resizingRect.width / rect.width,
+    resizingRect.height / rect.height,
+    1
+  );
+  o.rect = resizingRect;
+}
+
+function initResize() {
+  let timer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const newCanvasRect = canvas.getBoundingClientRect();
+      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
+
+      // meshの位置と大きさの変更
+      os.forEach((o) => resize(o, newCanvasRect));
+
+      //cameraのprojectionMatrixの更新
+      const cameraWidth = newCanvasRect.width;
+      const cameraHeight = newCanvasRect.height;
+      const near = 1500;
+      const far = 4000;
+      const aspect = cameraWidth / cameraHeight;
+      const cameraZ = 2000;
+      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+      const fov = radian * (180 / Math.PI);
+
+      world.camera.near = near;
+      world.camera.far = far;
+      world.camera.aspect = aspect;
+      world.camera.fov = fov;
+      world.camera.updateProjectionMatrix();
+    }, 500);
+  });
+}
+
+function onPointerMove(event) {
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function raycast() {
+  // update the picking ray with the camera and pointer position
+  raycaster.setFromCamera(pointer, world.camera);
+
+  // calculate objects intersecting the picking ray
+  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersect = intersects[0];
+
+  for (let i = 0; i < world.scene.children.length; i++) {
+    const _mesh = world.scene.children[i];
+
+    if (intersect?.object === _mesh)
+      _mesh.material.uniforms.uMouse.value = intersect.uv;
+  }
+}
+
+window.addEventListener("pointermove", onPointerMove);
