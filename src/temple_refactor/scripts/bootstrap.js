@@ -31,6 +31,7 @@ const raycaster = new Raycaster();
 const pointer = new Vector2();
 
 export async function init() {
+
   const canvas = iNode.qs("#canvas");
   viewport.init(canvas);
 
@@ -176,35 +177,7 @@ function resize(o, newCanvasRect) {
   o.rect = resizingRect;
 }
 
-function initResize() {
-  let timer = null;
-  window.addEventListener("resize", () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      const newCanvasRect = canvas.getBoundingClientRect();
-      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
 
-      // meshの位置と大きさの変更
-      os.forEach((o) => resize(o, newCanvasRect));
-
-      //cameraのprojectionMatrixの更新
-      const cameraWidth = newCanvasRect.width;
-      const cameraHeight = newCanvasRect.height;
-      const near = 1500;
-      const far = 4000;
-      const aspect = cameraWidth / cameraHeight;
-      const cameraZ = 2000;
-      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
-      const fov = radian * (180 / Math.PI);
-
-      world.camera.near = near;
-      world.camera.far = far;
-      world.camera.aspect = aspect;
-      world.camera.fov = fov;
-      world.camera.updateProjectionMatrix();
-    }, 500);
-  });
-}
 
 function onPointerMove(event) {
   pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
