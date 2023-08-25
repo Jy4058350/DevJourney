@@ -68,10 +68,29 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 3;
-      const heightSeg = 3;
+      const widthSeg = 2;
+      const heightSeg = 2;
+
+      const totalSegments = widthSeg * heightSeg;
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
-      console.log(innerSegmentCount); // 結果は1になるはず
+      // console.log(innerSegmentCount); // 内側の頂点の数
+      const innerSegments = []; // 内側の頂点のインデックス
+
+      for (let i = 0; i < totalSegments; i++) {
+        if (
+          i % widthSeg !== 0 &&
+          (i + 1) % widthSeg !== 0 &&
+          i >= widthSeg &&
+          i < totalSegments - widthSeg
+        ) {
+          innerSegments.push(i + 1);
+        }
+        
+      }
+      console.log(innerSegments);
+
+
+
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
