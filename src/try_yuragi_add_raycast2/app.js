@@ -74,8 +74,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 5;
-      const heightSeg = 5;
+      const widthSeg = 60;
+      const heightSeg = 60;
       const random = [];
       const geometry = new PlaneGeometry(
         rect.width,
@@ -89,32 +89,12 @@ async function init() {
       }
       //頂点の数　widthSeg+1 * heightSeg+1
       const maxCount = (widthSeg + 1) * (heightSeg + 1);
-      //このコードの目的は、配列randomにランダムな値を追加することです。
-      //getRandomInt(1, maxCount) は、1 から maxCount までのランダムな
-      //整数を返す関数であり、これによってランダムな値 randomInt を生成しています。
-      //そして、そのランダムな値を使って randomDuration を計算し、
-      //その値を配列 random に追加しています。つまり、このループは i を使って
-      // randomInt と randomDuration を計算し、それらを配列 random に追加する操作を
-      // maxCount 回繰り返すことになります。
       for (let i = 0; i < maxCount; i++) {
         const randomInt = getRandomInt(1, maxCount);
         const randomDuration = (1 / maxCount) * randomInt;
         random.push(randomDuration);
         // console.log(randomInt, randomDuration);
       }
-      //ランダムに選ばれた頂点のインデックス
-      const randomVertexIndex = getRandomInt(0, maxCount - 1);
-      const _radius = 50; //影響範囲の半径
-
-      for (let i = 0; i < random.length; i++) {
-        const distance = Math.abs(i - randomVertexIndex); //選ばれた頂点との距離
-        const influence = Math.max(0, 1 - distance / _radius); //影響度を計算
-
-        //平均化
-        const smoothedValue = lerp(random[i], random[randomVertexIndex], influence);
-        random[i] = smoothedValue;
-      }
-
       geometry.setAttribute(
         "aRandom",
         new BufferAttribute(new Float32Array(random), 1)
@@ -127,7 +107,7 @@ async function init() {
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.4, 0.4) },
-        uTex1: { value: await loadTex("/img/output3.jpg") },
+        uTex1: { value: await loadTex("/img/output5.jpg") },
         uTex2: { value: await loadTex("/img/output4.jpg") },
         uTex3: { value: await loadTex("/img/texture1.png") },
         uHover: { value: 0 },
@@ -146,7 +126,6 @@ async function init() {
     material.uniforms.uTex3.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
 
     const mesh = new Mesh(geometry, material);
-    console.log(mesh);
     mesh.position.set(x, y, 0);
 
     const o = {
