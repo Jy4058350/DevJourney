@@ -67,27 +67,11 @@ async function init() {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
 
-    // ⭐️setupGeometry⭐️
     function setupGeometry() {
-      function getSegmentNumber(row, column, segmentSize) {
-        return (row - 1) * (segmentSize - 2) + (column - 1);
-      }
-      function calculateInnerSegments(segmentSize) {
-        const innerSegments = [];
-
-        for (let row = 2; row < segmentSize; row++) {
-          for (let column = 2; column < segmentSize; column++) {
-            innerSegments.push(getSegmentNumber(row, column, segmentSize));
-          }
-        }
-
-        return innerSegments;
-      }
-
       const widthSeg = 3;
       const heightSeg = 3;
-      const innerSegments = calculateInnerSegments(widthSeg);
-      console.log(innerSegments); // 出力: [5]
+      const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
+      console.log(innerSegmentCount); // 結果は1になるはず
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
@@ -98,7 +82,7 @@ async function init() {
       );
       console.log(geometry);
       //頂点の数　widthSeg+1 * heightSeg+1
-      // const maxCount = (widthSeg + 1) * (heightSeg + 1);
+      const maxCount = (widthSeg + 1) * (heightSeg + 1);
 
       for (let i = 0; i < maxCount; i++) {
         const delayDuration = (1 / maxCount) * i;
@@ -123,7 +107,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
-      wireframe: true,
+      // wireframe: true,
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
