@@ -6,6 +6,8 @@ const viewport = {
 
 const $ = {};
 
+let initialized = false;
+
 function init(canvas, cameraZ = 2000, near = 1500, far = 4000) {
   $.canvas = canvas;
   const rect = canvas.getBoundingClientRect();
@@ -20,7 +22,10 @@ function init(canvas, cameraZ = 2000, near = 1500, far = 4000) {
   viewport.fov = viewport.rad * (180 / Math.PI);
   viewport.devicePixelRatio = window.devicePixelRatio;
 
-  _initResize();
+  if (!initialized) {
+    _initResize();
+    (initialized = true);
+  }
   return viewport;
 }
 
@@ -41,6 +46,7 @@ function _initResize() {
 
 function _onResize() {
   _update();
+  world.fitWorldPositon(viewport);
 }
 
 export default viewport;

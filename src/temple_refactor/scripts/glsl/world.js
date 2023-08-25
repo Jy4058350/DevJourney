@@ -5,6 +5,7 @@ import viewport from "../helper/viewport";
 const world = {
   os: [],
   init,
+  fitWorldPositon,
 };
 
 function init(canvas, viewport) {
