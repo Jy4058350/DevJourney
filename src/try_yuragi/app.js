@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 2;
-      const heightSeg = 2;
+      const widthSeg = 3;
+      const heightSeg = 3;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -100,9 +100,7 @@ async function init() {
       for (let i = 0; i < MaxCount; i++) {
         const duration = (1 / MaxCount) * i;
         countDuration.push(duration);
-
       }
-
 
       for (let row = 0; row < heightSeg + 1; row++) {
         for (let col = 0; col < widthSeg + 1; col++) {
@@ -126,6 +124,9 @@ async function init() {
         .filter((value, index, self) => self.indexOf(value) !== index)
         .sort((a, b) => a - b);
 
+        // mergedAndSorted に対応する countDuration の値を取得する配列を作成
+        const countDurationValues = mergedAndSorted.map(value => countDuration[value]);
+
       console.log(count);
       console.log(countDuration);
       console.log(innerSegments);
@@ -133,6 +134,7 @@ async function init() {
       console.log(trimmedArray);
       console.log(trimmedArray2);
       console.log(mergedAndSorted);
+      console.log(countDurationValues);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
