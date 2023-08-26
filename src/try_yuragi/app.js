@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 3;
-      const heightSeg = 3;
+      const widthSeg = 2;
+      const heightSeg = 2;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -155,17 +155,25 @@ async function init() {
         const delayDuration = (1 / maxCount) * i;
         delayVertices.push(delayDuration);
       }
-      // geometry.setAttribute(
-      //   "aDelay",
-      //   new BufferAttribute(new Float32Array(CountDurationValues), 1)
-      // );
-      // console.log(countDurationValues);
+      
       geometry.setAttribute(
         "aDelay",
-        new BufferAttribute(new Float32Array(delayVertices), 1)
+        new BufferAttribute(new Float32Array(countDuration), 1),
+        "aDelay2",
+        new BufferAttribute(new Float32Array(countDurationValues), 1)
       );
-      console.log(delayVertices);
+      console.log(countDurationValues);
+
+
+
+
       return geometry;
+    //   geometry.setAttribute(
+    //     "aDelay",
+    //     new BufferAttribute(new Float32Array(delayVertices), 1)
+    //   );
+    //   console.log(delayVertices);
+    //   return geometry;
     }
     const geometry = setupGeometry();
     window.geometry = geometry;
