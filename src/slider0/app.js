@@ -22,18 +22,20 @@ import { iNode } from "../iNode";
 
 const world = {};
 const os = [];
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
+console.log(canvasRect);
 
 init();
 
 async function init() {
-  world.renderer = new WebGLRenderer({ antialias: true });
-  world.renderer.setSize(window.innerWidth, window.innerHeight);
+  world.renderer = new WebGLRenderer({
+    canvas,
+    antialias: true,
+  });
+  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
   world.renderer.setClearColor(0xffffff);
   document.body.appendChild(world.renderer.domElement);
-
-  const canvas = iNode.qs("#canvas");
-  const canvasRect = canvas.getBoundingClientRect();
-  console.log(canvasRect);
 
   const cameraZ = 2000;
   const aspect = canvasRect.width / canvasRect.height;
@@ -72,7 +74,6 @@ async function init() {
     mesh.position.set(x, y, 0);
     world.scene.add(mesh);
 
-    
     const o = {
       mesh,
       geometry,
@@ -84,6 +85,7 @@ async function init() {
       },
     };
     os.push(o);
+    scroll(o);
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
@@ -107,8 +109,6 @@ async function init() {
         });
       });
   });
-
-  
 
   render();
   function render() {
@@ -137,12 +137,11 @@ function scroll(o) {
   const {
     $: { el },
     mesh,
-    canvasRect,
   } = o;
-
   const rect = el.getBoundingClientRect();
   const { x, y } = getWorldPosition(rect, canvasRect);
-  mesh.position.set(x, y, 0);
+  // mesh.position.x = x;
+  mesh.position.y = y;
 }
 
 function resize(o, newCanvasRect) {
@@ -156,7 +155,7 @@ function resize(o, newCanvasRect) {
   const { x, y } = getWorldPosition(rect, newCanvasRect);
   mesh.position.set(x, y, 0);
 
-  大きさの変更
+  大きさの変更;
   geometry.scale(
     resizedRect.width / rect.width,
     resizedRect.height / rect.height,
@@ -164,4 +163,3 @@ function resize(o, newCanvasRect) {
   );
   o.rect = resizedRect;
 }
-

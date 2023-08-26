@@ -56,8 +56,8 @@ async function init() {
   );
   world.camera.position.z = cameraZ;
 
-  const axis = new AxesHelper(100);
-  world.scene.add(axis);
+  // const axis = new AxesHelper(100);
+  // world.scene.add(axis);
 
   // const controls = new OrbitControls(world.camera, world.renderer.domElement);
   // controls.enableDamping = true;
