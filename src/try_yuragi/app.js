@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 3;
-      const heightSeg = 3;
+      const widthSeg = 2;
+      const heightSeg = 2;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -77,7 +77,7 @@ async function init() {
       const innerSegments = []; // 内側の頂点のインデックス
       // console.log(totalSegments);
       const count = [];
-      const AinnerSegments = [];
+      const countDuration = [];
 
       // for (let i = 0; i < totalSegments; i++) {
       //   const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
@@ -96,12 +96,20 @@ async function init() {
       for (let i = 0; i < totalSegments; i++) {
         count.push(i);
       }
+      const MaxCount = count.length;
+      for (let i = 0; i < MaxCount; i++) {
+        const duration = (1 / MaxCount) * i;
+        countDuration.push(duration);
+
+      }
+
 
       for (let row = 0; row < heightSeg + 1; row++) {
         for (let col = 0; col < widthSeg + 1; col++) {
           const startIndex = row * -widthSeg; // 行ごとの開始値
           const increment = widthSeg; // 増加幅
           const i = startIndex + col * increment; // インデックスの計算
+
           innerSegments.push(i);
         }
       }
@@ -118,19 +126,13 @@ async function init() {
         .filter((value, index, self) => self.indexOf(value) !== index)
         .sort((a, b) => a - b);
 
-        const maxCount1 = (widthSeg + 1) * (heightSeg + 1);
-        for(let i = 0; i < maxCount1; i++) {
-          const innerDuration = (1 / maxCount1) * i;
-          AinnerSegments.push(innerDuration);
-        }
-
       console.log(count);
+      console.log(countDuration);
       console.log(innerSegments);
       console.log(combinedArray);
       console.log(trimmedArray);
       console.log(trimmedArray2);
       console.log(mergedAndSorted);
-      console.log(AinnerSegments);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
