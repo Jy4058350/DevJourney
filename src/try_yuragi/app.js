@@ -75,33 +75,26 @@ async function init() {
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
       // console.log(innerSegmentCount); // 内側の頂点の数
       const innerSegments = []; // 内側の頂点のインデックス
-      console.log(totalSegments);
+      // console.log(totalSegments);
       const count = [];
 
-      
-      
-      
       for (let i = 0; i < totalSegments; i++) {
-        const row = Math.floor(i / (widthSeg + 1));//セグメントがどの行に位置しているかを計算
-        const col = Math.floor(i / (heightSeg + 1));//セグメントがどの列に位置しているかを計算
+        const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
+        const col = Math.floor(i / (heightSeg + 1)); //セグメントがどの列に位置しているかを計算
         // console.log(row);
         // console.log(col);
-        if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
-          innerSegments.push(i);
+        // if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
+        if (col== 0) {
+          const modifiedIndex = i;
+          innerSegments.push(modifiedIndex);
         }
-     
+
         count.push(i);
       }
 
       console.log(count);
       console.log(innerSegments);
-
-      const kikCounts = [];
-
-      for (let i = 1; i < innerSegments.length; i++) {
-          kikCounts.push(i);
-      }
-      console.log(kikCounts);
+      // console.log(innerSegments[j]);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
