@@ -104,10 +104,25 @@ async function init() {
           innerSegments.push(i);
         }
       }
-      const combinedArray = count.map((value,index) => value + innerSegments[index])
+
+      const combinedArray = count.map(
+        (value, index) => value + innerSegments[index]
+      );
+
+      const trimmedArray = combinedArray.slice(widthSeg + 1, -widthSeg - 1);
+      const trimmedArray2 = count.slice(widthSeg + 1, -widthSeg - 1);
+
+      // const mergedAndSorted = [...trimmedArray, ...trimmedArray2];
+      const mergedAndSorted = [...trimmedArray, ...trimmedArray2]
+        .filter((value, index, self) => self.indexOf(value) !== index)
+        .sort((a, b) => a - b);
+
       console.log(count);
       console.log(innerSegments);
       console.log(combinedArray);
+      console.log(trimmedArray);
+      console.log(trimmedArray2);
+      console.log(mergedAndSorted);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
