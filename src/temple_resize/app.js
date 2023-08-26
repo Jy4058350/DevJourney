@@ -113,15 +113,14 @@ async function init() {
         });
       });
   });
-
-  let i = 0;
-  function animate() {
-    requestAnimationFrame(animate);
+  
+  rendere();
+  function rendere() {
+    requestAnimationFrame(rendere);
     os.forEach((o) => scroll(o)); //この記述を覚える！！
     controls.update();
     world.renderer.render(world.scene, world.camera);
   }
-  animate();
 }
 
 async function loadTex(url) {
