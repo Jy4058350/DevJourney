@@ -64,7 +64,8 @@ async function init() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uMouse: { value: new Vector2(0.3, 0.3)},
+        uMouse: { value: new Vector2(0.3, 0.3) },
+        uHover: { value: 0 },
         // uTexCurrent: { value: await loadTex("/img/output1.jpg") },
         // uTexNext: { value: await loadTex("/img/output1.jpg") },
         uTick: { value: 0 },
@@ -93,7 +94,6 @@ async function init() {
     os.push(o);
 
     initResize();
-    
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
@@ -220,11 +220,23 @@ function raycast() {
   for (let i = 0; i < world.scene.children.length; i++) {
     const _mesh = world.scene.children[i];
 
-    if(intersect?.object === _mesh) {
+    if (intersect?.object === _mesh) {
       console.log("hit");
       _mesh.material.uniforms.uMouse.value = intersect.uv;
+      _mesh.material.uniforms.uHover.__endValue = 1;
+    } else {
+      _mesh.material.uniforms.uHover.__endValue = 0;
     }
-
+    _mesh.material.uniforms.uHover.value = lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
+  }
+  function lerp(start, end, amt) {
+    let current = (1 - amt) * start + amt * end;
+    if (Math.abs(end - current) < 0.0001) current = end;
+    return current;
   }
 }
 

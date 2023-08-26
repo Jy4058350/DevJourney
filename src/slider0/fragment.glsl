@@ -9,6 +9,7 @@ uniform float uProgress2;
 uniform float uProgress3;
 
 uniform vec2 uMouse;
+uniform float uHover;
 
 // Function to convert color to grayscale
 vec4 toGrayscale(vec4 color) {
@@ -43,5 +44,7 @@ vec2 uv = vUv;
   float transitionProgress = smoothstep(0.0, 1.0, uProgress3);
   gl_FragColor = mix(grayscaleTex1, grayscaleTex2, transitionProgress);
   
-  gl_FragColor = vec4(uMouse,0.,1.0);
+
+
+  gl_FragColor = vec4(uMouse,uHover,1.0);
 }
