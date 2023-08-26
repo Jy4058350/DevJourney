@@ -78,6 +78,7 @@ async function init() {
       // console.log(totalSegments);
       const count = [];
       const countDuration = [];
+      const CountDurationValues = [];
 
       // for (let i = 0; i < totalSegments; i++) {
       //   const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
@@ -125,11 +126,10 @@ async function init() {
         .sort((a, b) => a - b);
 
       // mergedAndSorted に対応する countDuration の値を取得する配列を作成
-      const countDurationValues = mergedAndSorted.map(value => countDuration[value]);
-      // const countDurationValues = mergedAndSorted.map(value => countDuration[countDuration.indexOf(value)]);
-
-
-      
+      const countDurationValues = mergedAndSorted.map(
+        (value) => countDuration[value]
+      );
+      CountDurationValues.push(countDurationValues);
 
       console.log(count);
       console.log(countDuration);
@@ -157,10 +157,15 @@ async function init() {
       }
       geometry.setAttribute(
         "aDelay",
-        new BufferAttribute(new Float32Array(delayVertices), 1)
+        new BufferAttribute(new Float32Array(CountDurationValues), 1)
       );
-      console.log(delayVertices);
-      return geometry;
+      console.log(countDurationValues);
+      // geometry.setAttribute(
+      //   "aDelay",
+      //   new BufferAttribute(new Float32Array(delayVertices), 1)
+      // );
+      // console.log(delayVertices);
+      // return geometry;
     }
     const geometry = setupGeometry();
     window.geometry = geometry;
