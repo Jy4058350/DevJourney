@@ -93,7 +93,7 @@ async function init() {
     os.push(o);
 
     initResize();
-    raycast();
+    
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
@@ -122,7 +122,7 @@ async function init() {
   function render() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
-
+    raycast();
     world.renderer.render(world.scene, world.camera);
   }
 }
@@ -220,7 +220,7 @@ function raycast() {
   for (let i = 0; i < world.scene.children.length; i++) {
     const _mesh = world.scene.children[i];
 
-    if(intersect.object === _mesh) {
+    if(intersect?.object === _mesh) {
       console.log("hit");
       _mesh.material.uniforms.uMouse.value = intersect.uv;
     }
