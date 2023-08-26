@@ -12,6 +12,8 @@ uniform float uProgress;
 // #pragma glslify: ease = require(glsl-easings/cubic-out)
 // #pragma glslify: ease = require(glsl-easings/cubic-in-out)
 
+varying float vDelay2;
+
 void main() {
   vec2 uv = vUv;
   vec2 uv2 = -vUv;
@@ -55,4 +57,6 @@ void main() {
 
   gl_FragColor = mix(color0aa, color0a, uProgress);//colorをグレーにするにはuTickをつかっていないuvをとってこないといけない
   // gl_FragColor = mix(color1b, color2, uProgress);
+
+
 }

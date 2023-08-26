@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 2;
-      const heightSeg = 2;
+      const widthSeg = 3;
+      const heightSeg = 3;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -163,6 +163,7 @@ async function init() {
         new BufferAttribute(new Float32Array(countDurationValues), 1)
       );
       console.log(countDurationValues);
+
 
 
 
