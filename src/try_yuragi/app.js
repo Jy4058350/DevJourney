@@ -92,20 +92,22 @@ async function init() {
       //   count.push(i);
       // }
 
-      for (let row = 0; row < heightSeg+1; row++) {
-        for (let col = 0; col < widthSeg+1; col++) {
+      for (let i = 0; i < totalSegments; i++) {
+        count.push(i);
+      }
+
+      for (let row = 0; row < heightSeg + 1; row++) {
+        for (let col = 0; col < widthSeg + 1; col++) {
           const startIndex = row * -2; // 行ごとの開始値
           const increment = widthSeg; // 増加幅
           const i = startIndex + col * increment; // インデックスの計算
           innerSegments.push(i);
         }
       }
-
-      console.log(innerSegments);
-
+      const combinedArray = count.map((value,index) => value + innerSegments[index])
       console.log(count);
       console.log(innerSegments);
-      // console.log(innerSegments[j]);
+      console.log(combinedArray);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
