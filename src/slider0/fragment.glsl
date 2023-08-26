@@ -8,6 +8,8 @@ uniform float uProgress;
 uniform float uProgress2;
 uniform float uProgress3;
 
+uniform vec2 uMouse;
+
 // Function to convert color to grayscale
 vec4 toGrayscale(vec4 color) {
   float gray = dot(color.rgb, vec3(0.2, 0.2, 0.2));
@@ -38,4 +40,5 @@ void main() {
   // Stage 3: Transition from tex1 to tex2 based on uProgress2
   float transitionProgress = smoothstep(0.0, 1.0, uProgress3);
   gl_FragColor = mix(grayscaleTex1, grayscaleTex2, transitionProgress);
+  gl_FragColor = vec4(uMouse,0.,1.0);
 }
