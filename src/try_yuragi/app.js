@@ -68,8 +68,8 @@ async function init() {
     const { x, y } = getWorldPosition(rect, canvasRect);
 
     function setupGeometry() {
-      const widthSeg = 3;
-      const heightSeg = 3;
+      const widthSeg = 2;
+      const heightSeg = 2;
 
       const totalSegments = (widthSeg + 1) * (heightSeg + 1);
       const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
@@ -78,19 +78,30 @@ async function init() {
       // console.log(totalSegments);
       const count = [];
 
-      for (let i = 0; i < totalSegments; i++) {
-        const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
-        const col = Math.floor(i / (heightSeg + 1)); //セグメントがどの列に位置しているかを計算
-        // console.log(row);
-        // console.log(col);
-        // if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
-        if (col== 0) {
-          const modifiedIndex = i;
-          innerSegments.push(modifiedIndex);
-        }
+      // for (let i = 0; i < totalSegments; i++) {
+      //   const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
+      //   const col = Math.floor(i / (heightSeg + 1)); //セグメントがどの列に位置しているかを計算
+      //   // console.log(row);
+      //   // console.log(col);
+      //   // if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
+      //   if (col== 0) {
+      //     const modifiedIndex = i;
+      //     innerSegments.push(modifiedIndex);
+      //   }
 
-        count.push(i);
+      //   count.push(i);
+      // }
+
+      for (let row = 0; row < heightSeg+1; row++) {
+        for (let col = 0; col < widthSeg+1; col++) {
+          const startIndex = row * -2; // 行ごとの開始値
+          const increment = widthSeg; // 増加幅
+          const i = startIndex + col * increment; // インデックスの計算
+          innerSegments.push(i);
+        }
       }
+
+      console.log(innerSegments);
 
       console.log(count);
       console.log(innerSegments);
