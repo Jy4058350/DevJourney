@@ -86,6 +86,7 @@ async function init() {
     };
     os.push(o);
     scroll(o);
+    initResize();
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
@@ -162,4 +163,37 @@ function resize(o, newCanvasRect) {
     1
   );
   o.rect = resizedRect;
+}
+
+function initResize() {
+  let timer = 0;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const newCanvasRect = canvas.getBoundingClientRect();
+      world.camera.aspect = newCanvasRect.width / newCanvasRect.height;
+      world.camera.updateProjectionMatrix();
+      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
+
+      os.forEach((o) => resize(o, newCanvasRect));
+
+      const cameraWidth = newCanvasRect.width;
+      const cameraHeight = newCanvasRect.height;
+      const near = 1500;
+      const far = 4000;
+      const aspect = cameraWidth / cameraHeight;
+      const cameraZ = 2000;
+      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+      const fov = radian * (180 / Math.PI);
+
+      // world.camera.cameraWidth = cameraWidth;
+      // world.camera.cameraHeight = cameraHeight;
+      world.camera.near = near;
+      world.camera.far = far;
+      world.camera.aspect = aspect;
+      world.camera.fov = fov;
+      world.camera.updateProjectionMatrix();
+
+    }, 500);
+  }) 
 }
