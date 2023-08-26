@@ -155,17 +155,17 @@ async function init() {
         const delayDuration = (1 / maxCount) * i;
         delayVertices.push(delayDuration);
       }
-      geometry.setAttribute(
-        "aDelay",
-        new BufferAttribute(new Float32Array(CountDurationValues), 1)
-      );
-      console.log(countDurationValues);
       // geometry.setAttribute(
       //   "aDelay",
-      //   new BufferAttribute(new Float32Array(delayVertices), 1)
+      //   new BufferAttribute(new Float32Array(CountDurationValues), 1)
       // );
-      // console.log(delayVertices);
-      // return geometry;
+      // console.log(countDurationValues);
+      geometry.setAttribute(
+        "aDelay",
+        new BufferAttribute(new Float32Array(delayVertices), 1)
+      );
+      console.log(delayVertices);
+      return geometry;
     }
     const geometry = setupGeometry();
     window.geometry = geometry;
