@@ -77,6 +77,7 @@ async function init() {
       const innerSegments = []; // 内側の頂点のインデックス
       // console.log(totalSegments);
       const count = [];
+      const AinnerSegments = [];
 
       // for (let i = 0; i < totalSegments; i++) {
       //   const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
@@ -117,12 +118,19 @@ async function init() {
         .filter((value, index, self) => self.indexOf(value) !== index)
         .sort((a, b) => a - b);
 
+        const maxCount1 = (widthSeg + 1) * (heightSeg + 1);
+        for(let i = 0; i < maxCount1; i++) {
+          const innerDuration = (1 / maxCount1) * i;
+          AinnerSegments.push(innerDuration);
+        }
+
       console.log(count);
       console.log(innerSegments);
       console.log(combinedArray);
       console.log(trimmedArray);
       console.log(trimmedArray2);
       console.log(mergedAndSorted);
+      console.log(AinnerSegments);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
@@ -143,9 +151,9 @@ async function init() {
         "aDelay",
         new BufferAttribute(new Float32Array(delayVertices), 1)
       );
+      console.log(delayVertices);
       return geometry;
     }
-
     const geometry = setupGeometry();
     window.geometry = geometry;
     const material = new ShaderMaterial({
@@ -158,7 +166,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
-      wireframe: true,
+      // wireframe: true,
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
