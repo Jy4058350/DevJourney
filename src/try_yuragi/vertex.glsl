@@ -5,6 +5,9 @@ varying vec2 vUv;
 varying float vDelay;
 attribute float aDelay;
 
+attribute vec3 aDelay2;
+varying vec3 vDelay2;
+
 void main() {
     vUv = uv;
     vDelay = aDelay;
@@ -24,3 +27,4 @@ void main() {
     pos.z = cos(progress * 3.14 * a) * b;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
+

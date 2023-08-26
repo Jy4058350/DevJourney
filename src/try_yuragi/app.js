@@ -67,27 +67,78 @@ async function init() {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
 
-    // ⭐️setupGeometry⭐️
     function setupGeometry() {
-      function getSegmentNumber(row, column, segmentSize) {
-        return (row - 1) * (segmentSize - 2) + (column - 1);
-      }
-      function calculateInnerSegments(segmentSize) {
-        const innerSegments = [];
-
-        for (let row = 2; row < segmentSize; row++) {
-          for (let column = 2; column < segmentSize; column++) {
-            innerSegments.push(getSegmentNumber(row, column, segmentSize));
-          }
-        }
-
-        return innerSegments;
-      }
-
       const widthSeg = 3;
       const heightSeg = 3;
-      const innerSegments = calculateInnerSegments(widthSeg);
-      console.log(innerSegments); // 出力: [5]
+
+      const totalSegments = (widthSeg + 1) * (heightSeg + 1);
+      const innerSegmentCount = (widthSeg - 1) * (heightSeg - 1);
+      // console.log(innerSegmentCount); // 内側の頂点の数
+      const innerSegments = []; // 内側の頂点のインデックス
+      // console.log(totalSegments);
+      const count = [];
+      const countDuration = [];
+      const CountDurationValues = [];
+
+      // for (let i = 0; i < totalSegments; i++) {
+      //   const row = Math.floor(i / (widthSeg + 1)); //セグメントがどの行に位置しているかを計算
+      //   const col = Math.floor(i / (heightSeg + 1)); //セグメントがどの列に位置しているかを計算
+      //   // console.log(row);
+      //   // console.log(col);
+      //   // if (row !== 0 && row !== heightSeg && col !== 0 && col !== widthSeg) {
+      //   if (col== 0) {
+      //     const modifiedIndex = i;
+      //     innerSegments.push(modifiedIndex);
+      //   }
+
+      //   count.push(i);
+      // }
+
+      for (let i = 0; i < totalSegments; i++) {
+        count.push(i);
+      }
+      const MaxCount = count.length;
+      for (let i = 0; i < MaxCount; i++) {
+        const duration = (1 / MaxCount) * i;
+        countDuration.push(duration);
+      }
+
+      for (let row = 0; row < heightSeg + 1; row++) {
+        for (let col = 0; col < widthSeg + 1; col++) {
+          const startIndex = row * -widthSeg; // 行ごとの開始値
+          const increment = widthSeg; // 増加幅
+          const i = startIndex + col * increment; // インデックスの計算
+
+          innerSegments.push(i);
+        }
+      }
+
+      const combinedArray = count.map(
+        (value, index) => value + innerSegments[index]
+      );
+
+      const trimmedArray = combinedArray.slice(widthSeg + 1, -widthSeg - 1);
+      const trimmedArray2 = count.slice(widthSeg + 1, -widthSeg - 1);
+
+      // const mergedAndSorted = [...trimmedArray, ...trimmedArray2];
+      const mergedAndSorted = [...trimmedArray, ...trimmedArray2]
+        .filter((value, index, self) => self.indexOf(value) !== index)
+        .sort((a, b) => a - b);
+
+      // mergedAndSorted に対応する countDuration の値を取得する配列を作成
+      const countDurationValues = mergedAndSorted.map(
+        (value) => countDuration[value]
+      );
+      CountDurationValues.push(countDurationValues);
+
+      console.log(count);
+      console.log(countDuration);
+      console.log(innerSegments);
+      console.log(combinedArray);
+      console.log(trimmedArray);
+      console.log(trimmedArray2);
+      console.log(mergedAndSorted);
+      console.log(countDurationValues);
 
       const delayVertices = [];
       const geometry = new PlaneGeometry(
@@ -98,19 +149,33 @@ async function init() {
       );
       console.log(geometry);
       //頂点の数　widthSeg+1 * heightSeg+1
-      // const maxCount = (widthSeg + 1) * (heightSeg + 1);
+      const maxCount = (widthSeg + 1) * (heightSeg + 1);
 
       for (let i = 0; i < maxCount; i++) {
         const delayDuration = (1 / maxCount) * i;
         delayVertices.push(delayDuration);
       }
+      
       geometry.setAttribute(
         "aDelay",
-        new BufferAttribute(new Float32Array(delayVertices), 1)
+        new BufferAttribute(new Float32Array(countDuration), 1),
+        "aDelay2",
+        new BufferAttribute(new Float32Array(countDurationValues), 1)
       );
-      return geometry;
-    }
+      console.log(countDurationValues);
 
+
+
+
+
+      return geometry;
+    //   geometry.setAttribute(
+    //     "aDelay",
+    //     new BufferAttribute(new Float32Array(delayVertices), 1)
+    //   );
+    //   console.log(delayVertices);
+    //   return geometry;
+    }
     const geometry = setupGeometry();
     window.geometry = geometry;
     const material = new ShaderMaterial({
@@ -123,7 +188,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
-      wireframe: true,
+      // wireframe: true,
     });
     material.uniforms.uTex1.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
     material.uniforms.uTex2.value.wrapS = MirroredRepeatWrapping; // 左右ミラーリング
