@@ -124,8 +124,12 @@ async function init() {
         .filter((value, index, self) => self.indexOf(value) !== index)
         .sort((a, b) => a - b);
 
-        // mergedAndSorted に対応する countDuration の値を取得する配列を作成
-        const countDurationValues = mergedAndSorted.map(value => countDuration[value]);
+      // mergedAndSorted に対応する countDuration の値を取得する配列を作成
+      const countDurationValues = mergedAndSorted.map(value => countDuration[value]);
+      // const countDurationValues = mergedAndSorted.map(value => countDuration[countDuration.indexOf(value)]);
+
+
+      
 
       console.log(count);
       console.log(countDuration);
