@@ -1,8 +1,3 @@
-/**
- * Three.js
- * https://threejs.org/
- */
-import "./style.scss";
 import gsap from "gsap";
 import {
   Scene,
@@ -20,38 +15,45 @@ import {
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
-import { iNode } from "../iNode";
+import { iNode } from "../../iNode";
 
-const world = {};
+import world  from "./glsl/world";
+import viewport from "./helper/viewport";
+
+
 const os = [];
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
-console.log(canvasRect);
+
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();
 
-init();
 
-async function init() {
-  world.renderer = new WebGLRenderer({
-    canvas,
-    antialias: true,
-  });
-  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-  world.renderer.setClearColor(0xffffff);
+
+export async function init() {
+
+    const canvas = iNode.qs("#canvas");
+    viewport.init(canvas);
+    world.init(canvas,viewport);
+  //   world.renderer = new WebGLRenderer({
+  //     canvas,
+  //     antialias: true,
+  //   });
+  //   world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  //   world.renderer.setClearColor(0xffffff);
   document.body.appendChild(world.renderer.domElement);
 
-  const cameraZ = 2000;
-  const aspect = canvasRect.width / canvasRect.height;
-  const near = 1500;
-  const far = 4000;
-  const radian = 2 * Math.atan(canvasRect.height / 2 / cameraZ);
-  const fov = radian * (180 / Math.PI);
+//   const cameraZ = 2000;
+//   const aspect = canvasRect.width / canvasRect.height;
+//   const near = 1500;
+//   const far = 4000;
+//   const radian = 2 * Math.atan(canvasRect.height / 2 / cameraZ);
+//   const fov = radian * (180 / Math.PI);
 
-  world.scene = new Scene();
-  world.camera = new PerspectiveCamera(fov, aspect, near, far);
-  world.camera.position.z = cameraZ;
+  //   world.scene = new Scene();
+  //   world.camera = new PerspectiveCamera(fov, aspect, near, far);
+  //   world.camera.position.z = cameraZ;
 
   const gui = new GUI();
   const folder1 = gui.addFolder("slider0");
@@ -241,3 +243,4 @@ function raycast() {
 }
 
 window.addEventListener("pointermove", onPointerMove);
+
