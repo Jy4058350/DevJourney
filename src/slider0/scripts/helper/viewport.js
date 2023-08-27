@@ -4,7 +4,7 @@ const viewport = {
   init,
 };
 
-const $ = {};
+const $ = {};//dom要素を管理するオブジェクト
 
 function init(canvas, cameraZ = 2000, near = 1500, far = 4000) {
   $.canvas = canvas;
