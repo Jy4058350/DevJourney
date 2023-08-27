@@ -14,6 +14,8 @@ import {
   Mesh,
   ClampToEdgeWrapping,
   RepeatWrapping,
+  Raycaster,
+  Vector2,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -25,6 +27,9 @@ const os = [];
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 console.log(canvasRect);
+
+const raycaster = new Raycaster();
+const pointer = new Vector2();
 
 init();
 
@@ -59,8 +64,10 @@ async function init() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTexCurrent: { value: await loadTex("/img/output1.jpg") },
-        uTexNext: { value: await loadTex("/img/output1.jpg") },
+        uMouse: { value: new Vector2(0.3, 0.3) },
+        uHover: { value: 0 },
+        // uTexCurrent: { value: await loadTex("/img/output1.jpg") },
+        // uTexNext: { value: await loadTex("/img/output1.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
         uProgress2: { value: 0 },
@@ -85,7 +92,8 @@ async function init() {
       },
     };
     os.push(o);
-    scroll(o);
+
+    initResize();
 
     folder1
       .add(material.uniforms.uProgress, "value", 0, 2, 0.01)
@@ -114,7 +122,7 @@ async function init() {
   function render() {
     requestAnimationFrame(render);
     os.forEach((o) => scroll(o));
-
+    raycast();
     world.renderer.render(world.scene, world.camera);
   }
 }
@@ -132,6 +140,8 @@ function getWorldPosition(rect, canvasRect) {
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
   return { x, y };
 }
+
+function initScroll() {}
 
 function scroll(o) {
   const {
@@ -155,7 +165,7 @@ function resize(o, newCanvasRect) {
   const { x, y } = getWorldPosition(rect, newCanvasRect);
   mesh.position.set(x, y, 0);
 
-  大きさの変更;
+  //大きさの変更;
   geometry.scale(
     resizedRect.width / rect.width,
     resizedRect.height / rect.height,
@@ -163,3 +173,71 @@ function resize(o, newCanvasRect) {
   );
   o.rect = resizedRect;
 }
+
+let timer = 0;
+function initResize() {
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const newCanvasRect = canvas.getBoundingClientRect();
+      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
+
+      os.forEach((o) => resize(o, newCanvasRect));
+
+      const cameraWidth = newCanvasRect.width;
+      const cameraHeight = newCanvasRect.height;
+      const near = 1500;
+      const far = 4000;
+      const aspect = cameraWidth / cameraHeight;
+      const cameraZ = 2000;
+      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+      const fov = radian * (180 / Math.PI);
+
+      world.camera.cameraWidth = cameraWidth; //ここ重複しているかも。end資材は記述していない。
+      world.camera.cameraHeight = cameraHeight;
+      world.camera.near = near;
+      world.camera.far = far;
+      world.camera.aspect = aspect;
+      world.camera.fov = fov;
+      world.camera.updateProjectionMatrix();
+    }, 500);
+  });
+}
+
+function onPointerMove(event) {
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function raycast() {
+  // update the picking ray with the camera and pointer position
+  raycaster.setFromCamera(pointer, world.camera);
+
+  // calculate objects intersecting the picking ray
+  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersect = intersects[0];
+
+  for (let i = 0; i < world.scene.children.length; i++) {
+    const _mesh = world.scene.children[i];
+
+    if (intersect?.object === _mesh) {
+      console.log("hit");
+      _mesh.material.uniforms.uMouse.value = intersect.uv;
+      _mesh.material.uniforms.uHover.__endValue = 1;
+    } else {
+      _mesh.material.uniforms.uHover.__endValue = 0;
+    }
+    _mesh.material.uniforms.uHover.value = lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
+  }
+  function lerp(start, end, amt) {
+    let current = (1 - amt) * start + amt * end;
+    if (Math.abs(end - current) < 0.0001) current = end;
+    return current;
+  }
+}
+
+window.addEventListener("pointermove", onPointerMove);

@@ -8,6 +8,9 @@ uniform float uProgress;
 uniform float uProgress2;
 uniform float uProgress3;
 
+uniform vec2 uMouse;
+uniform float uHover;
+
 // Function to convert color to grayscale
 vec4 toGrayscale(vec4 color) {
   float gray = dot(color.rgb, vec3(0.2, 0.2, 0.2));
@@ -15,6 +18,8 @@ vec4 toGrayscale(vec4 color) {
 }
 
 void main() {
+vec2 uv = vUv;
+
    // Calculate the vUv for tex1 and tex2 with y-offset
   vec2 uv1 = vec2(vUv.x, vUv.y - uProgress3); // 加算に変更
   vec2 uv2 = vec2(vUv.x, vUv.y - uProgress3 * 0.5); // 加算に変更
@@ -38,4 +43,8 @@ void main() {
   // Stage 3: Transition from tex1 to tex2 based on uProgress2
   float transitionProgress = smoothstep(0.0, 1.0, uProgress3);
   gl_FragColor = mix(grayscaleTex1, grayscaleTex2, transitionProgress);
+  
+
+
+  gl_FragColor = vec4(uMouse,uHover,1.0);
 }
