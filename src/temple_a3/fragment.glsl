@@ -16,5 +16,6 @@ void main() {
 
     // gl_FragColor = tex1;
     gl_FragColor = vec4(vColor, 1.);
+    gl_FragColor = vec4(0.5,0.9,0.1, 1.);
 }
 

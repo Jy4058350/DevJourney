@@ -111,16 +111,29 @@ async function init() {
       const colors = new Float32Array([
         1.0,
         0.0,
-        0.0, //v0
+        0.0, //v0 rgb red
         0.0,
         1.0,
-        0.0, //v1
+        0.0, //v1 rgb green
         0.0,
         0.0,
-        1.0, //v2
+        1.0, //v2 rgb blue
         1.0,
         1.0,
-        0.0, //v3
+        1.0, //v3 rgb white
+        
+        1.0,
+        0.0,
+        0.0, //v0 rgb red
+        0.0,
+        1.0,
+        0.0, //v1 rgb green
+        0.0,
+        0.0,
+        1.0, //v2 rgb blue
+        1.0,
+        1.0,
+        1.0, //v3 rgb white
       ]);
 
       const indices = new Uint16Array([
