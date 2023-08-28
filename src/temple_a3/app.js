@@ -80,17 +80,17 @@ async function init() {
       const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
       // const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
       const vertices = new Float32Array([
-        -263.0,
-        236.0,
+        -63.0,
+        36.0,
         0.0, // v0
-        263.0,
-        236.0,
+        63.0,
+        36.0,
         0.0, // v1
-       -263.0,
-        -236.0,
+       -63.0,
+        -36.0,
         0.0, // v2
-        263.0,
-        -236.0, //v3
+        63.0,
+        -36.0, //v3
         0,
       ]);
 
