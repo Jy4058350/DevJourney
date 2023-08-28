@@ -80,17 +80,17 @@ async function init() {
       const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
       // const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
       const vertices = new Float32Array([
-        -163.0,
-        136.0,
+        -263.0,
+        236.0,
         0.0, // v0
-        163.0,
-        136.0,
+        263.0,
+        236.0,
         0.0, // v1
-        163.0,
-        -136.0,
+       -263.0,
+        -236.0,
         0.0, // v2
-        -163.0,
-        -136.0, //v3
+        263.0,
+        -236.0, //v3
         0,
       ]);
 
@@ -99,12 +99,12 @@ async function init() {
       // ]);
 
       const indices = new Uint16Array([
+        0,
         2,
         1,
-        0,
-        0,
-        3,
-        2, // v2-v1-v0-v0-v3-v2
+        1,
+        2,
+        3, // v2-v1-v0-v0-v3-v2
       ]);
 
       geometry.setAttribute("position", new BufferAttribute(vertices, 3));
