@@ -19,7 +19,7 @@ import {
   BufferGeometry,
   BufferAttribute,
   DynamicDrawUsage,
-  MeshBasicMaterial
+  MeshBasicMaterial,
 } from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -76,20 +76,40 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
-      
-      const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
-      // const geometry = new BufferGeometry();
-      // const vertices = new Float32Array( [
-      //   -1.0, -1.0,  1.0, // v0
-      //    1.0, -1.0,  1.0, // v1
-      //    1.0,  1.0,  1.0, // v2
-      
-      //    1.0,  1.0,  1.0, // v3
-      //   -1.0,  1.0,  1.0, // v4
-      //   -1.0, -1.0,  1.0  // v5
-      // ] );
-      
-      // geometry.setAttribute("position", new BufferAttribute(position, 3));
+      // const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+      const geometry = new BufferGeometry();
+      const vertices1 = new Float32Array([
+        -63.0,
+        36.0,
+        0.0, // v0
+        63.0,
+        36.0,
+        0.0, // v1
+        63.0,
+        -36.0,
+        0.0, // v2
+      ]);
+      const colors1 = new Float32Array([
+        1.0,
+        0.0,
+        0.0, // v0のカラー
+        0.0,
+        1.0,
+        0.0, // v1のカラー
+        0.0,
+        0.0,
+        1.0, // v2のカラー
+      ]);
+
+      const indices = new Uint16Array([
+        0,
+        1,
+        2, // v0-v1-v2
+      ]);
+
+      geometry.setAttribute("position1", new BufferAttribute(vertices1, 3));
+      geometry.setAttribute("color", new BufferAttribute(colors1, 3));
+      geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
     }
@@ -97,9 +117,10 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        uMouse: { value: new Vector2(0.5, 0.5) },
+        // vPos: { value: new Vector2(0.5, 0.5) },
+        // uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        uProgress: { value: 0 },
+        // uProgress: { value: 0 },
       },
       vertexShader,
       fragmentShader,
