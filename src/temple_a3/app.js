@@ -77,7 +77,7 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
-      const geometry = new PlaneGeometry(rect.width, rect.height, 2, 2);
+      const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
       // const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
       const vertices = new Float32Array([
         -163.0,
