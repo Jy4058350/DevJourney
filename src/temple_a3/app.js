@@ -93,6 +93,20 @@ async function init() {
         -36.0, //v3
         0,
       ]);
+      const vertices2 = new Float32Array([
+        -163.0,
+        136.0,
+        0.0, // v0
+        163.0,
+        136.0,
+        0.0, // v1
+       -163.0,
+        -136.0,
+        0.0, // v2
+        163.0,
+        -136.0, //v3
+        0,
+      ]);
 
       // const colors = new Float32Array([
       //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
@@ -107,7 +121,8 @@ async function init() {
         3, // v2-v1-v0-v0-v3-v2
       ]);
 
-      geometry.setAttribute("position", new BufferAttribute(vertices, 3));
+      geometry.setAttribute("position1", new BufferAttribute(vertices, 3));
+      geometry.setAttribute("position2", new BufferAttribute(vertices2, 3));
       // geometry.setAttribute("color", new BufferAttribute(colors, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
