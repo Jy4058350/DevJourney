@@ -94,9 +94,9 @@ async function init() {
         0,
       ]);
 
-      // // const colors = new Float32Array([
-      // //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
-      // // ]);
+      // const colors = new Float32Array([
+      //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
+      // ]);
 
       const indices = new Uint16Array([
         2,
@@ -108,7 +108,7 @@ async function init() {
       ]);
 
       geometry.setAttribute("position", new BufferAttribute(vertices, 3));
-      // // geometry.setAttribute("color", new BufferAttribute(colors, 3));
+      // geometry.setAttribute("color", new BufferAttribute(colors, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
@@ -117,7 +117,7 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        // uTex: { value: await loadTex("./img/output5.jpg") },
+        uTex: { value: await loadTex("./img/uv.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         // uHover: { value: 0 },
       },
