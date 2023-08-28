@@ -111,13 +111,14 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        // uTex: { value: await loadTex("./img/output1.jpg") },
-        // uMouse: { value: new Vector2(0.5, 0.5) },
-        uHover: { value: 0 },
+        // uTex: { value: await loadTex("./img/output5.jpg") },
+        uMouse: { value: new Vector2(0.5, 0.5) },
+        // uHover: { value: 0 },
       },
       vertexShader,
       fragmentShader,
       // wireframe: true,
+      // doubleSide:true
     });
 
     const mesh = new Mesh(geometry, material);

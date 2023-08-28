@@ -105,7 +105,7 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        uTex: { value: await loadTex("./img/output1.jpg") },
+        // uTex: { value: await loadTex("./img/output1.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
       },
