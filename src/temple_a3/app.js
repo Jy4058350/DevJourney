@@ -77,8 +77,8 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
-      const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
-      // const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
+      // const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+      const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
       const vertices = new Float32Array([
         -63.0,
         36.0,
@@ -86,7 +86,7 @@ async function init() {
         63.0,
         36.0,
         0.0, // v1
-       -63.0,
+        -63.0,
         -36.0,
         0.0, // v2
         63.0,
@@ -100,7 +100,7 @@ async function init() {
         163.0,
         136.0,
         0.0, // v1
-       -163.0,
+        -163.0,
         -136.0,
         0.0, // v2
         163.0,
@@ -108,9 +108,20 @@ async function init() {
         0,
       ]);
 
-      // const colors = new Float32Array([
-      //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
-      // ]);
+      const colors = new Float32Array([
+        1.0,
+        0.0,
+        0.0, //v0
+        0.0,
+        1.0,
+        0.0, //v1
+        0.0,
+        0.0,
+        1.0, //v2
+        1.0,
+        1.0,
+        0.0, //v3
+      ]);
 
       const indices = new Uint16Array([
         0,
@@ -123,7 +134,7 @@ async function init() {
 
       geometry.setAttribute("position1", new BufferAttribute(vertices, 3));
       geometry.setAttribute("position2", new BufferAttribute(vertices2, 3));
-      // geometry.setAttribute("color", new BufferAttribute(colors, 3));
+      geometry.setAttribute("color", new BufferAttribute(colors, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
@@ -132,7 +143,8 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        uTex: { value: await loadTex("./img/uv.jpg") },
+        uTex0: { value: await loadTex("./img/uv.jpg") },
+        uTex1: { value: await loadTex("./img/output3.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         // uHover: { value: 0 },
       },
