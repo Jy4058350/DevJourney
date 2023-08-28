@@ -16,6 +16,7 @@ import {
   MirroredRepeatWrapping,
   Raycaster,
   Vector2,
+  Vector3,
   BufferGeometry,
   BufferAttribute,
   DynamicDrawUsage,
@@ -76,39 +77,26 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
-      // const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
-      const geometry = new PlaneGeometry();
-      const vertices1 = new Float32Array([
-        -63.0,
-        36.0,
+      const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
+      const vertices = new Float32Array([
+        -163.0,
+        136.0,
         0.0, // v0
-        63.0,
-        36.0,
+        163.0,
+        136.0,
         0.0, // v1
-        63.0,
-        -36.0,
+        163.0,
+        -136.0,
         0.0, // v2
-      ]);
-      const colors1 = new Float32Array([
-        1.0,
-        0.0,
-        0.0, // v0のカラー
-        // 0.0,
-        // 0.0,
-        // 0.0, // v1のカラー
-        // 0.0,
-        // 0.0,
-        // 0.0, // v2のカラー
       ]);
 
       const indices = new Uint16Array([
-        0,
+        2,
         1,
-        2, // v0-v1-v2
+        0, // v2-v1-v0
       ]);
 
-      geometry.setAttribute("position1", new BufferAttribute(vertices1, 3));
-      geometry.setAttribute("color", new BufferAttribute(colors1, 3));
+       geometry.setAttribute("position", new BufferAttribute(vertices, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
@@ -117,14 +105,13 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        // vPos: { value: new Vector2(0.5, 0.5) },
+        // uTex: { value: await loadTex("./img/output1.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        // uProgress: { value: 0 },
       },
       vertexShader,
       fragmentShader,
-      wireframe: true,
+      // wireframe: true,
     });
 
     const mesh = new Mesh(geometry, material);
