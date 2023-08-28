@@ -211,7 +211,7 @@ async function init() {
   initResize();
 
   /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
-  renderer.debug.onShaderError = (
+  world.renderer.debug.onShaderError = (
     gl,
     program,
     vertexShader,
