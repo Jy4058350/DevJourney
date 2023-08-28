@@ -121,7 +121,7 @@ async function init() {
         1.0,
         1.0,
         1.0, //v3 rgb white
-        
+
         1.0,
         0.0,
         0.0, //v0 rgb red
@@ -147,7 +147,7 @@ async function init() {
 
       geometry.setAttribute("position1", new BufferAttribute(vertices, 3));
       geometry.setAttribute("position2", new BufferAttribute(vertices2, 3));
-      geometry.setAttribute("color", new BufferAttribute(colors, 3));
+      geometry.setAttribute("color1", new BufferAttribute(colors, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
@@ -209,6 +209,25 @@ async function init() {
 
   // initScroll();
   initResize();
+
+  /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
+  renderer.debug.onShaderError = (
+    gl,
+    program,
+    vertexShader,
+    fragmentShader
+  ) => {
+    const vertexShaderSource = gl.getShaderSource(vertexShader);
+    const fragmentShaderSource = gl.getShaderSource(fragmentShader);
+
+    console.groupCollapsed("vertexShader");
+    console.log(vertexShaderSource);
+    console.groupEnd();
+
+    console.groupCollapsed("fragmentShader");
+    console.log(fragmentShaderSource);
+    console.groupEnd();
+  };
 
   function render() {
     requestAnimationFrame(render);

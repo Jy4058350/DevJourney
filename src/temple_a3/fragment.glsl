@@ -15,7 +15,11 @@ void main() {
     // gl_FragColor = vec4(vPos.x, 0.0 ,0.5, 1.0);
 
     // gl_FragColor = tex1;
-    gl_FragColor = vec4(vColor, 1.);
-    gl_FragColor = vec4(0.5,0.9,0.1, 1.);
-}
+    gl_FragColor = vec4(0.5, 0.9, 0.1, 1.);//debug
 
+    gl_FragColor = vec4(vColor, 1.);
+    デバッグ用ログ出力
+// gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // 一時的に赤色にする
+// console.log("vColor:", vColor);
+
+}
