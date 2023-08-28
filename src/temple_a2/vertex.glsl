@@ -1,10 +1,11 @@
 precision mediump float;
 
-varying vec2 vUv;
+attribute vec3 position1;
+varying vec3 vposition1;
 
 void main() {
 
-   vUv = uv;
+  vec3 vposition1 = position1
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position1, 1.0);
 }

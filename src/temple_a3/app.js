@@ -77,38 +77,39 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
-      const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
-      const vertices = new Float32Array([
-        -163.0,
-        136.0,
-        0.0, // v0
-        163.0,
-        136.0,
-        0.0, // v1
-        163.0,
-        -136.0,
-        0.0, // v2
-        -163.0,
-        -136.0, //v3
-        0,
-      ]);
-
-      // const colors = new Float32Array([
-      //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
+      const geometry = new PlaneGeometry(rect.width, rect.height, 2, 2);
+      // const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
+      // const vertices = new Float32Array([
+      //   -163.0,
+      //   136.0,
+      //   0.0, // v0
+      //   163.0,
+      //   136.0,
+      //   0.0, // v1
+      //   163.0,
+      //   -136.0,
+      //   0.0, // v2
+      //   -163.0,
+      //   -136.0, //v3
+      //   0,
       // ]);
 
-      const indices = new Uint16Array([
-        2,
-        1,
-        0,
-        0,
-        3,
-        2, // v2-v1-v0-v0-v3-v2
-      ]);
+      // // const colors = new Float32Array([
+      // //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
+      // // ]);
 
-      geometry.setAttribute("position1", new BufferAttribute(vertices, 3));
-      // geometry.setAttribute("color", new BufferAttribute(colors, 3));
-      geometry.setIndex(new BufferAttribute(indices, 1));
+      // const indices = new Uint16Array([
+      //   2,
+      //   1,
+      //   0,
+      //   0,
+      //   3,
+      //   2, // v2-v1-v0-v0-v3-v2
+      // ]);
+
+      // geometry.setAttribute("position", new BufferAttribute(vertices, 3));
+      // // geometry.setAttribute("color", new BufferAttribute(colors, 3));
+      // geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
     }
@@ -122,7 +123,7 @@ async function init() {
       },
       vertexShader,
       fragmentShader,
-      // wireframe: true,
+      wireframe: true,
       // doubleSide:true
       // vertexColors: VertexColors,
     });
