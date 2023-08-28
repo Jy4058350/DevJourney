@@ -88,12 +88,18 @@ async function init() {
         163.0,
         -136.0,
         0.0, // v2
+        -163.0,
+        -136.0,//v3
+        0
       ]);
 
       const indices = new Uint16Array([
         2,
         1,
-        0, // v2-v1-v0
+        0,
+        0,
+        3,
+        2, // v2-v1-v0-v0-v3-v2
       ]);
 
        geometry.setAttribute("position", new BufferAttribute(vertices, 3));
@@ -105,7 +111,7 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        uTex: { value: await loadTex("./img/output1.jpg") },
+        // uTex: { value: await loadTex("./img/output1.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
       },
