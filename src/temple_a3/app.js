@@ -77,37 +77,77 @@ async function init() {
     const rect = el.getBoundingClientRect();
 
     function _setGeometry() {
+      // const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
       const geometry = new BufferGeometry(rect.width, rect.height, 1, 1);
       const vertices = new Float32Array([
-        -163.0,
-        136.0,
+        -63.0,
+        36.0,
         0.0, // v0
-        163.0,
-        136.0,
+        63.0,
+        36.0,
         0.0, // v1
-        163.0,
-        -136.0,
+        -63.0,
+        -36.0,
         0.0, // v2
-        -163.0,
-        -136.0, //v3
-        0,
+        // 63.0,
+        // -36.0, 
+        // 0,//v3
       ]);
-
-      // const colors = new Float32Array([
-      //   1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
+      // const vertices2 = new Float32Array([
+      //   -163.0,
+      //   136.0,
+      //   0.0, // v0
+      //   163.0,
+      //   136.0,
+      //   0.0, // v1
+      //   -163.0,
+      //   -136.0,
+      //   0.0, // v2
+      //   163.0,
+      //   -136.0, //v3
+      //   0,
       // ]);
 
+      const mycolors = new Float32Array([
+        0.9,
+        0.5,
+        0.2, //v0 rgb red
+        0.9,
+        0.5,
+        0.2, //v1 rgb green
+        0.9,
+        0.5,
+        0.2, //v2 rgb blue
+        // 1.0,
+        // 1.0,
+        // 0.0, //v3 rgb white
+
+        // 1.0,
+        // 0.0,
+        // 0.0, //v0 rgb red
+        // 0.0,
+        // 1.0,
+        // 0.0, //v1 rgb green
+        // 0.0,
+        // 0.0,
+        // 1.0, //v2 rgb blue
+        // 1.0,
+        // 1.0,
+        // 1.0, //v3 rgb white
+      ]);
+
       const indices = new Uint16Array([
+        0,
         2,
         1,
-        0,
-        0,
-        3,
-        2, // v2-v1-v0-v0-v3-v2
+        // 1,
+        // 2,
+        // 3, // v2-v1-v0-v0-v3-v2
       ]);
 
       geometry.setAttribute("position1", new BufferAttribute(vertices, 3));
-      // geometry.setAttribute("color", new BufferAttribute(colors, 3));
+      // geometry.setAttribute("position2", new BufferAttribute(vertices2, 3));
+      geometry.setAttribute("vertexcolor", new BufferAttribute(mycolors, 3));
       geometry.setIndex(new BufferAttribute(indices, 1));
 
       return geometry;
@@ -116,7 +156,8 @@ async function init() {
     const geometry = _setGeometry();
     const material = new ShaderMaterial({
       uniforms: {
-        // uTex: { value: await loadTex("./img/output5.jpg") },
+        uTex0: { value: await loadTex("./img/uv.jpg") },
+        uTex1: { value: await loadTex("./img/output3.jpg") },
         // uMouse: { value: new Vector2(0.5, 0.5) },
         // uHover: { value: 0 },
       },
@@ -124,7 +165,7 @@ async function init() {
       fragmentShader,
       // wireframe: true,
       // doubleSide:true
-      // vertexColors: VertexColors,
+      vertexColors: true,
     });
 
     const mesh = new Mesh(geometry, material);
@@ -168,6 +209,25 @@ async function init() {
 
   // initScroll();
   initResize();
+
+  /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
+  world.renderer.debug.onShaderError = (
+    gl,
+    program,
+    vertexShader,
+    fragmentShader
+  ) => {
+    const vertexShaderSource = gl.getShaderSource(vertexShader);
+    const fragmentShaderSource = gl.getShaderSource(fragmentShader);
+
+    console.groupCollapsed("vertexShader");
+    console.log(vertexShaderSource);
+    console.groupEnd();
+
+    console.groupCollapsed("fragmentShader");
+    console.log(fragmentShaderSource);
+    console.groupEnd();
+  };
 
   function render() {
     requestAnimationFrame(render);
