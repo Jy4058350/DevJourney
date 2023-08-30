@@ -15,5 +15,6 @@ void main() {
   vec2 mouse = step(uMouse, uv);
 
   gl_FragColor = vec4(mouse, uHover, 1.0);
+  gl_FragColor = vec4(1.0, 0.5, 1, 1.0);
 
 }

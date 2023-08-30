@@ -1,7 +1,8 @@
-import world from "../glsl/world";
+import world from "../world";
 
 const viewport = {
   init,
+  _initResize,
 };
 
 const $ = {};
