@@ -61,8 +61,8 @@ function init(canvas, viewport) {
     const mesh = new Mesh(geometry, material);
     world.scene.add(mesh);
 
-    // const { x, y } = getWorldPosition(rect, canvasRect);
-    // mesh.position.set(x, y, 0);
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.set(x, y, 0);
 
     const o = {
       $: { el },
@@ -70,7 +70,7 @@ function init(canvas, viewport) {
       geometry,
       material,
       rect,
-      // canvasRect,
+      canvasRect,
     };
     world.os.push(o);
 
