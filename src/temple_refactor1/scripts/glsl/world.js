@@ -102,7 +102,7 @@ function init(canvas, viewport) {
     //     });
     //   });
 
-    initScroll();
+   
     viewport._initResize();
   });
 }
@@ -171,13 +171,13 @@ function scroll(o) {
   mesh.position.y = y;
 }
 
-function initScroll() {
-  gsap.registerPlugin(ScrollTrigger);
-  const el = iNode.qs("[data-webgl]");
+// function initScroll() {
+//   gsap.registerPlugin(ScrollTrigger);
+//   const el = iNode.qs("[data-webgl]");
 
-  const rect = el.getBoundingClientRect();
-  const x = rect.left + 300;
-  const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
+//   const rect = el.getBoundingClientRect();
+//   const x = rect.left + 300;
+//   const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
 
   // gsap.to(world.os[0].mesh.position, {
   //   x: pos.x,
@@ -189,7 +189,7 @@ function initScroll() {
   //     pin: true,
   //   },
   // });
-}
+// }
 
 function resize(o, newCanvasRect) {
   //位置の変更

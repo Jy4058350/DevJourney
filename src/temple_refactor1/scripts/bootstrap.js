@@ -23,6 +23,7 @@ import { iNode } from "../../iNode";
 
 import world from "./glsl/world";
 import { viewport } from "./glsl/helper/viewport";
+import scroll from "./component/scroller";
 
 // const os = [];
 const canvas = iNode.qs("#canvas");
@@ -38,6 +39,8 @@ export function init() {
   world.init(canvas, viewport);
 
   world.render();
+
+  scroll.initScroll();
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);
@@ -100,7 +103,6 @@ export function init() {
   //   });
   // });
 
-  initScroll();
   viewport._initResize();
 
   // render();
@@ -137,42 +139,42 @@ function getWorldPosition(rect, canvasRect) {
 //   mesh.position.y = y;
 // }
 
-function initScroll() {
-  gsap.registerPlugin(ScrollTrigger);
-  const pageConatainer = iNode.qs("#page-container");
-  console.log(pageConatainer);
+// function initScroll() {
+//   gsap.registerPlugin(ScrollTrigger);
+//   const pageConatainer = iNode.qs("#page-container");
+//   console.log(pageConatainer);
 
-  const scrollBar = Scrollbar.init(pageConatainer, { delegate:document})
+//   const scrollBar = Scrollbar.init(pageConatainer, { delegate:document})
 
-  ScrollTrigger.scrollerProxy(pageConatainer, { //スクロール要素として設定しスクロール位置を監視するためのプロキシを作成
-    scrollTop(value) {
-      if(arguments.length){
-        scrollBar.scrollTop = value; //setter
-      }
-      return scrollBar.scrollTop; //getter
-    
-  }});
-  scrollBar.addListener(ScrollTrigger.update);//スクロールイベントに対してアップデート関数をリスナーとして登録
+//   ScrollTrigger.scrollerProxy(pageConatainer, { //スクロール要素として設定しスクロール位置を監視するためのプロキシを作成
+//     scrollTop(value) {
+//       if(arguments.length){
+//         scrollBar.scrollTop = value; //setter
+//       }
+//       return scrollBar.scrollTop; //getter
 
-  ScrollTrigger.defaults({ scroller: pageConatainer });//デフォルトのスクロール要素を設定
+//   }});
+//   scrollBar.addListener(ScrollTrigger.update);//スクロールイベントに対してアップデート関数をリスナーとして登録
 
-  const el = iNode.qs("[data-webgl]");
+//   ScrollTrigger.defaults({ scroller: pageConatainer });//デフォルトのスクロール要素を設定
 
-  // const rect = el.getBoundingClientRect();
-  // const x = rect.left + 300;
-  // const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
+//   const el = iNode.qs("[data-webgl]");
 
-  // gsap.to(os[0].mesh.position, {
-  //   x: pos.x,
-  //   scrollTrigger: {
-  //     trigger: el,
-  //     start: "center 70%",
-  //     end: "center center",
-  //     scrub: true,
-  //     pin: true,
-  //   },
-  // });
-}
+// const rect = el.getBoundingClientRect();
+// const x = rect.left + 300;
+// const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
+
+// gsap.to(os[0].mesh.position, {
+//   x: pos.x,
+//   scrollTrigger: {
+//     trigger: el,
+//     start: "center 70%",
+//     end: "center center",
+//     scrub: true,
+//     pin: true,
+//   },
+// });
+// }
 
 // function resize(o, newCanvasRect) {
 //   //位置の変更
