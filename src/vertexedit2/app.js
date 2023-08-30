@@ -24,10 +24,7 @@ async function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
   document.body.appendChild(renderer.domElement);
-  // const outputEl = iNode.qs(".output");
-  // console.log(outputEl);
-  // outputEl.appendChild(renderer.domElement);
-
+  
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
     const texture = await texLoader.loadAsync(url);
@@ -37,38 +34,33 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 10;
-    const hSeg = 10;
-    const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
-    //頂点の数　（x軸の分割数widthSegement+1）*（y軸の分割数heightSegment+1）
+    const wSeg = 1;
+    const hSeg = 1;
+    const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    const geometry = new THREE.BufferGeometry();
 
-    const expandVertices = [];
-
-    const maxCount = (wSeg + 1) * (hSeg + 1);
-    for (let i = 0; i < maxCount; i++) {
-      //拡大時間は０から１で格納
-      const expandTime = i / maxCount;
-      expandVertices.push(expandTime);
-    }
-    geometry.setAttribute(
-      "aExpandTime",
-      new THREE.Float32BufferAttribute(expandVertices, 1)
-    );
-
+    console.log(geometry);
+    
+    
+   
+    
+   
+    
     return geometry;
   }
   const geometry = setupGeometry();
   window.geometry = geometry;
+  
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      uTex1: { value: await loadTex("/img/output6.jpg") },
-      uTex2: { value: await loadTex("/img/output7.jpg") },
-      uTick: { value: 0 },
       uProgress: { value: 0 },
+      uTick: { value: 0 },
     },
+    
     vertexShader,
     fragmentShader,
     // wireframe: true,
+    vertexColors: THREE.VertexColors,
   });
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
