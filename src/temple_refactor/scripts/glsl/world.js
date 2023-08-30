@@ -22,6 +22,7 @@ const world = {
   os: [],
   init,
   fitWorldPositon,
+  render,
 };
 
 const raycaster = new Raycaster();
