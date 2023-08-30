@@ -16,8 +16,8 @@ function init(canvas, cameraZ = 2000, near = 1500, far = 4000) {
   viewport.height = rect.height;
   viewport.near = near;
   viewport.far = far;
-  viewport.aspect = viewport.width / viewport.height;
   viewport.cameraZ = cameraZ;
+  viewport.aspect = viewport.width / viewport.height;
   viewport.rad = 2 * Math.atan(viewport.height / 2 / cameraZ);
   viewport.fov = viewport.rad * (180 / Math.PI);
   viewport.devicePixelRatio = 1;
