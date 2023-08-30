@@ -99,7 +99,7 @@ export function init() {
   //   });
   // });
 
-  // initScroll();
+  initScroll();
   viewport._initResize();
 
   // render();
@@ -120,11 +120,11 @@ export function init() {
 //   return texture;
 // }
 
-// function getWorldPosition(rect, canvasRect) {
-//   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
-//   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
-//   return { x, y };
-// }
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
+}
 
 // function scroll(o) {
 //   const {
@@ -136,25 +136,25 @@ export function init() {
 //   mesh.position.y = y;
 // }
 
-// function initScroll() {
-//   gsap.registerPlugin(ScrollTrigger);
-//   const el = iNode.qs("[data-webgl]");
+function initScroll() {
+  gsap.registerPlugin(ScrollTrigger);
+  const el = iNode.qs("[data-webgl]");
 
-//   const rect = el.getBoundingClientRect();
-//   const x = rect.left + 300;
-//   const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
+  const rect = el.getBoundingClientRect();
+  const x = rect.left + 300;
+  const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
 
-//   // gsap.to(os[0].mesh.position, {
-//   //   x: pos.x,
-//   //   scrollTrigger: {
-//   //     trigger: el,
-//   //     start: "center 70%",
-//   //     end: "center center",
-//   //     scrub: true,
-//   //     pin: true,
-//   //   },
-//   // });
-// }
+  // gsap.to(os[0].mesh.position, {
+  //   x: pos.x,
+  //   scrollTrigger: {
+  //     trigger: el,
+  //     start: "center 70%",
+  //     end: "center center",
+  //     scrub: true,
+  //     pin: true,
+  //   },
+  // });
+}
 
 // function resize(o, newCanvasRect) {
 //   //位置の変更

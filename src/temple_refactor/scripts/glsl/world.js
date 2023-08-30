@@ -20,6 +20,7 @@ import fragmentShader from "../../scripts/fragment.glsl";
 
 import { viewport } from "./helper/viewport";
 import { iNode } from "../../../iNode";
+// import { scroller } from "../../scripts/component/scroller";
 
 const world = {
   os: [],
@@ -178,7 +179,7 @@ function initScroll() {
   const x = rect.left + 300;
   const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
 
-  // gsap.to(os[0].mesh.position, {
+  // gsap.to(world.os[0].mesh.position, {
   //   x: pos.x,
   //   scrollTrigger: {
   //     trigger: el,
