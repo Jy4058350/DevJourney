@@ -12,6 +12,9 @@ import {
   Raycaster,
 } from "three";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import vertexShader from "../../scripts/vertex.glsl";
 import fragmentShader from "../../scripts/fragment.glsl";
 
@@ -97,6 +100,9 @@ function init(canvas, viewport) {
     //       ease: "ease",
     //     });
     //   });
+
+    initScroll();
+    viewport._initResize();
   });
 }
 
@@ -160,8 +166,8 @@ function scroll(o) {
     mesh,
   } = o;
   const rect = el.getBoundingClientRect();
-  // const { y } = getWorldPosition(rect, canvasRect);
-  // mesh.position.y = y;
+  const { y } = getWorldPosition(rect, canvasRect);
+  mesh.position.y = y;
 }
 
 function initScroll() {
