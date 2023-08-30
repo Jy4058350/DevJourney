@@ -21,7 +21,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../../iNode";
 
 import world from "./glsl/world";
-import viewport from "./glsl/helper/viewport";
+import { viewport } from "./glsl/helper/viewport";
 
 // const os = [];
 const canvas = iNode.qs("#canvas");
@@ -33,7 +33,7 @@ const canvasRect = canvas.getBoundingClientRect();
 export function init() {
   const canvas = iNode.qs("#canvas");
   viewport.init(canvas); //カメラのnear,far,fovを変更したい場合には第二引数から設定する
-  
+
   world.init(canvas, viewport);
 
   world.render();
@@ -61,47 +61,47 @@ export function init() {
   //     fragmentShader,
   //   });
 
-    // const mesh = new Mesh(geometry, material);
-    // world.scene.add(mesh);
+  // const mesh = new Mesh(geometry, material);
+  // world.scene.add(mesh);
 
-    // const { x, y } = getWorldPosition(rect, canvasRect);
-    // mesh.position.set(x, y, 0);
+  // const { x, y } = getWorldPosition(rect, canvasRect);
+  // mesh.position.set(x, y, 0);
 
-    // const o = {
-    //   $: { el },
-    //   mesh,
-    //   geometry,
-    //   material,
-    //   rect,
-    //   canvasRect,
-    // };
-    // os.push(o);
+  // const o = {
+  //   $: { el },
+  //   mesh,
+  //   geometry,
+  //   material,
+  //   rect,
+  //   canvasRect,
+  // };
+  // os.push(o);
 
-    // const gui = new GUI();
-    // const folder1 = gui.addFolder("");
-    // folder1.open();
+  // const gui = new GUI();
+  // const folder1 = gui.addFolder("");
+  // folder1.open();
 
-    // folder1
-    //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    //   .name("")
-    //   .listen();
+  // folder1
+  //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+  //   .name("")
+  //   .listen();
 
-    // const datData = { next: !!material.uniforms.uProgress.value };
-    // folder1
-    //   .add(datData, "next")
-    //   .name("")
-    //   .onChange(() => {
-    //     gsap.to(material.uniforms.uProgress, {
-    //       value: datData.next ? 1 : 0,
-    //       duration: 3,
-    //       ease: "ease",
-    //     });
-    //   });
+  // const datData = { next: !!material.uniforms.uProgress.value };
+  // folder1
+  //   .add(datData, "next")
+  //   .name("")
+  //   .onChange(() => {
+  //     gsap.to(material.uniforms.uProgress, {
+  //       value: datData.next ? 1 : 0,
+  //       duration: 3,
+  //       ease: "ease",
+  //     });
+  //   });
   // });
 
   // initScroll();
   viewport._initResize();
-  
+
   // render();
   // function render(world) {
   //   requestAnimationFrame(render);

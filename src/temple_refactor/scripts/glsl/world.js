@@ -15,7 +15,7 @@ import {
 import vertexShader from "../../scripts/vertex.glsl";
 import fragmentShader from "../../scripts/fragment.glsl";
 
-import viewport from "./helper/viewport";
+import { viewport } from "./helper/viewport";
 import { iNode } from "../../../iNode";
 
 const world = {
@@ -24,6 +24,9 @@ const world = {
   fitWorldPositon,
   render,
 };
+
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();

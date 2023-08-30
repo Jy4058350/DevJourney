@@ -50,4 +50,4 @@ function _onResize() {
   world.fitWorldPositon(viewport);
 }
 
-export default viewport;
+export  {viewport};
