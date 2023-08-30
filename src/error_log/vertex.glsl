@@ -3,7 +3,7 @@ precision mediump float;
 #pragma glslify: easeBack = require(glsl-easings/back-in-out)
 #pragma glslify: ease = require(glsl-easings/exponential-in-out)
 
-// #pragma glslify: rotate = require(glsl-rotate)
+#pragma glslify: rotate = require(glsl-rotate)
 
 varying vec2 vUv;
 varying float vDelay;
