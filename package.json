@@ -26,6 +26,6 @@
     "lil-gui": "^0.18.1",
     "smooth-scrollbar": "^8.8.1",
     "stats-js": "^1.0.1",
-    "three": "^0.150.1"
+    "three": "^0.152.0"
   }
 }
