@@ -11,7 +11,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
 
 init();
-async function init() {
+function init() {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -23,8 +23,25 @@ async function init() {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
+
+   /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
+   renderer.debug.onShaderError = ( gl, program, vertexShader, fragmentShader ) => {
+    
+    const vertexShaderSource = gl.getShaderSource( vertexShader );
+    const fragmentShaderSource = gl.getShaderSource( fragmentShader );
+    
+    console.groupCollapsed( "vertexShader" )
+    console.log( vertexShaderSource )
+    console.groupEnd()
+    
+    console.groupCollapsed( "fragmentShader" )
+    console.log( fragmentShaderSource )
+    console.groupEnd()
+
+  }
+
   document.body.appendChild(renderer.domElement);
-  
+
   async function loadTex(url) {
     const texLoader = new THREE.TextureLoader();
     const texture = await texLoader.loadAsync(url);
@@ -38,29 +55,27 @@ async function init() {
     const hSeg = 1;
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", plane.getAttribute("position"));
+    geometry.setAttribute("plane", plane.getAttribute("position"));
+    geometry.setAttribute("uv", plane.getAttribute("uv"));
 
     console.log(geometry);
-    
-    
-   
-    
-   
-    
+
     return geometry;
   }
   const geometry = setupGeometry();
   window.geometry = geometry;
-  
+
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uProgress: { value: 0 },
       uTick: { value: 0 },
     },
-    
+
     vertexShader,
     fragmentShader,
     // wireframe: true,
-    vertexColors: THREE.VertexColors,
+    side: THREE.DoubleSide,
   });
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
