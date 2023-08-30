@@ -22,7 +22,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../../iNode";
 
 import world from "./glsl/world";
-import { viewport } from "./glsl/helper/viewport";
+import { viewport } from "./helper/viewport";
 import scroll from "./component/scroller";
 
 // const os = [];
@@ -34,13 +34,14 @@ const canvasRect = canvas.getBoundingClientRect();
 
 export function init() {
   const canvas = iNode.qs("#canvas");
+
   viewport.init(canvas); //カメラのnear,far,fovを変更したい場合には第二引数から設定する
+  scroll.initScroll();
 
   world.init(canvas, viewport);
 
   world.render();
 
-  scroll.initScroll();
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);
@@ -103,7 +104,7 @@ export function init() {
   //   });
   // });
 
-  viewport._initResize();
+  // viewport._initResize();
 
   // render();
   // function render(world) {
@@ -123,11 +124,11 @@ export function init() {
 //   return texture;
 // }
 
-function getWorldPosition(rect, canvasRect) {
-  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
-  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
-  return { x, y };
-}
+// function getWorldPosition(rect, canvasRect) {
+//   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+//   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+//   return { x, y };
+// }
 
 // function scroll(o) {
 //   const {

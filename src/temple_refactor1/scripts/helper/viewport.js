@@ -1,8 +1,7 @@
-import world from "../world";
+import world from "../glsl/world";
 
 const viewport = {
   init,
-  _initResize,
 };
 
 const $ = {};
@@ -21,11 +20,11 @@ function init(canvas, cameraZ = 2000, near = 1500, far = 4000) {
   viewport.cameraZ = cameraZ;
   viewport.rad = 2 * Math.atan(viewport.height / 2 / cameraZ);
   viewport.fov = viewport.rad * (180 / Math.PI);
-  viewport.devicePixelRatio = window.devicePixelRatio;
+  viewport.devicePixelRatio = 1;
 
   if (!initialized) {
     _initResize();
-    (initialized = true);
+    initialized = true;
   }
   return viewport;
 }
@@ -50,4 +49,4 @@ function _onResize() {
   world.fitWorldPositon(viewport);
 }
 
-export  {viewport};
+export { viewport };

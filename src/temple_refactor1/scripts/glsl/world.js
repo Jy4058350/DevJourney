@@ -1,5 +1,5 @@
-import { WebGLRenderer } from "three";
 import {
+  WebGLRenderer,
   Scene,
   PerspectiveCamera,
   PlaneGeometry,
@@ -18,8 +18,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import vertexShader from "../../scripts/vertex.glsl";
 import fragmentShader from "../../scripts/fragment.glsl";
 
-import { viewport } from "./helper/viewport";
+// import { viewport } from "../helper/viewport";
 import { iNode } from "../../../iNode";
+import { viewport, utils } from "../helper";
 // import { scroller } from "../../scripts/component/scroller";
 
 const world = {
@@ -29,8 +30,8 @@ const world = {
   render,
 };
 
-const canvas = iNode.qs("#canvas");
-const canvasRect = canvas.getBoundingClientRect();
+// const canvas = iNode.qs("#canvas");
+// const canvasRect = canvas.getBoundingClientRect();
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();
@@ -48,16 +49,77 @@ function init(canvas, viewport) {
 
   world.camera = setupPerspectiveCamera(viewport);
 
+  _initObjects(viewport);
+
+  // const els = iNode.qsa("[data-webgl]");
+  // els.forEach(async (el) => {
+  //   const rect = el.getBoundingClientRect();
+  //   const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
+  //   const material = new ShaderMaterial({
+  //     uniforms: {
+  //       uMouse: { value: new Vector2(0.5, 0.5) },
+  //       uHover: { value: 0 },
+  //       uTex1: { value: await loadTex("/img/output1.jpg") },
+  //       uTex2: { value: await loadTex("/img/output2.jpg") },
+  //       uTick: { value: 0 },
+  //       uProgress: { value: 0 },
+  //     },
+  //     vertexShader,
+  //     fragmentShader,
+  //   });
+
+  //   const mesh = new Mesh(geometry, material);
+  //   world.scene.add(mesh);
+
+  //   const { x, y } = getWorldPosition(rect, canvasRect);
+  //   mesh.position.set(x, y, 0);
+
+  //   const o = {
+  //     $: { el },
+  //     mesh,
+  //     geometry,
+  //     material,
+  //     rect,
+  //     canvasRect,
+  //   };
+  //   world.os.push(o);
+
+  //   // const gui = new GUI();
+  //   // const folder1 = gui.addFolder("");
+  //   // folder1.open();
+
+  //   // folder1
+  //   //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+  //   //   .name("")
+  //   //   .listen();
+
+  //   // const datData = { next: !!material.uniforms.uProgress.value };
+  //   // folder1
+  //   //   .add(datData, "next")
+  //   //   .name("")
+  //   //   .onChange(() => {
+  //   //     gsap.to(material.uniforms.uProgress, {
+  //   //       value: datData.next ? 1 : 0,
+  //   //       duration: 3,
+  //   //       ease: "ease",
+  //   //     });
+  //   //   });
+
+  //   // viewport._initResize();
+  // });
+}
+
+function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  els.forEach(async (el) => {
+  els.forEach( (el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        uTex1: { value: await loadTex("/img/output1.jpg") },
-        uTex2: { value: await loadTex("/img/output2.jpg") },
+        // uTex1: { value: await loadTex("/img/output1.jpg") },
+        // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
       },
@@ -66,10 +128,10 @@ function init(canvas, viewport) {
     });
 
     const mesh = new Mesh(geometry, material);
-    world.scene.add(mesh);
+    mesh.position.z = 0; //追加⭐️⭐️0830
 
-    const { x, y } = getWorldPosition(rect, canvasRect);
-    mesh.position.set(x, y, 0);
+    // const { x, y } = getWorldPosition(rect, canvasRect);
+    // mesh.position.set(x, y, 0);
 
     const o = {
       $: { el },
@@ -77,8 +139,9 @@ function init(canvas, viewport) {
       geometry,
       material,
       rect,
-      canvasRect,
+      // canvasRect,
     };
+    world.scene.add(mesh);
     world.os.push(o);
 
     // const gui = new GUI();
@@ -102,55 +165,69 @@ function init(canvas, viewport) {
     //     });
     //   });
 
-   
-    viewport._initResize();
+    // viewport._initResize();
   });
-}
-
-function render() {
-  requestAnimationFrame(render);
-  world.os.forEach((o) => scroll(o)); //この記述を覚える！！
-  // controls.update();
-  // raycast();
-
-  world.renderer.render(world.scene, world.camera);
+  fitWorldPositon(viewport);
 }
 
 function setupPerspectiveCamera(viewport) {
-  const { fov, near, far, cameraZ } = viewport;
-  const camera = new PerspectiveCamera(
-    fov,
-    viewport.width / viewport.height,
-    near,
-    far
-  );
+  const { fov, near, far, cameraZ, aspect } = viewport;
+  const camera = new PerspectiveCamera(fov, near, far, aspect);
   camera.position.z = cameraZ;
   return camera;
 }
 
+function fitWorldPositon(viewport) {
+  //adustWorldPositionと同じ関数
+  world.renderer.setSize(viewport.width, viewport.height, false);
+
+  // meshの位置と大きさの変更
+  world.os.forEach((o) => resize(o, viewport)); //newCanvasRectをviewportに変更
+
+  updateCamera(viewport);
+}
+
+function resize(o, newCanvasRect) {
+  //位置の変更
+  const {
+    mesh,
+    rect,
+    $: { el },
+    geometry,
+  } = o;
+  const resizingRect = el.getBoundingClientRect();
+  const { x, y } = getWorldPosition(resizingRect, newCanvasRect);
+  mesh.position.set(x, y, 0);
+
+  //大きさの変更
+  geometry.scale(
+    resizingRect.width / rect.width,
+    resizingRect.height / rect.height,
+    1
+  );
+  o.rect = resizingRect;
+}
 function getWorldPosition(rect, canvasRect) {
   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
   return { x, y };
 }
-
-function fitWorldPositon(viewport) {
-  world.renderer.setSize(viewport.width, viewport.height, false);
-
-  // meshの位置と大きさの変更
-  os.forEach((o) => resize(o, newCanvasRect));
-
-  updateCamera(viewport);
-}
-
 function updateCamera(viewport) {
-  const { fov, near, far, cameraZ } = viewport;
+  const { fov, near, far, aspect } = viewport;
   world.camera.near = near;
   world.camera.far = far;
   world.camera.aspect = aspect;
   world.camera.fov = fov;
   world.camera.updateProjectionMatrix();
   return world.camera;
+}
+function render() {
+  requestAnimationFrame(render);
+  world.os.forEach((o) => scroll(o)); //この記述を覚える！！
+  // controls.update();
+  raycast();
+
+  world.renderer.render(world.scene, world.camera);
 }
 
 async function loadTex(url) {
@@ -167,7 +244,7 @@ function scroll(o) {
     mesh,
   } = o;
   const rect = el.getBoundingClientRect();
-  const { y } = getWorldPosition(rect, canvasRect);
+  const { x, y } = getWorldPosition(rect, viewport);
   mesh.position.y = y;
 }
 
@@ -179,38 +256,17 @@ function scroll(o) {
 //   const x = rect.left + 300;
 //   const pos = getWorldPosition({ left: x, width: rect.width }, canvasRect);
 
-  // gsap.to(world.os[0].mesh.position, {
-  //   x: pos.x,
-  //   scrollTrigger: {
-  //     trigger: el,
-  //     start: "center 70%",
-  //     end: "center center",
-  //     scrub: true,
-  //     pin: true,
-  //   },
-  // });
+// gsap.to(world.os[0].mesh.position, {
+//   x: pos.x,
+//   scrollTrigger: {
+//     trigger: el,
+//     start: "center 70%",
+//     end: "center center",
+//     scrub: true,
+//     pin: true,
+//   },
+// });
 // }
-
-function resize(o, newCanvasRect) {
-  //位置の変更
-  const {
-    mesh,
-    rect,
-    $: { el },
-    geometry,
-  } = o;
-  const resizingRect = el.getBoundingClientRect();
-  const { x, y } = getWorldPosition(rect, newCanvasRect);
-  mesh.position.set(x, y, 0);
-
-  //大きさの変更
-  geometry.scale(
-    resizingRect.width / rect.width,
-    resizingRect.height / rect.height,
-    1
-  );
-  o.rect = resizingRect;
-}
 
 function onPointerMove(event) {
   pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -234,17 +290,17 @@ function raycast() {
     } else {
       _mesh.material.uniforms.uHover.__endValue = 0;
     }
-    _mesh.material.uniforms.uHover.value = lerp(
+    _mesh.material.uniforms.uHover.value = utils.lerp(
       _mesh.material.uniforms.uHover.value,
       _mesh.material.uniforms.uHover.__endValue,
       0.001
     );
   }
-  function lerp(start, end, amt) {
-    let current = (1 - amt) * start + amt * end;
-    if (Math.abs(end - current) < 0.0001) current = end;
-    return current;
-  }
+  // function lerp(start, end, amt) {
+  //   let current = (1 - amt) * start + amt * end;
+  //   if (Math.abs(end - current) < 0.0001) current = end;
+  //   return current;
+  // }
 }
 
 window.addEventListener("pointermove", onPointerMove);
