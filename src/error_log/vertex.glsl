@@ -20,7 +20,7 @@ void main() {
     vDelay = aDelay;
 
     // 平面の頂点位置
-    vec3 p = position
+    vec3 p = position;
     vec3 s = sphere;
 
     float waveP = sin(uTick * 0.02 - aDelay * 5.);
