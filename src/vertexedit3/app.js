@@ -54,24 +54,34 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 3,
-      hSeg = 3;
+    const wSeg = 1,
+      hSeg = 1;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
 
+    const maxCount = (wSeg + 1) * (hSeg + 1);
+    console.log(maxCount);
+    const normalizedValues = [];
+    for (let i = 0; i < maxCount; i++) {
+      const norma = i / maxCount;
+      normalizedValues.push(norma);
+    }
+    console.log(normalizedValues);
+    
     // planegeometryのindexをbuffergeometryにセット
     const planeIndexs = plane.getIndex().array;
     geometry.setIndex(new THREE.BufferAttribute(planeIndexs, 1));
 
+    console.log(geometry);
     return geometry;
   }
   const geometry = setupGeometry();
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      // uTex: { value: await loadTex("/img/uv.jpg") },
+      uTex: { value: await loadTex("/img/uv.jpg") },
       uTex1: { value: await loadTex("/img/output5.jpg") },
       uProgress: { value: 0 },
       uTick: { value: 0 },
