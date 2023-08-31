@@ -75,6 +75,10 @@ async function init() {
       "normalizedValue",
       new THREE.Float32BufferAttribute(normalizedValues, 1)
     );
+    geometry.setAttribute(
+      "normalizedValue1",
+      new THREE.Float32BufferAttribute(normalizedValues, 1)
+    );
 
     // planegeometryのindexをbuffergeometryにセット
     const planeIndexs = plane.getIndex().array;
