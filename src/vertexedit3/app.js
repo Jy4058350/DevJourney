@@ -54,14 +54,15 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 1,
-      hSeg = 1;
+    const wSeg = 10,
+      hSeg = 10;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
 
+    //頂点情報の正規化
     const maxCount = (wSeg + 1) * (hSeg + 1);
     console.log(maxCount);
     const normalizedValues = [];
@@ -70,7 +71,11 @@ async function init() {
       normalizedValues.push(norma);
     }
     console.log(normalizedValues);
-    
+    geometry.setAttribute(
+      "normalizedValue",
+      new THREE.Float32BufferAttribute(normalizedValues, 1)
+    );
+
     // planegeometryのindexをbuffergeometryにセット
     const planeIndexs = plane.getIndex().array;
     geometry.setIndex(new THREE.BufferAttribute(planeIndexs, 1));
