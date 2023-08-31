@@ -54,8 +54,8 @@ function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 1;
-    const hSeg = 1;
+    const wSeg = 3;
+    const hSeg = 3;
     const indices = new Uint16Array([
       0,
       2,
@@ -67,12 +67,19 @@ function init() {
     // const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    
     const index = new THREE.BufferAttribute(indices, 1);
+    const planeIndex = plane.getIndex();
+    const planeIndexs = planeIndex.array;
+    const a = new THREE.BufferAttribute(planeIndexs, 1);
+    console.log(a);
+
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
-    // geometry.setIndex("aindex", plane.getIndex("indices"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    geometry.setIndex(index);
+    // geometry.setIndex(index);
+    geometry.setIndex(a);
+    
  
 
     console.log(geometry);
