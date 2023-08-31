@@ -54,35 +54,17 @@ function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 3;
-    const hSeg = 3;
-    const indices = new Uint16Array([
-      0,
-      2,
-      1,
-      2,
-      3,
-      1,
-    ]);
-    // const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    const wSeg = 10;
+    const hSeg = 10;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
-    
-    const index = new THREE.BufferAttribute(indices, 1);
-    const planeIndex = plane.getIndex();
-    const planeIndexs = planeIndex.array;
-    const a = new THREE.BufferAttribute(planeIndexs, 1);
-    console.log(a);
+
+    const planeIndexs = plane.getIndex().array;
 
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    // geometry.setIndex(index);
-    geometry.setIndex(a);
-    
- 
-
-    console.log(geometry);
+    geometry.setIndex(new THREE.BufferAttribute(planeIndexs, 1));
 
     return geometry;
   }
@@ -97,7 +79,7 @@ function init() {
 
     vertexShader,
     fragmentShader,
-    // wireframe: true,
+    wireframe: true,
     side: THREE.DoubleSide,
   });
   const plane = new THREE.Mesh(geometry, material);
