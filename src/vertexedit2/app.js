@@ -70,6 +70,7 @@ function init() {
     const index = new THREE.BufferAttribute(indices, 1);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
+    // geometry.setIndex("aindex", plane.getIndex("indices"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
     geometry.setIndex(index);
  
