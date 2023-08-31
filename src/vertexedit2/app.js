@@ -54,16 +54,16 @@ function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 10;
-    const hSeg = 10;
+    const wSeg = 2;
+    const hSeg = 2;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
-
-    const planeIndexs = plane.getIndex().array;
-
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
+
+    // planegeometryのindexをbuffergeometryにセット
+    const planeIndexs = plane.getIndex().array;
     geometry.setIndex(new THREE.BufferAttribute(planeIndexs, 1));
 
     return geometry;
