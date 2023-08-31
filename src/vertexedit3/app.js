@@ -54,8 +54,8 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 2;
-    const hSeg = 2;
+    const wSeg = 3,
+      hSeg = 3;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
@@ -71,6 +71,8 @@ async function init() {
   const geometry = setupGeometry();
   const material = new THREE.ShaderMaterial({
     uniforms: {
+      // uTex: { value: await loadTex("/img/uv.jpg") },
+      uTex1: { value: await loadTex("/img/output5.jpg") },
       uProgress: { value: 0 },
       uTick: { value: 0 },
     },
@@ -79,8 +81,9 @@ async function init() {
     // wireframe: true,
     side: THREE.DoubleSide,
   });
-  const plane = new THREE.Mesh(geometry, material);
-  scene.add(plane);
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+  console.log(mesh);
 
   camera.position.z = 30;
 
@@ -111,7 +114,6 @@ async function init() {
       });
     });
 
-  let i = 0;
   function animate() {
     requestAnimationFrame(animate);
     controls.update();

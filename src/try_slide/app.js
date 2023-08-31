@@ -66,7 +66,7 @@ async function init() {
     const rect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(rect, canvasRect);
 
-    const geometry = new PlaneGeometry(256*4, 144*4);
+    const geometry = new PlaneGeometry(256, 144);
     const material = new ShaderMaterial({
       uniforms: {
         uTex1: { value: await loadTex("/img/output3.jpg") },
