@@ -24,21 +24,24 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xffffff);
 
-   /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
-   renderer.debug.onShaderError = ( gl, program, vertexShader, fragmentShader ) => {
-    
-    const vertexShaderSource = gl.getShaderSource( vertexShader );
-    const fragmentShaderSource = gl.getShaderSource( fragmentShader );
-    
-    console.groupCollapsed( "vertexShader" )
-    console.log( vertexShaderSource )
-    console.groupEnd()
-    
-    console.groupCollapsed( "fragmentShader" )
-    console.log( fragmentShaderSource )
-    console.groupEnd()
+  /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */
+  renderer.debug.onShaderError = (
+    gl,
+    program,
+    vertexShader,
+    fragmentShader
+  ) => {
+    const vertexShaderSource = gl.getShaderSource(vertexShader);
+    const fragmentShaderSource = gl.getShaderSource(fragmentShader);
 
-  }
+    console.groupCollapsed("vertexShader");
+    console.log(vertexShaderSource);
+    console.groupEnd();
+
+    console.groupCollapsed("fragmentShader");
+    console.log(fragmentShaderSource);
+    console.groupEnd();
+  };
 
   document.body.appendChild(renderer.domElement);
 
@@ -51,10 +54,11 @@ function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 1;
-    const hSeg = 1;
-    const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    const wSeg = 2;
+    const hSeg = 2;
     const geometry = new THREE.BufferGeometry();
+    // const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
@@ -74,7 +78,7 @@ function init() {
 
     vertexShader,
     fragmentShader,
-    // wireframe: true,
+    wireframe: true,
     side: THREE.DoubleSide,
   });
   const plane = new THREE.Mesh(geometry, material);

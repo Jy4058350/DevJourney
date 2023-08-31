@@ -1,6 +1,7 @@
 precision mediump float;
 
-attribute vec3 plane
+attribute vec3 plane;
+
 
 
 void main() {
