@@ -54,23 +54,40 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 2;
-    const hSeg = 2;
+    const wSeg = 2,
+      hSeg = 2;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
 
+    //頂点情報の正規化
+    const maxCount = (wSeg + 1) * (hSeg + 1);
+    console.log(maxCount);
+    const normalizedValues = [];
+    for (let i = 0; i < maxCount; i++) {
+      const norma = i / maxCount;
+      normalizedValues.push(norma);
+    }
+    console.log(normalizedValues);
+    geometry.setAttribute(
+      "normalizedValue",
+      new THREE.Float32BufferAttribute(normalizedValues, 1)
+    );
+
     // planegeometryのindexをbuffergeometryにセット
     const planeIndexs = plane.getIndex().array;
     geometry.setIndex(new THREE.BufferAttribute(planeIndexs, 1));
 
+    console.log(geometry);
     return geometry;
   }
   const geometry = setupGeometry();
   const material = new THREE.ShaderMaterial({
     uniforms: {
+      uTex: { value: await loadTex("/img/uv.jpg") },
+      uTex1: { value: await loadTex("/img/output5.jpg") },
       uProgress: { value: 0 },
       uTick: { value: 0 },
     },
@@ -79,8 +96,9 @@ async function init() {
     // wireframe: true,
     side: THREE.DoubleSide,
   });
-  const plane = new THREE.Mesh(geometry, material);
-  scene.add(plane);
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+  console.log(mesh);
 
   camera.position.z = 30;
 
@@ -111,7 +129,6 @@ async function init() {
       });
     });
 
-  let i = 0;
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
