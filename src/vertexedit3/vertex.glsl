@@ -18,11 +18,10 @@ void main() {
         v = 1.0;
     }
 
-    if(v1 > 0.23) {
-        v1 = 0.0;
-    } else {
+     if(v1 < 0.56) {
         v1 = 1.0;
-
+    } else {
+        v1 = 0.0;
     }
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position * v1, 0.7);
