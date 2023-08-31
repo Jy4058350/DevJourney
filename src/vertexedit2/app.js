@@ -67,10 +67,11 @@ function init() {
     // const geometry = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
+    const index = new THREE.BufferAttribute(indices, 1);
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("plane", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+    geometry.setIndex(index);
  
 
     console.log(geometry);
