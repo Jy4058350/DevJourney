@@ -22,6 +22,7 @@ import fragmentShader from "../fragment.glsl";
 import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 // import { scroller } from "../../scripts/component/scroller";
+import mousePick from "../component/mousePick";
 
 const world = {
   os: [],
@@ -30,8 +31,8 @@ const world = {
   render,
 };
 
-// const canvas = iNode.qs("#canvas");
-// const canvasRect = canvas.getBoundingClientRect();
+const canvas = iNode.qs("#canvas");
+const canvasRect = canvas.getBoundingClientRect();
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();
@@ -111,7 +112,7 @@ function init(canvas, viewport) {
 
 function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  els.forEach( (el) => {
+  els.forEach((el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
@@ -168,6 +169,7 @@ function _initObjects() {
     // viewport._initResize();
   });
   fitWorldPositon(viewport);
+  mousePick.init();
 }
 
 function setupPerspectiveCamera(viewport) {
@@ -225,6 +227,7 @@ function render() {
   requestAnimationFrame(render);
   world.os.forEach((o) => scroll(o)); //この記述を覚える！！
   // controls.update();
+
   raycast();
 
   world.renderer.render(world.scene, world.camera);
@@ -268,41 +271,42 @@ function scroll(o) {
 // });
 // }
 
-function onPointerMove(event) {
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
+// function onPointerMove(event) {
+//   pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+//   pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+// }
 
-function raycast() {
-  // update the picking ray with the camera and pointer position
-  raycaster.setFromCamera(pointer, world.camera);
+// function raycast() {
+//   // update the picking ray with the camera and pointer position
+//   raycaster.setFromCamera(pointer, world.camera);
 
-  // calculate objects intersecting the picking ray
-  const intersects = raycaster.intersectObjects(world.scene.children);
-  const intersect = intersects[0];
+//   // calculate objects intersecting the picking ray
+//   const intersects = raycaster.intersectObjects(world.scene.children);
+//   const intersect = intersects[0];
 
-  for (let i = 0; i < world.scene.children.length; i++) {
-    const _mesh = world.scene.children[i];
+//   for (let i = 0; i < world.scene.children.length; i++) {
+//     const _mesh = world.scene.children[i];
 
-    if (intersect?.object === _mesh) {
-      _mesh.material.uniforms.uMouse.value = intersect.uv;
-      _mesh.material.uniforms.uHover.__endValue = 1;
-    } else {
-      _mesh.material.uniforms.uHover.__endValue = 0;
-    }
-    _mesh.material.uniforms.uHover.value = utils.lerp(
-      _mesh.material.uniforms.uHover.value,
-      _mesh.material.uniforms.uHover.__endValue,
-      0.001
-    );
-  }
+//     if (intersect?.object === _mesh) {
+//       _mesh.material.uniforms.uMouse.value = intersect.uv;
+//       _mesh.material.uniforms.uHover.__endValue = 1;
+//     } else {
+//       _mesh.material.uniforms.uHover.__endValue = 0;
+//     }
+//     _mesh.material.uniforms.uHover.value = utils.lerp(
+//       _mesh.material.uniforms.uHover.value,
+//       _mesh.material.uniforms.uHover.__endValue,
+//       0.001
+//     );
+//     debugger;
+//   }
   // function lerp(start, end, amt) {
   //   let current = (1 - amt) * start + amt * end;
   //   if (Math.abs(end - current) < 0.0001) current = end;
   //   return current;
   // }
-}
+// }
 
-window.addEventListener("pointermove", onPointerMove);
+// window.addEventListener("pointermove", onPointerMove);
 
 export default world;
