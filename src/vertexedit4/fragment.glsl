@@ -23,12 +23,8 @@ void main() {
 
     //　ある範囲でdiscardする
     //😃test result　
-
-    if(0.00< v1 && v1 < 0.29) {
-    // if(0.17 < v1 && v1 < 0.26 && 0.35 < v1 && v1 < 0.42) {
-
+    if(v < 1.0) {
         discard;
     }
-
     gl_FragColor = tex;
 }
