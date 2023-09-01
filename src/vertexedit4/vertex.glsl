@@ -14,12 +14,14 @@ void main() {
     v1 = normalizedValue1;
     pos = position;
 
-
     if(v1 < 1.0) {
         v1 = 1.0; //0.49以下を全て1にする。なので1以下をfragmentのdiscardで１以下で消す
     } else {
         v1 = 0.0;
     }
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position * v, 1.2);
+    vec4 scale = vec4(pos, 1.0);
+    vec4 scale1 = vec4(pos, 2.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * (scale1);
 }
