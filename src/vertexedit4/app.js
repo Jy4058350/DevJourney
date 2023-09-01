@@ -54,8 +54,8 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 2,
-      hSeg = 5;
+    const wSeg = 3,
+      hSeg = 3;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
@@ -97,7 +97,7 @@ async function init() {
     },
     vertexShader,
     fragmentShader,
-    // wireframe: true,
+    wireframe: true,
     side: THREE.DoubleSide,
   });
   const mesh = new THREE.Mesh(geometry, material);

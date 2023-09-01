@@ -23,13 +23,11 @@ void main() {
 
     //　ある範囲でdiscardする
     //😃test result　
-    float a = 0.2;//cennte座標と頂点をむずばずに描画
-    float b = 0.5;
 
-    if(v1 > a && v1 < b) {
+    if(0.00< v1 && v1 < 0.29) {
+    // if(0.17 < v1 && v1 < 0.26 && 0.35 < v1 && v1 < 0.42) {
 
         discard;
-        // discard;
     }
 
     gl_FragColor = tex;
