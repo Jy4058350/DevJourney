@@ -8,6 +8,9 @@ uniform sampler2D uTex1;
 varying vec2 vUv;
 varying vec3 pos;
 
+varying vec4 vScale1;
+varying vec4 vScale;
+
 void main() {
 
     vec2 uv = vUv;
@@ -26,9 +29,13 @@ void main() {
     // float a = 0.5;//cennte座標と頂点を半分結んだ状態に描画
     // float a = 0.0;//center座標と頂点を結んで描画
 
-    if(v1 < a) {
-        discard;
-    }
+    // if(v1 < a) {
+    //     discard;
+    // }
+
+    // if(vScale1 == vScale1) {
+    //     discard;
+    // }
 
     gl_FragColor = tex;
 }
