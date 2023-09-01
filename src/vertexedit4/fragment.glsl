@@ -18,7 +18,7 @@ void main() {
     vec4 tex1 = texture2D(uTex1, uv);
 
     if(uv.x > 0.2 && uv.x < 0.8 && uv.y > 0.2 && uv.y < 0.8) {
-        vec2 us = uv * 0.9;
+        vec2 us = uv + 0.2;
          vec4 tex = texture2D(uTex, us);
         gl_FragColor = tex;
     }
