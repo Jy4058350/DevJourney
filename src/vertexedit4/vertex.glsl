@@ -10,15 +10,10 @@ varying vec3 pos;
 
 void main() {
     vUv = uv;
-    v = normalizedValue;
+    v = normalizedValue * 0.5;
     v1 = normalizedValue1;
     pos = position;
 
-    if(v < 0.43) {
-        v = 0.0;
-    } else {
-        v = 1.0;
-    }
 
     if(v1 < 1.0) {
         v1 = 1.0; //0.49以下を全て1にする。なので1以下をfragmentのdiscardで１以下で消す
@@ -26,5 +21,5 @@ void main() {
         v1 = 0.0;
     }
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position * v1, 1.2);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position * v, 1.2);
 }
