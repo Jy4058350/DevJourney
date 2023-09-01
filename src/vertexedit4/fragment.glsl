@@ -13,14 +13,14 @@ void main() {
     vec2 uv = vUv;
     vec3 p = pos * v;
     vec3 p1 = pos * v1;
-
     vec2 uc = clamp(uv, 0.2,0.8);
-
     vec4 tex = texture2D(uTex,uc);
     vec4 tex1 = texture2D(uTex1, uv);
 
     
 
-   
+   if(uc.x > 0.2){
     gl_FragColor = tex;
+
+   }
 }

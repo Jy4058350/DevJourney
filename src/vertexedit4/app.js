@@ -54,8 +54,8 @@ async function init() {
   }
 
   function setupGeometry() {
-    const wSeg = 3,
-      hSeg = 3;
+    const wSeg = 1,
+      hSeg = 1;
     const geometry = new THREE.BufferGeometry();
     const plane = new THREE.PlaneGeometry(50, 25, wSeg, hSeg);
     geometry.setAttribute("position", plane.getAttribute("position"));
