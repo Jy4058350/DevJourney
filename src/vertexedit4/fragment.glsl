@@ -19,12 +19,8 @@ void main() {
     vec4 tex1 = texture2D(uTex1, uv);
 
     // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    gl_FragColor = tex;
+    // gl_FragColor = tex;
 
-    //　ある範囲でdiscardする
-    //😃test result　
-    if(v < 1.0) {
-        discard;
-    }
+   
     gl_FragColor = tex;
 }

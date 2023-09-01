@@ -97,7 +97,7 @@ async function init() {
     },
     vertexShader,
     fragmentShader,
-    wireframe: true,
+    // wireframe: true,
     side: THREE.DoubleSide,
   });
   const mesh = new THREE.Mesh(geometry, material);
