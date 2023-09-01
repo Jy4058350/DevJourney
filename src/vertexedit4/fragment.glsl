@@ -14,12 +14,12 @@ void main() {
     vec3 p = pos * v;
     vec3 p1 = pos * v1;
 
-    // vec4 tex = texture2D(uTex, vUv);
-    vec4 tex = texture2D(uTex, uv);
+    vec2 uc = clamp(uv, 0.2,0.8);
+
+    vec4 tex = texture2D(uTex,uc);
     vec4 tex1 = texture2D(uTex1, uv);
 
-    // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    // gl_FragColor = tex;
+    
 
    
     gl_FragColor = tex;
