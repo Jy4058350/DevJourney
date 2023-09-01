@@ -19,7 +19,7 @@ void main() {
 
     
 
-   if(uc.x > 0.2){
+   if(uv.x > 0.2&& uv.x < 0.8 && uv.y > 0.2 && uv.y < 0.8){
     gl_FragColor = tex;
 
    }
