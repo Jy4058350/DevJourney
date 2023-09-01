@@ -20,11 +20,11 @@ void main() {
         v = 1.0;
     }
 
-    if(v1 < 0.43) {
-        v1 = 1.0;
+    if(v1 < .49) {
+        v1 = 1.0; //0.49以下を全て1にする。なので1以下をfragmentのdiscardで１以下で消す
     } else {
         v1 = 0.0;
     }
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position*v1, 0.7);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position * v1, 0.7);
 }
