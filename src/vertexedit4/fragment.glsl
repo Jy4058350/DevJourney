@@ -8,9 +8,6 @@ uniform sampler2D uTex1;
 varying vec2 vUv;
 varying vec3 pos;
 
-varying vec4 vScale1;
-varying vec4 vScale;
-
 void main() {
 
     vec2 uv = vUv;
@@ -24,18 +21,16 @@ void main() {
     // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
     gl_FragColor = tex;
 
-    //😃test result　値を１.0以下すなわちすべてをdiscardすると描画しなくなる 
-    float a = 1.0;//cennte座標と頂点をむずばずに描画
-    // float a = 0.5;//cennte座標と頂点を半分結んだ状態に描画
-    // float a = 0.0;//center座標と頂点を結んで描画
+    //　ある範囲でdiscardする
+    //😃test result　
+    float a = 0.2;//cennte座標と頂点をむずばずに描画
+    float b = 0.5;
 
-    // if(v1 < a) {
-    //     discard;
-    // }
+    if(v1 > a && v1 < b) {
 
-    // if(vScale1 == vScale1) {
-    //     discard;
-    // }
+        discard;
+        // discard;
+    }
 
     gl_FragColor = tex;
 }
