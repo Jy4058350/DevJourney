@@ -21,6 +21,12 @@ void main() {
     // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
     gl_FragColor = tex;
 
-//    if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.7) {
-//     discard;
+    // float a = 0.0;//center座標と頂点を結んで描画
+    float a = 1.0;//cennte座標と頂点をむずばずに描画
+
+    if(v1 < a) {
+        discard;
+    }
+
+    gl_FragColor = tex1;
 }

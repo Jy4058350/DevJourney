@@ -14,17 +14,17 @@ void main() {
     v1 = normalizedValue1;
     pos = position;
 
-    // if(v < 0.23) {
-    //     v = 0.0;
-    // } else {
-    //     v = 1.0;
-    // }
+    if(v < 0.43) {
+        v = 0.0;
+    } else {
+        v = 1.0;
+    }
 
-    // if(v1 < 0.07) {
-    //     v1 = 1.0;
-    // } else {
-    //     v1 = 0.0;
-    // }
+    if(v1 < 0.43) {
+        v1 = 1.0;
+    } else {
+        v1 = 0.0;
+    }
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 0.7);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position*v1, 0.7);
 }
