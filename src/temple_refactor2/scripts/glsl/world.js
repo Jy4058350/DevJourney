@@ -277,7 +277,7 @@ function scroll(o) {
 // }
 
 function raycast() {
-  const pointer = mousePick.pointer; 
+  const pointer = mousePick.onPointerMove(); 
   console.log(pointer);
   // update the picking ray with the camera and pointer position
   raycaster.setFromCamera(pointer, world.camera);

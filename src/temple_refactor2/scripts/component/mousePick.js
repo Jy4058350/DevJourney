@@ -1,6 +1,7 @@
 import { Vector2 } from "three";
 import world from "../glsl/world";
 import { utils } from "../helper";
+import { on } from "events";
 
 const pointer = new Vector2();
 
@@ -11,6 +12,7 @@ const mousePick = {
 
 function init() {
   _pickEvent();
+  onPointerMove();
 }
 
 function onPointerMove(event) {
