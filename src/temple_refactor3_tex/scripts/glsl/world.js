@@ -48,6 +48,7 @@ function init(canvas, viewport) {
 
 function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
+  console.log(0);
   els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
@@ -79,6 +80,7 @@ function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
+    console.log(3);
 
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
@@ -103,7 +105,9 @@ function _initObjects() {
 
     // viewport._initResize();
   });
+  console.log(1);
   fitWorldPositon(viewport);
+
   mousePick.init();
 }
 
@@ -115,6 +119,7 @@ function setupPerspectiveCamera(viewport) {
 }
 
 function fitWorldPositon(viewport) {
+  console.log(2);
   world.renderer.setSize(viewport.width, viewport.height, false);
 
   world.os.forEach((o) => resize(o, viewport)); //newCanvasRectをviewportに変更
