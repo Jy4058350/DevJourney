@@ -48,14 +48,14 @@ function init(canvas, viewport) {
 
 function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  els.forEach((el) => {
+  els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        // uTex1: { value: await loadTex("/img/output1.jpg") },
+        uTex1: { value: await loadTex("/img/output1.jpg") },
         // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
