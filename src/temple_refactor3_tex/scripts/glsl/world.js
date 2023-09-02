@@ -46,10 +46,10 @@ function init(canvas, viewport) {
   _initObjects(viewport);
 }
 
-function _initObjects() {
+async function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
   console.log(0);
-  els.forEach(async (el) => {
+  const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
@@ -105,6 +105,7 @@ function _initObjects() {
 
     // viewport._initResize();
   });
+  await Promise.all(prms);
   console.log(1);
   fitWorldPositon(viewport);
 
