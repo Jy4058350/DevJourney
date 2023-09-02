@@ -29,6 +29,7 @@ const world = {
   init,
   fitWorldPositon,
   render,
+  raycaster: new Raycaster(),
 };
 
 const canvas = iNode.qs("#canvas");
@@ -277,13 +278,13 @@ function scroll(o) {
 // }
 
 function raycast() {
-  const pointer = mousePick.onPointerMove(); 
-  console.log(pointer);
+  const pointerPos = mousePick.onPointerMove();
+  // console.log(pointerPos);
   // update the picking ray with the camera and pointer position
-  raycaster.setFromCamera(pointer, world.camera);
+  world.raycaster.setFromCamera(pointerPos, world.camera);
 
   // calculate objects intersecting the picking ray
-  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersects = world.raycaster.intersectObjects(world.scene.children);
   const intersect = intersects[0];
 
   for (let i = 0; i < world.scene.children.length; i++) {
@@ -300,7 +301,6 @@ function raycast() {
       _mesh.material.uniforms.uHover.__endValue,
       0.001
     );
-    debugger;
   }
   // function lerp(start, end, amt) {
   //   let current = (1 - amt) * start + amt * end;

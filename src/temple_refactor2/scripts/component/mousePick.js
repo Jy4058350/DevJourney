@@ -1,6 +1,6 @@
 import { Vector2 } from "three";
 import world from "../glsl/world";
-import { utils } from "../helper";
+import { utils, viewport } from "../helper";
 import { on } from "events";
 
 const pointer = new Vector2();
@@ -8,18 +8,25 @@ const pointer = new Vector2();
 const mousePick = {
   init,
   pointer,
+  onPointerMove,
 };
 
 function init() {
   _pickEvent();
-  onPointerMove();
 }
 
-function onPointerMove(event) {
+function pointerPosition(event) {
+  pointer.x = event.clientX;
+  pointer.y = event.clientY;
+}
+
+function onPointerMove() {
   // calculate pointer position in normalized device coordinates
   // (-1 to +1) for both components
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  return {
+    x :(pointer.x / viewport.innerWidth) * 2 - 1,
+    y : -(pointer.y / viewport.innerHeight) * 2 + 1,
+  }
 }
 
 function _pickEvent() {
