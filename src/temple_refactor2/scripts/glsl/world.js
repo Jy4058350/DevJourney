@@ -34,8 +34,8 @@ const world = {
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 
-const raycaster = new Raycaster();
-const pointer = new Vector2();
+// const raycaster = new Raycaster();
+// const pointer = new Vector2();
 
 function init(canvas, viewport) {
   world.renderer = new WebGLRenderer({
@@ -276,36 +276,38 @@ function scroll(o) {
 //   pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 // }
 
-// function raycast() {
-//   // update the picking ray with the camera and pointer position
-//   raycaster.setFromCamera(pointer, world.camera);
+function raycast() {
+  const pointer = mousePick.pointer; 
+  console.log(pointer);
+  // update the picking ray with the camera and pointer position
+  raycaster.setFromCamera(pointer, world.camera);
 
-//   // calculate objects intersecting the picking ray
-//   const intersects = raycaster.intersectObjects(world.scene.children);
-//   const intersect = intersects[0];
+  // calculate objects intersecting the picking ray
+  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersect = intersects[0];
 
-//   for (let i = 0; i < world.scene.children.length; i++) {
-//     const _mesh = world.scene.children[i];
+  for (let i = 0; i < world.scene.children.length; i++) {
+    const _mesh = world.scene.children[i];
 
-//     if (intersect?.object === _mesh) {
-//       _mesh.material.uniforms.uMouse.value = intersect.uv;
-//       _mesh.material.uniforms.uHover.__endValue = 1;
-//     } else {
-//       _mesh.material.uniforms.uHover.__endValue = 0;
-//     }
-//     _mesh.material.uniforms.uHover.value = utils.lerp(
-//       _mesh.material.uniforms.uHover.value,
-//       _mesh.material.uniforms.uHover.__endValue,
-//       0.001
-//     );
-//     debugger;
-//   }
+    if (intersect?.object === _mesh) {
+      _mesh.material.uniforms.uMouse.value = intersect.uv;
+      _mesh.material.uniforms.uHover.__endValue = 1;
+    } else {
+      _mesh.material.uniforms.uHover.__endValue = 0;
+    }
+    _mesh.material.uniforms.uHover.value = utils.lerp(
+      _mesh.material.uniforms.uHover.value,
+      _mesh.material.uniforms.uHover.__endValue,
+      0.001
+    );
+    debugger;
+  }
   // function lerp(start, end, amt) {
   //   let current = (1 - amt) * start + amt * end;
   //   if (Math.abs(end - current) < 0.0001) current = end;
   //   return current;
   // }
-// }
+}
 
 // window.addEventListener("pointermove", onPointerMove);
 
