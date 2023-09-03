@@ -27,6 +27,8 @@ const world = {
   raycaster: new Raycaster(),
 };
 
+const texLoader = new TextureLoader();
+
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 
@@ -54,12 +56,17 @@ async function _initObjects() {
     const url = el.dataset["tex-1"];
     // const url = "/img/output3.jpg";
     console.log(url);
+
+    const tex = await texLoader.loadAsync(url);
+    console.log(tex);
+
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        uTex1: { value: await loadTex(url) },
+        uTex1: { value: tex },
+        // uTex1: { value: await loadTex(url) },
         // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
