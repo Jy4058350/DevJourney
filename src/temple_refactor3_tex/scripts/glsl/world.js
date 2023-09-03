@@ -50,24 +50,24 @@ function init(canvas, viewport) {
 
 async function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  console.log(0);
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
-    const url = el.dataset["tex-2"];
-    // const url = "/img/output3.jpg";
-    console.log(url);
 
-    const tex = await texLoader.loadAsync(url);
-    console.log(tex);
+    const texes = [];
+
+    const url1 = el.dataset["tex-1"];
+    const url2 = el.dataset["tex-2"];
+    console.log(url1);
+
+    const tex1 = await texLoader.loadAsync(url1);
+    const tex2 = await texLoader.loadAsync(url2);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: tex },
+        uTex1: { value: tex1 },
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        // uTex1: { value: await loadTex(url) },
-        // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
       },
@@ -90,7 +90,6 @@ async function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
-    console.log(3);
 
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
@@ -116,7 +115,6 @@ async function _initObjects() {
     // viewport._initResize();
   });
   await Promise.all(prms);
-  console.log(1);
   fitWorldPositon(viewport);
 
   mousePick.init();
@@ -130,7 +128,6 @@ function setupPerspectiveCamera(viewport) {
 }
 
 function fitWorldPositon(viewport) {
-  console.log(2);
   world.renderer.setSize(viewport.width, viewport.height, false);
 
   world.os.forEach((o) => resize(o, viewport)); //newCanvasRectをviewportに変更
