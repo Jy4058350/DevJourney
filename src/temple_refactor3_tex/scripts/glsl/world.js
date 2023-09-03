@@ -10,32 +10,26 @@ import {
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
   Raycaster,
-  WebGLRenderTarget,
 } from "three";
 
 import vertexShader from "../vertex.glsl";
 import fragmentShader from "../fragment.glsl";
-import vertexShader1 from "../vertex1.glsl";
-import fragmentShader1 from "../fragment1.glsl";
+
 import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 
 const world = {
   os: [],
-  // init2,
   init,
   fitWorldPositon,
   render,
   raycaster: new Raycaster(),
 };
 
-const rend = {};
-
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 
-//メインのレンダラーの設定
 function init(canvas, viewport) {
   world.renderer = new WebGLRenderer({
     canvas,
@@ -44,45 +38,25 @@ function init(canvas, viewport) {
   world.renderer.setSize(viewport.width, viewport.height, false);
   world.renderer.setClearColor(0x000000, 0);
   world.renderer.setPixelRatio(viewport.devicePixelRatio);
-  world.camera = setupPerspectiveCamera(viewport);
+
   world.scene = new Scene();
-  init2();
-  _initObjects(viewport);
-}
 
-//レンダーターゲットの設定
-async function init2() {
-  _initObjects(viewport);
-  rend.renderTarget = new WebGLRenderTarget(500, 500);
   world.camera = setupPerspectiveCamera(viewport);
-  rend.rtCamera = camera.clone();
-  rend.rtCamera.aspect = 1;
-  rend.rtCamera.updateProjectionMatrix();
-  rend.rtScene = new Scene();
 
-  rend.rtGeo = new PlaneGeometry(100, 100);
-  rend.rtMat = new ShaderMaterial({
-    uniforms: {
-      uTex: { value: await loadTex("/img/uv.jpg") },
-    },
-    vertexShader: vertexShader1,
-    fragmentShader: fragmentShader1,
-  });
-  rend.rtMesh = new Mesh(rtGeo, rtMat);
-  rend.rtScene.add(rtMesh);
+  _initObjects(viewport);
 }
 
-function _initObjects() {
+async function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  els.forEach((el) => {
+  console.log(0);
+  const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uT: { value: rend.renderTarget.texture },
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        // uTex1: { value: await loadTex("/img/output1.jpg") },
+        uTex1: { value: await loadTex("/img/output1.jpg") },
         // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
@@ -106,6 +80,7 @@ function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
+    console.log(3);
 
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
@@ -130,7 +105,10 @@ function _initObjects() {
 
     // viewport._initResize();
   });
+  await Promise.all(prms);
+  console.log(1);
   fitWorldPositon(viewport);
+
   mousePick.init();
 }
 
@@ -142,6 +120,7 @@ function setupPerspectiveCamera(viewport) {
 }
 
 function fitWorldPositon(viewport) {
+  console.log(2);
   world.renderer.setSize(viewport.width, viewport.height, false);
 
   world.os.forEach((o) => resize(o, viewport)); //newCanvasRectをviewportに変更
@@ -184,9 +163,7 @@ function updateCamera(viewport) {
 function render() {
   requestAnimationFrame(render);
   world.os.forEach((o) => scroll(o)); //この記述を覚える！！
-  world.renderer.setRenderTarget(rend.renderTarget);
-  world.renderer.render(rend.rtScene, rend.rtCamera);
-  world.renderer.setRenderTarget(null);
+  // controls.update();
 
   raycast();
 

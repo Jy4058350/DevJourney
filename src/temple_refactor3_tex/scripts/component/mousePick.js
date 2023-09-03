@@ -21,6 +21,8 @@ function pointerPosition(event) {
 }
 
 function onPointerMove() {
+  // calculate pointer position in normalized device coordinates
+  // (-1 to +1) for both components
   return {
     x :(pointer.x / viewport.innerWidth) * 2 - 1,
     y : -(pointer.y / viewport.innerHeight) * 2 + 1,
