@@ -59,9 +59,12 @@ async function _initObjects() {
     for (let key in data) {
       //datasetのプロパティをループさせる
       if (key.startsWith("tex")) {
-        key =key.replace("-","");
+        key = key.replace("-", "");
         texes.push(key);
+        console.log(key);
       }
+      const url = data[key];
+      console.log(url);
     }
     console.log(data);
     console.log(texes);
