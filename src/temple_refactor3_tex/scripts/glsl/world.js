@@ -80,7 +80,7 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-    texes.forEach((key, tex) => {
+    texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
     const mesh = new Mesh(geometry, material);
