@@ -58,7 +58,7 @@ async function _initObjects() {
     const data = el.dataset;
     for (let key in data) {
       //datasetのプロパティをループさせる
-      if (!key.startsWith("tex")) continue; 
+      if (!key.startsWith("tex")) continue;
       const url = data[key];
       const tex = await texLoader.loadAsync(url);
       key = key.replace("-", "");
@@ -74,7 +74,6 @@ async function _initObjects() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
-        uTex1: { value: tex1 },
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
         uTick: { value: 0 },
@@ -83,6 +82,8 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
+
+    material.uniforms.uTex1 = { value: texes.get("tex1") };
 
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0; //追加⭐️⭐️0830
