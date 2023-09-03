@@ -61,15 +61,13 @@ async function _initObjects() {
       if (!key.startsWith("tex")) continue;
       const url = data[key];
       const tex = await texLoader.loadAsync(url);
+
       key = key.replace("-", "");
       texes.set(key, tex);
+      // console.log(key);
+      // console.log(tex);
     }
     console.log(texes);
-
-    const url1 = el.dataset["tex-1"];
-    // const url2 = el.dataset["tex-2"];
-
-    // const tex1 = await texLoader.loadAsync(url1);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
@@ -82,9 +80,9 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-
-    material.uniforms.uTex1 = { value: texes.get("tex1") };
-
+    texes.forEach((key, tex) => {
+      material.uniforms[key] = { value: tex };
+    });
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0; //追加⭐️⭐️0830
 
