@@ -56,15 +56,18 @@ async function _initObjects() {
     const texes = [];
 
     const data = el.dataset;
-    for(let key in data) {//datasetのプロパティをループさせる
-      texes.push(key);
+    for (let key in data) {
+      //datasetのプロパティをループさせる
+      if (key.startsWith("tex")) {
+        key =key.replace("-","");
+        texes.push(key);
+      }
     }
     console.log(data);
     console.log(texes);
 
     const url1 = el.dataset["tex-1"];
     const url2 = el.dataset["tex-2"];
-    console.log(url2);
 
     const tex1 = await texLoader.loadAsync(url1);
     const tex2 = await texLoader.loadAsync(url2);
