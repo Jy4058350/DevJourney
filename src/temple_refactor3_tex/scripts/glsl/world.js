@@ -53,7 +53,7 @@ async function _initObjects() {
   console.log(0);
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
-    const url = el.dataset["tex-1"];
+    const url = el.dataset["tex-2"];
     // const url = "/img/output3.jpg";
     console.log(url);
 
@@ -63,9 +63,9 @@ async function _initObjects() {
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
+        uTex1: { value: tex },
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        uTex1: { value: tex },
         // uTex1: { value: await loadTex(url) },
         // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
