@@ -27,6 +27,8 @@ const world = {
   raycaster: new Raycaster(),
 };
 
+const texLoader = new TextureLoader();
+
 const canvas = iNode.qs("#canvas");
 const canvasRect = canvas.getBoundingClientRect();
 
@@ -48,23 +50,39 @@ function init(canvas, viewport) {
 
 async function _initObjects() {
   const els = iNode.qsa("[data-webgl]");
-  console.log(0);
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
+
+    const texes = new Map();
+
+    const data = el.dataset;
+    for (let key in data) {
+      //datasetのプロパティをループさせる
+      if (!key.startsWith("tex")) continue;
+      const url = data[key];
+      const tex = await texLoader.loadAsync(url);
+
+      key = key.replace("-", "");
+      texes.set(key, tex);
+      // console.log(key);
+      // console.log(tex);
+    }
+    console.log(texes);
+
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
-        uTex1: { value: await loadTex("/img/output1.jpg") },
-        // uTex2: { value: await loadTex("/img/output2.jpg") },
         uTick: { value: 0 },
         uProgress: { value: 0 },
       },
       vertexShader,
       fragmentShader,
     });
-
+    texes.forEach((tex, key) => {
+      material.uniforms[key] = { value: tex };
+    });
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0; //追加⭐️⭐️0830
 
@@ -80,7 +98,6 @@ async function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
-    console.log(3);
 
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
@@ -106,7 +123,6 @@ async function _initObjects() {
     // viewport._initResize();
   });
   await Promise.all(prms);
-  console.log(1);
   fitWorldPositon(viewport);
 
   mousePick.init();
@@ -120,7 +136,6 @@ function setupPerspectiveCamera(viewport) {
 }
 
 function fitWorldPositon(viewport) {
-  console.log(2);
   world.renderer.setSize(viewport.width, viewport.height, false);
 
   world.os.forEach((o) => resize(o, viewport)); //newCanvasRectをviewportに変更
