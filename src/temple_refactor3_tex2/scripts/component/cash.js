@@ -1,15 +1,13 @@
-import { LinearFilter } from "three";
+import { LinearFilter, TextureLoader } from "three";
 import { iNode } from "../../../iNode";
-import { TextureLoader } from "three";
 
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
-  get,
-  cashes,
+  texesIs,
+  texIs,
 };
-
 
 async function load() {
   const els = iNode.qsa("[data-webgl]");
@@ -22,51 +20,50 @@ async function load() {
     for (let key in data) {
       if (!key.startsWith("tex")) continue;
       const url = data[key];
-      key = key.replace("-", "");
+    //   key = key.replace("-", "");
       //   console.log(key);
       //   console.log(url);
       if (!cashes.has(url)) {
         cashes.set(url, null);
       }
     }
+    console.log(cashes);
   });
 
   const texPrms = [];
 
   cashes.forEach((_, url) => {
-    const prms = loadImg(url).then((tex) => {
+    const prms = texIs(url).then((tex) => {
       cashes.set(url, tex);
     });
     texPrms.push(prms);
   });
 
   await Promise.all(texPrms);
-  //   console.log(cashes);
-  //   console.log(texPrms);
+  console.log(cashes);
 }
 
-async function loadImg(url) {
+async function texIs(url) {
   const tex = await texLoader.loadAsync(url);
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
+  console.log(tex);
   return tex;
 }
 
-async function get(el) {
+function texesIs(el) {
   const texes = new Map();
   const data = el.dataset;
   for (let key in data) {
-    //datasetのプロパティをループさせる
     if (!key.startsWith("tex")) continue;
     const url = data[key];
-    const tex =cashes.get(url);
+    const tex = cashes.get(url);
 
     key = key.replace("-", "");
     texes.set(key, tex);
-    // console.log(key);
-    // console.log(tex);
-  }
+}
+console.log(texes);
   return texes;
 }
 

@@ -33,7 +33,7 @@ const canvasRect = canvas.getBoundingClientRect();
 // const raycaster = new Raycaster();
 // const pointer = new Vector2();
 
-export function init() {
+export async function init() {
   const canvas = iNode.qs("#canvas");
 
   viewport.init(canvas); //カメラのnear,far,fovを変更したい場合には第二引数から設定する
@@ -43,8 +43,8 @@ export function init() {
 
   world.render();
 
-  cash.load();
-  cash.get();
+  await cash.load();
+  
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);

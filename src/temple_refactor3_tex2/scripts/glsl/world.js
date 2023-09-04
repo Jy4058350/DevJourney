@@ -55,7 +55,8 @@ async function _initObjects() {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const texes = cash.get(el);
+    const texes = cash.texesIs(el);
+    console.log(texes);
     // const texes = new Map();
 
     // const data = el.dataset;
