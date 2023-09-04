@@ -62,7 +62,7 @@ async function _initObjects() {
       //datasetのプロパティをループさせる
       if (!key.startsWith("tex")) continue;
       const url = data[key];
-      const tex = await texLoader.loadAsync(cash.cashes);
+      const tex = await texLoader.loadAsync(url);
 
       key = key.replace("-", "");
       texes.set(key, tex);
