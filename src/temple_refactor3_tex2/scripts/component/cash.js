@@ -2,6 +2,7 @@ import { iNode } from "../../../iNode";
 
 const cash = {
   load,
+  cashes,
 };
 const cashes = new Map();
 
@@ -19,7 +20,7 @@ function load() {
       console.log(key);
       console.log(url);
       if (!cashes.has(url)) {
-        cashes.set(key, url);
+        cashes.set(url, null);
       }
     }
   });
