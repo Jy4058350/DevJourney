@@ -1,6 +1,8 @@
 import { LinearFilter } from "three";
 import { iNode } from "../../../iNode";
+import { TextureLoader } from "three";
 
+const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
@@ -25,17 +27,22 @@ function load() {
       }
     }
   });
-  console.log(cashes);
-}
 
-cashes.forEach((_, url) => {
-  loadImg(url);
-});
+  const texPrms = [];
+
+  cashes.forEach((_, url) => {
+   const prms = loadImg(url);
+    texPrms.push(prms);
+  });
+  
+  console.log(cashes);
+  console.log(texPrms);
+}
 
 async function loadImg(url) {
   const tex = await texLoader.loadAsync(url);
-  tex.magFilter = LinearFilter;//??
-  tex.minFilter = LinearFilter;//??
+  tex.magFilter = LinearFilter; //??
+  tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
   return tex;
 }
