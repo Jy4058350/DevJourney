@@ -29,10 +29,10 @@ function load() {
 }
 
 cashes.forEach((_, url) => {
-  loading(url);
+  loadImg(url);
 });
 
-async function loading(url) {
+async function loadImg(url) {
   const tex = await texLoader.loadAsync(url);
   tex.magFilter = LinearFilter;//??
   tex.minFilter = LinearFilter;//??
