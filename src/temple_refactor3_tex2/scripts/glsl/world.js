@@ -19,6 +19,7 @@ import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 import cash from "../component/cash";
+import loader from "../component/cash";
 
 
 const world = {
@@ -55,6 +56,7 @@ async function _initObjects() {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
+    // const texes = loader.getTexByElement(el);
     const texes = cash.texesIs(el);
     console.log(texes);
     // const texes = new Map();

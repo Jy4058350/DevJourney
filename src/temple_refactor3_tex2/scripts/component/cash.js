@@ -11,6 +11,7 @@ const cash = {
 
 async function load() {
   const els = iNode.qsa("[data-webgl]");
+  const texPrms = [];
   // console.log(els);
 
   els.forEach((el) => {
@@ -25,19 +26,23 @@ async function load() {
       //   console.log(url);
       if (!cashes.has(url)) {
         cashes.set(url, null);
+        const prms = texIs(url).then((tex) => {
+                  cashes.set(url, tex);
+                });
+                texPrms.push(prms);
       }
     }
     console.log(cashes);
   });
 
-  const texPrms = [];
+//   const texPrms = [];
 
-  cashes.forEach((_, url) => {
-    const prms = texIs(url).then((tex) => {
-      cashes.set(url, tex);
-    });
-    texPrms.push(prms);
-  });
+//   cashes.forEach((_, url) => {
+//     const prms = texIs(url).then((tex) => {
+//       cashes.set(url, tex);
+//     });
+//     texPrms.push(prms);
+//   });
 
   await Promise.all(texPrms);
   console.log(cashes);
@@ -68,3 +73,6 @@ console.log(texes);
 }
 
 export default cash;
+
+
+
