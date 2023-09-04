@@ -1,3 +1,4 @@
+import { LinearFilter } from "three";
 import { iNode } from "../../../iNode";
 
 const cashes = new Map();
@@ -25,6 +26,18 @@ function load() {
     }
   });
   console.log(cashes);
+}
+
+cashes.forEach((_, url) => {
+  loading(url);
+});
+
+async function loading(url) {
+  const tex = await texLoader.loadAsync(url);
+  tex.magFilter = LinearFilter;//??
+  tex.minFilter = LinearFilter;//??
+  tex.needsUpdate = false;
+  return tex;
 }
 
 export default cash;
