@@ -3,13 +3,13 @@ import { iNode } from "../../../iNode";
 const cash = {
   init,
 };
+const cashes = [];
 
 function init() {
   const els = iNode.qsa("[data-webgl]");
   console.log(els);
 
 
-const cashes = [];
 
   els.forEach((el) => {
     const data = el.dataset;
