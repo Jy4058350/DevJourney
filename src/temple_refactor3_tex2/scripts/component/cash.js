@@ -9,7 +9,7 @@ const cash = {
   cashes,
 };
 
-function load() {
+async function load() {
   const els = iNode.qsa("[data-webgl]");
   //   console.log(els);
 
@@ -35,6 +35,7 @@ function load() {
     texPrms.push(prms);
   });
   
+  await Promise.all(texPrms);
   console.log(cashes);
   console.log(texPrms);
 }
