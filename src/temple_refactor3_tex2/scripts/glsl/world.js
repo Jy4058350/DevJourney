@@ -19,6 +19,7 @@ import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 
+
 const world = {
   os: [],
   init,
@@ -67,7 +68,6 @@ async function _initObjects() {
       // console.log(key);
       // console.log(tex);
     }
-    console.log(texes);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({

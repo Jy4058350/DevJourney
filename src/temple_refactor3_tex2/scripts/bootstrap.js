@@ -24,6 +24,7 @@ import { iNode } from "../../iNode";
 import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
 import scroll from "./component/scroller";
+import cash from "./component/cash";
 
 // const os = [];
 const canvas = iNode.qs("#canvas");
@@ -42,6 +43,7 @@ export function init() {
 
   world.render();
 
+  cash.init();
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);
