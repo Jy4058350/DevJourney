@@ -44,6 +44,7 @@ export function init() {
   world.render();
 
   cash.load();
+  cash.get();
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);

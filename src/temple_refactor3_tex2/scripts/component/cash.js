@@ -6,22 +6,25 @@ const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
+  get,
   cashes,
 };
 
+
 async function load() {
   const els = iNode.qsa("[data-webgl]");
-  //   console.log(els);
+  // console.log(els);
 
   els.forEach((el) => {
     const data = el.dataset;
-    console.log(data);
+
+    // console.log(data);
     for (let key in data) {
       if (!key.startsWith("tex")) continue;
       const url = data[key];
       key = key.replace("-", "");
-      console.log(key);
-      console.log(url);
+      //   console.log(key);
+      //   console.log(url);
       if (!cashes.has(url)) {
         cashes.set(url, null);
       }
@@ -31,13 +34,15 @@ async function load() {
   const texPrms = [];
 
   cashes.forEach((_, url) => {
-   const prms = loadImg(url);
+    const prms = loadImg(url).then((tex) => {
+      cashes.set(url, tex);
+    });
     texPrms.push(prms);
   });
-  
+
   await Promise.all(texPrms);
-  console.log(cashes);
-  console.log(texPrms);
+  //   console.log(cashes);
+  //   console.log(texPrms);
 }
 
 async function loadImg(url) {
@@ -46,6 +51,23 @@ async function loadImg(url) {
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
   return tex;
+}
+
+async function get(el) {
+  const texes = new Map();
+  const data = el.dataset;
+  for (let key in data) {
+    //datasetのプロパティをループさせる
+    if (!key.startsWith("tex")) continue;
+    const url = data[key];
+    const tex =cashes.get(url);
+
+    key = key.replace("-", "");
+    texes.set(key, tex);
+    // console.log(key);
+    // console.log(tex);
+  }
+  return texes;
 }
 
 export default cash;
