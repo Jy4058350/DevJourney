@@ -55,20 +55,21 @@ async function _initObjects() {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const texes = new Map();
+    const texes = cash.get(el);
+    // const texes = new Map();
 
-    const data = el.dataset;
-    for (let key in data) {
-      //datasetのプロパティをループさせる
-      if (!key.startsWith("tex")) continue;
-      const url = data[key];
-      const tex = await texLoader.loadAsync(url);
+    // const data = el.dataset;
+    // for (let key in data) {
+    //   //datasetのプロパティをループさせる
+    //   if (!key.startsWith("tex")) continue;
+    //   const url = data[key];
+    //   const tex = await texLoader.loadAsync(url);
 
-      key = key.replace("-", "");
-      texes.set(key, tex);
-      // console.log(key);
-      // console.log(tex);
-    }
+    //   key = key.replace("-", "");
+    //   texes.set(key, tex);
+    //   // console.log(key);
+    //   // console.log(tex);
+    // }
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
