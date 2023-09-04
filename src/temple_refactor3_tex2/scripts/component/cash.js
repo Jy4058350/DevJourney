@@ -1,10 +1,10 @@
 import { iNode } from "../../../iNode";
 
+const cashes = new Map();
 const cash = {
   load,
   cashes,
 };
-const cashes = new Map();
 
 function load() {
   const els = iNode.qsa("[data-webgl]");

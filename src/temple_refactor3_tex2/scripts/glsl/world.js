@@ -18,6 +18,7 @@ import fragmentShader from "../fragment.glsl";
 import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
+import cash from "../component/cash";
 
 
 const world = {
@@ -61,7 +62,7 @@ async function _initObjects() {
       //datasetのプロパティをループさせる
       if (!key.startsWith("tex")) continue;
       const url = data[key];
-      const tex = await texLoader.loadAsync(url);
+      const tex = await texLoader.loadAsync(cash.cashes);
 
       key = key.replace("-", "");
       texes.set(key, tex);
