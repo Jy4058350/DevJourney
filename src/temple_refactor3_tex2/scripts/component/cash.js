@@ -1,11 +1,11 @@
 import { iNode } from "../../../iNode";
 
 const cash = {
-  init,
+  load,
 };
 const cashes = new Map();
 
-function init() {
+function load() {
   const els = iNode.qsa("[data-webgl]");
   //   console.log(els);
 
@@ -18,7 +18,7 @@ function init() {
       key = key.replace("-", "");
       console.log(key);
       console.log(url);
-      if (!cashes.has(key)) {
+      if (!cashes.has(url)) {
         cashes.set(key, url);
       }
     }

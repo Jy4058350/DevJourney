@@ -43,7 +43,7 @@ export function init() {
 
   world.render();
 
-  cash.init();
+  cash.load();
 
   // const axis = new AxesHelper(100);
   // world.scene.add(axis);
