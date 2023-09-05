@@ -7,6 +7,7 @@ const texesIs = {
 export async function init(el) {
   const texes = new Map();
   const data = el.dataset;
+  let compLoad = null;
   let first = true;
 
   for (let key in data) {
@@ -28,7 +29,7 @@ export async function init(el) {
       first = false;
     }
     await compLoad;
-  }
+}
   return texes;
 }
 
