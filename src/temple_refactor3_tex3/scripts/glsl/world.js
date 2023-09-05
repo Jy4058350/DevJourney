@@ -55,7 +55,7 @@ async function _initObjects() {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const texes = texesIs.init(el);
+    const texes = await texesIs.init(el);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({

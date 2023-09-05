@@ -28,8 +28,8 @@ export async function init(el) {
       el.src = url;
       first = false;
     }
-    await compLoad;
-}
+  }
+  await compLoad;
   return texes;
 }
 
