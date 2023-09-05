@@ -69,7 +69,6 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-
     function setupResolution(uniforms) {
       if (!texes.has("tex1")) return uniforms;
       const media = texes.get("tex1").source.data;
@@ -90,19 +89,19 @@ async function _initObjects() {
       // resolution.divide(new Vector4(1920, 1080, 1, 1));
       if (!mediaRect) return resolution;
       const { width: mediaWidth, height: mediaHeight } = mediaRect;
-      const mediaAspect = mediaWidth / mediaHeight;
-      const toAspect = width / height;
+      const mediaAspect = mediaHeight / mediaWidth;
+      const toAspect = height / width;
 
       let xAspect, yAspect;
       if (mediaAspect < toAspect) {
-        xAspect = 1 / toAspect * mediaAspect;
+        xAspect = (1 / toAspect) * mediaAspect;
         yAspect = 1;
       } else {
         xAspect = 1;
         yAspect = toAspect / mediaAspect;
       }
-      resolution.z = xAspect;
-      resolution.w = yAspect;
+      resolution.z = xAspect*0.5;
+      resolution.w = yAspect*0.5;
 
       return resolution;
     }
