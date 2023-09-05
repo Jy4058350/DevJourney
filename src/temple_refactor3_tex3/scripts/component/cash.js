@@ -7,7 +7,7 @@ const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
-  texesIs,
+  // texesIs,
   texIs,
   cashes,
 };

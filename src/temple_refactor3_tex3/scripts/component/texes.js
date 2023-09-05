@@ -1,10 +1,10 @@
 import cash from "./cash";
 
-const init = {
-  texesIs,
+const texesIs = {
+  init,
 };
 
-export function texesIs(el) {
+export function init(el) {
   const texes = new Map();
   const data = el.dataset;
   for (let key in data) {
@@ -14,8 +14,18 @@ export function texesIs(el) {
 
     key = key.replace("-", "");
     texes.set(key, tex);
+
+    if (el instanceof HTMLImageElement) {
+      new Promise((resolve) => {
+        el.onload = () => {
+          resolve();
+        };
+      });
+
+      el.src = url;
+    }
   }
   return texes;
 }
 
-export { init };
+export { texesIs };
