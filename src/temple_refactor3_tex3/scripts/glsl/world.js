@@ -10,6 +10,7 @@ import {
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
   Raycaster,
+  Vector4,
 } from "three";
 
 import vertexShader from "../vertex.glsl";
@@ -71,12 +72,39 @@ async function _initObjects() {
 
     function setupResolution(uniforms) {
       if (!texes.has("tex1")) return uniforms;
+      const media = texes.get("tex1").source.data;
 
+      const mediaRect = {
+        width: media.naturalWidth,
+        height: media.naturalHeight,
+      };
+      const resolution = getonResolution(rect, mediaRect);
+      uniforms.uResolution = { value: resolution };
       return uniforms;
     }
 
-    function getonResolution() {
-      return getonResolution;
+    function getonResolution(toRect, mediaRect) {
+      const { width, height } = toRect;
+      const resolution = new Vector4(width, height, 1, 1);
+      // resolution.divide(new Vector4(mediaRect.width, mediaRect.height, 1, 1));
+      // resolution.divide(new Vector4(1920, 1080, 1, 1));
+      if (!mediaRect) return resolution;
+      const { width: mediaWidth, height: mediaHeight } = mediaRect;
+      const mediaAspect = mediaWidth / mediaHeight;
+      const toAspect = width / height;
+
+      let xAspect, yAspect;
+      if (mediaAspect < toAspect) {
+        xAspect = 1 / toAspect * mediaAspect;
+        yAspect = 1;
+      } else {
+        xAspect = 1;
+        yAspect = toAspect / mediaAspect;
+      }
+      resolution.z = xAspect;
+      resolution.w = yAspect;
+
+      return resolution;
     }
     material.uniforms = setupResolution(material.uniforms);
 
@@ -102,33 +130,32 @@ async function _initObjects() {
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
     // folder1.open();
-    
+
     // folder1
     //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
     //   .name("")
     //   .listen();
-    
+
     // const datData = { next: !!material.uniforms.uProgress.value };
     // folder1
     //   .add(datData, "next")
     //   .name("")
     //   .onChange(() => {
-      //     gsap.to(material.uniforms.uProgress, {
-        //       value: datData.next ? 1 : 0,
-        //       duration: 3,
-        //       ease: "ease",
-        //     });
-        //   });
-        
-        // viewport._initResize();
-      });
-   
+    //     gsap.to(material.uniforms.uProgress, {
+    //       value: datData.next ? 1 : 0,
+    //       duration: 3,
+    //       ease: "ease",
+    //     });
+    //   });
 
-      await Promise.all(prms);
-      fitWorldPositon(viewport);
-      
-      mousePick.init();
-    }
+    // viewport._initResize();
+  });
+
+  await Promise.all(prms);
+  fitWorldPositon(viewport);
+
+  mousePick.init();
+}
 
 function setupPerspectiveCamera(viewport) {
   const { fov, near, far, cameraZ, aspect } = viewport;
