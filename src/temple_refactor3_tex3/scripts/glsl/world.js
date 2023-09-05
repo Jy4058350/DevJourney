@@ -98,35 +98,37 @@ async function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
-
+    console.log(material);
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
     // folder1.open();
-
+    
     // folder1
     //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
     //   .name("")
     //   .listen();
-
+    
     // const datData = { next: !!material.uniforms.uProgress.value };
     // folder1
     //   .add(datData, "next")
     //   .name("")
     //   .onChange(() => {
-    //     gsap.to(material.uniforms.uProgress, {
-    //       value: datData.next ? 1 : 0,
-    //       duration: 3,
-    //       ease: "ease",
-    //     });
-    //   });
+      //     gsap.to(material.uniforms.uProgress, {
+        //       value: datData.next ? 1 : 0,
+        //       duration: 3,
+        //       ease: "ease",
+        //     });
+        //   });
+        
+        // viewport._initResize();
+      });
+   
 
-    // viewport._initResize();
-  });
-  await Promise.all(prms);
-  fitWorldPositon(viewport);
-
-  mousePick.init();
-}
+      await Promise.all(prms);
+      fitWorldPositon(viewport);
+      
+      mousePick.init();
+    }
 
 function setupPerspectiveCamera(viewport) {
   const { fov, near, far, cameraZ, aspect } = viewport;
