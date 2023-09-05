@@ -18,7 +18,7 @@ export async function init(el) {
     texes.set(key, tex);
 
     if (el instanceof HTMLImageElement) {
-      const compLoad = new Promise((resolve) => {
+      compLoad = new Promise((resolve) => {
         el.onload = () => {
           resolve();
         };
