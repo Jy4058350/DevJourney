@@ -1,12 +1,15 @@
 import { LinearFilter, TextureLoader } from "three";
 import { iNode } from "../../../iNode";
 
+import { texesIs } from "./texes";
+
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
   texesIs,
   texIs,
+  cashes,
 };
 
 async function load() {
@@ -43,19 +46,19 @@ async function texIs(url) {
   return tex;
 }
 
-function texesIs(el) {
-  const texes = new Map();
-  const data = el.dataset;
-  for (let key in data) {
-    if (!key.startsWith("tex")) continue;
-    const url = data[key];
-    const tex = cashes.get(url);
+// function texesIs(el) {
+//   const texes = new Map();
+//   const data = el.dataset;
+//   for (let key in data) {
+//     if (!key.startsWith("tex")) continue;
+//     const url = data[key];
+//     const tex = cashes.get(url);
 
-    key = key.replace("-", "");
-    texes.set(key, tex);
-  }
-//   console.log(texes);
-  return texes;
-}
+//     key = key.replace("-", "");
+//     texes.set(key, tex);
+//   }
+// //   console.log(texes);
+//   return texes;
+// }
 
 export default cash;
