@@ -4,9 +4,11 @@ const texesIs = {
   init,
 };
 
-export function init(el) {
+export async function init(el) {
   const texes = new Map();
   const data = el.dataset;
+  let first = true;
+
   for (let key in data) {
     if (!key.startsWith("tex")) continue;
     const url = data[key];
@@ -16,14 +18,16 @@ export function init(el) {
     texes.set(key, tex);
 
     if (el instanceof HTMLImageElement) {
-      new Promise((resolve) => {
+      const compLoad = new Promise((resolve) => {
         el.onload = () => {
           resolve();
         };
       });
 
       el.src = url;
+      first = false;
     }
+    await compLoad;
   }
   return texes;
 }
