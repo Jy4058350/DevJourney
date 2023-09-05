@@ -43,7 +43,7 @@ async function texIs(url) {
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
-  console.log(tex);
+  // console.log(tex);
   return tex;
 }
 

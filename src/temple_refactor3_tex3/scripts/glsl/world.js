@@ -68,6 +68,18 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
+
+    function setupResolution(uniforms) {
+      if (!texes.has("tex1")) return uniforms;
+
+      return uniforms;
+    }
+
+    function getonResolution() {
+      return getonResolution;
+    }
+    material.uniforms = setupResolution(material.uniforms);
+
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
