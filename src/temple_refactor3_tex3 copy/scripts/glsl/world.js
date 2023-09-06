@@ -80,6 +80,10 @@ async function _initObjects() {
       const resolution = getonResolution(rect, mediaRect);
       uniforms.uResolution = { value: resolution };
 
+      const z = 0.1;
+      const w = 1.0;
+      material.uniforms.uVClamp = { value: new Vector4(z, 0, w, 1) };
+
       return uniforms;
     }
 
