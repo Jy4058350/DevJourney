@@ -10,6 +10,7 @@ import {
   ClampToEdgeWrapping,
   MirroredRepeatWrapping,
   Raycaster,
+  Vector4,
 } from "three";
 
 import vertexShader from "../vertex.glsl";
@@ -68,6 +69,44 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
+    function setupResolution(uniforms) {
+      if (!texes.has("tex1")) return uniforms;
+      const media = texes.get("tex1").source.data;
+
+      const mediaRect = {
+        width: media.naturalWidth,
+        height: media.naturalHeight,
+      };
+      const resolution = getonResolution(rect, mediaRect);
+      uniforms.uResolution = { value: resolution };
+      return uniforms;
+    }
+
+    function getonResolution(toRect, mediaRect) {
+      const { width, height } = toRect;
+      const resolution = new Vector4(width, height, 1, 1);
+      // resolution.divide(new Vector4(mediaRect.width, mediaRect.height, 1, 1));
+      // resolution.divide(new Vector4(1920, 1080, 1, 1));
+      if (!mediaRect) return resolution;
+      const { width: mediaWidth, height: mediaHeight } = mediaRect;
+      const mediaAspect = mediaHeight / mediaWidth;
+      const toAspect = height / width;
+
+      let xAspect, yAspect;
+      if (mediaAspect < toAspect) {
+        xAspect = (1 / toAspect) * mediaAspect;
+        yAspect = 1;
+      } else {
+        xAspect = 1;
+        yAspect = toAspect / mediaAspect;
+      }
+      resolution.z = xAspect*0.5;
+      resolution.w = yAspect*0.5;
+
+      return resolution;
+    }
+    material.uniforms = setupResolution(material.uniforms);
+
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
@@ -86,7 +125,7 @@ async function _initObjects() {
     };
     world.scene.add(mesh);
     world.os.push(o);
-
+    console.log(material);
     // const gui = new GUI();
     // const folder1 = gui.addFolder("");
     // folder1.open();
@@ -110,6 +149,7 @@ async function _initObjects() {
 
     // viewport._initResize();
   });
+
   await Promise.all(prms);
   fitWorldPositon(viewport);
 
