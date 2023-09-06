@@ -11,9 +11,17 @@ export async function init() {
   const canvas = iNode.qs("#canvas");
 
   viewport.init(canvas); //カメラのnear,far,fovを変更したい場合には第二引数から設定する
+
   scroll.initScroll();
 
+  const progressBar = iNode.qs(".progress-bar");
+  const loaderPersent = iNode.qs(".loader-persent");
+  cash.clientProgressAction((countNum, totalNum) => {
+    progressBar.value = Math.floor((countNum / totalNum) * 100);
+    loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
+  });
   await cash.load();
+
   world.init(canvas, viewport);
 
   world.render();

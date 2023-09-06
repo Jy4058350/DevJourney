@@ -7,6 +7,7 @@ const cash = {
   load,
   texIs,
   cashes,
+  clientProgressAction,
 };
 
 async function load() {
@@ -37,6 +38,7 @@ async function load() {
 
 let totalNum = 0;
 let countNum = 0;
+let _progressAction = null;
 
 async function texIs(url) {
   totalNumIs();
@@ -55,16 +57,21 @@ function totalNumIs() {
 
 function countNumIs() {
   countNum++;
-  progressAction();
+  if (_progressAction) {
+    _progressAction(countNum, totalNum);
+  }
 }
 
-function progressAction() {
-  const progressBar = iNode.qs(".progress-bar");
-  progressBar.value = Math.floor((countNum / totalNum) * 100);
-  const loaderPersent = iNode.qs(".loader-persent");
-  loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
-  
+function clientProgressAction(_callback) {
+  _progressAction = _callback;
 }
+
+// function _progressAction() {
+//   const progressBar = iNode.qs(".progress-bar");
+//   progressBar.value = Math.floor((countNum / totalNum) * 100);
+//   const loaderPersent = iNode.qs(".loader-persent");
+//   loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
+// }
 
 // function texesIs(el) {
 //   const texes = new Map();
