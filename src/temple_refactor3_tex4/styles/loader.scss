@@ -1,13 +1,38 @@
 progress {
-    -webkit-appearance: none; /* プログレスバーのスタイルをリセット */
-    -moz-appearance: none; /* プログレスバーのスタイルをリセット */
-    background-color: #fff; /* プログレスバーの背景色/-moz- 用 */
-    width: 60%;
+  background-color: #fff; /* プログレスバーの背景色/-moz- 用 */
+  width: 50%;
+}
+::-webkit-progress-bar {
+  background-color: #fff;
+}
+::-webkit-progress-value {
+  background-color: rgb(217, 217, 217);
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background: radial-gradient(#ffffff, #000000);
+  opacity: 1;
+  font-size: 17px;
+
+  & .loader-persent {
+    position: relative;
+    top: 40em;
+    left: 2em;
+    font-size: 1em;
+    color: white;
+    line-height: 1;
+    padding-top: .5em;
   }
-  ::-webkit-progress-bar {
-    background-color: #fff; /* プログレスバーの背景色/-webkit- 用 */
-  }
-  ::-webkit-progress-value {
-    background-color: rgb(62, 215, 241); /* プログレスバーの進捗部分色/-webkit- 用 */
-  }
- 
+}
+
+.progress-bar {
+  position: relative;
+  top: 40em;
+  left: 1em;
+}

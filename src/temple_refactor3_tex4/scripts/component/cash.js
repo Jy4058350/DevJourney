@@ -51,12 +51,14 @@ async function texIs(url) {
 
 function totalNumIs() {
   totalNum++;
-  // console.log(totalNum);
 }
 
 function countNumIs() {
   countNum++;
-  console.log(countNum);
+  const loaderPersent = iNode.qs(".loader-persent");
+  loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
+  const progressBar = iNode.qs(".progress-bar");
+  progressBar.value = Math.floor((countNum / totalNum) * 100);
 }
 
 // function texesIs(el) {
