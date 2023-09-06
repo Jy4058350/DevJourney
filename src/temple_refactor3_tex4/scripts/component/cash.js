@@ -66,7 +66,7 @@ function clientProgressAction(_callback) {
   _progressAction = _callback;
 }
 
-// function _progressAction() {
+// function progressAction() {
 //   const progressBar = iNode.qs(".progress-bar");
 //   progressBar.value = Math.floor((countNum / totalNum) * 100);
 //   const loaderPersent = iNode.qs(".loader-persent");
