@@ -5,8 +5,10 @@ uniform sampler2D tex1;
 uniform sampler2D tex2;
 
 uniform vec4 uResolution;
+
 vec2 coverUv(vec2 uv, vec4 uResolution) {
-  return (uv - .5) * uResolution.zw + .5;
+  // return (uv - 0.5) * uResolution.zw + 0.5;
+  return (uv - 0.75) * uResolution.zw+0.75;
 }
 
 void main() {
@@ -19,7 +21,7 @@ void main() {
   vec4 texColor2 = texture2D(tex2, uvb);
 
   gl_FragColor = mix(texColor1, texColor2, smoothstep(0.3, 0.5, vUv.x));
-  gl_FragColor = texColor11;
+  // gl_FragColor = texColor11;
   gl_FragColor = texColor1;
 
 }

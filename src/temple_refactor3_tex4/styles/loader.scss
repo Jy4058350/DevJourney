@@ -1,0 +1,13 @@
+progress {
+    -webkit-appearance: none; /* プログレスバーのスタイルをリセット */
+    -moz-appearance: none; /* プログレスバーのスタイルをリセット */
+    background-color: #fff; /* プログレスバーの背景色/-moz- 用 */
+    width: 60%;
+  }
+  ::-webkit-progress-bar {
+    background-color: #fff; /* プログレスバーの背景色/-webkit- 用 */
+  }
+  ::-webkit-progress-value {
+    background-color: rgb(62, 215, 241); /* プログレスバーの進捗部分色/-webkit- 用 */
+  }
+ 

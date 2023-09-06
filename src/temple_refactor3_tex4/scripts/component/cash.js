@@ -1,13 +1,10 @@
 import { LinearFilter, TextureLoader } from "three";
 import { iNode } from "../../../iNode";
 
-import { texesIs } from "./texes";
-
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
   load,
-  // texesIs,
   texIs,
   cashes,
 };
@@ -38,12 +35,28 @@ async function load() {
   await Promise.all(texPrms);
 }
 
+let totalNum = 0;
+let countNum = 0;
+
 async function texIs(url) {
+  totalNumIs();
+
   const tex = await texLoader.loadAsync(url);
+  countNumIs();
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
   return tex;
+}
+
+function totalNumIs() {
+  totalNum++;
+  // console.log(totalNum);
+}
+
+function countNumIs() {
+  countNum++;
+  console.log(countNum);
 }
 
 // function texesIs(el) {

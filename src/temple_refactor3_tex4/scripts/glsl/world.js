@@ -103,8 +103,6 @@ async function _initObjects() {
 
       resolution.z = xAspect;
       resolution.w = yAspect;
-      // resolution.z = xAspect;
-      // resolution.w = yAspect;
 
       return resolution;
     }

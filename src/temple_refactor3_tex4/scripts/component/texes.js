@@ -30,7 +30,6 @@ export async function init(el) {
     }
   }
   await compLoad;
-  // console.log(texes);
   return texes;
 }
 
