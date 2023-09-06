@@ -73,19 +73,6 @@ function clientProgressAction(_callback) {
 //   loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
 // }
 
-// function texesIs(el) {
-//   const texes = new Map();
-//   const data = el.dataset;
-//   for (let key in data) {
-//     if (!key.startsWith("tex")) continue;
-//     const url = data[key];
-//     const tex = cashes.get(url);
 
-//     key = key.replace("-", "");
-//     texes.set(key, tex);
-//   }
-// //   console.log(texes);
-//   return texes;
-// }
 
 export default cash;
