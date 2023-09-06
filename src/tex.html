@@ -9,10 +9,15 @@
     <!-- <link rel="stylesheet" href="style copy.css" /> -->
     <script
       type="module"
-      src="./temple_refactor3_tex3/scripts/index.js"
+      src="./temple_refactor3_tex4/scripts/index.js"
     ></script>
+    <link rel="stylesheet" href="./temple_refactor3_tex4/styles/loader.scss" />
   </head>
   <body>
+    <div id="loader" class="loader">
+      <progress class="progress-bar" max="100" value=""></progress>
+      <span class="loader-persent">0%</span>
+    </div>
     <div id="page-container">
       <div
         id="div1"
@@ -28,30 +33,16 @@
       ></div>
       <!-- <div class="test" data-webgl data-tex-1="/img/output5.jpg"></div>
       <section data-webgl data-tex-1="/img/output3.jpg"></section> -->
-      <img
-        data-webgl
-        data-tex-1="/img/uv.jpg"
-        data-tex-2="/img/output4.jpg"
-      />
-      <img
-        data-webgl
-        data-tex-1="/img/output3.jpg"
-        data-tex-2="/img/output4.jpg"
-        src="/img/output4.jpg"
-      />
-      <img
-        data-webgl
-        data-tex-1="/img/output3.jpg"
-        data-tex-2="/img/output4.jpg"
-        src=""
-      />
+      <img data-webgl data-tex-1="/img/output2.jpg" data-tex-2="/img/uv.jpg" />
+      <img data-webgl data-tex-1="/img/uv.jpg" data-tex-2="/img/output4.jpg" />
+      <img data-webgl data-tex-1="/img/1.gif" data-tex-2="/img/output7.jpg" />
 
       <style>
         #div1 {
           /* margin-top: 50px; */
           margin-left: 200px;
           width: 500px;
-          height: 300px;
+          height: 500px;
           margin-bottom: 0px;
         }
         canvas {
@@ -80,9 +71,9 @@
           margin-top: 0px;
           margin-bottom: 0px;
           margin-left: 200px;
-          width: 500px;
-          height: 900px;
-          opacity: 0.3;
+          width: 300px;
+          height: 300px;
+          opacity: 0;
           vertical-align: middle;
         }
       </style>
