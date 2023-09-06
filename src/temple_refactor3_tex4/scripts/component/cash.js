@@ -55,10 +55,15 @@ function totalNumIs() {
 
 function countNumIs() {
   countNum++;
-  const loaderPersent = iNode.qs(".loader-persent");
-  loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
+  progressAction();
+}
+
+function progressAction() {
   const progressBar = iNode.qs(".progress-bar");
   progressBar.value = Math.floor((countNum / totalNum) * 100);
+  const loaderPersent = iNode.qs(".loader-persent");
+  loaderPersent.innerHTML = Math.floor((countNum / totalNum) * 100) + "%";
+  
 }
 
 // function texesIs(el) {
