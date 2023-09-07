@@ -14,6 +14,6 @@ void main() {
   vec4 tex1 = texture(uTex1, uv);
   vec4 tex2 = texture(uTex2, uv);
 
-  gl_FragColor = mix(tex1, tex2, step(uProgress, uv.y ));
+  gl_FragColor = mix(tex1, tex2, step(uProgress, uv.x ));
 
 }
