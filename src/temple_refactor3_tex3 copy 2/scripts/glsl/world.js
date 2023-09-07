@@ -77,41 +77,26 @@ async function _initObjects() {
         width: media.naturalWidth,
         height: media.naturalHeight,
       };
-      const resolution = getonResolution(rect, mediaRect);
-      uniforms.uResolution = { value: resolution };
-
-      // const z = 0.1;
-      // const w = 1.0;
-      // material.uniforms.uVClamp = { value: new Vector4(z, 0, w, 1) };
-
-      return uniforms;
-    }
-
-    function getonResolution(toRect, mediaRect) {
-      const { width, height } = toRect;
-
+      const { width, height } = rect;
       const resolution = new Vector4(width, height, null, null);
       if (!mediaRect) return resolution;
       const { width: mediaWidth, height: mediaHeight } = mediaRect;
       const mediaAspect = mediaHeight / mediaWidth;
-      const toAspect = height / width;
+      const Aspect = height / width;
 
-      let xAspect, yAspect;
-      if (mediaAspect < toAspect) {
-        xAspect = (1 / toAspect) * mediaAspect;
-        yAspect = 1;
+      if (mediaAspect < Aspect) {
+        resolution.z = (1 / Aspect) * mediaAspect;
+        resolution.w = 1;
       } else {
-        xAspect = 1;
-        yAspect = toAspect / mediaAspect;
+        resolution.z = 1;
+        resolution.w = Aspect / mediaAspect;
       }
 
-      resolution.z = xAspect;
-      resolution.w = yAspect;
-      // resolution.z = xAspect;
-      // resolution.w = yAspect;
+      uniforms.uResolution = { value: resolution };
 
-      return resolution;
+      return uniforms;
     }
+
     material.uniforms = setupResolution(material.uniforms);
 
     texes.forEach((tex, key) => {
@@ -119,9 +104,6 @@ async function _initObjects() {
     });
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0; //追加⭐️⭐️0830
-
-    // const { x, y } = getWorldPosition(rect, canvasRect);
-    // mesh.position.set(x, y, 0);
 
     const o = {
       $: { el },

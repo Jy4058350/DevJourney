@@ -6,7 +6,7 @@ uniform sampler2D tex2;
 
 uniform vec4 uResolution;
 vec2 coverUv(vec2 uv, vec4 uResolution) {
-  return (uv - .5) * uResolution.zw*0.9 + .5;
+  return (uv - .5) * uResolution.zw + .5;
 }
 
 uniform vec4 uVClamp;
