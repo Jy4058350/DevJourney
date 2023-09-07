@@ -86,7 +86,6 @@ async function _initObjects() {
       if (!mediaRect) return resolution;
       const mediaAspect = mediaHeight / mediaWidth;
       const Aspect = height / width;
-
       if (mediaAspect < Aspect) {
         resolution.z = (1 / Aspect) * mediaAspect;
         resolution.w = 1;
@@ -94,7 +93,6 @@ async function _initObjects() {
         resolution.z = 1;
         resolution.w = Aspect / mediaAspect;
       }
-
       uniforms.uResolution = { value: resolution };
 
       return uniforms;
