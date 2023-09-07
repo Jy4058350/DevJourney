@@ -69,7 +69,10 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-    function setupResolution(uniforms) {
+    
+    material.uniforms = spatialAdjustment(material.uniforms);
+
+    function spatialAdjustment(uniforms) {
       if (!texes.has("tex1")) return uniforms;
       const media = texes.get("tex1").source.data;
 
@@ -78,9 +81,9 @@ async function _initObjects() {
         height: media.naturalHeight,
       };
       const { width, height } = rect;
+      const { width: mediaWidth, height: mediaHeight } = mediaRect;
       const resolution = new Vector4(width, height, null, null);
       if (!mediaRect) return resolution;
-      const { width: mediaWidth, height: mediaHeight } = mediaRect;
       const mediaAspect = mediaHeight / mediaWidth;
       const Aspect = height / width;
 
@@ -96,8 +99,6 @@ async function _initObjects() {
 
       return uniforms;
     }
-
-    material.uniforms = setupResolution(material.uniforms);
 
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
