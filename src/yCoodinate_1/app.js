@@ -37,6 +37,7 @@ async function init() {
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
       uTex2: { value: await loadTex("/img/output2.jpg") },
+      uTex3: { value: await loadTex("/img/texture1.png")},
       uTick: { value: 0 },
       uProgress: { value: 0 },
     },

@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform sampler2D uTex1;
 uniform sampler2D uTex2;
+uniform sampler2D uTex3;
 
 uniform float uTick;
 uniform float uProgress;
@@ -14,6 +15,9 @@ void main() {
   vec4 tex1 = texture(uTex1, uv);
   vec4 tex2 = texture(uTex2, uv);
 
-  gl_FragColor = mix(tex1, tex2, step(uProgress, uv.x ));
+  vec4 tex3 = texture(uTex3, uv);//graytoon
+  tex3.a = tex3.a * 0.9;
+
+  gl_FragColor = mix(tex1, tex3, step(uProgress, uv.y));
 
 }
