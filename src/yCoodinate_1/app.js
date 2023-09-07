@@ -71,7 +71,7 @@ async function init() {
     .onChange(() => {
       gsap.to(material.uniforms.uProgress, {
         value: datData.next ? 1 : 0,
-        duration: 2,
+        duration: 4,
         ease: "ease",
       });
     });
