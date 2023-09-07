@@ -65,6 +65,10 @@ function clientProgressAction() {
   const progress = countNum / totalNum;
   console.log(progress);
 
+  const progressBar = iNode.qs(".progress-bar");
+  console.log(progressBar);
+  progressBar.value = Math.floor(progress * 100);
+
   const loaderPersent = iNode.qs(".loader-persent");
   console.log(loaderPersent);
   loaderPersent.innerHTML = Math.floor(progress * 100) + "%";
