@@ -17,7 +17,7 @@ async function load() {
 
   els.forEach((el) => {
     const data = el.dataset;
-    
+
     for (let key in data) {
       if (!key.startsWith("tex")) continue;
       const url = data[key];
@@ -35,6 +35,14 @@ async function load() {
   });
 
   await Promise.all(texPrms);
+}
+
+async function texIs(url) {
+  const tex = await texLoader.loadAsync(url);
+  tex.magFilter = LinearFilter; //??
+  tex.minFilter = LinearFilter; //??
+  tex.needsUpdate = false;
+  return tex;
 }
 
 async function texIs(url) {
