@@ -45,7 +45,7 @@ async function texIs(url) {
   return tex;
 }
 
-async function texIs(url) {
+async function videoIs(url) {
   const tex = await texLoader.loadAsync(url);
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
