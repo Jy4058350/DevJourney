@@ -69,7 +69,10 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-    function setupResolution(uniforms) {
+    
+    material.uniforms = spatialAdjustment(material.uniforms);
+
+    function spatialAdjustment(uniforms) {
       if (!texes.has("tex1")) return uniforms;
       const media = texes.get("tex1").source.data;
 
@@ -77,49 +80,31 @@ async function _initObjects() {
         width: media.naturalWidth,
         height: media.naturalHeight,
       };
-      const resolution = getonResolution(rect, mediaRect);
-      uniforms.uResolution = { value: resolution };
+      const { width, height } = rect;
+      const { width: mediaWidth, height: mediaHeight } = mediaRect;
+      const resolution = new Vector4(width, height, null, null);
+      if (!mediaRect) return resolution;
+      const mediaAspect = mediaHeight / mediaWidth;
+      const Aspect = height / width;
 
-      
+      if (mediaAspect < Aspect) {
+        resolution.z = (1 / Aspect) * mediaAspect;
+        resolution.w = 1;
+      } else {
+        resolution.z = 1;
+        resolution.w = Aspect / mediaAspect;
+      }
+
+      uniforms.uResolution = { value: resolution };
 
       return uniforms;
     }
-
-    function getonResolution(toRect, mediaRect) {
-      const { width, height } = toRect;
-
-      const resolution = new Vector4(width, height, null, null);
-      if (!mediaRect) return resolution;
-      const { width: mediaWidth, height: mediaHeight } = mediaRect;
-      const mediaAspect = mediaHeight / mediaWidth;
-      const toAspect = height / width;
-
-      let xAspect, yAspect;
-      if (mediaAspect < toAspect) {
-        xAspect = (1 / toAspect) * mediaAspect;
-        yAspect = 1;
-      } else {
-        xAspect = 1;
-        yAspect = toAspect / mediaAspect;
-      }
-
-      resolution.z = xAspect;
-      resolution.w = yAspect;
-      // resolution.z = xAspect;
-      // resolution.w = yAspect;
-
-      return resolution;
-    }
-    material.uniforms = setupResolution(material.uniforms);
 
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0; //追加⭐️⭐️0830
-
-    // const { x, y } = getWorldPosition(rect, canvasRect);
-    // mesh.position.set(x, y, 0);
 
     const o = {
       $: { el },
