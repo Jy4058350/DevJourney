@@ -18,7 +18,7 @@ export async function init(el) {
     key = key.replace("-", "");
     texes.set(key, tex);
 
-    if (el instanceof HTMLImageElement) {
+    if (first && el instanceof HTMLImageElement) {
       compLoad = new Promise((resolve) => {
         el.onload = () => {
           resolve();
