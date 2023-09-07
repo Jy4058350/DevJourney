@@ -17,7 +17,7 @@ async function load() {
 
   els.forEach((el) => {
     const data = el.dataset;
-
+    
     for (let key in data) {
       if (!key.startsWith("tex")) continue;
       const url = data[key];
