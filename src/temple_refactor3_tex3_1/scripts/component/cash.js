@@ -9,6 +9,7 @@ const cash = {
   load,
   texIs,
   cashes,
+  clientProgressAction,
 };
 
 async function load() {
@@ -37,20 +38,36 @@ async function load() {
   await Promise.all(texPrms);
 }
 
+let totalNum = 0;
+let countNum = 0;
+
 async function texIs(url) {
+  totalNumIs();
+  // console.log(totalNum);
   const tex = await texLoader.loadAsync(url);
+  countNumIs();
+  // console.log(countNum);
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
   return tex;
 }
 
-async function videoIs(url) {
-  const tex = await texLoader.loadAsync(url);
-  tex.magFilter = LinearFilter; //??
-  tex.minFilter = LinearFilter; //??
-  tex.needsUpdate = false;
-  return tex;
+function totalNumIs() {
+  totalNum++;
+}
+
+function countNumIs() {
+  countNum++;
+}
+
+function clientProgressAction() {
+  const progress = countNum / totalNum;
+  console.log(progress);
+
+  const loaderPersent = iNode.qs(".loader-persent");
+  console.log(loaderPersent);
+  loaderPersent.innerHTML = Math.floor(progress * 100) + "%";
 }
 
 export default cash;
