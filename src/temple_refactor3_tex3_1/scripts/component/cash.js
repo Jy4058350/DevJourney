@@ -96,6 +96,7 @@ async function videoIs(url) {
       video.play();
       // tex.needsUpdate = false;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
+      // console.log(tex);
     };
   });
 }
