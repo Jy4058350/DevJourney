@@ -2,8 +2,6 @@ import { LinearFilter, TextureLoader, VideoTexture } from "three";
 import { iNode } from "../../../iNode";
 import gsap from "gsap";
 
-import { texesIs } from "./texes";
-
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const $ = {};
@@ -37,7 +35,6 @@ async function load() {
       const url = data[key];
       if (!cashes.has(url)) {
         cashes.set(url, null);
-        console.log(url);
       }
     }
   });
@@ -57,7 +54,6 @@ async function load() {
     texPrms.push(prms);
   });
 
-  console.log(texPrms);
   await Promise.all(texPrms);
 }
 
@@ -94,9 +90,7 @@ async function videoIs(url) {
       tex.minFilter = LinearFilter; //??
       video.play();
       video.oncanplay = null;
-      // tex.needsUpdate = false;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
-      // console.log(tex);
     };
   });
 }

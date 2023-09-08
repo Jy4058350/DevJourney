@@ -20,7 +20,7 @@ import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 import cash from "../component/cash";
-import { texesIs } from "../component/texes";
+import { texesIs } from "../component/loading";
 
 const world = {
   os: [],
