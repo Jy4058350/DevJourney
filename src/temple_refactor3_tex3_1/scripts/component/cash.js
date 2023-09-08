@@ -76,16 +76,16 @@ async function texIs(url) {
 
 async function videoIs(url) {
   totalNumIs();
+  const video = document.createElement("video"); //ブラウザ上に新しい<video>要素を作成する
   return new Promise((resolve) => {
-    const video = document.createElement("video"); //ブラウザ上に新しい<video>要素を作成する
     video.src = url; //src属性にurlを設定
     video.autoplay = true; //autoplay属性をtrueに設定
     video.muted = true; //muted属性をtrueに設定
     video.loop = true; //loop属性をtrueに設定
     video.playsInline = true; //playsinline属性をtrueに設定
     video.defaultMuted = true; //defaultMuted属性をtrueに設定
-
-    console.log(video);
+    
+    console.log(video.src);
     video.oncanplay = () => {
       // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
       const tex = new VideoTexture(video);
