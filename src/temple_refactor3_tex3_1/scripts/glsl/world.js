@@ -20,7 +20,7 @@ import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 import cash from "../component/cash";
-import { texesIs } from "../component/texes";
+import { texesIs } from "../component/loading";
 
 const world = {
   os: [],
@@ -69,17 +69,25 @@ async function _initObjects() {
       vertexShader,
       fragmentShader,
     });
-    
+
     material.uniforms = spatialAdjustment(material.uniforms);
 
     function spatialAdjustment(uniforms) {
-      if (!texes.has("tex1")) return uniforms;
+      if (!texes.get("tex1")) return uniforms;
+      // console.log(texes);
       const media = texes.get("tex1").source.data;
 
       const mediaRect = {
-        width: media.naturalWidth,
-        height: media.naturalHeight,
       };
+
+      if (media instanceof HTMLImageElement) {
+        mediaRect.width = media.naturalWidth;
+        mediaRect.height = media.naturalHeight;
+      } else if (media instanceof HTMLVideoElement) {
+        mediaRect.width = media.videoWidth;
+        mediaRect.height = media.videoHeight;
+      }
+
       const { width, height } = rect;
       const { width: mediaWidth, height: mediaHeight } = mediaRect;
       const resolution = new Vector4(width, height, null, null);

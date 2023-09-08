@@ -7,6 +7,8 @@ const texesIs = {
 export async function init(el) {
   const texes = new Map();
   const data = el.dataset;
+  // console.log(el);
+
   let compLoad = null;
   let first = true;
 
@@ -20,7 +22,7 @@ export async function init(el) {
 
     if (first && el instanceof HTMLImageElement) {
       compLoad = new Promise((resolve) => {
-        el.onload = () => {
+        el.onload = () => { //非同期処理のイベントハンドラー
           resolve();
         };
       });
@@ -28,9 +30,19 @@ export async function init(el) {
       el.src = url;
       first = false;
     }
+    if (first && el instanceof HTMLVideoElement) {
+      compLoad = new Promise((resolve) => {
+        el.onloadeddata = () => {
+          resolve();
+        };
+      });
+
+      el.src = url;
+      el.load();
+      first = false;
+    }
   }
   await compLoad;
-  // console.log(texes);
   return texes;
 }
 

@@ -2,8 +2,6 @@ import { LinearFilter, TextureLoader, VideoTexture } from "three";
 import { iNode } from "../../../iNode";
 import gsap from "gsap";
 
-import { texesIs } from "./texes";
-
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const $ = {};
@@ -52,9 +50,8 @@ async function load() {
       prms = texIs(url).then((tex) => {
         cashes.set(url, tex);
       });
-
-      texPrms.push(prms);
     }
+    texPrms.push(prms);
   });
 
   await Promise.all(texPrms);
@@ -80,23 +77,20 @@ async function videoIs(url) {
     const video = document.createElement("video"); //ブラウザ上に新しい<video>要素を作成する
     video.src = url; //src属性にurlを設定
     video.autoplay = true; //autoplay属性をtrueに設定
-    video.muted = true; //muted属性をtrueに設定
     video.loop = true; //loop属性をtrueに設定
+    video.muted = true; //muted属性をtrueに設定
     video.playsInline = true; //playsinline属性をtrueに設定
     video.defaultMuted = true; //defaultMuted属性をtrueに設定
-
-    console.log(video);
     video.oncanplay = () => {
+      countNumIs();
       // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
       const tex = new VideoTexture(video);
       // const tex = await texLoader.loadAsync(url);
-      countNumIs();
       tex.magFilter = LinearFilter; //??
       tex.minFilter = LinearFilter; //??
       video.play();
-      // tex.needsUpdate = false;
+      video.oncanplay = null;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
-      // console.log(tex);
     };
   });
 }
