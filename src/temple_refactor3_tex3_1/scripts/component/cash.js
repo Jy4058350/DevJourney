@@ -1,4 +1,4 @@
-import { LinearFilter, TextureLoader } from "three";
+import { LinearFilter, TextureLoader, VideoTexture } from "three";
 import { iNode } from "../../../iNode";
 import gsap from "gsap";
 
@@ -42,10 +42,19 @@ async function load() {
   });
 
   cashes.forEach((_, url) => {
-    const prms = texIs(url).then((tex) => {
-      cashes.set(url, tex);
-    });
-    texPrms.push(prms);
+    //ここに動画の処理を追加
+    let prms = null;
+    if (/\.mp4$/.test(url)) {
+      prms = videoIs(url).then((tex) => {
+        cashes.set(url, tex);
+      });
+    } else {
+      prms = texIs(url).then((tex) => {
+        cashes.set(url, tex);
+      });
+
+      texPrms.push(prms);
+    }
   });
 
   await Promise.all(texPrms);
@@ -84,10 +93,10 @@ async function videoIs(url) {
       countNumIs();
       tex.magFilter = LinearFilter; //??
       tex.minFilter = LinearFilter; //??
+      video.play();
       // tex.needsUpdate = false;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
     };
-    
   });
 }
 
