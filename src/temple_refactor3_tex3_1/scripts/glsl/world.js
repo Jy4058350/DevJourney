@@ -75,6 +75,7 @@ async function _initObjects() {
     function spatialAdjustment(uniforms) {
       if (!texes.has("tex1")) return uniforms;
       const media = texes.get("tex1").source.data;
+      console.log(texes);
 
       const mediaRect = {
         width: media.naturalWidth,
