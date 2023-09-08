@@ -75,8 +75,6 @@ function countNumIs() {
 
 function clientProgressAction() {
   const progress = countNum / totalNum;
-  console.log(countNum);
-  console.log(totalNum);
 
   $.progressBar.value = Math.floor(progress * 100);
 
@@ -91,10 +89,10 @@ function clientContentStart() {
     opacity: 0,
     ease: "power2.inOut",
   })
-    .tl.set($.pageContainer, {
+    .set($.pageContainer, {
       visibility: "visible",
     })
-    .tl.set($.loader, {
+    .set($.loader, {
       display: "none",
     });
 }
