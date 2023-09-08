@@ -1,16 +1,27 @@
 import { LinearFilter, TextureLoader } from "three";
 import { iNode } from "../../../iNode";
+import gsap from "gsap";
 
 import { texesIs } from "./texes";
 
 const texLoader = new TextureLoader();
 const cashes = new Map();
 const cash = {
+  init,
   load,
   texIs,
   cashes,
   clientProgressAction,
+  clientContentStart,
 };
+
+const $ = {};
+
+function init() {
+  $.pageContainer = iNode.qs("#page-container");
+  $.loader = iNode.qs("#loader");
+  console.log($.loader);
+}
 
 async function load() {
   const els = iNode.qsa("[data-webgl]");
@@ -63,15 +74,27 @@ function countNumIs() {
 
 function clientProgressAction() {
   const progress = countNum / totalNum;
-  console.log(progress);
 
   const progressBar = iNode.qs(".progress-bar");
-  console.log(progressBar);
   progressBar.value = Math.floor(progress * 100);
 
   const loaderPersent = iNode.qs(".loader-persent");
-  console.log(loaderPersent);
   loaderPersent.innerHTML = Math.floor(progress * 100) + "%";
+}
+
+function clientContentStart() {
+  const tl = gsap.timeline();
+  tl.to($.loader, {
+    duration: 1,
+    opacity: 0,
+    ease: "power2.inOut",
+  })
+    .tl.set($.pageContainer, {
+      visibility: "visible",
+    })
+    .tl.set($.loader, {
+      display: "none",
+    });
 }
 
 export default cash;

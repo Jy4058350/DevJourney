@@ -9,6 +9,7 @@ const canvas = iNode.qs("#canvas");
 
 export async function init() {
   const canvas = iNode.qs("#canvas");
+  cash.init();
 
   viewport.init(canvas); //カメラのnear,far,fovを変更したい場合には第二引数から設定する
   scroll.initScroll();
