@@ -7,6 +7,8 @@ const texesIs = {
 export async function init(el) {
   const texes = new Map();
   const data = el.dataset;
+  // console.log(el);
+
   let compLoad = null;
   let first = true;
 
@@ -14,6 +16,8 @@ export async function init(el) {
     if (!key.startsWith("tex")) continue;
     const url = data[key];
     const tex = cash.cashes.get(url);
+    // console.log(tex);
+    
 
     key = key.replace("-", "");
     texes.set(key, tex);
@@ -27,10 +31,22 @@ export async function init(el) {
 
       el.src = url;
       first = false;
+    
+    }
+    if (first && el instanceof HTMLVideoElement) {
+      compLoad = new Promise((resolve) => {
+        el.onloadeddata = () => {
+          resolve();
+        };
+      });
+
+      el.src = url;
+      el.load();
+      first = false;
+     
     }
   }
   await compLoad;
-  // console.log(texes);
   return texes;
 }
 

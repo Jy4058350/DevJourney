@@ -24,7 +24,7 @@ void main() {
 // vec4 texColor3 = texture2D(tex1, uva);
   vec2 uvz = clamp(vUv, uVClamp.xy, uVClamp.zw);
 
-  vec4 texColor1 = texture2D(tex1, vUv);
+  vec4 texColor1 = texture2D(tex1, uvb);
   vec4 texColor11 = texture2D(tex1, vUv);
   vec4 texColor2 = texture2D(tex2, uvb);
 

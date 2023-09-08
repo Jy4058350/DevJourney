@@ -37,6 +37,7 @@ async function load() {
       const url = data[key];
       if (!cashes.has(url)) {
         cashes.set(url, null);
+        console.log(url);
       }
     }
   });
@@ -52,11 +53,11 @@ async function load() {
       prms = texIs(url).then((tex) => {
         cashes.set(url, tex);
       });
-
-      texPrms.push(prms);
     }
+    texPrms.push(prms);
   });
 
+  console.log(texPrms);
   await Promise.all(texPrms);
 }
 
@@ -84,7 +85,6 @@ async function videoIs(url) {
     video.muted = true; //muted属性をtrueに設定
     video.playsInline = true; //playsinline属性をtrueに設定
     video.defaultMuted = true; //defaultMuted属性をtrueに設定
-    console.log(video);
     video.oncanplay = () => {
       countNumIs();
       // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
@@ -93,6 +93,7 @@ async function videoIs(url) {
       tex.magFilter = LinearFilter; //??
       tex.minFilter = LinearFilter; //??
       video.play();
+      video.oncanplay = null;
       // tex.needsUpdate = false;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
       // console.log(tex);
