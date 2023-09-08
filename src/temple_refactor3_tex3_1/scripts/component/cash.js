@@ -11,12 +11,12 @@ const cash = {
   init,
   load,
   texIs,
+  videoIs,
   cashes,
   clientProgressAction,
   clientContentStart,
   $,
 };
-
 
 function init() {
   $.pageContainer = iNode.qs("#page-container");
@@ -57,14 +57,38 @@ let _progressAction = null;
 
 async function texIs(url) {
   totalNumIs();
-  // console.log(totalNum);
   const tex = await texLoader.loadAsync(url);
   countNumIs();
-  // console.log(countNum);
   tex.magFilter = LinearFilter; //??
   tex.minFilter = LinearFilter; //??
   tex.needsUpdate = false;
   return tex;
+}
+
+async function videoIs(url) {
+  totalNumIs();
+  return new Promise((resolve) => {
+    const video = document.createElement("video"); //ブラウザ上に新しい<video>要素を作成する
+    video.src = url; //src属性にurlを設定
+    video.autoplay = true; //autoplay属性をtrueに設定
+    video.muted = true; //muted属性をtrueに設定
+    video.loop = true; //loop属性をtrueに設定
+    video.playsInline = true; //playsinline属性をtrueに設定
+    video.defaultMuted = true; //defaultMuted属性をtrueに設定
+
+    console.log(video);
+    video.oncanplay = () => {
+      // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
+      const tex = new VideoTexture(video);
+      // const tex = await texLoader.loadAsync(url);
+      countNumIs();
+      tex.magFilter = LinearFilter; //??
+      tex.minFilter = LinearFilter; //??
+      // tex.needsUpdate = false;
+      resolve(tex); //非同期処理が完了したらresolveを呼び出す
+    };
+    
+  });
 }
 
 function totalNumIs() {
@@ -75,7 +99,6 @@ function countNumIs() {
   countNum++;
   _progressAction(countNum, totalNum);
 }
-
 
 function clientProgressAction(_cb) {
   _progressAction = _cb;
