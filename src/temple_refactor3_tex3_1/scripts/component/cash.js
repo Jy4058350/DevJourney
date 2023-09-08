@@ -6,6 +6,7 @@ import { texesIs } from "./texes";
 
 const texLoader = new TextureLoader();
 const cashes = new Map();
+const $ = {};
 const cash = {
   init,
   load,
@@ -13,14 +14,15 @@ const cash = {
   cashes,
   clientProgressAction,
   clientContentStart,
+  $,
 };
 
-const $ = {};
 
 function init() {
   $.pageContainer = iNode.qs("#page-container");
   $.loader = iNode.qs("#loader");
   $.progressBar = iNode.qs(".progress-bar");
+  $.loaderPersent = iNode.qs(".loader-persent");
 }
 
 async function load() {
@@ -51,6 +53,7 @@ async function load() {
 
 let totalNum = 0;
 let countNum = 0;
+let _progressAction = null;
 
 async function texIs(url) {
   totalNumIs();
@@ -70,16 +73,12 @@ function totalNumIs() {
 
 function countNumIs() {
   countNum++;
-  clientProgressAction();
+  _progressAction(countNum, totalNum);
 }
 
-function clientProgressAction() {
-  const progress = countNum / totalNum;
 
-  $.progressBar.value = Math.floor(progress * 100);
-
-  const loaderPersent = iNode.qs(".loader-persent");
-  loaderPersent.innerHTML = Math.floor(progress * 100) + "%";
+function clientProgressAction(_cb) {
+  _progressAction = _cb;
 }
 
 function clientContentStart() {
