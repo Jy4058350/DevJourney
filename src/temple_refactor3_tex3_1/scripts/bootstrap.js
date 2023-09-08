@@ -15,8 +15,9 @@ export async function init() {
   scroll.initScroll();
 
   await cash.load();
-  cash.clientProgressAction();
+
   world.init(canvas, viewport);
 
   world.render();
+  cash.clientContentStart();
 }

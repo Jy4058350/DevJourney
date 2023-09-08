@@ -20,7 +20,7 @@ const $ = {};
 function init() {
   $.pageContainer = iNode.qs("#page-container");
   $.loader = iNode.qs("#loader");
-  console.log($.loader);
+  $.progressBar = iNode.qs(".progress-bar");
 }
 
 async function load() {
@@ -70,13 +70,15 @@ function totalNumIs() {
 
 function countNumIs() {
   countNum++;
+  clientProgressAction();
 }
 
 function clientProgressAction() {
   const progress = countNum / totalNum;
+  console.log(countNum);
+  console.log(totalNum);
 
-  const progressBar = iNode.qs(".progress-bar");
-  progressBar.value = Math.floor(progress * 100);
+  $.progressBar.value = Math.floor(progress * 100);
 
   const loaderPersent = iNode.qs(".loader-persent");
   loaderPersent.innerHTML = Math.floor(progress * 100) + "%";
