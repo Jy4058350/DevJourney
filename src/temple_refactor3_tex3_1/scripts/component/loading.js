@@ -1,6 +1,6 @@
 import cash from "./cash";
 
-const texesIs = {
+const loadTG = {
   init,
 };
 
@@ -22,11 +22,10 @@ export async function init(el) {
 
     if (first && el instanceof HTMLImageElement) {
       compLoad = new Promise((resolve) => {
-        el.onload = () => { //非同期処理のイベントハンドラー
+        el.onload = () => {
           resolve();
         };
       });
-
       el.src = url;
       first = false;
     }
@@ -36,9 +35,9 @@ export async function init(el) {
           resolve();
         };
       });
-
       el.src = url;
       el.load();
+      console.log(el);
       first = false;
     }
   }
@@ -46,4 +45,4 @@ export async function init(el) {
   return texes;
 }
 
-export { texesIs };
+export { loadTG };

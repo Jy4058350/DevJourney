@@ -85,7 +85,6 @@ async function videoIs(url) {
       countNumIs();
       // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
       const tex = new VideoTexture(video);
-      // const tex = await texLoader.loadAsync(url);
       tex.magFilter = LinearFilter; //??
       tex.minFilter = LinearFilter; //??
       video.play();
