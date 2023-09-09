@@ -43,7 +43,9 @@ async function init() {
     return texture;
   }
 
-  const geometry = new THREE.PlaneGeometry(50, 25);
+
+  
+  const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
@@ -57,7 +59,7 @@ async function init() {
   const plane = new THREE.Mesh(geometry, material);
   world.scene.add(plane);
 
-  world.camera.position.z = 30;
+  world.camera.position.z = cameraZ;
 
   const axis = new THREE.AxesHelper(100);
   world.scene.add(axis);
