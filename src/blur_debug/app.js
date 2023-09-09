@@ -12,6 +12,32 @@ import { iNode } from "../iNode";
 
 const world = {};
 
+class Setgeo {
+      
+  constructor() {
+    const els = iNode.qsa("[data-webgl]");
+    let rect;
+    els.forEach((el) => {
+      rect = el.getBoundingClientRect();
+    });
+    this.geometry = new THREE.BufferGeometry();
+    this.plane = new THREE.PlaneGeometry(rect.width,rect.height, 1, 1);
+    console.log(rect)
+  }
+  createBufferGeo() {
+    const planeIndex = this.plane.getIndex().array;
+    const index = new THREE.BufferAttribute(planeIndex, 1);
+    this.geometry.setAttribute(
+      "position",
+      this.plane.getAttribute("position")
+    );
+    this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
+    this.geometry.setIndex(index);
+    return this.geometry;
+  }
+}
+
+
 init();
 async function init() {
   const canvas = iNode.qs("#canvas");
@@ -58,23 +84,28 @@ async function init() {
     //   return geometry;
     // }
 
-    class Setgeo {
-      constructor() {
-        this.geometry = new THREE.BufferGeometry();
-        this.plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
-      }
-      createBufferGeo() {
-        const planeIndex = this.plane.getIndex().array;
-        const index = new THREE.BufferAttribute(planeIndex, 1);
-        this.geometry.setAttribute(
-          "position",
-          this.plane.getAttribute("position")
-        );
-        this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
-        this.geometry.setIndex(index);
-        return this.geometry;
-      }
-    }
+    // class Setgeo {
+      
+    //   constructor() {
+    //     const els = iNode.qsa("[data-webgl]");
+    //     els.forEach((el) => {
+    //       const rect = el.getBoundingClientRect();
+    //     });
+    //     this.geometry = new THREE.BufferGeometry();
+    //     this.plane = new THREE.PlaneGeometry(rect.width,rect.height, 1, 1);
+    //   }
+    //   createBufferGeo() {
+    //     const planeIndex = this.plane.getIndex().array;
+    //     const index = new THREE.BufferAttribute(planeIndex, 1);
+    //     this.geometry.setAttribute(
+    //       "position",
+    //       this.plane.getAttribute("position")
+    //     );
+    //     this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
+    //     this.geometry.setIndex(index);
+    //     return this.geometry;
+    //   }
+    // }
     const Set = new Setgeo();
     const geometry = Set.createBufferGeo();
     // const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
@@ -142,3 +173,5 @@ function getWorldPosition(rect, canvasRect) {
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
   return { x, y };
 }
+
+
