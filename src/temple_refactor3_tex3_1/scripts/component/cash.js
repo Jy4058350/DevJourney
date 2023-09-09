@@ -4,15 +4,16 @@ import gsap from "gsap";
 
 const texLoader = new TextureLoader();
 const cashes = new Map();
+
 const $ = {};
 const cash = {
   init,
   load,
   texIs,
   videoIs,
-  cashes,
   clientProgressAction,
   clientContentStart,
+  cashes,
   $,
 };
 
@@ -25,7 +26,6 @@ function init() {
 
 async function load() {
   const els = iNode.qsa("[data-webgl]");
-  const texPrms = [];
 
   els.forEach((el) => {
     const data = el.dataset;
@@ -39,18 +39,24 @@ async function load() {
     }
   });
 
+  const texPrms = [];
   cashes.forEach((_, url) => {
     //ここに動画の処理を追加
     let prms = null;
-    if (/\.mp4$/.test(url)) {
-      prms = videoIs(url).then((tex) => {
-        cashes.set(url, tex);
-      });
-    } else {
-      prms = texIs(url).then((tex) => {
-        cashes.set(url, tex);
-      });
-    }
+
+    // if (/\.(mp4|webm|mov)$/.test(url)) {
+    //   prms = videoIs(url).then((tex) => {
+    //     cashes.set(url, tex);
+    //   });
+    // } else {
+    //   prms = texIs(url).then((tex) => {
+    //     cashes.set(url, tex);
+    //   });
+    // }
+    const loadFn = /\.(mp4|webm|mov)$/.test(url) ? videoIs : texIs;
+    prms = loadFn(url).then((tex) => {
+      cashes.set(url, tex);
+    });
     texPrms.push(prms);
   });
 
@@ -72,26 +78,35 @@ async function texIs(url) {
 }
 
 async function videoIs(url) {
+  const video = document.createElement("video");
+  let extention = url.split(".").pop();
+  if (extention === "mov") {
+    extention = "quicktime";
+  }
+  if (!video.canPlayType(`video/${extention}`)) {
+    return null;
+  }
+
   totalNumIs();
   return new Promise((resolve) => {
     const video = document.createElement("video"); //ブラウザ上に新しい<video>要素を作成する
-    video.src = url; //src属性にurlを設定
-    video.autoplay = true; //autoplay属性をtrueに設定
-    video.loop = true; //loop属性をtrueに設定
-    video.muted = true; //muted属性をtrueに設定
-    video.playsInline = true; //playsinline属性をtrueに設定
-    video.defaultMuted = true; //defaultMuted属性をtrueに設定
     video.oncanplay = () => {
+      const tex = new VideoTexture(video);
       countNumIs();
       // oncanplayは、動画の再生が可能になった時に発生するイベント//非同期処理
-      const tex = new VideoTexture(video);
-      // const tex = await texLoader.loadAsync(url);
       tex.magFilter = LinearFilter; //??
       tex.minFilter = LinearFilter; //??
       video.play();
+      //動画の再生がとまっている場合は、再生する
       video.oncanplay = null;
       resolve(tex); //非同期処理が完了したらresolveを呼び出す
     };
+    video.src = url;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsinline = true;
+    video.defaultMuted = true;
   });
 }
 
@@ -101,7 +116,9 @@ function totalNumIs() {
 
 function countNumIs() {
   countNum++;
-  _progressAction(countNum, totalNum);
+  if (_progressAction) {
+    _progressAction(countNum, totalNum);
+  }
 }
 
 function clientProgressAction(_cb) {
@@ -121,6 +138,8 @@ function clientContentStart() {
     .set($.loader, {
       display: "none",
     });
+    return tl;
 }
+
 
 export default cash;

@@ -23,19 +23,20 @@
       <span class="loader-persent">0%</span>
     </div>
     <div id="page-container">
-    
+      
       <div
       id="div1"
       data-webgl
       data-tex-1="/img/uv.jpg"
       data-tex-2="/img/output1.jpg"
       ></div>
-      <div
+      <video data-webgl data-tex-1="/movie/beach.mp4"></video>
+      <!-- <div
         id="div1"
         data-webgl
-        data-tex-1="/movie/beach.mp4"
-        data-tex-2="/img/output2.jpg"
-      ></div>
+        data-tex-1="/movie/fresnel_back.mov"
+        data-tex-2="/movie/fresnel_back.webm"
+      ></div> -->
       <div
         id="div1"
         data-webgl
@@ -76,7 +77,7 @@
           width: 256px;
           height: 144px;
           background: rgb(206, 206, 206);
-          opacity: 0.3;
+          opacity: 0.1;
         }
         img {
           margin-top: 0px;
@@ -86,6 +87,9 @@
           height: 300px;
           opacity: 0;
           vertical-align: middle;
+        }
+        video {
+          opacity: 0.3;
         }
       </style>
     </div>

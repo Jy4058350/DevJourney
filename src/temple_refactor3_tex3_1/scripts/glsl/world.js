@@ -20,7 +20,7 @@ import { iNode } from "../../../iNode";
 import { viewport, utils } from "../helper";
 import mousePick from "../component/mousePick";
 import cash from "../component/cash";
-import { texesIs } from "../component/loading";
+import { loadTG } from "../component/loading";
 
 const world = {
   os: [],
@@ -56,7 +56,10 @@ async function _initObjects() {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const texes = await texesIs.init(el);
+    const texes = await loadTG.init(el);
+    if (texes.get("tex1") === null) {
+      texes.set("tex1", texes.get("tex2"));
+    }
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
@@ -77,8 +80,7 @@ async function _initObjects() {
       // console.log(texes);
       const media = texes.get("tex1").source.data;
 
-      const mediaRect = {
-      };
+      const mediaRect = {};
 
       if (media instanceof HTMLImageElement) {
         mediaRect.width = media.naturalWidth;
