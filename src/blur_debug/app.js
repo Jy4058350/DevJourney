@@ -43,17 +43,34 @@ async function init() {
     return texture;
   }
 
-  function setUpGEO() {
-    const geometry = new THREE.BufferGeometry();
-    const plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
-    geometry.setAttribute("position", plane.getAttribute("position"));
-    geometry.setAttribute("uv", plane.getAttribute("uv"));
-    const planeIndex = plane.getIndex().array;
-    const index = new THREE.BufferAttribute(planeIndex, 1);
-    geometry.setIndex(index);
-    return geometry;
+  // function setUpGEO() {
+  //   const geometry = new THREE.BufferGeometry();
+  //   const plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+  //   geometry.setAttribute("position", plane.getAttribute("position"));
+  //   geometry.setAttribute("uv", plane.getAttribute("uv"));
+  //   const planeIndex = plane.getIndex().array;
+  //   const index = new THREE.BufferAttribute(planeIndex, 1);
+  //   geometry.setIndex(index);
+  //   return geometry;
+  // }
+
+  class Setgeo {
+    constructor() {
+    this.geometry = new THREE.BufferGeometry();
+    this.plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+    
   }
-  const geometry = setUpGEO();
+  createBufferGeo() {
+      const planeIndex = this.plane.getIndex().array;
+      const index = new THREE.BufferAttribute(planeIndex, 1);
+      this.geometry.setAttribute("position", this.plane.getAttribute("position"));
+      this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
+      this.geometry.setIndex(index);
+      return this.geometry;
+    }
+  }
+  const Set = new Setgeo();
+  const geometry = Set.createBufferGeo();
   // const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
   const material = new THREE.ShaderMaterial({
     uniforms: {
@@ -64,6 +81,7 @@ async function init() {
     },
     vertexShader,
     fragmentShader,
+    // wireframe: true,
   });
   const plane = new THREE.Mesh(geometry, material);
   world.scene.add(plane);
