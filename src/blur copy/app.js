@@ -49,7 +49,7 @@ async function init() {
   world.camera.position.z = cameraZ;
 
   world.renderer = new WebGLRenderer({ canvas, antialias: true });
-  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setSize(window.innerWidth, window.innerHeight);
   world.renderer.setPixelRatio(window.devicePixelRatio);
   world.renderer.setClearColor(0xffffff);
   /* エラー時にシェーダの全体のコードを表示(three.js 0.152.0 対応) */

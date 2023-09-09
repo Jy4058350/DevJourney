@@ -26,10 +26,9 @@ async function init() {
   const cameraZ = 2500;
   const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
   const fov = radian * (180 / Math.PI);
-
-  world.scene = new THREE.Scene();
   world.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-
+  world.scene = new THREE.Scene();
+  world.camera.position.z = cameraZ;
   world.renderer = new THREE.WebGLRenderer({ antialias: true });
   world.renderer.setSize(window.innerWidth, window.innerHeight);
   world.renderer.setClearColor(0xffffff);
@@ -43,50 +42,60 @@ async function init() {
     return texture;
   }
 
-  // function setUpGEO() {
-  //   const geometry = new THREE.BufferGeometry();
-  //   const plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
-  //   geometry.setAttribute("position", plane.getAttribute("position"));
-  //   geometry.setAttribute("uv", plane.getAttribute("uv"));
-  //   const planeIndex = plane.getIndex().array;
-  //   const index = new THREE.BufferAttribute(planeIndex, 1);
-  //   geometry.setIndex(index);
-  //   return geometry;
-  // }
+  const els = iNode.qsa("[data-webgl]");
+  console.log(els);
+  els.forEach(async (el) => {
+    const rect = el.getBoundingClientRect();
 
-  class Setgeo {
-    constructor() {
-    this.geometry = new THREE.BufferGeometry();
-    this.plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
-    
-  }
-  createBufferGeo() {
-      const planeIndex = this.plane.getIndex().array;
-      const index = new THREE.BufferAttribute(planeIndex, 1);
-      this.geometry.setAttribute("position", this.plane.getAttribute("position"));
-      this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
-      this.geometry.setIndex(index);
-      return this.geometry;
+    // function setUpGEO() {
+    //   const geometry = new THREE.BufferGeometry();
+    //   const plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+    //   geometry.setAttribute("position", plane.getAttribute("position"));
+    //   geometry.setAttribute("uv", plane.getAttribute("uv"));
+    //   const planeIndex = plane.getIndex().array;
+    //   const index = new THREE.BufferAttribute(planeIndex, 1);
+    //   geometry.setIndex(index);
+    //   return geometry;
+    // }
+
+    class Setgeo {
+      constructor() {
+        this.geometry = new THREE.BufferGeometry();
+        this.plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+      }
+      createBufferGeo() {
+        const planeIndex = this.plane.getIndex().array;
+        const index = new THREE.BufferAttribute(planeIndex, 1);
+        this.geometry.setAttribute(
+          "position",
+          this.plane.getAttribute("position")
+        );
+        this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
+        this.geometry.setIndex(index);
+        return this.geometry;
+      }
     }
-  }
-  const Set = new Setgeo();
-  const geometry = Set.createBufferGeo();
-  // const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
-      uTick: { value: 0 },
-      uProgress: { value: 0 },
-    },
-    vertexShader,
-    fragmentShader,
-    // wireframe: true,
-  });
-  const plane = new THREE.Mesh(geometry, material);
-  world.scene.add(plane);
+    const Set = new Setgeo();
+    const geometry = Set.createBufferGeo();
+    // const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        uTex1: { value: await loadTex("/img/output3.jpg") },
+        uTex2: { value: await loadTex("/img/output2.jpg") },
+        uTick: { value: 0 },
+        uProgress: { value: 0 },
+      },
+      vertexShader,
+      fragmentShader,
+      // wireframe: true,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    world.scene.add(mesh);
 
-  world.camera.position.z = cameraZ;
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    mesh.position.x = x;
+    mesh.position.y = y;
+  });
 
   const axis = new THREE.AxesHelper(100);
   world.scene.add(axis);
@@ -126,4 +135,10 @@ async function init() {
   }
 
   animate();
+}
+
+function getWorldPosition(rect, canvasRect) {
+  const x = rect.left + rect.width / 2 - canvasRect.width / 2;
+  const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  return { x, y };
 }
