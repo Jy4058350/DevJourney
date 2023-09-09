@@ -57,6 +57,9 @@ async function _initObjects() {
     const rect = el.getBoundingClientRect();
 
     const texes = await loadTG.init(el);
+    if (texes.get("tex1") === null) {
+      texes.set("tex1", texes.get("tex2"));
+    }
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     const material = new ShaderMaterial({
@@ -77,8 +80,7 @@ async function _initObjects() {
       // console.log(texes);
       const media = texes.get("tex1").source.data;
 
-      const mediaRect = {
-      };
+      const mediaRect = {};
 
       if (media instanceof HTMLImageElement) {
         mediaRect.width = media.naturalWidth;

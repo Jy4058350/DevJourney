@@ -37,7 +37,6 @@ export async function init(el) {
       });
       el.src = url;
       el.load();
-      console.log(el);
       first = false;
     }
   }
