@@ -43,9 +43,18 @@ async function init() {
     return texture;
   }
 
-
-  
-  const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+  function setUpGEO() {
+    const geometry = new THREE.BufferGeometry();
+    const plane = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
+    geometry.setAttribute("position", plane.getAttribute("position"));
+    geometry.setAttribute("uv", plane.getAttribute("uv"));
+    const planeIndex = plane.getIndex().array;
+    const index = new THREE.BufferAttribute(planeIndex, 1);
+    geometry.setIndex(index);
+    return geometry;
+  }
+  const geometry = setUpGEO();
+  // const geometry = new THREE.PlaneGeometry(cameraWidth, cameraHeight, 1, 1);
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },

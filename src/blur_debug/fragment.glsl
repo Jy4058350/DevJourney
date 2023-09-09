@@ -12,6 +12,7 @@ const float kernel[kernelSize] = float[](0.05, 0.09, 0.12, 0.15, 0.16, 0.15, 0.1
 
 void main() {
   vec2 uv = vUv;
+  vec4 color = texture2D(uTex1, uv);
 
   vec3 blurredColor = vec3(0.0);
 
@@ -24,4 +25,5 @@ void main() {
   }
 
   gl_FragColor = vec4(blurredColor, 1.0);
+  gl_FragColor = color;
 }
