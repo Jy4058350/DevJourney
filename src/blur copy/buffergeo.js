@@ -1,8 +1,11 @@
 import { PlaneGeometry, BufferGeometry, BufferAttribute } from "three";
 
 class Setgeo {
-  constructor() {
-   
+  constructor(wSeg, hSeg, w, h) {
+    this.wSeg = wSeg;
+    this.hSeg = hSeg;
+    this.w = w;
+    this.h = h;
     this.geometry = new BufferGeometry();
     this.plane = new PlaneGeometry(w, h, this.wSeg, this.hSeg);
   }
