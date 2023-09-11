@@ -80,7 +80,7 @@ async function init() {
     };
     world.os.push(o);
 
-    const geo1 = new Setgeo(3, 1, rect.width, rect.height);
+    const geo1 = new Setgeo();
     const geometry = geo1.createBufferGeo();
 
     const material = new ShaderMaterial({
