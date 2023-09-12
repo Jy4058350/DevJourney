@@ -14,6 +14,8 @@ import {
 } from "three/examples/jsm/renderers/CSS2DRenderer.js";
 
 init();
+animate();
+
 async function init() {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -87,28 +89,28 @@ async function init() {
   const controls = new OrbitControls(camera, labelRenderer.domElement);
   controls.enableDamping = true;
 
-  // const gui = new GUI();
-  // const folder1 = gui.addFolder("z-distance");
-  // folder1.open();
+  const gui = new GUI();
+  const folder1 = gui.addFolder("z-distance");
+  folder1.open();
 
-  // folder1
-  //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-  //   .name("zaxis")
-  //   .listen();
+  folder1
+    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+    .name("zaxis")
+    .listen();
 
-  // const datData = { next: !!material.uniforms.uProgress.value };
-  // folder1
-  //   .add(datData, "next")
-  //   .name("moving axis")
-  //   .onChange(() => {
-  //     gsap.to(material.uniforms.uProgress, {
-  //       value: datData.next ? 1 : 0,
-  //       duration: 3,
-  //       ease: "ease",
-  //     });
-  //   });
+  const datData = { next: !!material.uniforms.uProgress.value };
+  folder1
+    .add(datData, "next")
+    .name("moving axis")
+    .onChange(() => {
+      gsap.to(material.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 3,
+        ease: "ease",
+      });
+    });
 
-  animate();
+
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
