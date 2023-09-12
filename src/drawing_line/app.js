@@ -2,6 +2,12 @@
  * Three.js
  * https://threejs.org/
  */
+
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from "three/examples/jsm/renderers/CSS2DRenderer.js";
+
 import * as THREE from "three";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -9,8 +15,6 @@ import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
-import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
-
 
 const world = {};
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,25 +49,56 @@ async function init() {
   els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const material = new THREE.LineBasicMaterial({
-      color: 0xff0000,
-      linewidth: 10,
-      fog: true,
-      linecap: "round", //ignored by WebGLRenderer
-      linejoin: "round" //ignored by WebGLRenderer
-    });
-    const points = [];
-    points.push(new THREE.Vector3(-40, 0, 0));
-    points.push(new THREE.Vector3(0, 40, 0));
-    points.push(new THREE.Vector3(40, 0, 0));
+    // const material = new THREE.LineBasicMaterial({
+    //   color: 0xff0000,
+    //   linewidth: 10,
+    //   fog: true,
+    //   linecap: "round", //ignored by WebGLRenderer
+    //   linejoin: "round", //ignored by WebGLRenderer
+    // });
+    // const points = [];
+    // points.push(new THREE.Vector3(-40, 0, 0));
+    // points.push(new THREE.Vector3(0, 40, 0));
+    // points.push(new THREE.Vector3(40, 0, 0));
 
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    // const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-    const mesh = new THREE.Line(geometry, material);
-    console.log(mesh);
+    // const mesh = new THREE.Line(geometry, material);
+    // console.log(mesh);
 
     // const mesh = new THREE.Mesh(geometry, material);
+
+    const EARTH_RADIUS = 50;
+    const geometry = new THREE.SphereGeometry(EARTH_RADIUS, 16, 16);
+    const material = new THREE.MeshPhongMaterial({
+      specular: 0x333333,
+      shininess: 5,
+    });
+
+    
+    const mesh = new THREE.Mesh(geometry, material);
+    
+    const earthDiv = document.createElement("div");
+    earthDiv.className = "label";
+    earthDiv.textContent = "Earth";
+    earthDiv.style.backgroundColor = "transparent";
+    
+    const earthLabel = new CSS2DObject(earthDiv);
+    earthLabel.center = new THREE.Vector2(0.5, 0.5);
+    earthLabel.position.set(1.5 * EARTH_RADIUS, 0, 0);
+    earthLabel.center.set(0, 1);
+    mesh.add(earthLabel);
+    console.log(earthLabel);
+    // earthLabel.layers.set(0);
+
+    world.labelRenderer = new CSS2DRenderer();
+    world.labelRenderer.setSize(canvasRect.width, canvasRect.height, false);
+    world.labelRenderer.domElement.style.position = "absolute";
+    world.labelRenderer.domElement.style.top = "0px";
+    document.body.appendChild(world.labelRenderer.domElement);
+
     mesh.position.z = 0;
+    world.scene.add(mesh);
 
     const { x, y } = getWorldPosition(rect, canvasRect);
     mesh.position.x = x;
@@ -86,11 +121,11 @@ async function init() {
   });
 
   initScroll();
-  // const axis = new THREE.AxesHelper(100);
-  // world.scene.add(axis);
+  const axis = new THREE.AxesHelper(100);
+  world.scene.add(axis);
 
-  // const controls = new OrbitControls(world.camera, world.renderer.domElement);
-  // controls.enableDamping = true;
+  const controls = new OrbitControls(world.camera, world.renderer.domElement);
+  controls.enableDamping = true;
 
   // const gui = new GUI();
   // const folder1 = gui.addFolder("z-distance");
@@ -119,7 +154,8 @@ async function init() {
       scroll(o);
     });
     world.renderer.render(world.scene, world.camera);
-    // controls.update();
+    world.labelRenderer.render(world.scene, world.camera);
+    controls.update();
   }
 }
 
