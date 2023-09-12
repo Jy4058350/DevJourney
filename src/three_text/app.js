@@ -51,35 +51,36 @@ async function init() {
   scene.add(plane);
 
   const EARTH_RADIUS = 5;
-    const geo = new THREE.SphereGeometry(EARTH_RADIUS, 16, 16);
-    const mate = new THREE.MeshPhongMaterial({
-      specular: 0x333333,
-      shininess: 5,
-    });
+  const geo = new THREE.SphereGeometry(EARTH_RADIUS, 16, 16);
+  const mate = new THREE.MeshPhongMaterial({
+    specular: 0x333333,
+    shininess: 5,
+  });
 
-    
-    const mesh = new THREE.Mesh(geo, mate);
-   
+  const mesh = new THREE.Mesh(geo, mate);
 
-    
-    const earthDiv = document.createElement("div");
-    earthDiv.className = "label";
-    earthDiv.textContent = "Earth";
-    earthDiv.style.backgroundColor = "transparent";
-    
-    const earthLabel = new CSS2DObject(earthDiv);
-    earthLabel.center = new THREE.Vector2(0.5, 0.5);
-    earthLabel.position.set(1.5 * EARTH_RADIUS, 0, 0);
-    earthLabel.center.set(0, 1);
-    mesh.add(earthLabel);
-    earthLabel.layers.set(0);
+  const earthDiv = document.createElement("div");
+  earthDiv.className = "label";
+  earthDiv.textContent = "Earth";
+  earthDiv.style.backgroundColor = "transparent";
+  earthDiv.style.color = "white";
+  earthDiv.style.fontSize = "20px";
+  earthDiv.style.fontWeight = "bold";
+  console.log(earthDiv.style);
 
-   const labelRenderer = new CSS2DRenderer();
-   labelRenderer.setSize(window.innerWidth, window.innerHeight, false);
-   labelRenderer.domElement.style.position = "absolute";
-   labelRenderer.domElement.style.top = "0px";
-    document.body.appendChild(labelRenderer.domElement);
+  const earthLabel = new CSS2DObject(earthDiv);
+  earthLabel.center = new THREE.Vector2(0.5, 0.5);
+  earthLabel.position.set(1.0 * EARTH_RADIUS, -4, 0);
+  earthLabel.center.set(0, 1);
+  mesh.add(earthLabel);
+  earthLabel.layers.set(0);
+  console.log(earthLabel);
 
+  const labelRenderer = new CSS2DRenderer();
+  labelRenderer.setSize(window.innerWidth, window.innerHeight, false);
+  labelRenderer.domElement.style.position = "absolute";
+  labelRenderer.domElement.style.top = "0px";
+  document.body.appendChild(labelRenderer.domElement);
 
   camera.position.z = 30;
   scene.add(mesh);
@@ -87,7 +88,7 @@ async function init() {
   const axis = new THREE.AxesHelper(30);
   scene.add(axis);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new OrbitControls(camera, labelRenderer.domElement);
   controls.enableDamping = true;
 
   // const gui = new GUI();
@@ -115,7 +116,7 @@ async function init() {
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
-    
+
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
   }
