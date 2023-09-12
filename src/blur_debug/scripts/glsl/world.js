@@ -22,6 +22,7 @@ const world = {
   init,
   rendere,
   resize,
+  fitPosition,
   os,
 };
 
@@ -159,6 +160,41 @@ function rendere() {
   // controls.update();
 }
 
+function fitPosition(viewport) {
+  world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
+  world.os.forEach((o) => {
+    world.resize(o, viewport);
+  });
+  updateCamera(viewport);
+}
+
+function updateCamera(viewport) {
+  const { fov, aspect, near, far, cameraZ } = viewport;
+  world.camera.near = near;
+  world.camera.far = far;
+  world.camera.aspect = aspect;
+  world.camera.fov = fov;
+  world.camera.position.z = cameraZ;
+  world.camera.updateProjectionMatrix();
+  return world.camera;
+}
+
+function resize(o, newCanvasRect) {
+  const {
+    mesh,
+    rect,
+    geometry,
+    $: { el },
+  } = o;
+  const nextRect = el.getBoundingClientRect();
+  const { x, y } = getWorldPosition(nextRect, newCanvasRect);
+  mesh.position.x = x;
+  mesh.position.y = y;
+
+  geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
+  o.rect = nextRect;
+}
+
 function getWorldPosition(rect, canvasRect) {
   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
@@ -194,7 +230,6 @@ function getWorldPosition(rect, canvasRect) {
 //   });
 // }
 
-
 function raycast() {
   raycaster.setFromCamera(mouse, world.camera);
   const intersects = raycaster.intersectObjects(world.scene.children);
@@ -214,27 +249,10 @@ function raycast() {
   }
 }
 
-
 // function onPointerMove(event) {
 //   mouse.x = (event.clientX / canvasRect.width) * 2 - 1;
 //   mouse.y = -(event.clientY / canvasRect.height) * 2 + 1;
 // }
-
-function resize(o, newCanvasRect) {
-  const {
-    mesh,
-    rect,
-    geometry,
-    $: { el },
-  } = o;
-  const nextRect = el.getBoundingClientRect();
-  const { x, y } = getWorldPosition(nextRect, newCanvasRect);
-  mesh.position.x = x;
-  mesh.position.y = y;
-
-  geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
-  o.rect = nextRect;
-}
 
 function scroll(o) {
   const {
@@ -248,9 +266,6 @@ function scroll(o) {
   mesh.position.y = y;
 }
 
-
-
 // window.addEventListener("pointermove", onPointerMove);
-
 
 export default world;

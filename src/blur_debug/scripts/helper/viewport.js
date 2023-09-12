@@ -46,25 +46,8 @@ function _updateCamera() {
 
 function _onResize() {
   _updateCamera();
-  const newCanvasRect = canvas.getBoundingClientRect();
-  world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
-  world.os.forEach((o) => {
-    world.resize(o, newCanvasRect);
-  });
+  world.fitPosition(viewport);
 
-  //   const cameraWidth = newCanvasRect.width;
-  //   const cameraHeight = newCanvasRect.height;
-  //   const near = 1500;
-  //   const far = 4000;
-  //   const aspect = cameraWidth / cameraHeight;
-  //   const cameraZ = 2500;
-  //   const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
-  //   const fov = radian * (180 / Math.PI);
-  world.camera.near = viewport.near;
-  world.camera.far = viewport.far;
-  world.camera.aspect = viewport.aspect;
-  world.camera.fov = viewport.fov;
-  world.camera.updateProjectionMatrix();
 }
 
 export default viewport;
