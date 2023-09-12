@@ -9,6 +9,8 @@ import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iNode } from "../iNode";
+import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
+
 
 const world = {};
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -38,60 +40,29 @@ async function init() {
   const fov = radian * (180 / Math.PI);
   world.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   world.camera.position.z = cameraZ;
-  // document.body.appendChild(world.renderer.domElement);
-
-  // function Setgeo(w, h) {
-  //   const geometry = new THREE.BufferGeometry();
-  //   const plane = new THREE.PlaneGeometry(w, h, 1, 1);
-  //   console.log(w, h);
-  //   geometry.setAttribute("position", plane.getAttribute("position"));
-  //   geometry.setAttribute("uv", plane.getAttribute("uv"));
-  //   const planeIndex = plane.getIndex().array;
-  //   const index = new THREE.BufferAttribute(planeIndex, 1);
-  //   geometry.setIndex(index);
-  //   return geometry;
-  // }
-
-  class Setgeo {
-    constructor(w, h) {
-      this.geometry = new THREE.BufferGeometry();
-      this.plane = new THREE.PlaneGeometry(w, h, 1, 1);
-    }
-    createBufferGeo(w, h) {
-      this.geometry.setAttribute(
-        "position",
-        this.plane.getAttribute("position")
-      );
-      this.geometry.setAttribute("uv", this.plane.getAttribute("uv"));
-
-      const planeIndex = this.plane.getIndex().array;
-      const index = new THREE.BufferAttribute(planeIndex, 1);
-      this.geometry.setIndex(index);
-      return this.geometry;
-    }
-  }
 
   const els = iNode.qsa("[data-webgl]");
   els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const set = new Setgeo(rect.width, rect.height);
-    const geometry = set.createBufferGeo(rect.width, rect.height, 1, 1);
-    // const geometry = new THREE.PlaneGeometry(rect.width, rect.height, 1, 1);
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        // uTex1: { value: await loadTex("/img/output3.jpg") },
-        // uTex2: { value: await loadTex("/img/output2.jpg") },
-        uTick: { value: 0 },
-        uHover: { value: 0 },
-        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-        uProgress: { value: 0 },
-      },
-      vertexShader,
-      fragmentShader,
-      // wireframe: true,
+    const material = new THREE.LineBasicMaterial({
+      color: 0xff0000,
+      linewidth: 10,
+      fog: true,
+      linecap: "round", //ignored by WebGLRenderer
+      linejoin: "round" //ignored by WebGLRenderer
     });
-    const mesh = new THREE.Mesh(geometry, material);
+    const points = [];
+    points.push(new THREE.Vector3(-40, 0, 0));
+    points.push(new THREE.Vector3(0, 40, 0));
+    points.push(new THREE.Vector3(40, 0, 0));
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+    const mesh = new THREE.Line(geometry, material);
+    console.log(mesh);
+
+    // const mesh = new THREE.Mesh(geometry, material);
     mesh.position.z = 0;
 
     const { x, y } = getWorldPosition(rect, canvasRect);
@@ -147,7 +118,6 @@ async function init() {
     os.forEach((o) => {
       scroll(o);
     });
-    raycast();
     world.renderer.render(world.scene, world.camera);
     // controls.update();
   }
@@ -233,7 +203,7 @@ function lerp(a, b, n) {
   if (Math.abs(b - current) < 0.001) current = b;
   return current;
 }
-window.addEventListener( 'pointermove', onPointerMove );
+window.addEventListener("pointermove", onPointerMove);
 
 function scroll(o) {
   const {
