@@ -21,6 +21,7 @@ const os = [];
 const world = {
   init,
   rendere,
+  resize,
   os,
 };
 
@@ -117,7 +118,7 @@ export async function init() {
     os.push(o);
 
     world.scene.add(mesh);
-    initResize();
+    // initResize();
   });
 
   // const axis = new AxesHelper(100);
@@ -164,34 +165,34 @@ function getWorldPosition(rect, canvasRect) {
   return { x, y };
 }
 
-function initResize() {
-  let timer = null;
-  window.addEventListener("resize", () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      console.log("resize");
-      const newCanvasRect = canvas.getBoundingClientRect();
-      world.renderer.setSize(canvasRect.width, canvasRect.height, false);
-      os.forEach((o) => {
-        resize(o, newCanvasRect);
-      });
+// function initResize() {
+//   let timer = null;
+//   window.addEventListener("resize", () => {
+//     clearTimeout(timer);
+//     timer = setTimeout(() => {
+//       console.log("resize");
+//       const newCanvasRect = canvas.getBoundingClientRect();
+//       world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+//       os.forEach((o) => {
+//         resize(o, newCanvasRect);
+//       });
 
-      const cameraWidth = newCanvasRect.width;
-      const cameraHeight = newCanvasRect.height;
-      const near = 1500;
-      const far = 4000;
-      const aspect = cameraWidth / cameraHeight;
-      const cameraZ = 2500;
-      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
-      const fov = radian * (180 / Math.PI);
-      world.camera.near = near;
-      world.camera.far = far;
-      world.camera.aspect = aspect;
-      world.camera.fov = fov;
-      world.camera.updateProjectionMatrix();
-    }, 500);
-  });
-}
+//       const cameraWidth = newCanvasRect.width;
+//       const cameraHeight = newCanvasRect.height;
+//       const near = 1500;
+//       const far = 4000;
+//       const aspect = cameraWidth / cameraHeight;
+//       const cameraZ = 2500;
+//       const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
+//       const fov = radian * (180 / Math.PI);
+//       world.camera.near = near;
+//       world.camera.far = far;
+//       world.camera.aspect = aspect;
+//       world.camera.fov = fov;
+//       world.camera.updateProjectionMatrix();
+//     }, 500);
+//   });
+// }
 
 
 function raycast() {
