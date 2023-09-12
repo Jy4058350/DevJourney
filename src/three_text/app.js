@@ -8,6 +8,10 @@ import fragmentShader from "./fragment.glsl";
 import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from "three/examples/jsm/renderers/CSS2DRenderer.js";
 
 init();
 async function init() {
@@ -36,7 +40,7 @@ async function init() {
   const material = new THREE.ShaderMaterial({
     uniforms: {
       uTex1: { value: await loadTex("/img/output3.jpg") },
-      uTex2: { value: await loadTex("/img/output2.jpg") },
+      // uTex2: { value: await loadTex("/img/output2.jpg") },
       uTick: { value: 0 },
       uProgress: { value: 0 },
     },
@@ -46,45 +50,73 @@ async function init() {
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
 
-  camera.position.z = 30;
+  const EARTH_RADIUS = 5;
+    const geo = new THREE.SphereGeometry(EARTH_RADIUS, 16, 16);
+    const mate = new THREE.MeshPhongMaterial({
+      specular: 0x333333,
+      shininess: 5,
+    });
 
-  const axis = new THREE.AxesHelper(100);
+    
+    const mesh = new THREE.Mesh(geo, mate);
+   
+
+    
+    const earthDiv = document.createElement("div");
+    earthDiv.className = "label";
+    earthDiv.textContent = "Earth";
+    earthDiv.style.backgroundColor = "transparent";
+    
+    const earthLabel = new CSS2DObject(earthDiv);
+    earthLabel.center = new THREE.Vector2(0.5, 0.5);
+    earthLabel.position.set(1.5 * EARTH_RADIUS, 0, 0);
+    earthLabel.center.set(0, 1);
+    mesh.add(earthLabel);
+    earthLabel.layers.set(0);
+
+   const labelRenderer = new CSS2DRenderer();
+   labelRenderer.setSize(window.innerWidth, window.innerHeight, false);
+   labelRenderer.domElement.style.position = "absolute";
+   labelRenderer.domElement.style.top = "0px";
+    document.body.appendChild(labelRenderer.domElement);
+
+
+  camera.position.z = 30;
+  scene.add(mesh);
+
+  const axis = new THREE.AxesHelper(30);
   scene.add(axis);
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
 
-  const gui = new GUI();
-  const folder1 = gui.addFolder("z-distance");
-  folder1.open();
+  // const gui = new GUI();
+  // const folder1 = gui.addFolder("z-distance");
+  // folder1.open();
 
-  folder1
-    .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
-    .name("zaxis")
-    .listen();
+  // folder1
+  //   .add(material.uniforms.uProgress, "value", 0, 1, 0.1)
+  //   .name("zaxis")
+  //   .listen();
 
-  const datData = { next: !!material.uniforms.uProgress.value };
-  folder1
-    .add(datData, "next")
-    .name("moving axis")
-    .onChange(() => {
-      gsap.to(material.uniforms.uProgress, {
-        value: datData.next ? 1 : 0,
-        duration: 3,
-        ease: "ease",
-      });
-    });
+  // const datData = { next: !!material.uniforms.uProgress.value };
+  // folder1
+  //   .add(datData, "next")
+  //   .name("moving axis")
+  //   .onChange(() => {
+  //     gsap.to(material.uniforms.uProgress, {
+  //       value: datData.next ? 1 : 0,
+  //       duration: 3,
+  //       ease: "ease",
+  //     });
+  //   });
 
-  let i = 0;
+  animate();
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
-
-    // cube.rotation.x = cube.rotation.x + 0.01;
-    // cube.rotation.y += 0.01;
-
+    
+    labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
   }
-
-  animate();
 }
