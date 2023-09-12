@@ -28,13 +28,10 @@ async function init() {
   renderer.setClearColor(0xffffff);
   document.body.appendChild(renderer.domElement);
 
-  async function loadTex(url) {
-    const texLoader = new THREE.TextureLoader();
-    const texture = await texLoader.loadAsync(url);
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.MirroredRepeatWrapping;
-    return texture;
-  }
+  const dirLight = new THREE.DirectionalLight(0xf0000f, 1);
+				dirLight.position.set(0, 0, 1);
+				// dirLight.layers.enableAll();
+				scene.add(dirLight);
 
   const geometry = new THREE.PlaneGeometry(50, 25);
   const material = new THREE.ShaderMaterial({
@@ -70,12 +67,11 @@ async function init() {
 
   const earthLabel = new CSS2DObject(earthDiv);
   earthLabel.center = new THREE.Vector2(0.5, 0.5);
-  earthLabel.position.set(1.0 * EARTH_RADIUS, -4, 0);
+  earthLabel.position.set(1.0 * EARTH_RADIUS, -4, 0); //位置　x,y,z
   earthLabel.center.set(0, 1);
   mesh.add(earthLabel);
   earthLabel.layers.set(0);
   console.log(earthLabel);
-
   const labelRenderer = new CSS2DRenderer();
   labelRenderer.setSize(window.innerWidth, window.innerHeight, false);
   labelRenderer.domElement.style.position = "absolute";
@@ -120,4 +116,12 @@ async function init() {
     labelRenderer.render(scene, camera);
     renderer.render(scene, camera);
   }
+}
+
+async function loadTex(url) {
+  const texLoader = new THREE.TextureLoader();
+  const texture = await texLoader.loadAsync(url);
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.MirroredRepeatWrapping;
+  return texture;
 }
