@@ -11,20 +11,21 @@ import {
 } from "three";
 
 import { lerp, getWorldPosition } from "../helper/utils";
+import { viewport } from "../helper/viewport";
+import { mouse } from "../component/mouse";
+
+const os = [];
 
 const world = {
   init,
   render,
+  osResize,
 };
-
-const os = [];
 
 const raycaster = new Raycaster();
 const pointer = new Vector2();
 
 function init(canvasRect, viewport) {
-  //   initScroller();
-  bindResizeEvents();
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
@@ -102,6 +103,7 @@ function initObjects(canvasRect) {
     os.push(o);
   });
 }
+
 function render() {
   requestAnimationFrame(render);
   // スクロール処理
@@ -115,7 +117,9 @@ function render() {
 
 function raycast() {
   // update the picking ray with the camera and pointer position
-  raycaster.setFromCamera(pointer, world.camera);
+  const mp = mouse.pos();
+
+  raycaster.setFromCamera(mp, world.camera);
 
   // calculate objects intersecting the picking ray
   const intersects = raycaster.intersectObjects(world.scene.children);
@@ -135,12 +139,6 @@ function raycast() {
     uHover.value = lerp(uHover.value, uHover.__endValue, 0.1);
   }
 }
-
-// function getWorldPosition(rect, canvasRect) {
-//   const x = rect.left + rect.width / 2 - canvasRect.width / 2;
-//   const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
-//   return { x, y };
-// }
 
 function scroll(o) {
   const newCanvasRect = canvas.getBoundingClientRect();
@@ -179,49 +177,14 @@ function resize(o, newCanvasRect) {
   o.rect = nextRect;
 }
 
-function onPointerMove(event) {
-  // calculate pointer position in normalized device coordinates
-  // (-1 to +1) for both components
-
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
-window.addEventListener("pointermove", onPointerMove);
-
-
-function bindResizeEvents() {
-  let timerId = null;
-
-  window.addEventListener("resize", () => {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {
-      console.log("resize");
-
-      const newCanvasRect = canvas.getBoundingClientRect();
-
-      // canvasサイズの変更
-      world.renderer.setSize(newCanvasRect.width, newCanvasRect.height, false);
-
-      // meshの位置とサイズの変更
-      os.forEach((o) => resize(o, newCanvasRect));
-
-      // cameraのProjectionMatrixの変更
-      const cameraWidth = newCanvasRect.width;
-      const cameraHeight = newCanvasRect.height;
-      const near = 1500;
-      const far = 4000;
-      const aspect = cameraWidth / cameraHeight;
-      const cameraZ = 2000;
-      const radian = 2 * Math.atan(cameraHeight / 2 / cameraZ);
-      const fov = radian * (180 / Math.PI);
-
-      world.camera.fov = fov;
-      world.camera.near = near;
-      world.camera.far = far;
-      world.camera.aspect = aspect;
-      world.camera.updateProjectionMatrix();
-    }, 500);
-  });
+function osResize() {
+  world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
+  os.forEach((o) => resize(o, viewport.newCanvasRect));
+  world.camera.fov = viewport.fov;
+  world.camera.near = viewport.near;
+  world.camera.far = viewport.far;
+  world.camera.aspect = viewport.aspect;
+  world.camera.updateProjectionMatrix();
 }
 
 export default world;
