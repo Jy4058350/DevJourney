@@ -163,7 +163,7 @@ function rendere() {
 function fitPosition(viewport) {
   world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
   world.os.forEach((o) => {
-    world.resize(o, viewport);
+    world.resize(o, viewport);//ここがよくわからない
   });
   updateCamera(viewport);
 }
