@@ -99,15 +99,18 @@ async function initObjects(canvasRect) {
     function setupResolution(uniforms) {
       if (!texes.has("tex1")) return uniforms;
 
-      
       const texData = texes.get("tex1").source.data;
-      
+
       const width = texData.naturalWidth;
       const height = texData.naturalHeight;
-      // const width = texData.source.data.naturalWidth;
-      // const height = texData.source.data.naturalHeight;
-      console.log(width);
-      console.log(height);
+
+      const rect = {
+        width,
+        height,
+      };
+
+      console.log(rect.width);
+      console.log(rect.height);
 
       return uniforms;
     }
