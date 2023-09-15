@@ -50,11 +50,12 @@ function init(canvasRect, viewport) {
 
 async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
-  els.forEach(async (el) => {
+  // els.forEach(async (el) => {
+  const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
     const texes = loader.texMap(el);
-    // console.log(texes);
+    console.log(texes);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
@@ -65,28 +66,42 @@ async function initObjects(canvasRect) {
 
     const material = new ShaderMaterial({
       vertexShader: `
-              varying vec2 vUv;
-      
-              void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
-              }
-            `,
+                varying vec2 vUv;
+        
+                void main() {
+                  vUv = uv;
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+                }
+              `,
       fragmentShader: `
-              varying vec2 vUv;
-              uniform vec2 uMouse;
-              uniform float uHover;
-      
-              void main() {
-                vec2 mouse = step(uMouse, vUv);
-                gl_FragColor = vec4(mouse, uHover, 1.);
-              }
-            `,
+                varying vec2 vUv;
+                uniform vec2 uMouse;
+                uniform float uHover;
+                uniform sampler2D tex1;
+                uniform sampler2D tex2;
+        
+                void main() {
+                  vec4 t1 = texture2D(tex1, vUv);
+                  vec4 t2 = texture2D(tex2, vUv);
+                  // vec2 mouse = step(uMouse, vUv);
+                  // gl_FragColor = vec4(mouse, uHover, 1.);
+                  // gl_FragColor = mix(t1, t2, uHover);
+                  gl_FragColor = mix(t1, t2, step(0.5, vUv.x));
+                  // gl_FragColor = t1;
+
+                }
+              `,
       uniforms: {
         uMouse: { value: new Vector2(0.5, 0.5) },
         uHover: { value: 0 },
       },
     });
+
+    texes.forEach((tex, key) => {
+      material.uniforms[key] = { value: tex };
+      console.log(material.uniforms[key]);
+    });
+
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0;
 
@@ -107,6 +122,7 @@ async function initObjects(canvasRect) {
     world.scene.add(mesh);
     os.push(o);
   });
+  await Promise.all(prms);
 }
 
 function render() {

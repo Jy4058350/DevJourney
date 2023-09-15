@@ -36,7 +36,7 @@ async function init() {
     // console.log(texPrms);
   });
   await Promise.all(texPrms);
-  console.log(box);
+  // console.log(box);
 }
 
 async function load(url) {
@@ -45,7 +45,16 @@ async function load(url) {
 }
 
 function texMap(el) {
-  console.log(box);
+  const texes = new Map();
+  const data = el.dataset;
+  for (let key in data) {
+    if (!key.startsWith("tex")) continue;
+
+    const url = data[key];
+    key = key.replace("-", "");
+    texes.set(key, box.get(url));
+  }
+  return texes;
 }
 
 export { loader };
