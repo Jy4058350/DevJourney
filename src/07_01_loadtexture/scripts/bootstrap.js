@@ -6,11 +6,11 @@ import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 
-export function init() {
+export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
 
-  loader.init();
+  await loader.init();
 
   viewport.init(canvasRect);
 

@@ -48,12 +48,13 @@ function init(canvasRect, viewport) {
   initObjects(canvasRect);
 }
 
-function initObjects(canvasRect) {
+async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
-  els.forEach((el) => {
+  els.forEach(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    loader.texMap(el);
+    const texes = loader.texMap(el);
+    // console.log(texes);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
@@ -61,7 +62,6 @@ function initObjects(canvasRect) {
     //   transparent: true,
     //   opacity: 0.3,
     // });
-
 
     const material = new ShaderMaterial({
       vertexShader: `

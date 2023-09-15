@@ -3,13 +3,9 @@ import { iNode } from "../helper";
 
 const loader = {
   init,
+  load,
   texMap,
 };
-
-async function load(url) {
-  const tex = await texLoader.loadAsync(url);
-  return tex;
-}
 
 const texLoader = new TextureLoader();
 
@@ -37,32 +33,19 @@ async function init() {
       box.set(url, tex);
     });
     texPrms.push(prms);
-    console.log(texPrms);
+    // console.log(texPrms);
   });
   await Promise.all(texPrms);
   console.log(box);
 }
 
+async function load(url) {
+  const tex = await texLoader.loadAsync(url);
+  return tex;
+}
+
 function texMap(el) {
-  const texes = new Map();
-  const data = el.dataset;
-  console.log(data);
-
-  for (let key in data) {
-    if (!key.startsWith("tex")) continue;
-    const url = data[key];
-    console.log(url);
-
-    const tex = box.get(url);
-    console.log(tex);
-    console.log(box);
-    console.log(key);
-    key = key.replace("-", "");
-    console.log(key);
-    texes.set(key, tex);
-    console.log(texes);
-  }
-  return texes;
+  console.log(box);
 }
 
 export { loader };
