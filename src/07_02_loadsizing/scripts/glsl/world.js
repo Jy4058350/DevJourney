@@ -100,8 +100,10 @@ async function initObjects(canvasRect) {
       if (!texes.has("tex1")) return uniforms;
 
       const data = texes;
-      // console.log(data);
-      console.log(data.get("tex1"));
+      const texData = data.get("tex1");
+      console.log(texData.source.data.naturalWidth);
+      console.log(texData.source.data.naturalHeight);
+
       return uniforms;
     }
 
