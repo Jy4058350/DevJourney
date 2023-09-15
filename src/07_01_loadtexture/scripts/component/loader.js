@@ -39,7 +39,7 @@ async function init() {
     texPrms.push(prms);
     console.log(texPrms);
   });
-  Promise.all(texPrms);
+  await Promise.all(texPrms);
   console.log(box);
 }
 
