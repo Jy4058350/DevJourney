@@ -101,8 +101,11 @@ async function initObjects(canvasRect) {
 
       const data = texes;
       const texData = data.get("tex1");
-      console.log(texData.source.data.naturalWidth);
-      console.log(texData.source.data.naturalHeight);
+      
+      const width = texData.naturalWidth;
+      const height = texData.source.data.naturalHeight;
+      console.log(width);
+      console.log(height);
 
       return uniforms;
     }
