@@ -97,6 +97,14 @@ async function initObjects(canvasRect) {
       },
     });
 
+    // function setupResolution(uniforms) {
+    //   if(!texes.has("tex1")) return uniform;
+
+    //   return uniforms;
+    // }
+
+    // material.uniforms = setupResolution(material.uniforms)
+
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
       console.log(material.uniforms[key]);
@@ -124,6 +132,8 @@ async function initObjects(canvasRect) {
   });
   await Promise.all(prms);
 }
+
+
 
 function render() {
   requestAnimationFrame(render);
