@@ -55,7 +55,6 @@ async function initObjects(canvasRect) {
     const rect = el.getBoundingClientRect();
 
     const texes = loader.texMap(el);
-    console.log(texes);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
@@ -97,17 +96,19 @@ async function initObjects(canvasRect) {
       },
     });
 
-    // function setupResolution(uniforms) {
-    //   if(!texes.has("tex1")) return uniform;
+    function setupResolution(uniforms) {
+      if (!texes.has("tex1")) return uniforms;
 
-    //   return uniforms;
-    // }
+      const data = texes;
+      // console.log(data);
+      console.log(data.get("tex1"));
+      return uniforms;
+    }
 
-    // material.uniforms = setupResolution(material.uniforms)
+    material.uniforms = setupResolution(material.uniforms);
 
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
-      console.log(material.uniforms[key]);
     });
 
     const mesh = new Mesh(geometry, material);
@@ -132,8 +133,6 @@ async function initObjects(canvasRect) {
   });
   await Promise.all(prms);
 }
-
-
 
 function render() {
   requestAnimationFrame(render);
