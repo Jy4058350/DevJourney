@@ -13,6 +13,7 @@ import {
 import { lerp, getWorldPosition } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
+import { loader } from "../component/loader";
 
 const os = [];
 
@@ -52,12 +53,16 @@ function initObjects(canvasRect) {
   els.forEach((el) => {
     const rect = el.getBoundingClientRect();
 
+    loader.texMap(el);
+
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
     //   color: 0xff0000,
     //   transparent: true,
     //   opacity: 0.3,
     // });
+
+
     const material = new ShaderMaterial({
       vertexShader: `
               varying vec2 vUv;
