@@ -101,12 +101,12 @@ async function initObjects(canvasRect) {
 
       const texData = texes.get("tex1").source.data;
 
-      const width = texData.naturalWidth;
-      const height = texData.naturalHeight;
+      // const width = texData.naturalWidth;
+      // const height = texData.naturalHeight;
 
       const rect = {
-        width,
-        height,
+        width: texData.naturalWidth,
+        height: texData.naturalHeight,
       };
 
       console.log(rect.width);
