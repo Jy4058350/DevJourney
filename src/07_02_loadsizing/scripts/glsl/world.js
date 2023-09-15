@@ -8,6 +8,7 @@ import {
   Mesh,
   Raycaster,
   Vector2,
+  Vector4,
 } from "three";
 
 import { lerp, getWorldPosition } from "../helper/utils";
@@ -97,18 +98,20 @@ async function initObjects(canvasRect) {
     });
 
     function setupResolution(uniforms) {
-      console.log(uniforms);
       if (!texes.has("tex1")) return uniforms;
 
       const texData = texes.get("tex1").source.data;
 
-      const rect = {
+      const mrect = {
         width: texData.naturalWidth,
         height: texData.naturalHeight,
       };
 
-      console.log(rect.width);
-      console.log(rect.height);
+      console.log(mrect.width);
+      console.log(mrect.height);
+
+      const resolution = new Vector4(rect.width, rect.height, 1, 1);
+      if (!mrect) return resolution;
 
       return uniforms;
     }
