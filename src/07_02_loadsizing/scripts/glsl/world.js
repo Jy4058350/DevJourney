@@ -82,13 +82,13 @@ async function initObjects(canvasRect) {
                 uniform sampler2D tex2;
         
 
-               vec2 coverUv(vec2 uv, vec4 resolution) {
-               return (uv - 0.5) * resolution.zw + 0.5;
-               }
+                vec2 coverUv(vec2 uv, vec4 resolution) {
+                  return (uv - .5) * resolution.zw + .5;
+                }
 
                 void main() {
 
-               vec2 uv = coverUv(vUv, uResolution);
+                  vec2 uv = coverUv(vUv, uResolution);
 
 
                   vec4 t1 = texture2D(tex1, uv);
@@ -97,7 +97,7 @@ async function initObjects(canvasRect) {
                   // gl_FragColor = vec4(mouse, uHover, 1.);
                   // gl_FragColor = mix(t1, t2, uHover);
                   gl_FragColor = mix(t1, t2, step(0.5, vUv.x));
-                  // gl_FragColor = t1;
+                  gl_FragColor = t1;
 
                 }
               `,
@@ -118,42 +118,24 @@ async function initObjects(canvasRect) {
         height: texData.naturalHeight,
       };
 
-      if (!mrect) {
-        const resolution = new Vector4(rect.width, rect.height, 1, 1);
+      const resolution = new Vector4(rect.width, rect.height, 1, 1);
+      if (!mrect) return resolution;
 
-        const mAspect = mrect.width / mrect.height;
-        const aspect = rect.width / rect.height;
-        let xAspect, yAspect;
-        if (mAspect > aspect) {
-          xAspect = 1;
-          yAspect = aspect / mAspect;
-        } else {
-          xAspect = mAspect  / aspect;
-          yAspect = 1;
-        }
-        resolution.z = xAspect;
-        resolution.w = yAspect;
+      const mAspect = mrect.height / mrect.width;
+      const aspect = rect.height / rect.width;
 
-        uniforms.uResolution = { value: resolution };
+      let xAspect, yAspect;
+      if (aspect > mAspect) {
+        xAspect = (1 / aspect) * mAspect;
+        yAspect = 1;
       } else {
-        const resolution = new Vector4(mrect.width, mrect.height, 1, 1);
-
-        const mAspect = mrect.width / mrect.height;
-        const aspect = rect.width / rect.height;
-        let xAspect, yAspect;
-        if (mAspect > aspect) {
-          xAspect = 1;
-          yAspect = aspect / mAspect;
-        } else {
-          xAspect = mAspect / aspect;
-          yAspect = 1;
-        }
-        resolution.z = xAspect;
-        resolution.w = yAspect;
-
-        uniforms.uResolution = { value: resolution };
+        xAspect = 1;
+        yAspect = aspect / mAspect;
       }
-      console.log(uniforms.uResolution);
+      resolution.z = xAspect;
+      resolution.w = yAspect;
+
+      uniforms.uResolution = { value: resolution };
       return uniforms;
     }
 
