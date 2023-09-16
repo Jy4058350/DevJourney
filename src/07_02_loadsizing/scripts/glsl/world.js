@@ -120,7 +120,6 @@ async function initObjects(canvasRect) {
 
       const resolution = new Vector4(rect.width, rect.height, 1, 1);
       if (!mrect) return resolution;
-
       const mAspect = mrect.height / mrect.width;
       const aspect = rect.height / rect.width;
 
