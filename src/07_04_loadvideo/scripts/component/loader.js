@@ -132,6 +132,17 @@ async function texMap(el) {
     }
     await m;
     // console.log(url);
+    if (first && el instanceof HTMLVideoElement) {
+      m = new Promise((resolve) => {
+        el.onloadeddata = () => {
+          resolve();
+        };
+      });
+      el.src = url;
+      first = false;
+    }
+    await m;
+    // console.log(url);
   }
   console.log(texes);
   return texes;
