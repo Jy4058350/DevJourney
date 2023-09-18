@@ -7,6 +7,8 @@ const loader = {
   texMap,
 };
 
+const $ = {};
+
 const texLoader = new TextureLoader();
 
 const box = new Map();
@@ -46,24 +48,32 @@ async function init() {
 
 let total = 0;
 let loaded = 0;
-const p = iNode.qs(".percent");
-const b = iNode.qs(".progress-bar");
+// let _progressAction = null;
+$.p = iNode.qs(".percent");
+$.b = iNode.qs(".progress-bar");
 
-function increment() {
+function incrementTotal() {
   total++;
 }
 
-function progress() {
+function incrementProgress() {
   loaded++;
+  if (_progressAction) {
+    _progressAction(loaded, total);
+  }
+}
+
+function _progressAction(total, loaded) {
+  const percent = Math.floor((loaded / total) * 100);
+  $.p.innerHTML = `${percent} %`;
+  $.b.style.width = `${percent}%`;
+
 }
 
 async function load(url) {
-  increment();
+  incrementTotal();
   const tex = await texLoader.loadAsync(url);
-  progress();
-  const percent = Math.floor((loaded / total) * 100);
-  p.innerHTML = `${percent} %`;
-  b.style.width = `${percent}%`;
+  incrementProgress();
 
   return tex;
 }
