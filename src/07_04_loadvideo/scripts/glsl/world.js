@@ -112,12 +112,20 @@ async function initObjects(canvasRect) {
       if (!texes.has("tex1")) return uniforms;
 
       const texData = texes.get("tex1").source.data;
-      // console.log(texData);
+      console.log(texes);
 
-      const mrect = {
-        width: texData.naturalWidth,
-        height: texData.naturalHeight,
-      };
+      let mrect = {};
+      if (texData instanceof HTMLImageElement) {
+        mrect = {
+          width: texData.naturalWidth,
+          height: texData.naturalHeight,
+        };
+      } else if (texData instanceof HTMLVideoElement) {
+        mrect = {
+          width: texData.videoWidth,
+          height: texData.videoHeight,
+        };
+      }
 
       const resolution = new Vector4(rect.width, rect.height, 1, 1);
       if (!mrect) return resolution;
