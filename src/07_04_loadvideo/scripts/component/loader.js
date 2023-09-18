@@ -79,15 +79,16 @@ async function loadTex(url) {
 }
 
 async function loadVideo(url) {
+  incrementTotal();
+
   const video = document.createElement("video");
   video.src = url;
   console.log(video);
   video.oncanplay = () => {
     const tex = new VideoTexture(video);
-    
+    incrementProgress();
+    return tex;
   };
-
-  return video;
 }
 
 function texMap(el) {
