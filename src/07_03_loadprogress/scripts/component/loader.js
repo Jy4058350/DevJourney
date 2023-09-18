@@ -1,13 +1,16 @@
 import { TextureLoader } from "three";
 import { iNode } from "../helper";
 
+const $ = {};
 const loader = {
   init,
   load,
   texMap,
+  addProgressAction,
+  loadDom,
+  $,
 };
 
-const $ = {};
 
 const texLoader = new TextureLoader();
 
@@ -48,9 +51,12 @@ async function init() {
 
 let total = 0;
 let loaded = 0;
-// let _progressAction = null;
-$.p = iNode.qs(".percent");
-$.b = iNode.qs(".progress-bar");
+let _progressAction = null;
+
+function loadDom() {
+  $.p = iNode.qs(".percent");
+  $.b = iNode.qs(".progress-bar");
+}
 
 function incrementTotal() {
   total++;
@@ -63,12 +69,15 @@ function incrementProgress() {
   }
 }
 
-function _progressAction(total, loaded) {
-  const percent = Math.floor((loaded / total) * 100);
-  $.p.innerHTML = `${percent} %`;
-  $.b.style.width = `${percent}%`;
-
+function addProgressAction(cb) {
+  _progressAction = cb;
 }
+
+// function _progressAction(total, loaded) {
+//   const percent = Math.floor((loaded / total) * 100);
+//   $.p.innerHTML = `${percent} %`;
+//   $.b.style.width = `${percent}%`;
+// }
 
 async function load(url) {
   incrementTotal();
