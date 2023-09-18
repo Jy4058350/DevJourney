@@ -1,5 +1,5 @@
 import "../styles/style.scss";
-import "../styles/load.scss";
+import "../styles/loader.scss";
 
 
 import { init } from "./bootstrap";

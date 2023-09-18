@@ -29,8 +29,13 @@ async function init() {
   const texPrms = [];
 
   box.forEach((_, url) => {
+    // increment();
+
     const prms = load(url).then((tex) => {
       box.set(url, tex);
+
+      // p.innerHTML = `${percent}%`;
+      // b.style.width = `${percent}%`;
     });
     texPrms.push(prms);
     // console.log(texPrms);
@@ -39,8 +44,27 @@ async function init() {
   // console.log(box);
 }
 
+let total = 0;
+let loaded = 0;
+const p = iNode.qs(".percent");
+const b = iNode.qs(".progress-bar");
+
+function increment() {
+  total++;
+}
+
+function progress() {
+  loaded++;
+}
+
 async function load(url) {
+  increment();
   const tex = await texLoader.loadAsync(url);
+  progress();
+  const percent = Math.floor((loaded / total) * 100);
+  p.innerHTML = `${percent} %`;
+  b.style.width = `${percent}%`;
+
   return tex;
 }
 

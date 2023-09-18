@@ -19,11 +19,25 @@ body {
   z-index: 1000;
 }
 
-.loader-inner {
+.loader-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   font-size: 20px;
+}
+
+.loading-inner {
+  width: 100px;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.progress-bar {
+  margin-top: 20px;
+  width: 0;
+  height: 100%;
+  background-color: #0d0e0e;
+  transition: width 1.0s;
 }
