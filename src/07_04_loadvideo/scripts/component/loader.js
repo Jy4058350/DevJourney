@@ -87,7 +87,7 @@ async function loadVideo(url) {
     video.oncanplay = () => {
       const tex = new VideoTexture(video);
       incrementProgress();
-      return tex;
+      resolve(tex);
     };
   });
 }
