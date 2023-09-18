@@ -37,9 +37,9 @@ async function init() {
 
   box.forEach((_, url) => {
     let prms;
-    // const loadFn = url.endsWith(".mp4") ? loadVideo : loadTex;
-    if (url.endsWith(".mp4") || url.endsWith(".webm")|| url.endsWith(".mov")) {
+    if (url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".mov")) {
       prms = loadVideo(url).then((tex) => {
+        console.log(url);
         box.set(url, tex);
       });
     } else {
@@ -87,6 +87,14 @@ async function loadTex(url) {
 }
 
 async function loadVideo(url) {
+  const video = document.createElement("video");
+  let u = url.split(".").pop();
+  // console.log(u);
+  if (u === "mov") {
+    u = "quicktime";
+  }
+  if(!video.canPlayType(u)) return null;
+  
   incrementTotal();
   return new Promise((resolve) => {
     const video = document.createElement("video");
@@ -96,7 +104,7 @@ async function loadVideo(url) {
     video.autoplay = true;
     video.playsinline = true;
 
-    console.log(video);
+    // console.log(video);
     video.oncanplay = () => {
       const tex = new VideoTexture(video);
       incrementProgress();
@@ -146,7 +154,6 @@ async function texMap(el) {
   }
   console.log(texes);
   return texes;
-
 }
 
 function loadingAnimation() {
