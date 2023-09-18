@@ -1,3 +1,4 @@
+import gsap from "gsap";
 import { TextureLoader } from "three";
 import { iNode } from "../helper";
 
@@ -8,9 +9,9 @@ const loader = {
   texMap,
   addProgressAction,
   loadDom,
+  loadingAnimation,
   $,
 };
-
 
 const texLoader = new TextureLoader();
 
@@ -56,6 +57,8 @@ let _progressAction = null;
 function loadDom() {
   $.p = iNode.qs(".percent");
   $.b = iNode.qs(".progress-bar");
+  $.l = iNode.qs("#loader");
+  $.g = iNode.qs("#global-container");
 }
 
 function incrementTotal() {
@@ -72,12 +75,6 @@ function incrementProgress() {
 function addProgressAction(cb) {
   _progressAction = cb;
 }
-
-// function _progressAction(total, loaded) {
-//   const percent = Math.floor((loaded / total) * 100);
-//   $.p.innerHTML = `${percent} %`;
-//   $.b.style.width = `${percent}%`;
-// }
 
 async function load(url) {
   incrementTotal();
@@ -98,6 +95,22 @@ function texMap(el) {
     texes.set(key, box.get(url));
   }
   return texes;
+}
+
+function loadingAnimation() {
+  const tl = gsap.timeline();
+  tl.to($.l, {
+    opacity: 0,
+    duration: 0.5,
+    delay: 1.5,
+  })
+    .set($.g, {
+      duration: 0.5,
+      visibility: "visible",
+    })
+    .set($.l, {
+      display: "none",
+    });
 }
 
 export { loader };

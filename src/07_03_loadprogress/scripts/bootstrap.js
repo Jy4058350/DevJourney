@@ -31,4 +31,6 @@ export async function init() {
   mouse.init();
 
   world.render();
+
+  loader.loadingAnimation();
 }
