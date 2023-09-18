@@ -38,7 +38,7 @@ async function init() {
   box.forEach((_, url) => {
     let prms;
     // const loadFn = url.endsWith(".mp4") ? loadVideo : loadTex;
-    if (url.endsWith(".mp4")) {
+    if (url.endsWith(".mp4") || url.endsWith(".webm")|| url.endsWith(".mov")) {
       prms = loadVideo(url).then((tex) => {
         box.set(url, tex);
       });
