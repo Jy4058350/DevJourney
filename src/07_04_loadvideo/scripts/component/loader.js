@@ -34,11 +34,20 @@ async function init() {
   });
   const texPrms = [];
 
+
   box.forEach((_, url) => {
-    const loadFn = url.endsWith(".mp4") ? loadVideo : loadTex;
-    const prms = loadFn(url).then((tex) => {
-      box.set(url, tex);
-    });
+    let prms;
+    // const loadFn = url.endsWith(".mp4") ? loadVideo : loadTex;
+    if (url.endsWith(".mp4")) {
+      prms = loadVideo(url).then((tex) => {
+        box.set(url, tex);
+      });
+    } else {
+      prms = loadTex(url).then((tex) => {
+        box.set(url, tex);
+      });
+
+    }
     texPrms.push(prms);
   });
   await Promise.all(texPrms);
@@ -83,10 +92,16 @@ async function loadVideo(url) {
   return new Promise((resolve) => {
     const video = document.createElement("video");
     video.src = url;
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsinline = true;
+
     console.log(video);
     video.oncanplay = () => {
       const tex = new VideoTexture(video);
       incrementProgress();
+      video.play();
       resolve(tex);
     };
   });
