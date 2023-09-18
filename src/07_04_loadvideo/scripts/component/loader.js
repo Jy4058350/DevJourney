@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { TextureLoader } from "three";
+import { TextureLoader, VideoTexture } from "three";
 import { iNode } from "../helper";
 
 const $ = {};
@@ -81,11 +81,10 @@ async function loadTex(url) {
 async function loadVideo(url) {
   const video = document.createElement("video");
   console.log(video);
-  // incrementTotal();
-  // const tex = await texLoader.loadAsync(url);
-  // incrementProgress();
+  
+  const tex = new VideoTexture(video);
 
-  // return tex;
+  return video;
 }
 
 function texMap(el) {
