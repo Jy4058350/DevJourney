@@ -112,7 +112,6 @@ async function initObjects(canvasRect) {
       if (!texes.has("tex1")) return uniforms;
 
       const texData = texes.get("tex1").source.data;
-      console.log(texes);
 
       let mrect = {};
       if (texData instanceof HTMLImageElement) {

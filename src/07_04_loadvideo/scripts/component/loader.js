@@ -111,6 +111,7 @@ async function texMap(el) {
   const texes = new Map();
   const data = el.dataset;
   let m = null;
+  let first = true;
   for (let key in data) {
     if (!key.startsWith("tex")) continue;
 
@@ -118,15 +119,17 @@ async function texMap(el) {
     key = key.replace("-", "");
     texes.set(key, box.get(url));
 
-    if(el instanceof HTMLImageElement) {
+    if (first && el instanceof HTMLImageElement) {
       m = new Promise((resolve) => {
         el.onload = () => {
-          resolve(el);
+          resolve();
         };
       });
-      await m;
+      el.src = url;
+      first = false;
     }
   }
+  await m;
   return texes;
 }
 
