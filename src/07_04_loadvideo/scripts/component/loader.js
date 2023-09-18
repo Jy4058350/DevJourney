@@ -116,8 +116,10 @@ async function texMap(el) {
     if (!key.startsWith("tex")) continue;
 
     const url = data[key];
+    const tex = box.get(url);
     key = key.replace("-", "");
-    texes.set(key, box.get(url));
+    texes.set(key, tex);
+    // texes.set(key, box.get(url));
 
     if (first && el instanceof HTMLImageElement) {
       m = new Promise((resolve) => {
@@ -128,9 +130,12 @@ async function texMap(el) {
       el.src = url;
       first = false;
     }
+    await m;
+    // console.log(url);
   }
-  await m;
+  console.log(texes);
   return texes;
+
 }
 
 function loadingAnimation() {

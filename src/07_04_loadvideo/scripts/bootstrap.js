@@ -10,6 +10,8 @@ export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
 
+  viewport.init(canvasRect);
+  scroll.initScroller();
   loader.loadDom();
 
   loader.addProgressAction(function _progressAction(total, loaded) {
@@ -18,13 +20,11 @@ export async function init() {
     loader.$.b.style.width = `${percent}%`;
   });
   
-  await loader.init();
-
-  viewport.init(canvasRect);
-
+  
+  
   viewport.bindResizeEvents();
-
-  scroll.initScroller();
+  
+  await loader.init();
 
   world.init(canvasRect, viewport);
 

@@ -53,9 +53,9 @@ async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
   // els.forEach(async (el) => {
   const prms = [...els].map(async (el) => {
-    const rect = el.getBoundingClientRect();
-
+    
     const texes = await loader.texMap(el);
+    const rect = el.getBoundingClientRect();
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
@@ -154,6 +154,7 @@ async function initObjects(canvasRect) {
 
     const mesh = new Mesh(geometry, material);
     mesh.position.z = 0;
+    // console.log(mesh);
 
     const { x, y } = getWorldPosition(rect, canvasRect);
     mesh.position.x = x;
