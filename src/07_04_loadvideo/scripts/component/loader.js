@@ -90,11 +90,11 @@ async function loadVideo(url) {
   const video = document.createElement("video");
   let u = url.split(".").pop();
   // console.log(u);
-  if (u === "mov") {
-    u = "quicktime";
-  }
-  if(!video.canPlayType(u)) return null;
-  
+  // if (u === "mov") {
+  //   u = "quicktime";
+  // }
+  if (!video.canPlayType(`video/${u}`)) return null;
+
   incrementTotal();
   return new Promise((resolve) => {
     const video = document.createElement("video");
