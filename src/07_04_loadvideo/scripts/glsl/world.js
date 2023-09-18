@@ -56,7 +56,8 @@ async function initObjects(canvasRect) {
     const texes = await loader.texMap(el);
 
     if (texes.has("tex1") === null) {
-      texes.set("tex1", texes.get("tex2"));
+      console.log(texes);
+      // texes.set("tex1", texes.get("tex2"));
     }
 
     const rect = el.getBoundingClientRect();

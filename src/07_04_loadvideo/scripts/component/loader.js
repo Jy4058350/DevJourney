@@ -39,7 +39,7 @@ async function init() {
     let prms;
     if (url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".mov")) {
       prms = loadVideo(url).then((tex) => {
-        console.log(url);
+        // console.log(url);
         box.set(url, tex);
       });
     } else {
@@ -90,9 +90,9 @@ async function loadVideo(url) {
   const video = document.createElement("video");
   let u = url.split(".").pop();
   // console.log(u);
-  // if (u === "mov") {
-  //   u = "quicktime";
-  // }
+  if (u === "mov") {
+    u = "quicktime";
+  }
   if (!video.canPlayType(`video/${u}`)) return null;
 
   incrementTotal();
@@ -152,7 +152,7 @@ async function texMap(el) {
     await m;
     // console.log(url);
   }
-  console.log(texes);
+  // console.log(texes);
   return texes;
 }
 
