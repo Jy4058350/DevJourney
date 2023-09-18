@@ -53,8 +53,13 @@ async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
   // els.forEach(async (el) => {
   const prms = [...els].map(async (el) => {
-    
     const texes = await loader.texMap(el);
+    console.log(texes);
+
+    if (texes.get("tex1") === null) {
+      texes.set("tex1", texes.get("tex2"));
+    }
+
     const rect = el.getBoundingClientRect();
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
