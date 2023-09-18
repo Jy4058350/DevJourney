@@ -55,7 +55,7 @@ async function initObjects(canvasRect) {
   const prms = [...els].map(async (el) => {
     const rect = el.getBoundingClientRect();
 
-    const texes = loader.texMap(el);
+    const texes = await loader.texMap(el);
 
     const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({

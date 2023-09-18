@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { TextureLoader, VideoTexture } from "three";
 import { iNode } from "../helper";
+import { on } from "events";
 
 const $ = {};
 const loader = {
@@ -34,7 +35,6 @@ async function init() {
   });
   const texPrms = [];
 
-
   box.forEach((_, url) => {
     let prms;
     // const loadFn = url.endsWith(".mp4") ? loadVideo : loadTex;
@@ -46,7 +46,6 @@ async function init() {
       prms = loadTex(url).then((tex) => {
         box.set(url, tex);
       });
-
     }
     texPrms.push(prms);
   });
@@ -102,20 +101,31 @@ async function loadVideo(url) {
       const tex = new VideoTexture(video);
       incrementProgress();
       video.play();
+      oncanplay = null;
       resolve(tex);
     };
   });
 }
 
-function texMap(el) {
+async function texMap(el) {
   const texes = new Map();
   const data = el.dataset;
+  let m = null;
   for (let key in data) {
     if (!key.startsWith("tex")) continue;
 
     const url = data[key];
     key = key.replace("-", "");
     texes.set(key, box.get(url));
+
+    if(el instanceof HTMLImageElement) {
+      m = new Promise((resolve) => {
+        el.onload = () => {
+          resolve(el);
+        };
+      });
+      await m;
+    }
   }
   return texes;
 }
