@@ -80,9 +80,12 @@ async function loadTex(url) {
 
 async function loadVideo(url) {
   const video = document.createElement("video");
+  video.src = url;
   console.log(video);
-  
-  const tex = new VideoTexture(video);
+  video.oncanplay = () => {
+    const tex = new VideoTexture(video);
+    
+  };
 
   return video;
 }
