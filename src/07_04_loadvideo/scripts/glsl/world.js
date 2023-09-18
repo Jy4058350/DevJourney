@@ -54,10 +54,10 @@ async function initObjects(canvasRect) {
   // els.forEach(async (el) => {
   const prms = [...els].map(async (el) => {
     const texes = await loader.texMap(el);
+    console.log(texes);
 
-    if (texes.has("tex1") === null) {
-      console.log(texes);
-      // texes.set("tex1", texes.get("tex2"));
+    if (texes.get("tex1") === null) {
+      texes.set("tex1", texes.get("tex2"));
     }
 
     const rect = el.getBoundingClientRect();
