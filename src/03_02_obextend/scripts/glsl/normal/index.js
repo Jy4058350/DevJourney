@@ -1,13 +1,14 @@
-import CustomObject from "../CustomObject";
+import { CustomObject } from "../CustomObject";
 
-import vertexShader from "./normal/vertex.glsl";
-import fragmentShader from "./normal/fragment.glsl";
+import vertexShader from "./vertex.glsl";
+import fragmentShader from "./fragment.glsl";
 
-export class ExtendObject extends CustomObject {
+class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
   }
   fixVertex() {
+    console.log(vertexShader);
     return vertexShader;
   }
 
@@ -15,3 +16,5 @@ export class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 }
+
+export default ExtendObject;

@@ -3,13 +3,9 @@ import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
 
-import vertexShader2 from "./gray/vertex.glsl";
-import fragmentShader2 from "./gray/fragment.glsl";
-
 export class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
-    console.log(type);
     const o = new CustomObject({ texes, el, type });
     return o;
   }
@@ -40,10 +36,11 @@ export class CustomObject {
     this.vertexShader = this.fixVertex();
     this.fragmentShader = this.fixFragment();
 
+    console.log(this.vertexShader);
+
     this.material = new ShaderMaterial({
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
-
       uniforms: this.uniforms,
     });
 
