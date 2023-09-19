@@ -10,7 +10,7 @@ import { lerp, getWorldPosition } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 import { loader } from "../component/loader";
-import { CustomObject } from "./Object";
+import { CustomObject } from "./CustomObject";
 
 const os = [];
 
@@ -50,7 +50,7 @@ async function initObjects(texes,canvasRect) {
   // els.forEach(async (el) => {
   const prms = [...els].map(async (el) => {
     const o = await CustomObject.init(el);
-    console.log(o);
+    // console.log(o);
     // console.log(o);
     world.scene.add(o.mesh);
     os.push(o);

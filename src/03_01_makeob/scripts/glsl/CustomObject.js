@@ -1,18 +1,8 @@
-import {
-  WebGLRenderer,
-  Scene,
-  PerspectiveCamera,
-  PlaneGeometry,
-  MeshBasicMaterial,
-  ShaderMaterial,
-  Mesh,
-  Raycaster,
-  Vector2,
-  Vector4,
-} from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh, Vector2, Vector4 } from "three";
 
 import { loader } from "../component/loader";
-import { getWorldPosition } from "../helper/utils";
+import { getWorldPosition, getResolution } from "../helper/utils";
+
 
 export class CustomObject {
   static async init(el) {
@@ -35,12 +25,6 @@ export class CustomObject {
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
-
-    // const material = new MeshBasicMaterial({
-    //   color: 0xff0000,
-    //   transparent: true,
-    //   opacity: 0.3,
-    // });
 
     const material = new ShaderMaterial({
       vertexShader: `
@@ -79,7 +63,7 @@ export class CustomObject {
     
                     }
                   `,
-        uniforms: this.uniforms,
+      uniforms: this.uniforms,
     });
 
     this.uniforms = this.setupResolution(this.uniforms);
@@ -95,18 +79,8 @@ export class CustomObject {
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
     this.mesh.position.y = y;
-
-    // const o = {
-    //   mesh: this.mesh,
-    //   geometry: this.geometry,
-    //   material: this.material,
-    //   rect: this.rect,
-    //   $: {
-    //     el,
-    //   }:this.$ = { el },
-    // };
   }
-  setupResolution(uniforms, texes) {
+  setupResolution(uniforms) {
     // const rect = el.getBoundingClientRect();
     if (!this.texes.has("tex1")) return uniforms;
 
@@ -124,21 +98,7 @@ export class CustomObject {
         height: texData.videoHeight,
       };
     }
-    const resolution = new Vector4(this.rect.width, this.rect.height, 1, 1);
-    if (!mrect) return resolution;
-    const mAspect = mrect.height / mrect.width;
-    const aspect = this.rect.height / this.rect.width;
-
-    let xAspect, yAspect;
-    if (aspect > mAspect) {
-      xAspect = (1 / aspect) * mAspect;
-      yAspect = 1;
-    } else {
-      xAspect = 1;
-      yAspect = aspect / mAspect;
-    }
-    resolution.z = xAspect;
-    resolution.w = yAspect;
+    const resolution = getResolution(this.rect, mrect);
 
     uniforms.uResolution = { value: resolution };
     return uniforms;

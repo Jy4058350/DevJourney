@@ -1,3 +1,4 @@
+import { Vector4 } from "three";
 import { viewport } from "./viewport";
 
 // 線形補間
@@ -13,4 +14,29 @@ function getWorldPosition(rect, canvasRect) {
   return { x, y };
 }
 
-export { lerp, getWorldPosition };
+function getResolution(rect, mrect) {
+  const resolution = new Vector4(rect.width, rect.height, 1, 1);
+      if (!mrect) return resolution;
+      const mAspect = mrect.height / mrect.width;
+      const aspect = rect.height / rect.width;
+  
+      let xAspect, yAspect;
+      if (aspect > mAspect) {
+        xAspect = (1 / aspect) * mAspect;
+        yAspect = 1;
+      } else {
+        xAspect = 1;
+        yAspect = aspect / mAspect;
+      }
+      resolution.z = xAspect;
+      resolution.w = yAspect;
+  
+   
+
+      return resolution;
+
+}
+
+
+
+export { lerp, getWorldPosition, getResolution };
