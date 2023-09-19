@@ -29,11 +29,19 @@ export class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    
+    let vertexShader, fragmentShader;
+    if (type === "normal") {
+      vertexShader = vertexShader1;
+      fragmentShader = fragmentShader1;
+    } else if (type === "gray") {
+      vertexShader = vertexShader2;
+      fragmentShader = fragmentShader2;
+    }
+
     this.material = new ShaderMaterial({
-      vertexShader: vertexShader1,
-      fragmentShader: fragmentShader1,
-      
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
+
       uniforms: this.uniforms,
     });
 
