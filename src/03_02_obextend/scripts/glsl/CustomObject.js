@@ -24,19 +24,8 @@ class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    // let vertexShader, fragmentShader;
-    // if (type === "normal") {
-    //   vertexShader = vertexShader1;
-    //   fragmentShader = fragmentShader1;
-    // } else if (type === "gray") {
-    //   vertexShader = vertexShader2;
-    //   fragmentShader = fragmentShader2;
-    // }
-
     this.vertexShader = this.fixVertex();
     this.fragmentShader = this.fixFragment();
-
-    // console.log(this.vertexShader);
 
     this.material = new ShaderMaterial({
       vertexShader: this.vertexShader,
@@ -52,7 +41,6 @@ class CustomObject {
 
     this.mesh = new Mesh(this.geometry, this.material);
     this.mesh.position.z = 0;
-    // console.log(mesh);
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
@@ -61,13 +49,10 @@ class CustomObject {
 
   fixVertex() {
     throw new Error("このメソッドはオーバーライドして使用してください。");
-    // console.log("fixVertex");
-    // console.log(this.vertexShader)
   }
 
   fixFragment() {
     throw new Error("このメソッドはオーバーライドして使用してください。");
-    // console.log("fixFragment");
   }
 
   setupResolution(uniforms) {

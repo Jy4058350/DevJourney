@@ -8,7 +8,6 @@ class ExtendObject2 extends CustomObject {
     super({ texes, el, type, canvasRect });
   }
   fixVertex() {
-    console.log(vertexShader);
     return vertexShader;
   }
 

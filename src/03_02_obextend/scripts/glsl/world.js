@@ -9,9 +9,6 @@ import {
 import { lerp, getWorldPosition } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
-import { loader } from "../component/loader";
-import { CustomObject } from "./CustomObject";
-import { iNode } from "../helper";
 import ExtendObject from "./normal";
 import ExtendObject2 from "./gray";
 
@@ -52,7 +49,6 @@ async function initObjects() {
   const els = document.querySelectorAll("[data-webgl]");
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
-    // console.log(type);
     let o;
     if (type === "normal") {
       o = await ExtendObject.init({ el, type });
@@ -60,9 +56,6 @@ async function initObjects() {
       o = await ExtendObject2.init({ el, type });
     }
 
-    // const o = await CustomObject.init({ el, type });
-    // console.log(o);
-    // console.log(o);
     world.scene.add(o.mesh);
     os.push(o);
   });
