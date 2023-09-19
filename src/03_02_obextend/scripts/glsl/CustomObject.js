@@ -58,6 +58,15 @@ export class CustomObject {
     this.mesh.position.x = x;
     this.mesh.position.y = y;
   }
+
+  fixVertex() {
+    this.material.vertexShader = this.vertexShader;
+  }
+
+  fixFragment() {
+    this.material.fragmentShader = this.fragmentShader;
+  }
+
   setupResolution(uniforms) {
     // const rect = el.getBoundingClientRect();
     if (!this.texes.has("tex1")) return uniforms;
