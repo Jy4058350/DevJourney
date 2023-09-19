@@ -79,49 +79,12 @@ export class CustomObject {
     
                     }
                   `,
+        uniforms: this.uniforms,
     });
 
-    function setupResolution(uniforms) {
-      const rect = el.getBoundingClientRect();
-      if (!texes.has("tex1")) return uniforms;
+    this.uniforms = this.setupResolution(this.uniforms);
 
-      const texData = texes.get("tex1").source.data;
-
-      let mrect = {};
-      if (texData instanceof HTMLImageElement) {
-        mrect = {
-          width: texData.naturalWidth,
-          height: texData.naturalHeight,
-        };
-      } else if (texData instanceof HTMLVideoElement) {
-        mrect = {
-          width: texData.videoWidth,
-          height: texData.videoHeight,
-        };
-      }
-      const resolution = new Vector4(rect.width, rect.height, 1, 1);
-      if (!mrect) return resolution;
-      const mAspect = mrect.height / mrect.width;
-      const aspect = rect.height / rect.width;
-
-      let xAspect, yAspect;
-      if (aspect > mAspect) {
-        xAspect = (1 / aspect) * mAspect;
-        yAspect = 1;
-      } else {
-        xAspect = 1;
-        yAspect = aspect / mAspect;
-      }
-      resolution.z = xAspect;
-      resolution.w = yAspect;
-
-      uniforms.uResolution = { value: resolution };
-      return uniforms;
-    }
-
-    this.uniforms = setupResolution(this.uniforms);
-
-    texes.forEach((tex, key) => {
+    this.texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
 
@@ -142,5 +105,42 @@ export class CustomObject {
     //     el,
     //   }:this.$ = { el },
     // };
+  }
+  setupResolution(uniforms, texes) {
+    // const rect = el.getBoundingClientRect();
+    if (!texes.has("tex1")) return uniforms;
+
+    const texData = texes.get("tex1").source.data;
+
+    let mrect = {};
+    if (texData instanceof HTMLImageElement) {
+      mrect = {
+        width: texData.naturalWidth,
+        height: texData.naturalHeight,
+      };
+    } else if (texData instanceof HTMLVideoElement) {
+      mrect = {
+        width: texData.videoWidth,
+        height: texData.videoHeight,
+      };
+    }
+    const resolution = new Vector4(this.rect.width, this.rect.height, 1, 1);
+    if (!mrect) return resolution;
+    const mAspect = mrect.height / mrect.width;
+    const aspect = rect.height / rect.width;
+
+    let xAspect, yAspect;
+    if (aspect > mAspect) {
+      xAspect = (1 / aspect) * mAspect;
+      yAspect = 1;
+    } else {
+      xAspect = 1;
+      yAspect = aspect / mAspect;
+    }
+    resolution.z = xAspect;
+    resolution.w = yAspect;
+
+    uniforms.uResolution = { value: resolution };
+    return uniforms;
   }
 }
