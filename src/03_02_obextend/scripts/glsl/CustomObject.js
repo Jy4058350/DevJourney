@@ -29,10 +29,8 @@ export class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    if(type ==="normal") {
-      
-    }
-    const material = new ShaderMaterial({
+    
+    this.material = new ShaderMaterial({
       vertexShader: vertexShader1,
       fragmentShader: fragmentShader1,
       
@@ -42,10 +40,10 @@ export class CustomObject {
     this.uniforms = this.setupResolution(this.uniforms);
 
     this.texes.forEach((tex, key) => {
-      material.uniforms[key] = { value: tex };
+      this.uniforms[key] = { value: tex };
     });
 
-    this.mesh = new Mesh(this.geometry, material);
+    this.mesh = new Mesh(this.geometry, this.material);
     this.mesh.position.z = 0;
     // console.log(mesh);
 
