@@ -37,6 +37,9 @@ export class CustomObject {
     //   fragmentShader = fragmentShader2;
     // }
 
+    this.vertexShader = this.fixVertex();
+    this.fragmentShader = this.fixFragment();
+
     this.material = new ShaderMaterial({
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
@@ -59,13 +62,9 @@ export class CustomObject {
     this.mesh.position.y = y;
   }
 
-  fixVertex() {
-    this.material.vertexShader = this.vertexShader;
-  }
+  fixVertex() {}
 
-  fixFragment() {
-    this.material.fragmentShader = this.fragmentShader;
-  }
+  fixFragment() {}
 
   setupResolution(uniforms) {
     // const rect = el.getBoundingClientRect();
