@@ -73,9 +73,9 @@ export class CustomObject {
                       vec4 t2 = texture2D(tex2, vUv);
                       // vec2 mouse = step(uMouse, vUv);
                       // gl_FragColor = vec4(mouse, uHover, 1.);
-                      // gl_FragColor = mix(t1, t2, uHover);
-                      gl_FragColor = mix(t1, t2, step(0.5, vUv.x));
-                      gl_FragColor = t1;
+                      gl_FragColor = mix(t1, t2, uHover);
+                    //   gl_FragColor = mix(t1, t2, step(0.5, vUv.x));
+                    //   gl_FragColor = t1;
     
                     }
                   `,
@@ -108,9 +108,9 @@ export class CustomObject {
   }
   setupResolution(uniforms, texes) {
     // const rect = el.getBoundingClientRect();
-    if (!texes.has("tex1")) return uniforms;
+    if (!this.texes.has("tex1")) return uniforms;
 
-    const texData = texes.get("tex1").source.data;
+    const texData = this.texes.get("tex1").source.data;
 
     let mrect = {};
     if (texData instanceof HTMLImageElement) {
@@ -127,7 +127,7 @@ export class CustomObject {
     const resolution = new Vector4(this.rect.width, this.rect.height, 1, 1);
     if (!mrect) return resolution;
     const mAspect = mrect.height / mrect.width;
-    const aspect = rect.height / rect.width;
+    const aspect = this.rect.height / this.rect.width;
 
     let xAspect, yAspect;
     if (aspect > mAspect) {
