@@ -1,20 +1,41 @@
+import {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  PlaneGeometry,
+  MeshBasicMaterial,
+  ShaderMaterial,
+  Mesh,
+  Raycaster,
+  Vector2,
+  Vector4,
+} from "three";
+
 import { loader } from "../component/loader";
+import { getWorldPosition } from "../helper/utils";
 
 export class CustomObject {
   static async init(el) {
     const texes = await loader.texMap(el);
-    console.log(texes);
+    // console.log(texes);
     const o = new CustomObject(texes, el);
     return o;
   }
-  constructor() {
+  constructor(texes, el, canvasRect) {
+    this.$ = { el };
+    this.texes = texes;
+    this.rect = el.getBoundingClientRect();
+    this.geometry = new PlaneGeometry(this.rect.width, this.rect.height, 1, 1);
+    this.uniforms = {
+      uMouse: { value: new Vector2(0.5, 0.5) },
+      uHover: { value: 0 },
+      // uResolution: { value: new Vector4()},
+    };
+
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    const rect = el.getBoundingClientRect();
-
-    const geometry = new PlaneGeometry(rect.width, rect.height, 1, 1);
     // const material = new MeshBasicMaterial({
     //   color: 0xff0000,
     //   transparent: true,
@@ -58,14 +79,10 @@ export class CustomObject {
     
                     }
                   `,
-      uniforms: {
-        uMouse: { value: new Vector2(0.5, 0.5) },
-        uHover: { value: 0 },
-        // uResolution: { value: new Vector4()},
-      },
     });
 
     function setupResolution(uniforms) {
+      const rect = el.getBoundingClientRect();
       if (!texes.has("tex1")) return uniforms;
 
       const texData = texes.get("tex1").source.data;
@@ -82,7 +99,6 @@ export class CustomObject {
           height: texData.videoHeight,
         };
       }
-
       const resolution = new Vector4(rect.width, rect.height, 1, 1);
       if (!mrect) return resolution;
       const mAspect = mrect.height / mrect.width;
@@ -103,28 +119,28 @@ export class CustomObject {
       return uniforms;
     }
 
-    material.uniforms = setupResolution(material.uniforms);
+    this.uniforms = setupResolution(this.uniforms);
 
     texes.forEach((tex, key) => {
       material.uniforms[key] = { value: tex };
     });
 
-    const mesh = new Mesh(geometry, material);
-    mesh.position.z = 0;
+    this.mesh = new Mesh(this.geometry, material);
+    this.mesh.position.z = 0;
     // console.log(mesh);
 
-    const { x, y } = getWorldPosition(rect, canvasRect);
-    mesh.position.x = x;
-    mesh.position.y = y;
+    const { x, y } = getWorldPosition(this.rect, canvasRect);
+    this.mesh.position.x = x;
+    this.mesh.position.y = y;
 
-    const o = {
-      mesh,
-      geometry,
-      material,
-      rect,
-      $: {
-        el,
-      },
-    };
+    // const o = {
+    //   mesh: this.mesh,
+    //   geometry: this.geometry,
+    //   material: this.material,
+    //   rect: this.rect,
+    //   $: {
+    //     el,
+    //   }:this.$ = { el },
+    // };
   }
 }

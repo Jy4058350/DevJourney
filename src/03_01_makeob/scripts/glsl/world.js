@@ -2,13 +2,8 @@ import {
   WebGLRenderer,
   Scene,
   PerspectiveCamera,
-  PlaneGeometry,
-  MeshBasicMaterial,
-  ShaderMaterial,
-  Mesh,
   Raycaster,
   Vector2,
-  Vector4,
 } from "three";
 
 import { lerp, getWorldPosition } from "../helper/utils";
@@ -56,7 +51,8 @@ async function initObjects(texes,canvasRect) {
   const prms = [...els].map(async (el) => {
     const o = await CustomObject.init(el);
     console.log(o);
-    world.scene.add(mesh);
+    // console.log(o);
+    world.scene.add(o.mesh);
     os.push(o);
   });
   await Promise.all(prms);
