@@ -6,7 +6,7 @@ import { getWorldPosition, getResolution } from "../helper/utils";
 class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
-    const o = new CustomObject({ texes, el, type });
+    const o = new this({ texes, el, type });
     return o;
   }
   constructor({ texes, el, type, canvasRect }) {
