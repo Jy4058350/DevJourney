@@ -38,8 +38,8 @@ export class CustomObject {
     // }
 
     this.material = new ShaderMaterial({
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader,
+      vertexShader: this.vertexShader,
+      fragmentShader: this.fragmentShader,
 
       uniforms: this.uniforms,
     });
