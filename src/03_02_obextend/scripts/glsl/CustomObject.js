@@ -2,8 +2,7 @@ import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
-import vertexShader1 from "./normal/vertex.glsl";
-import fragmentShader1 from "./normal/fragment.glsl";
+
 import vertexShader2 from "./gray/vertex.glsl";
 import fragmentShader2 from "./gray/fragment.glsl";
 
@@ -29,14 +28,14 @@ export class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    let vertexShader, fragmentShader;
-    if (type === "normal") {
-      vertexShader = vertexShader1;
-      fragmentShader = fragmentShader1;
-    } else if (type === "gray") {
-      vertexShader = vertexShader2;
-      fragmentShader = fragmentShader2;
-    }
+    // let vertexShader, fragmentShader;
+    // if (type === "normal") {
+    //   vertexShader = vertexShader1;
+    //   fragmentShader = fragmentShader1;
+    // } else if (type === "gray") {
+    //   vertexShader = vertexShader2;
+    //   fragmentShader = fragmentShader2;
+    // }
 
     this.material = new ShaderMaterial({
       vertexShader: vertexShader,

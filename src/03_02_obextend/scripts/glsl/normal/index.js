@@ -1,6 +1,8 @@
-import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
+import CustomObject from '../CustomObject'
 
-import { loader } from "../component/loader";
-import { getWorldPosition, getResolution } from "../helper/utils";
-import { CustomObject } from "../../CustomObject";
+import vertexShader from "./normal/vertex.glsl";
+import fragmentShader from "./normal/fragment.glsl";
 
+export class CustomObject{
+  
+}
