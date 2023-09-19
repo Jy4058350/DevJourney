@@ -3,7 +3,7 @@ import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
 
-export class CustomObject {
+class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
     const o = new CustomObject({ texes, el, type });
@@ -36,7 +36,7 @@ export class CustomObject {
     this.vertexShader = this.fixVertex();
     this.fragmentShader = this.fixFragment();
 
-    console.log(this.vertexShader);
+    // console.log(this.vertexShader);
 
     this.material = new ShaderMaterial({
       vertexShader: this.vertexShader,
@@ -59,9 +59,16 @@ export class CustomObject {
     this.mesh.position.y = y;
   }
 
-  fixVertex() {}
+  fixVertex() {
+    throw new Error("このメソッドはオーバーライドして使用してください。");
+    // console.log("fixVertex");
+    // console.log(this.vertexShader)
+  }
 
-  fixFragment() {}
+  fixFragment() {
+    throw new Error("このメソッドはオーバーライドして使用してください。");
+    // console.log("fixFragment");
+  }
 
   setupResolution(uniforms) {
     // const rect = el.getBoundingClientRect();
@@ -87,3 +94,5 @@ export class CustomObject {
     return uniforms;
   }
 }
+
+export { CustomObject };

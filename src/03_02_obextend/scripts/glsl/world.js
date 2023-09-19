@@ -53,13 +53,14 @@ async function initObjects() {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     // console.log(type);
+    let o;
     if (type === "normal") {
-      o = new ExtendObject({ el, type });
+      o = await ExtendObject.init({ el, type });
     } else if (type === "gray") {
-      o = new ExtendObject2({ el, type });
+      o = await ExtendObject2.init({ el, type });
     }
 
-    const o = await CustomObject.init({ el, type });
+    // const o = await CustomObject.init({ el, type });
     // console.log(o);
     // console.log(o);
     world.scene.add(o.mesh);
