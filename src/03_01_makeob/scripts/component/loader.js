@@ -94,7 +94,7 @@ async function loadVideo(url) {
     u = "quicktime";
   }
   if (!video.canPlayType(`video/${u}`)) return null;
-  console.log(!video.canPlayType(`video/${u}`));
+  // console.log(!video.canPlayType(`video/${u}`));
 
   incrementTotal();
   return new Promise((resolve) => {

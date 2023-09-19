@@ -11,6 +11,7 @@ import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 import { loader } from "../component/loader";
 import { CustomObject } from "./CustomObject";
+import { iNode } from "../helper";
 
 const os = [];
 
@@ -45,11 +46,12 @@ function init(canvasRect, viewport) {
   initObjects(canvasRect);
 }
 
-async function initObjects(texes,canvasRect) {
+async function initObjects() {
   const els = document.querySelectorAll("[data-webgl]");
-  // els.forEach(async (el) => {
   const prms = [...els].map(async (el) => {
-    const o = await CustomObject.init(el);
+    const type = el.dataset.webgl;
+    // console.log(type);
+    const o = await CustomObject.init({ el, type });
     // console.log(o);
     // console.log(o);
     world.scene.add(o.mesh);
