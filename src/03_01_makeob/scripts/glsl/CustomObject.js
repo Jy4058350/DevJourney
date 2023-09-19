@@ -1,4 +1,4 @@
-import { PlaneGeometry, ShaderMaterial, Mesh, Vector2, Vector4 } from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
@@ -7,7 +7,7 @@ export class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
     console.log(type);
-    const o = new CustomObject({texes, el, type});
+    const o = new CustomObject({ texes, el, type });
     return o;
   }
   constructor({ texes, el, type, canvasRect }) {
