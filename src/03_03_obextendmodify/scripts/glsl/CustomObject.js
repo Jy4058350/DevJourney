@@ -13,7 +13,7 @@ class CustomObject {
     this.$ = { el };
     this.texes = texes;
     this.rect = el.getBoundingClientRect();
-    this.geometry = new PlaneGeometry(this.rect.width, this.rect.height, 1, 1);
+    this.geometry = this.fixGeometry();
     this.uniforms = {
       uMouse: { value: new Vector2(0.5, 0.5) },
       uHover: { value: 0 },
@@ -45,6 +45,10 @@ class CustomObject {
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
     this.mesh.position.y = y;
+  }
+
+  fixGeometry() {
+    return new PlaneGeometry(this.rect.width, this.rect.height, 1, 1);
   }
 
   fixVertex() {
