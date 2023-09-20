@@ -68,7 +68,8 @@ function render() {
   world.tick++;
   requestAnimationFrame(render);
   // スクロール処理
-  for (let i = 0; i < os.length; i++) {
+  // for (let i = 0; i < os.length; i++) {
+  for (let i = os.length - 1; i > 0; i--) {
     const o = os[i];
     o.scroll();
     o.render(world.tick);
@@ -104,43 +105,6 @@ function raycast() {
     uHover.value = lerp(uHover.value, uHover.__endValue, 0.1);
   }
 }
-
-// function scroll(o) {
-//   const newCanvasRect = canvas.getBoundingClientRect();
-//   const {
-//     $: { el },
-//     mesh,
-//   } = o;
-//   const rect = el.getBoundingClientRect();
-//   if (newCanvasRect) {
-//     const { x, y } = getWorldPosition(rect, newCanvasRect);
-//     // mesh.position.x = x;
-//     mesh.position.y = y;
-//   }
-//   if (!newCanvasRect && canvasRect) {
-//     const { x, y } = getWorldPosition(rect, canvasRect);
-//     // mesh.position.x = x;
-//     mesh.position.y = y;
-//   }
-// }
-
-// function resize(o, newCanvasRect) {
-//   const {
-//     $: { el },
-//     mesh,
-//     geometry,
-//     rect,
-//   } = o;
-//   const nextRect = el.getBoundingClientRect();
-//   const { x, y } = getWorldPosition(nextRect, newCanvasRect);
-//   mesh.position.x = x;
-//   mesh.position.y = y;
-
-//   // 大きさの変更
-//   geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
-
-//   o.rect = nextRect;
-// }
 
 function osResize() {
   world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
