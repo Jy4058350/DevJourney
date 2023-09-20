@@ -42,9 +42,8 @@ async function init(canvasRect, viewport) {
     viewport.far
   );
   world.camera.position.z = viewport.cameraZ;
-  console.log("0");
 
-  await initObjects();
+  await initObjects(canvasRect);
 }
 
 async function initObjects() {
@@ -61,10 +60,11 @@ async function initObjects() {
     world.scene.add(o.mesh);
     os.push(o);
   });
+  os.forEach(async (o) => await o.afterInit());
+  console.log(os);
+  // debugger;
   console.log("1");
   await Promise.all(prms);
-
-  os.forEach(async (o) => await o.afterInit());
 }
 
 function render() {

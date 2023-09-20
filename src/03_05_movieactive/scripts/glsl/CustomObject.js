@@ -164,6 +164,7 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
   async afterInit() {
+    console.log("play");
     this.pauseVideo();
     setTimeout(() => {
       this.playVideo();
@@ -172,8 +173,7 @@ class CustomObject {
 
   async playVideo() {
     await this.texes.get("tex1").source.play();
-    console.log("play");
-    debugger;
+    
   }
 
   async pauseVideo() {
