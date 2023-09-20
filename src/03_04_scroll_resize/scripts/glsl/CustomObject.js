@@ -11,7 +11,7 @@ class CustomObject {
   }
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
-    this.texes = texes;
+    this.texes = texes ?? [];
     this.rect = el.getBoundingClientRect();
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
