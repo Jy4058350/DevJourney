@@ -70,6 +70,8 @@ class CustomObject {
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
       uniforms: this.uniforms,
+      transparent: true,
+      alphaTest: 0.5,
     });
   }
 
