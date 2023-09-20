@@ -13,33 +13,21 @@ class CustomObject {
     this.$ = { el };
     this.texes = texes;
     this.rect = el.getBoundingClientRect();
-    this.geometry = this.fixGeometry();
-    this.uniforms = {
-      uMouse: { value: new Vector2(0.5, 0.5) },
-      uHover: { value: 0 },
-      // uResolution: { value: new Vector4()},
-    };
-
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
 
+    this.uniforms = this.fixUniforms();
+    this.uniforms = this.fixTexes(this.uniforms);
+    this.uniforms = this.setupResolution(this.uniforms);
     this.vertexShader = this.fixVertex();
     this.fragmentShader = this.fixFragment();
+    this.geometry = this.fixGeometry();
+    this.material = this.fixMaterial();
+    this.mesh = this.fixMesh();
+    this.disv();
+    this.style();
 
-    this.material = new ShaderMaterial({
-      vertexShader: this.vertexShader,
-      fragmentShader: this.fragmentShader,
-      uniforms: this.uniforms,
-    });
-
-    this.uniforms = this.setupResolution(this.uniforms);
-
-    this.texes.forEach((tex, key) => {
-      this.uniforms[key] = { value: tex };
-    });
-
-    this.mesh = new Mesh(this.geometry, this.material);
     this.mesh.position.z = 0;
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
@@ -47,8 +35,39 @@ class CustomObject {
     this.mesh.position.y = y;
   }
 
+  disv() {
+    this.$.el.draggable = false;
+    this.$.el.style.pointerEvents = "none";
+  }
+
+  style() {
+    this.$.el.style.opacity = 0.0;
+  }
+
+  fixTexes(u) {
+    this.texes.forEach((tex, key) => {
+      u[key] = { value: tex };
+    });
+    return u;
+  }
+
   fixGeometry() {
     return new PlaneGeometry(this.rect.width, this.rect.height, 1, 1);
+  }
+
+  fixMaterial() {
+    return new ShaderMaterial({
+      vertexShader: this.vertexShader,
+      fragmentShader: this.fragmentShader,
+      uniforms: this.uniforms,
+    });
+  }
+
+  fixUniforms() {
+    return {
+      uMouse: { value: new Vector2(0.5, 0.5) },
+      uHover: { value: 0 },
+    };
   }
 
   fixVertex() {
@@ -59,9 +78,13 @@ class CustomObject {
     throw new Error("このメソッドはオーバーライドして使用してください。");
   }
 
-  setupResolution(uniforms) {
+  fixMesh() {
+    return new Mesh(this.geometry, this.material);
+  }
+
+  setupResolution(u) {
     // const rect = el.getBoundingClientRect();
-    if (!this.texes.has("tex1")) return uniforms;
+    if (!this.texes.has("tex1")) return u;
 
     const texData = this.texes.get("tex1").source.data;
 
@@ -79,8 +102,8 @@ class CustomObject {
     }
     const resolution = getResolution(this.rect, mrect);
 
-    uniforms.uResolution = { value: resolution };
-    return uniforms;
+    u.uResolution = { value: resolution };
+    return u;
   }
 }
 
