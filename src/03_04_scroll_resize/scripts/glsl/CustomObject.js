@@ -68,6 +68,7 @@ class CustomObject {
     return {
       uMouse: { value: new Vector2(0.5, 0.5) },
       uHover: { value: 0 },
+      uTick: { value: 0 },
     };
   }
 
@@ -137,14 +138,18 @@ class CustomObject {
     const { x, y } = getWorldPosition(nextRect, newCanvasRect);
     mesh.position.x = x;
     mesh.position.y = y;
-  
+
     // 大きさの変更
-    geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
-  
+    geometry.scale(
+      nextRect.width / rect.width,
+      nextRect.height / rect.height,
+      1
+    );
+
     this.rect = nextRect;
   }
 
-  render() {
+  render(tick) {
     this.uniforms.uTick.value = tick;
   }
 }

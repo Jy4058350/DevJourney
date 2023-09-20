@@ -64,12 +64,15 @@ async function initObjects() {
 }
 
 function render() {
+  let tick = 0;
+  tick++;
   requestAnimationFrame(render);
   // スクロール処理
   // os.forEach((o) => o.scroll());
   for (let i = 0; i < os.length; i++) {
     const o = os[i];
     o.scroll();
+    o.render(tick);
   }
 
   // レイキャスティング
