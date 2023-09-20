@@ -11,6 +11,7 @@ import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 import ExtendObject from "./normal";
 import ExtendObject2 from "./gray";
+import { CustomObject } from "./CustomObject";
 
 const os = [];
 

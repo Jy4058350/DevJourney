@@ -27,6 +27,7 @@ class CustomObject {
     this.mesh = this.fixMesh();
     this.disv();
     this.style();
+    this.scroll();
 
     this.mesh.position.z = 0;
 
@@ -106,12 +107,12 @@ class CustomObject {
     return u;
   }
 
-  scroll(o) {
+  scroll(canvasRect) {
     const newCanvasRect = canvas.getBoundingClientRect();
     const {
       $: { el },
       mesh,
-    } = o;
+    } = this;
     const rect = el.getBoundingClientRect();
     if (newCanvasRect) {
       const { x, y } = getWorldPosition(rect, newCanvasRect);
