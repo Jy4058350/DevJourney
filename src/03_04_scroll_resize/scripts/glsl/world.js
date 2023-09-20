@@ -66,7 +66,7 @@ async function initObjects() {
 function render() {
   requestAnimationFrame(render);
   // スクロール処理
-  os.forEach((o) => scroll(o));
+  os.forEach((o) => o.scroll(o));
 
   // レイキャスティング
   raycast();
@@ -99,24 +99,24 @@ function raycast() {
   }
 }
 
-// function scroll(o) {
-//   const newCanvasRect = canvas.getBoundingClientRect();
-//   const {
-//     $: { el },
-//     mesh,
-//   } = o;
-//   const rect = el.getBoundingClientRect();
-//   if (newCanvasRect) {
-//     const { x, y } = getWorldPosition(rect, newCanvasRect);
-//     // mesh.position.x = x;
-//     mesh.position.y = y;
-//   }
-//   if (!newCanvasRect && canvasRect) {
-//     const { x, y } = getWorldPosition(rect, canvasRect);
-//     // mesh.position.x = x;
-//     mesh.position.y = y;
-//   }
-// }
+function scroll(o) {
+  const newCanvasRect = canvas.getBoundingClientRect();
+  const {
+    $: { el },
+    mesh,
+  } = o;
+  const rect = el.getBoundingClientRect();
+  if (newCanvasRect) {
+    const { x, y } = getWorldPosition(rect, newCanvasRect);
+    // mesh.position.x = x;
+    mesh.position.y = y;
+  }
+  if (!newCanvasRect && canvasRect) {
+    const { x, y } = getWorldPosition(rect, canvasRect);
+    // mesh.position.x = x;
+    mesh.position.y = y;
+  }
+}
 
 function resize(o, newCanvasRect) {
   const {
