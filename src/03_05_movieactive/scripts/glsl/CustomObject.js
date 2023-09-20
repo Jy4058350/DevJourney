@@ -170,13 +170,14 @@ class CustomObject {
     }, 2000);
   }
 
-  playVideo() {
-    this.texes.get("tex1").source.play();
+  async playVideo() {
+    await this.texes.get("tex1").source.play();
     console.log("play");
+    debugger;
   }
 
-  pauseVideo() {
-    this.texes.get("tex1").source.pause();
+  async pauseVideo() {
+    await this.texes.get("tex1").source.pause();
     console.log("pause");
   }
 }
