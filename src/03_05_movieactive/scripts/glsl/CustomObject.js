@@ -174,7 +174,11 @@ class CustomObject {
   }
 
   async pauseVideo() {
-    console.log("pause");
+    console.log(this.texes.get("tex1").source.data.autoplay);
+    let a = this.texes.get("tex1").source.data.autoplay;
+    a = false;
+    console.log(a);
+
     // await this.texes.get("tex1").source.pause();
   }
 }

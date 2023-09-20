@@ -102,7 +102,7 @@ async function loadVideo(url) {
     video.src = url;
     video.muted = true;
     video.loop = true;
-    video.autoplay = true;
+    video.autoplay = false;
     video.playsinline = true;
 
     // console.log(video);
