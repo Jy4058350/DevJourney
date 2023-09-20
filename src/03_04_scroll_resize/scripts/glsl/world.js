@@ -68,14 +68,12 @@ function render() {
   world.tick++;
   requestAnimationFrame(render);
   // スクロール処理
-  // for (let i = 0; i < os.length; i++) {
-  for (let i = os.length - 1; i > 0; i--) {
+  for (let i = os.length - 1; i >= 0; i--) {
     const o = os[i];
     o.scroll();
     o.render(world.tick);
   }
 
-  // レイキャスティング
   raycast();
 
   world.renderer.render(world.scene, world.camera);
@@ -91,7 +89,8 @@ function raycast() {
   const intersects = raycaster.intersectObjects(world.scene.children);
   const intersect = intersects[0];
 
-  for (let i = 0; i < world.scene.children.length; i++) {
+  // for (let i = 0; i < world.scene.children.length; i++) {
+  for (let i = world.scene.children.length - 1; i >= 0; i--) {
     const _mesh = world.scene.children[i];
 
     const uHover = _mesh.material.uniforms.uHover;
@@ -102,7 +101,7 @@ function raycast() {
       uHover.__endValue = 0;
     }
 
-    uHover.value = lerp(uHover.value, uHover.__endValue, 0.1);
+    uHover.value = lerp(uHover.value, uHover.__endValue, 0.01);
   }
 }
 
