@@ -17,7 +17,7 @@ void main() {
   vec4 t2 = texture2D(tex2, vUv);
   vec2 mouse = step(uMouse, vUv);
   gl_FragColor = vec4(mouse, uHover, 1.);
-  // gl_FragColor = mix(t1, t2, uHover);
+  gl_FragColor = mix(t1, t2, uHover);
   // gl_FragColor = mix(t1, t2, step(0.5, vUv.x));
   // gl_FragColor = t1;
 

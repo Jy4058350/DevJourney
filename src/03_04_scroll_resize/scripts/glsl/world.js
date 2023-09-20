@@ -61,6 +61,8 @@ async function initObjects() {
     os.push(o);
   });
   await Promise.all(prms);
+
+  world.forEach(async (o) => await o.afterInit());
 }
 
 function render() {
