@@ -24,7 +24,7 @@ const world = {
 
 const raycaster = new Raycaster();
 
-function init(canvasRect, viewport) {
+async function init(canvasRect, viewport) {
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
@@ -42,8 +42,9 @@ function init(canvasRect, viewport) {
     viewport.far
   );
   world.camera.position.z = viewport.cameraZ;
+  console.log("0");
 
-  initObjects(canvasRect);
+  await initObjects();
 }
 
 async function initObjects() {
