@@ -17,6 +17,8 @@ class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
+    this.before = this.before();
+    this.defines = this.fixDefines();
     this.uniforms = this.fixUniforms();
     this.uniforms = this.fixTexes(this.uniforms);
     this.uniforms = this.setupResolution(this.uniforms);
@@ -27,13 +29,19 @@ class CustomObject {
     this.mesh = this.fixMesh();
     this.disv();
     this.style();
-    // this.scroll();
-
-    this.mesh.position.z = 0;
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
     this.mesh.position.y = y;
+  }
+
+  before() {}
+  after() {}
+
+  fixDefines() {
+    return {
+      PI: Math.PI,
+    };
   }
 
   disv() {
@@ -58,6 +66,7 @@ class CustomObject {
 
   fixMaterial() {
     return new ShaderMaterial({
+      defines: this.defines,
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
       uniforms: this.uniforms,
@@ -152,6 +161,7 @@ class CustomObject {
   render(tick) {
     this.uniforms.uTick.value = tick;
   }
+  async afterInit() {}
 }
 
 export { CustomObject };
