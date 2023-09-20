@@ -66,7 +66,11 @@ async function initObjects() {
 function render() {
   requestAnimationFrame(render);
   // スクロール処理
-  os.forEach((o) => o.scroll());
+  // os.forEach((o) => o.scroll());
+  for (let i = 0; i < os.length; i++) {
+    const o = os[i];
+    o.scroll();
+  }
 
   // レイキャスティング
   raycast();
