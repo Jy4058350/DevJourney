@@ -174,9 +174,9 @@ class CustomObject {
   }
 
   async pauseVideo() {
-    console.log(this.texes.get("tex1").source.data.autoplay);
-    let a = this.texes.get("tex1").source.data.autoplay;
-    a = false;
+    console.log(this.texes.get("tex1").source.data);
+    let a = this.texes.get("tex1").source.data;
+    a.pause();
     console.log(a);
 
     // await this.texes.get("tex1").source.pause();
