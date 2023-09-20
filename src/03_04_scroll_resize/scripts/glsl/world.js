@@ -19,6 +19,7 @@ const world = {
   init,
   render,
   osResize,
+  tick: 0,
 };
 
 const raycaster = new Raycaster();
@@ -64,15 +65,13 @@ async function initObjects() {
 }
 
 function render() {
-  let tick = 0;
-  tick++;
+  world.tick++;
   requestAnimationFrame(render);
   // スクロール処理
-  // os.forEach((o) => o.scroll());
   for (let i = 0; i < os.length; i++) {
     const o = os[i];
     o.scroll();
-    o.render(tick);
+    o.render(world.tick);
   }
 
   // レイキャスティング
