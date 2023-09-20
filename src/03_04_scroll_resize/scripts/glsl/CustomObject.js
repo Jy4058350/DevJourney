@@ -125,6 +125,35 @@ class CustomObject {
       mesh.position.y = y;
     }
   }
+
+  resize(o, newCanvasRect) {
+    const {
+      $: { el },
+      mesh,
+      geometry,
+      rect,
+    } = o;
+    const nextRect = el.getBoundingClientRect();
+    const { x, y } = getWorldPosition(nextRect, newCanvasRect);
+    mesh.position.x = x;
+    mesh.position.y = y;
+  
+    // 大きさの変更
+    geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
+  
+    o.rect = nextRect;
+  }
+
+  // osResize() {
+  //   world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
+  //   os.forEach((o) => resize(o, viewport.newCanvasRect));
+  //   world.camera.fov = viewport.fov;
+  //   world.camera.near = viewport.near;
+  //   world.camera.far = viewport.far;
+  //   world.camera.aspect = viewport.aspect;
+  //   world.camera.updateProjectionMatrix();
+  // }
+
 }
 
 export { CustomObject };
