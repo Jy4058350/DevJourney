@@ -144,16 +144,9 @@ class CustomObject {
     this.rect = nextRect;
   }
 
-  // osResize() {
-  //   world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
-  //   os.forEach((o) => resize(o, viewport.newCanvasRect));
-  //   world.camera.fov = viewport.fov;
-  //   world.camera.near = viewport.near;
-  //   world.camera.far = viewport.far;
-  //   world.camera.aspect = viewport.aspect;
-  //   world.camera.updateProjectionMatrix();
-  // }
-
+  render() {
+    this.uniforms.uTick.value = tick;
+  }
 }
 
 export { CustomObject };
