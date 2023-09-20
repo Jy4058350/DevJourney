@@ -23,7 +23,6 @@ const world = {
 };
 
 const raycaster = new Raycaster();
-const pointer = new Vector2();
 
 function init(canvasRect, viewport) {
   world.renderer = new WebGLRenderer({
