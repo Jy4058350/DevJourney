@@ -126,13 +126,13 @@ class CustomObject {
     }
   }
 
-  resize(o, newCanvasRect) {
+  resize(newCanvasRect) {
     const {
       $: { el },
       mesh,
       geometry,
       rect,
-    } = o;
+    } = this;
     const nextRect = el.getBoundingClientRect();
     const { x, y } = getWorldPosition(nextRect, newCanvasRect);
     mesh.position.x = x;
@@ -141,7 +141,7 @@ class CustomObject {
     // 大きさの変更
     geometry.scale(nextRect.width / rect.width, nextRect.height / rect.height, 1);
   
-    o.rect = nextRect;
+    this.rect = nextRect;
   }
 
   // osResize() {
