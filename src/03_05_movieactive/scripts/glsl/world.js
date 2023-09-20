@@ -61,9 +61,7 @@ async function initObjects() {
     os.push(o);
   });
   os.forEach(async (o) => await o.afterInit());
-  console.log(os);
-  // debugger;
-  console.log("1");
+  console.log(os[1]);
   await Promise.all(prms);
 }
 
