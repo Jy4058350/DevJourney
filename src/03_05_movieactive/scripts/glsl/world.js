@@ -61,10 +61,10 @@ async function initObjects() {
     world.scene.add(o.mesh);
     os.push(o);
   });
+  console.log("1");
   await Promise.all(prms);
 
   os.forEach(async (o) => await o.afterInit());
-  console.log("1");
 }
 
 function render() {
