@@ -59,9 +59,15 @@ async function initObjects() {
 
     world.scene.add(o.mesh);
     os.push(o);
+    return o;
   });
-  os.forEach(async (o) => await o.afterInit());
-  console.log(os[1]);
+  console.log(os);
+  console.log(os.length);
+
+  // os.forEach(async (o) => await o.afterInit());
+  for(const o of os) {
+    console.log(os);
+  }
   await Promise.all(prms);
 }
 

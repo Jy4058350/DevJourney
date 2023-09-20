@@ -17,6 +17,7 @@ class CustomObject {
       texes.set("tex1", texes.get("tex2"));
     }
 
+    this.after = this.afterInit();
     this.before = this.before();
     this.defines = this.fixDefines();
     this.uniforms = this.fixUniforms();
@@ -164,21 +165,17 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
   async afterInit() {
-    console.log("play");
+    // debugger;
     this.pauseVideo();
-    setTimeout(() => {
-      this.playVideo();
-    }, 2000);
   }
 
   async playVideo() {
     await this.texes.get("tex1").source.play();
-    
   }
 
   async pauseVideo() {
-    await this.texes.get("tex1").source.pause();
     console.log("pause");
+    // await this.texes.get("tex1").source.pause();
   }
 }
 
