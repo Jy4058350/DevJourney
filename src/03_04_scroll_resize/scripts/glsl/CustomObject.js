@@ -27,7 +27,7 @@ class CustomObject {
     this.mesh = this.fixMesh();
     this.disv();
     this.style();
-    this.scroll();
+    // this.scroll();
 
     this.mesh.position.z = 0;
 
