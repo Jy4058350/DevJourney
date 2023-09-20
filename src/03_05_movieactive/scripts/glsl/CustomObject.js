@@ -163,7 +163,22 @@ class CustomObject {
   render(tick) {
     this.uniforms.uTick.value = tick;
   }
-  async afterInit() {}
+  async afterInit() {
+    this.pauseVideo();
+    setTimeout(() => {
+      this.playVideo();
+    }, 2000);
+  }
+
+  playVideo() {
+    this.texes.get("tex1").source.play();
+    console.log("play");
+  }
+
+  pauseVideo() {
+    this.texes.get("tex1").source.pause();
+    console.log("pause");
+  }
 }
 
 export { CustomObject };
