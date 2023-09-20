@@ -11,7 +11,7 @@ import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 import ExtendObject from "./normal";
 import ExtendObject2 from "./gray";
-import { CustomObject } from "./CustomObject";
+// import { CustomObject } from "./CustomObject";
 
 const os = [];
 
@@ -99,24 +99,24 @@ function raycast() {
   }
 }
 
-function scroll(o) {
-  const newCanvasRect = canvas.getBoundingClientRect();
-  const {
-    $: { el },
-    mesh,
-  } = o;
-  const rect = el.getBoundingClientRect();
-  if (newCanvasRect) {
-    const { x, y } = getWorldPosition(rect, newCanvasRect);
-    // mesh.position.x = x;
-    mesh.position.y = y;
-  }
-  if (!newCanvasRect && canvasRect) {
-    const { x, y } = getWorldPosition(rect, canvasRect);
-    // mesh.position.x = x;
-    mesh.position.y = y;
-  }
-}
+// function scroll(o) {
+//   const newCanvasRect = canvas.getBoundingClientRect();
+//   const {
+//     $: { el },
+//     mesh,
+//   } = o;
+//   const rect = el.getBoundingClientRect();
+//   if (newCanvasRect) {
+//     const { x, y } = getWorldPosition(rect, newCanvasRect);
+//     // mesh.position.x = x;
+//     mesh.position.y = y;
+//   }
+//   if (!newCanvasRect && canvasRect) {
+//     const { x, y } = getWorldPosition(rect, canvasRect);
+//     // mesh.position.x = x;
+//     mesh.position.y = y;
+//   }
+// }
 
 function resize(o, newCanvasRect) {
   const {
