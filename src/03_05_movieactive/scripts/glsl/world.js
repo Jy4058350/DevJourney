@@ -24,7 +24,7 @@ const world = {
 
 const raycaster = new Raycaster();
 
-function init(canvasRect, viewport) {
+async function init(canvasRect, viewport) {
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
@@ -43,7 +43,7 @@ function init(canvasRect, viewport) {
   );
   world.camera.position.z = viewport.cameraZ;
 
-  initObjects(canvasRect);
+  await initObjects(canvasRect);
 }
 
 async function initObjects() {
@@ -59,10 +59,10 @@ async function initObjects() {
 
     world.scene.add(o.mesh);
     os.push(o);
+    return o;
   });
-  await Promise.all(prms);
 
-  os.forEach(async (o) => await o.afterInit());
+  await Promise.all(prms);
 }
 
 function render() {
