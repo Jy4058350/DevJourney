@@ -6,7 +6,11 @@ import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 
-window.debug = 1;
+window.debug = debugmode(0) ? 1 : 0;
+
+function debugmode(d) {
+  return d && import.meta.env.DEV;
+}
 
 export async function init() {
   const canvas = document.querySelector("#canvas");
