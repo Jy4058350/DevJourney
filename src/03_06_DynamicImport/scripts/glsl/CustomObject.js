@@ -30,6 +30,7 @@ class CustomObject {
     this.disv();
     this.style();
     // this.after = this.afterInit();
+    this.afterInit();
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;

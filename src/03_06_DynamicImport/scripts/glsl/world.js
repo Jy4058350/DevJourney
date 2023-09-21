@@ -59,6 +59,7 @@ async function initObjects() {
     return o;
   });
 
+  os.forEach(async (o) => await o.afterInit());
   await Promise.all(prms);
 }
 
