@@ -167,19 +167,25 @@ class CustomObject {
   async afterInit() {
     // debugger;
     this.pauseVideo();
+    setTimeout(() => {
+      this.playVideo();
+    }, 5000);
   }
 
   async playVideo() {
-    await this.texes.get("tex1").source.play();
+    let a = this.texes.get("tex1").source.data;
+    if (a instanceof HTMLVideoElement) {
+      await a.play();
+    }
+    // await this.texes.get("tex1").source.play();
   }
 
   async pauseVideo() {
     console.log(this.texes.get("tex1").source.data);
     let a = this.texes.get("tex1").source.data;
-    a.pause();
-    console.log(a);
-
-    // await this.texes.get("tex1").source.pause();
+    if (a instanceof HTMLVideoElement) {
+      await a.pause();
+    }
   }
 }
 
