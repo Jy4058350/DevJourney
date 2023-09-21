@@ -52,7 +52,7 @@ async function initObjects() {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     console.log(type);
-    import(`${type}/index.js`).then((CustomObject) => {
+    import(`./${type}/index.js`).then((CustomObject) => {
       CustomObject.init({ el, type });
     });
     // let o;
