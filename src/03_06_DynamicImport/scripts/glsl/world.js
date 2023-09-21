@@ -6,12 +6,9 @@ import {
   Vector2,
 } from "three";
 
-import { lerp, getWorldPosition } from "../helper/utils";
+import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
-import ExtendObject from "./normal";
-import ExtendObject2 from "./gray";
-import { CustomObject } from "./CustomObject";
 
 const os = [];
 
@@ -51,15 +48,11 @@ async function initObjects() {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     console.log(type);
-    const o = await import(`./${type}/index.js`).then(({ default: CustomObject }) => {
-     return CustomObject.init({ el, type });
-    });
-    // let o;
-    // if (type === "normal") {
-    //   o = await ExtendObject.init({ el, type });
-    // } else if (type === "gray") {
-    //   o = await ExtendObject2.init({ el, type });
-    // }
+    const o = await import(`./${type}/index.js`).then(
+      ({ default: CustomObject }) => {
+        return CustomObject.init({ el, type });
+      }
+    );
 
     world.scene.add(o.mesh);
     os.push(o);
