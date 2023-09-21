@@ -11,13 +11,12 @@ class CustomObject {
   }
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
-    this.texes = texes ?? [];
+    this.texes = texes ?? new Map();
     this.rect = el.getBoundingClientRect();
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
 
-    this.after = this.afterInit();
     this.before = this.before();
     this.defines = this.fixDefines();
     this.uniforms = this.fixUniforms();
@@ -30,6 +29,7 @@ class CustomObject {
     this.mesh = this.fixMesh();
     this.disv();
     this.style();
+    this.after = this.afterInit();
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
@@ -177,11 +177,10 @@ class CustomObject {
     if (a instanceof HTMLVideoElement) {
       await a.play();
     }
-    // await this.texes.get("tex1").source.play();
   }
 
   async pauseVideo() {
-    console.log(this.texes.get("tex1").source.data);
+    // console.log(this.texes.get("tex1").source.data);
     let a = this.texes.get("tex1").source.data;
     if (a instanceof HTMLVideoElement) {
       await a.pause();
