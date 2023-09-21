@@ -58,9 +58,11 @@ async function initObjects() {
     os.push(o);
     return o;
   });
-
-  os.forEach(async (o) => await o.afterInit());
+  console.log(os);
   await Promise.all(prms);
+
+  const prmsA = os.map((o) => o.afterInit());
+  await Promise.all(prmsA);
 }
 
 function render() {

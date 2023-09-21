@@ -29,8 +29,7 @@ class CustomObject {
     this.mesh = this.fixMesh();
     this.disv();
     this.style();
-    // this.after = this.afterInit();
-    this.afterInit();
+    this.after = this.afterInit();
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
@@ -38,7 +37,6 @@ class CustomObject {
   }
 
   before() {}
-  after() {}
 
   fixDefines() {
     return {
