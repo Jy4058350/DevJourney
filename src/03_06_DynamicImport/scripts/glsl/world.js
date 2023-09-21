@@ -11,6 +11,7 @@ import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 import ExtendObject from "./normal";
 import ExtendObject2 from "./gray";
+import { CustomObject } from "./CustomObject";
 // import { CustomObject } from "./CustomObject";
 
 const os = [];
@@ -50,12 +51,16 @@ async function initObjects() {
   const els = document.querySelectorAll("[data-webgl]");
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
-    let o;
-    if (type === "normal") {
-      o = await ExtendObject.init({ el, type });
-    } else if (type === "gray") {
-      o = await ExtendObject2.init({ el, type });
-    }
+    console.log(type);
+    import(`${type}/index.js`).then((CustomObject) => {
+      CustomObject.init({ el, type });
+    });
+    // let o;
+    // if (type === "normal") {
+    //   o = await ExtendObject.init({ el, type });
+    // } else if (type === "gray") {
+    //   o = await ExtendObject2.init({ el, type });
+    // }
 
     world.scene.add(o.mesh);
     os.push(o);
