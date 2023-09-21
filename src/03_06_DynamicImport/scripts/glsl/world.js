@@ -53,7 +53,7 @@ async function initObjects(canvasRect) {
         return CustomObject.init({ el, type });
       }
     );
-
+    if (!o.mesh) return;
     world.scene.add(o.mesh);
     os.push(o);
     return o;
