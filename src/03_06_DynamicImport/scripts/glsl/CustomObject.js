@@ -13,27 +13,42 @@ class CustomObject {
     this.$ = { el };
     this.texes = texes ?? new Map();
     this.rect = el.getBoundingClientRect();
+
+    if (!this.rect.width || !this.rect.height) {
+      console.log("non pixel");
+      return {};
+    }
+
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
+    try {
+      this.before = this.before();
+      this.defines = this.fixDefines();
+      this.uniforms = this.fixUniforms();
+      this.uniforms = this.fixTexes(this.uniforms);
+      this.uniforms = this.setupResolution(this.uniforms);
+      this.vertexShader = this.fixVertex();
+      this.fragmentShader = this.fixFragment();
+      this.geometry = this.fixGeometry();
+      this.material = this.fixMaterial();
+      this.mesh = this.fixMesh();
+      this.disv();
+      this.style();
+      this.after = this.afterInit();
 
-    this.before = this.before();
-    this.defines = this.fixDefines();
-    this.uniforms = this.fixUniforms();
-    this.uniforms = this.fixTexes(this.uniforms);
-    this.uniforms = this.setupResolution(this.uniforms);
-    this.vertexShader = this.fixVertex();
-    this.fragmentShader = this.fixFragment();
-    this.geometry = this.fixGeometry();
-    this.material = this.fixMaterial();
-    this.mesh = this.fixMesh();
-    this.disv();
-    this.style();
-    this.after = this.afterInit();
+      this.mesh.__marker = type;
+    } catch (e) {
+      console.log(e);
+      // return {};
+    }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
-    this.mesh.position.x = x;
-    this.mesh.position.y = y;
+    console.log(this.material);
+    if (this.mesh) {
+      this.mesh.position.x = x;
+      this.mesh.position.y = y;
+    }
   }
 
   before() {}
