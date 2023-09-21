@@ -14,9 +14,11 @@ class CustomObject {
     this.texes = texes ?? new Map();
     this.rect = el.getBoundingClientRect();
 
-    if (!this.rect.width || !this.rect.height) {
-      console.log("non pixel");
-      return {};
+    if (window.debug) {
+      if (!this.rect.width || !this.rect.height) {
+        console.log("non pixel");
+        return {};
+      }
     }
 
     if (texes.get("tex1") === null) {
@@ -44,7 +46,6 @@ class CustomObject {
     }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
-    console.log(this.material);
     if (this.mesh) {
       this.mesh.position.x = x;
       this.mesh.position.y = y;

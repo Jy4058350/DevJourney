@@ -7,7 +7,7 @@ import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 
 
-window.debug = 1;
+window.debug = 0;
 
 export async function init() {
   const canvas = document.querySelector("#canvas");
