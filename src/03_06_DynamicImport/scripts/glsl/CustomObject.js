@@ -15,7 +15,9 @@ class CustomObject {
     this.rect = el.getBoundingClientRect();
 
     if (!this.rect.width || !this.rect.height) {
-      console.log("non pixel");
+      if (window.debug === 1) {
+        console.log("non pixel element is detected.");
+      }
       return {};
     }
 
@@ -39,12 +41,13 @@ class CustomObject {
 
       this.mesh.__marker = type;
     } catch (e) {
-      console.log(e);
-      // return {};
+      if (window.debug === 1) {
+        console.log(e);
+      }
+        return {};
     }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
-    console.log(this.material);
     if (this.mesh) {
       this.mesh.position.x = x;
       this.mesh.position.y = y;
