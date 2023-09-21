@@ -43,8 +43,10 @@ class CustomObject {
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     console.log(this.material);
-    this.mesh.position.x = x;
-    this.mesh.position.y = y;
+    if (this.mesh) {
+      this.mesh.position.x = x;
+      this.mesh.position.y = y;
+    }
   }
 
   before() {}
