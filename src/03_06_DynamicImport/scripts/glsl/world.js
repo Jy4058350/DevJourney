@@ -61,8 +61,8 @@ async function initObjects() {
   console.log(os);
   await Promise.all(prms);
 
-  const prmsA = os.map((o) => o.afterInit());
-  await Promise.all(prmsA);
+  // const prmsA = os.map((o) => o.afterInit());
+  // await Promise.all(prmsA);
 }
 
 function render() {
