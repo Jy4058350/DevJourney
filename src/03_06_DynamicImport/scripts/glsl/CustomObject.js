@@ -38,10 +38,11 @@ class CustomObject {
       this.after = this.afterInit();
     } catch (e) {
       console.log(e);
+      // return {};
     }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
-    console.log(this.mesh);
+    console.log(this.material);
     this.mesh.position.x = x;
     this.mesh.position.y = y;
   }
