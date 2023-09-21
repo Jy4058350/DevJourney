@@ -14,11 +14,11 @@ class CustomObject {
     this.texes = texes ?? new Map();
     this.rect = el.getBoundingClientRect();
 
-    if (window.debug) {
-      if (!this.rect.width || !this.rect.height) {
-        console.log("non pixel");
-        return {};
+    if (!this.rect.width || !this.rect.height) {
+      if (window.debug === 1) {
+        console.log("non pixel element is detected.");
       }
+      return {};
     }
 
     if (texes.get("tex1") === null) {
@@ -41,8 +41,10 @@ class CustomObject {
 
       this.mesh.__marker = type;
     } catch (e) {
-      console.log(e);
-      // return {};
+      if (window.debug === 1) {
+        console.log(e);
+      }
+        return {};
     }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);

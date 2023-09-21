@@ -6,8 +6,7 @@ import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 
-
-window.debug = 0;
+window.debug = 1;
 
 export async function init() {
   const canvas = document.querySelector("#canvas");
@@ -22,11 +21,9 @@ export async function init() {
     loader.$.p.innerHTML = `${percent} %`;
     loader.$.b.style.width = `${percent}%`;
   });
-  
-  
-  
+
   viewport.bindResizeEvents();
-  
+
   await loader.init();
 
   world.init(canvasRect, viewport);
