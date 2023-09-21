@@ -36,6 +36,8 @@ class CustomObject {
       this.disv();
       this.style();
       this.after = this.afterInit();
+
+      this.mesh.__marker = type;
     } catch (e) {
       console.log(e);
       // return {};
