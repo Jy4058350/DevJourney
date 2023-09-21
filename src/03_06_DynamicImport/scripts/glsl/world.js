@@ -12,7 +12,6 @@ import { mouse } from "../component/mouse";
 import ExtendObject from "./normal";
 import ExtendObject2 from "./gray";
 import { CustomObject } from "./CustomObject";
-// import { CustomObject } from "./CustomObject";
 
 const os = [];
 
@@ -52,8 +51,8 @@ async function initObjects() {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     console.log(type);
-    const o = import(`./${type}/index.js`).then((CustomObject) => {
-      CustomObject.init({ el, type });
+    const o = import(`./${type}/index.js`).then(({ default: CustomObject }) => {
+     return CustomObject.init({ el, type });
     });
     // let o;
     // if (type === "normal") {
