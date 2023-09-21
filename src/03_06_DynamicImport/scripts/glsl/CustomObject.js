@@ -16,20 +16,23 @@ class CustomObject {
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
     }
-
-    this.before = this.before();
-    this.defines = this.fixDefines();
-    this.uniforms = this.fixUniforms();
-    this.uniforms = this.fixTexes(this.uniforms);
-    this.uniforms = this.setupResolution(this.uniforms);
-    this.vertexShader = this.fixVertex();
-    this.fragmentShader = this.fixFragment();
-    this.geometry = this.fixGeometry();
-    this.material = this.fixMaterial();
-    this.mesh = this.fixMesh();
-    this.disv();
-    this.style();
-    this.after = this.afterInit();
+    try {
+      this.before = this.before();
+      this.defines = this.fixDefines();
+      this.uniforms = this.fixUniforms();
+      this.uniforms = this.fixTexes(this.uniforms);
+      this.uniforms = this.setupResolution(this.uniforms);
+      this.vertexShader = this.fixVertex();
+      this.fragmentShader = this.fixFragment();
+      this.geometry = this.fixGeometry();
+      this.material = this.fixMaterial();
+      this.mesh = this.fixMesh();
+      this.disv();
+      this.style();
+      this.after = this.afterInit();
+    } catch (e) {
+      console.log(e);
+    }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
     this.mesh.position.x = x;
