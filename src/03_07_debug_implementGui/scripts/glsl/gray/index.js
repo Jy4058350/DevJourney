@@ -4,13 +4,17 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import { gui } from "../../helper";
 
+let first = true;
 class ExtendObject2 extends CustomObject {
   before() {
-    super.before();
+    // super.before();
     if (window.innerWidth < 768) {
       throw new Error("skip");
     }
-    console.log("b2");
+    if (first) {
+      console.log("b2");
+      first = false;
+    }
   }
 
   fixVertex() {
