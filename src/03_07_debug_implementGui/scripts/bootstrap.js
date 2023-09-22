@@ -17,6 +17,10 @@ export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
 
+  if (window.debug) {
+    await gui.init();
+  }
+
   viewport.init(canvasRect);
   scroll.initScroller();
   loader.loadDom();
@@ -37,9 +41,7 @@ export async function init() {
 
   world.render();
 
-  if (window.debug) {
-    await gui.init();
-  }
+  
 
   // await gui.guiOpen();
 

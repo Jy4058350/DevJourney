@@ -1,10 +1,4 @@
-import {
-  WebGLRenderer,
-  Scene,
-  PerspectiveCamera,
-  Raycaster,
-  Vector2,
-} from "three";
+import { WebGLRenderer, Scene, PerspectiveCamera, Raycaster } from "three";
 
 import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
@@ -58,8 +52,10 @@ async function initObjects(canvasRect) {
     os.push(o);
     return o;
   });
-  // console.log(os);
-  await Promise.all(prms);
+  // console.log(prms);
+  await Promise.all(prms).then((prms) => {
+    console.log(prms);
+  });
 
   // const prmsA = os.map((o) => o.afterInit());
   // await Promise.all(prmsA);
