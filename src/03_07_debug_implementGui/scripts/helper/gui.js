@@ -22,9 +22,10 @@ function open() {
   gui.ga((g) => {
     world.os.forEach((o) => {
       if (!o.debug) return;
-      const t = o.$.el.dataset.webgl;
-      const f = g.addFolder(t);
-      o.debug(f);
+      const type = o.$.el.dataset.webgl;
+      const newGui = g.addFolder(type);
+      o.debug(newGui);
+        g.close();
     });
   });
 }

@@ -34,10 +34,8 @@ class ExtendObject2 extends CustomObject {
     super.afterInit();
   }
 
-  debug() {
-    gui.ga((g) => {
-      g.add(this.uniforms.uEdge, "value", 0, 1, 0.1).name("uEdge");
-    });
+  debug(toFolder) {
+    toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
   }
 }
 
