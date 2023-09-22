@@ -52,13 +52,10 @@ async function initObjects(canvasRect) {
     os.push(o);
     return o;
   });
-  // console.log(prms);
-  await Promise.all(prms).then((prms) => {
-    console.log(prms);
-  });
+  await Promise.all(prms).then((prms) => console.log(prms));
 
   const prmsA = os.map((o) => o.afterInit());
-  await Promise.all(prmsA);
+  await Promise.all(prmsA).then((prms) => console.log(prms));
 }
 
 function render() {

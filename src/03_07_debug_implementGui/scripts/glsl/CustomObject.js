@@ -53,7 +53,9 @@ class CustomObject {
     }
   }
 
-  before() {}
+  before() {
+    console.log("b1");
+  }
 
   fixDefines() {
     return {
@@ -182,11 +184,11 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
   async afterInit() {
-    // this.pauseVideo();
-    // setTimeout(() => {
-    //   this.playVideo();
-    // }, 5000);
-    console.log("1");
+    this.pauseVideo();
+    setTimeout(() => {
+      this.playVideo();
+    }, 5000);
+    console.log("a1");
   }
 
   async playVideo() {
