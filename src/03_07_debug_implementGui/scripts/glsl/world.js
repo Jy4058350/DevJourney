@@ -6,7 +6,7 @@ import {
   Vector2,
 } from "three";
 
-import { lerp, getWorldPosition } from "../helper/utils";
+import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
 
