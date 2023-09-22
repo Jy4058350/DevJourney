@@ -22,6 +22,7 @@ async function init() {
       })
       .then((o) => {
         console.log(o);
+        if (!o.uniforms) return;
         folder1
           .add(o.uniforms.uProgress, "value", 0, 1, 0.1)
           .name("zaxis")
@@ -29,7 +30,7 @@ async function init() {
         return o;
       });
 
-    if (!o.mesh) return;
+    // if (!o.mesh) return;
     os.push(o);
     return o;
   });
