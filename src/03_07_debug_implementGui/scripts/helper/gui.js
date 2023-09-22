@@ -25,27 +25,29 @@ async function init() {
 
     return o;
   });
-  console.log(prms);
-  await Promise.all(prms);
+
+  await Promise.all(prms).then((prms) => {
+    console.log(prms);
+  });
 }
 
-async function guiOpen(os) {
-  console.log("guiOpen");
-  console.log(os);
-  const prms = os.map((o) => {
-    folder1
-      .add(o.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("action")
-      .listen();
-  });
-  Promise.all(prms);
-}
+// async function guiOpen(os) {
+//   console.log("guiOpen");
+//   console.log(os);
+//   const prms = os.map((o) => {
+//     folder1
+//       .add(o.uniforms.uProgress, "value", 0, 1, 0.1)
+//       .name("action")
+//       .listen();
+//   });
+//   Promise.all(prms);
+// }
 
-const a = init()
-  .then(guiOpen(os))
-  .catch((error) => {
-    console.log(error);
-  });
+// const a = init()
+//   .then(guiOpen(os))
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 //   folder1.add(o.uniforms.uProgress, "value", 0, 1, 0.1).name("zaxis").listen();
 
@@ -61,4 +63,4 @@ const a = init()
 //       });
 //     });
 
-export { gui, guiOpen };
+export { gui };
