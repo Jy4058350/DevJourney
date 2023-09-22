@@ -6,9 +6,11 @@ import { gui } from "../../helper";
 
 class ExtendObject2 extends CustomObject {
   before() {
+    super.before();
     if (window.innerWidth < 768) {
       throw new Error("skip");
     }
+    console.log("b2");
   }
 
   fixVertex() {
@@ -25,10 +27,6 @@ class ExtendObject2 extends CustomObject {
       g.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("uProgress");
     });
     console.log("a2");
-  }
-
-  before() {
-    console.log("b2");
   }
 }
 
