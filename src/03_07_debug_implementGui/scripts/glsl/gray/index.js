@@ -20,11 +20,11 @@ class ExtendObject2 extends CustomObject {
   }
 
   afterInit() {
-    super.afterInit();
+    // super.afterInit();
     gui.ga((g) => {
       g.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("uProgress");
     });
-    console.log("afterInit");
+    console.log("2");
   }
 }
 

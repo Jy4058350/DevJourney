@@ -182,11 +182,11 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
   async afterInit() {
-    this.pauseVideo();
-    setTimeout(() => {
-      this.playVideo();
-    }, 5000);
-    console.log("ob");
+    // this.pauseVideo();
+    // setTimeout(() => {
+    //   this.playVideo();
+    // }, 5000);
+    console.log("1");
   }
 
   async playVideo() {
