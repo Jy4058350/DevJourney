@@ -21,14 +21,16 @@ async function init() {
         return CustomObject.init({ el, type });
       })
       .then((o) => {
+        console.log(o);
         if (!o.uniforms) return;
         folder1
           .add(o.uniforms.uProgress, "value", 0, 1, 0.1)
           .name("zaxis")
           .listen();
-        return o;
+        return o.uniforms;
       })
       .then((o) => {
+        console.log(o);
         if (!o.uniforms) return;
         const datData = { next: !!o.uniforms.uProgress.value };
         folder1
