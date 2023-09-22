@@ -14,6 +14,7 @@ async function init(cb) {
 
 function ga(cb) {
   cb(g);
+  console.log(g);
 }
 
 export { gui };

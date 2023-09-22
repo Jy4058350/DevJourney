@@ -119,7 +119,7 @@ class CustomObject {
     if (!this.texes.has("tex1")) return u;
 
     const texData = this.texes.get("tex1").source.data;
-    
+
 
     let mrect = {};
     if (texData instanceof HTMLImageElement) {
@@ -184,7 +184,6 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
   async afterInit() {
-    // debugger;
     this.pauseVideo();
     setTimeout(() => {
       this.playVideo();
