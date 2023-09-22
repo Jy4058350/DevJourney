@@ -37,7 +37,11 @@ export async function init() {
 
   world.render();
 
-  gui.init();
+  if (window.debug) {
+    await gui.init();
+  }
+
+  // await gui.guiOpen();
 
   loader.loadingAnimation();
 }
