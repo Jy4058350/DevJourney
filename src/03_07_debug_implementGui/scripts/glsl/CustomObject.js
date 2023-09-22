@@ -44,7 +44,7 @@ class CustomObject {
       if (window.debug === 1) {
         console.log(e);
       }
-        return {};
+      return {};
     }
 
     const { x, y } = getWorldPosition(this.rect, canvasRect);
@@ -98,6 +98,7 @@ class CustomObject {
       uMouse: { value: new Vector2(0.5, 0.5) },
       uHover: { value: 0 },
       uTick: { value: 0 },
+      uProgress: { value: 0 },
     };
   }
 
