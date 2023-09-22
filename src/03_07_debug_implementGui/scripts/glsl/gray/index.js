@@ -17,6 +17,12 @@ class ExtendObject2 extends CustomObject {
     }
   }
 
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    uniforms.uEdge = { value: 0.0 };
+    return uniforms;
+  }
+
   fixVertex() {
     return vertexShader;
   }
@@ -28,7 +34,7 @@ class ExtendObject2 extends CustomObject {
   afterInit() {
     super.afterInit();
     gui.ga((g) => {
-      g.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("uProgress");
+      g.add(this.uniforms.uEdge, "value", 0, 1, 0.1).name("uEdge");
     });
     console.log("a2");
   }
