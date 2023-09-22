@@ -53,6 +53,7 @@ class CustomObject {
     }
   }
 
+  
   before() {
     console.log("b1");
   }

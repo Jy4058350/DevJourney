@@ -48,4 +48,12 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.guiOpen();
+  // gui.ga((g) => {
+  //   world.os.forEach((o) => {
+  //     if (!o.debug) return;
+  //     const t = o.$.el.dataset.webgl;
+  //     const f = g.addFolder(t);
+  //     o.debug(f);
+  //   });
+  // });
 }

@@ -19,7 +19,7 @@ class ExtendObject2 extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uEdge = { value: 0.0 };
+    uniforms.uEdge = { value: 0.5 };
     return uniforms;
   }
 
@@ -31,14 +31,15 @@ class ExtendObject2 extends CustomObject {
     return fragmentShader;
   }
 
-  afterInit() {}
+  afterInit() {
+    super.afterInit();
+    console.log("a2");
+  }
 
   debug() {
-    // super.afterInit();
     gui.ga((g) => {
       g.add(this.uniforms.uEdge, "value", 0, 1, 0.1).name("uEdge");
     });
-    console.log("a2");
   }
 }
 
