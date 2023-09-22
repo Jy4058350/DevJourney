@@ -17,6 +17,10 @@ class ExtendObject2 extends CustomObject {
   fixFragment() {
     return fragmentShader;
   }
+
+  afterInit() {
+    super.afterInit();
+  }
 }
 
 export default ExtendObject2;
