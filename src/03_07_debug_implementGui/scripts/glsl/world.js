@@ -57,8 +57,8 @@ async function initObjects(canvasRect) {
     console.log(prms);
   });
 
-  // const prmsA = os.map((o) => o.afterInit());
-  // await Promise.all(prmsA);
+  const prmsA = os.map((o) => o.afterInit());
+  await Promise.all(prmsA);
 }
 
 function render() {
