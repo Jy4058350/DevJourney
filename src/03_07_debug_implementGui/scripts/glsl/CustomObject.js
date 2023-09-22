@@ -53,9 +53,8 @@ class CustomObject {
     }
   }
 
-  
+
   before() {
-    console.log("b1");
   }
 
   fixDefines() {
@@ -189,7 +188,6 @@ class CustomObject {
     setTimeout(() => {
       this.playVideo();
     }, 5000);
-    console.log("a1");
   }
 
   async playVideo() {

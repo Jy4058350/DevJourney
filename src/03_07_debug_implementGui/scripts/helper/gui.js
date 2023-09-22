@@ -4,7 +4,7 @@ import world from "../glsl/world";
 const gui = {
   init,
   ga,
-  guiOpen,
+  open,
 };
 
 let g = null;
@@ -12,14 +12,13 @@ let g = null;
 async function init(cb) {
   if (!window.debug) return;
   g = new GUI();
-  console.log(g);
 }
 
 function ga(cb) {
   cb(g);
 }
 
-function guiOpen() {
+function open() {
   gui.ga((g) => {
     world.os.forEach((o) => {
       if (!o.debug) return;
@@ -31,5 +30,3 @@ function guiOpen() {
 }
 
 export { gui };
-
-// const folder1 = g.addFolder("action");

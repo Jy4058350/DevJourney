@@ -12,7 +12,6 @@ class ExtendObject2 extends CustomObject {
       throw new Error("skip");
     }
     if (first) {
-      console.log("b2");
       first = false;
     }
   }
@@ -33,7 +32,6 @@ class ExtendObject2 extends CustomObject {
 
   afterInit() {
     super.afterInit();
-    console.log("a2");
   }
 
   debug() {
