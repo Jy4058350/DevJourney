@@ -37,7 +37,6 @@ class CustomObject {
       this.mesh = this.fixMesh();
       this.disv();
       this.style();
-      // this.after = this.afterInit();
 
       this.mesh.__marker = type;
     } catch (e) {
@@ -120,7 +119,6 @@ class CustomObject {
 
     const texData = this.texes.get("tex1").source.data;
 
-
     let mrect = {};
     if (texData instanceof HTMLImageElement) {
       mrect = {
@@ -188,6 +186,7 @@ class CustomObject {
     setTimeout(() => {
       this.playVideo();
     }, 5000);
+    console.log("ob");
   }
 
   async playVideo() {
