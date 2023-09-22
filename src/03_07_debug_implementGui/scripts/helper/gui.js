@@ -22,6 +22,10 @@ async function init() {
       })
       .then((o) => {
         console.log(o);
+        folder1
+          .add(o.uniforms.uProgress, "value", 0, 1, 0.1)
+          .name("zaxis")
+          .listen();
         return o;
       });
 
