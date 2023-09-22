@@ -16,20 +16,22 @@ async function init() {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     // console.log(type);
-    const o = await import(`../glsl/${type}/index.js`).then(
-      ({ default: CustomObject }) => {
+    const o = await import(`../glsl/${type}/index.js`)
+      .then(({ default: CustomObject }) => {
         return CustomObject.init({ el, type });
-      }
-    );
+      })
+      .then((o) => {
+        console.log(o);
+        return o;
+      });
+
     if (!o.mesh) return;
     os.push(o);
     return o;
   });
   await Promise.all(prms);
 
-  console.log(os);
-
-  folder1.add(o.uniforms.uProgress, "value", 0, 1, 0.1).name("zaxis").listen();
+  //   folder1.add(o.uniforms.uProgress, "value", 0, 1, 0.1).name("zaxis").listen();
 
   // const datData = { next: !!material.uniforms.uProgress.value };
   // folder1
