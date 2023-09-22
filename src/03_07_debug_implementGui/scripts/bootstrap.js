@@ -24,7 +24,7 @@ export async function init() {
   viewport.init(canvasRect);
 
   scroll.initScroller();
-  
+
   loader.loadDom();
 
   loader.addProgressAction(function _progressAction(total, loaded) {
@@ -42,8 +42,6 @@ export async function init() {
   mouse.init();
 
   world.render();
-
- 
 
   // await gui.guiOpen();
 
