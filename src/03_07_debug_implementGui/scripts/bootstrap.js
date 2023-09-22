@@ -37,7 +37,7 @@ export async function init() {
 
   await loader.init();
 
-  world.init(canvasRect, viewport);
+  await world.init(canvasRect, viewport);
 
   mouse.init();
 
@@ -46,4 +46,6 @@ export async function init() {
   // await gui.guiOpen();
 
   loader.loadingAnimation();
+
+  gui.guiOpen();
 }

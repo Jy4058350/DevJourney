@@ -7,6 +7,7 @@ import { mouse } from "../component/mouse";
 const os = [];
 
 const world = {
+  os,
   init,
   render,
   osResize,

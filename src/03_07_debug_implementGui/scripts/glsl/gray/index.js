@@ -31,8 +31,10 @@ class ExtendObject2 extends CustomObject {
     return fragmentShader;
   }
 
-  afterInit() {
-    super.afterInit();
+  afterInit() {}
+
+  debug() {
+    // super.afterInit();
     gui.ga((g) => {
       g.add(this.uniforms.uEdge, "value", 0, 1, 0.1).name("uEdge");
     });
