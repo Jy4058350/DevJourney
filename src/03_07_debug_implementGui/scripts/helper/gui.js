@@ -10,11 +10,11 @@ let g = null;
 async function init(cb) {
   if (!window.debug) return;
   g = new GUI();
+  console.log(g);
 }
 
 function ga(cb) {
   cb(g);
-  console.log(g);
 }
 
 export { gui };

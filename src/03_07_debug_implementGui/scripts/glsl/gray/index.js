@@ -24,8 +24,8 @@ class ExtendObject2 extends CustomObject {
     gui.ga((g) => {
       g.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("uProgress");
     });
+    console.log("afterInit");
   }
 }
 
 export default ExtendObject2;
-
