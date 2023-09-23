@@ -1,4 +1,11 @@
-import { WebGLRenderer, Scene, PerspectiveCamera, Raycaster } from "three";
+import {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  Raycaster,
+  AxesHelper,
+} from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
@@ -26,6 +33,7 @@ async function init(canvasRect, viewport) {
   world.renderer.setClearColor(0x000000, 0);
 
   world.scene = new Scene();
+  console.log(world.scene);
 
   world.camera = new PerspectiveCamera(
     viewport.fov,
@@ -51,6 +59,15 @@ async function initObjects(canvasRect) {
     if (!o.mesh) return;
     world.scene.add(o.mesh);
     os.push(o);
+
+    const axis = new AxesHelper(100);
+    // console.log(world.scene);
+    world.scene.add(axis);
+    
+    // const controls = new OrbitControls(world.camera, world.renderer.domElement);
+    // controls.enableDamping = true;
+
+
     return o;
   });
   await Promise.all(prms).then((prms) => console.log(prms));
@@ -91,6 +108,7 @@ function raycast() {
 
   // for (let i = 0; i < world.scene.children.length; i++) {
   for (let i = world.scene.children.length - 1; i >= 0; i--) {
+    if(AxesHelper) return;
     const _mesh = world.scene.children[i];
 
     const uHover = _mesh.material.uniforms.uHover;
@@ -114,5 +132,7 @@ function osResize() {
   world.camera.aspect = viewport.aspect;
   world.camera.updateProjectionMatrix();
 }
+
+
 
 export default world;

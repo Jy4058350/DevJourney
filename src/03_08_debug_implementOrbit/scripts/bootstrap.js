@@ -1,5 +1,7 @@
 import "../styles/style.scss";
 
+import { AxesHelper } from "three";
+
 import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
 import { scroll } from "./component/scroll";
@@ -46,4 +48,6 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
+
+ 
 }
