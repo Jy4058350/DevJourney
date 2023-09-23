@@ -21,6 +21,10 @@ const world = {
   tick: 0,
 };
 
+// const controls = new OrbitControls(world.camera, world.renderer.domElement);
+let controls;
+// controls.enableDamping = true;
+
 const raycaster = new Raycaster();
 
 async function init(canvasRect, viewport) {
@@ -43,6 +47,9 @@ async function init(canvasRect, viewport) {
   );
   world.camera.position.z = viewport.cameraZ;
 
+  controls = new OrbitControls(world.camera, world.renderer.domElement);
+  controls.enableDamping = true;
+
   await initObjects(canvasRect);
 }
 
@@ -63,10 +70,9 @@ async function initObjects(canvasRect) {
     const axis = new AxesHelper(100);
     // console.log(world.scene);
     world.scene.add(axis);
-    
+
     // const controls = new OrbitControls(world.camera, world.renderer.domElement);
     // controls.enableDamping = true;
-
 
     return o;
   });
@@ -84,6 +90,7 @@ async function initObjects(canvasRect) {
 function render() {
   world.tick++;
   requestAnimationFrame(render);
+  controls.update();
   // スクロール処理
   for (let i = os.length - 1; i >= 0; i--) {
     const o = os[i];
@@ -108,7 +115,7 @@ function raycast() {
 
   // for (let i = 0; i < world.scene.children.length; i++) {
   for (let i = world.scene.children.length - 1; i >= 0; i--) {
-    if(AxesHelper) return;
+    if (AxesHelper) return;
     const _mesh = world.scene.children[i];
 
     const uHover = _mesh.material.uniforms.uHover;
@@ -132,7 +139,5 @@ function osResize() {
   world.camera.aspect = viewport.aspect;
   world.camera.updateProjectionMatrix();
 }
-
-
 
 export default world;
