@@ -26,18 +26,16 @@ function open() {
 
   g.addFolder("Orbit")
     .add(isActive, "value")
+    .name("active")
     .onChange(() => {
       if (isActive.value) {
         orbit.Run();
       } else {
         AxesHelper.visible = false;
+        AxesHelper.visible = false;
         orbit.Stop();
       }
     });
-
-  // debug(toFolder) {
-  //   toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
-  // }
 
   ga((g) => {
     world.os.forEach((o) => {

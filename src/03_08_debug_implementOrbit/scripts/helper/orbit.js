@@ -27,7 +27,7 @@ function Run() {
       );
       world.renderer.domElement.style.zIndex = 10;
       controls.enableDamping = true;
-      const axis = new AxesHelper(100);
+      const axis = new AxesHelper(1000);
       world.scene.add(axis);
     })
     .catch((e) => {
