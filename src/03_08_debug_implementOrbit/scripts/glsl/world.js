@@ -5,7 +5,6 @@ import {
   Raycaster,
   AxesHelper,
 } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
@@ -20,10 +19,6 @@ const world = {
   osResize,
   tick: 0,
 };
-
-// const controls = new OrbitControls(world.camera, world.renderer.domElement);
-let controls;
-// controls.enableDamping = true;
 
 const raycaster = new Raycaster();
 
@@ -47,9 +42,6 @@ async function init(canvasRect, viewport) {
   );
   world.camera.position.z = viewport.cameraZ;
 
-  controls = new OrbitControls(world.camera, world.renderer.domElement);
-  controls.enableDamping = true;
-
   await initObjects(canvasRect);
 }
 
@@ -67,13 +59,6 @@ async function initObjects(canvasRect) {
     world.scene.add(o.mesh);
     os.push(o);
 
-    const axis = new AxesHelper(100);
-    // console.log(world.scene);
-    world.scene.add(axis);
-
-    // const controls = new OrbitControls(world.camera, world.renderer.domElement);
-    // controls.enableDamping = true;
-
     return o;
   });
   await Promise.all(prms).then((prms) => console.log(prms));
@@ -90,7 +75,7 @@ async function initObjects(canvasRect) {
 function render() {
   world.tick++;
   requestAnimationFrame(render);
-  controls.update();
+  // controls.update();
   // スクロール処理
   for (let i = os.length - 1; i >= 0; i--) {
     const o = os[i];

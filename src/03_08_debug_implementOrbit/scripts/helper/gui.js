@@ -19,7 +19,8 @@ function ga(cb) {
 }
 
 function open() {
-  gui.ga((g) => {
+  if (!window.debug) return;
+  ga((g) => {
     world.os.forEach((o) => {
       if (!o.debug) return;
       const type = o.$.el.dataset.webgl;

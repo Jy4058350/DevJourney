@@ -20,8 +20,8 @@ class CustomObject {
       }
       return {};
     }
-    console.log(texes.get("tex1"));
-    console.log(texes.get("tex2"));
+    // console.log(texes.get("tex1"));
+    // console.log(texes.get("tex2"));
 
     if (texes.get("tex1") === null) {
       texes.set("tex1", texes.get("tex2"));
