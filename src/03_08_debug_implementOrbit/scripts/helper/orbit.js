@@ -3,6 +3,8 @@ import world from "../glsl/world";
 
 const orbit = {
   Go,
+  Run,
+  Stop,
 };
 
 function Go() {
@@ -34,8 +36,8 @@ function Run() {
 }
 
 function Stop() {
-  if (!window.debug) {
-    world.renderer.domElement.style.zIndex = -1;
+  if (window.debug) {
+    world.renderer.domElement.style.zIndex = -100;
   }
 }
 

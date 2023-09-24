@@ -48,5 +48,5 @@ export async function init() {
 
   gui.open();
 
-  orbit.Go(world, world.camera);
+  // orbit.Go(world, world.camera);
 }
