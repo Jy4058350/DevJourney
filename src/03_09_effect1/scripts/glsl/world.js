@@ -61,7 +61,7 @@ async function initObjects(canvasRect) {
 
     return o;
   });
-  await Promise.all(prms).then((prms) => console.log(prms));
+  await Promise.all(prms);
   let first = true;
   const prmsA = os.map(async (o) => {
     if (first) {
@@ -69,7 +69,7 @@ async function initObjects(canvasRect) {
       first = false;
     }
   });
-  await Promise.all(prmsA).then((prms) => console.log(prms));
+  await Promise.all(prmsA);
 }
 
 function render() {
