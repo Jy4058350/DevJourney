@@ -100,13 +100,12 @@ function raycast() {
 
   // for (let i = 0; i < world.scene.children.length; i++) {
   for (let i = world.scene.children.length - 1; i >= 0; i--) {
-    console.log("gui");
-    if (AxesHelper) return;
+    // if (AxesHelper) return;
 
     const _mesh = world.scene.children[i];
-
+    if (!_mesh.material.uniforms) continue;
     const uHover = _mesh.material.uniforms.uHover;
-    console.log(uHover);
+    // console.log(uHover);
     if (intersect?.object === _mesh) {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
       uHover.__endValue = 1;
