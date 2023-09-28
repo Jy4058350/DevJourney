@@ -7,9 +7,9 @@ import { CustomObject } from "../CustomObject";
 class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uNoseScale = { value: new Vector2(2, 2) };
+    uniforms.uNoiseScale = { value: new Vector2(2, 2) };
     console.log(uniforms);
-    console.log(uniforms.uNoseScale.value)
+    console.log(uniforms.uNoiseScale.value)
 
     return uniforms;
   }
