@@ -97,7 +97,6 @@ class CustomObject {
       uniforms: this.uniforms,
       transparent: true,
       alphaTest: 0.5,
-      // side: DoubleSide,
     });
   }
 

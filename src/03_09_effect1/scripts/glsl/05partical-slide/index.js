@@ -1,4 +1,5 @@
-import { PlaneGeometry, Float32BufferAttribute } from "three";
+import { PlaneGeometry, Float32BufferAttribute, DoubleSide } from "three";
+import gsap from "gsap";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
@@ -21,7 +22,6 @@ class ExtendObject extends CustomObject {
       () => random(0, 1500),
       0
     );
-    // printMat(delayVertices, wSeg + 1, "遅延時間行列");
 
     function random(a, b) {
       return a + (b - a) * Math.random();
@@ -55,6 +55,16 @@ class ExtendObject extends CustomObject {
     return geometry;
   }
 
+  fixMaterial() {
+    const material = super.fixMaterial();
+
+    material.side = DoubleSide;
+    material.transparent = true;
+    console.log(material.uProgress);
+
+    return material;
+  }
+
   fixVertex() {
     return vertexShader;
   }
@@ -63,26 +73,23 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  printMat(targetMatrix, col = 4, label = "") {
-    const mat1D = targetMatrix?.elements ?? targetMatrix?.array ?? targetMatrix;
-    console.log(mat1D);
-    if (!mat1D instanceof Array) return;
-    setTimeout(() => {
-      // 非同期でマトリクスが更新されるため、非同期で実行
-      let mat2D = mat1D.reduce((arry2D, v, i) => {
-        if (i % col === 0) {
-          arry2D.push([]);
-        }
-        const lastArry = arry2D[arry2D.length - 1];
-        lastArry.push(v);
-        return arry2D;
-      }, []);
-      console.log(
-        `%c${label}`,
-        "font-size: 1.3em; color: red; background-color: #e4e4e4;"
-      );
-      console.table(mat2D);
-    });
+  debug(toFolder) {
+    // toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("progress")
+      .listen();
+    const datObj = { next: !!this.uniforms.uProgress.value };
+    toFolder
+      .add(datObj, "next")
+      .name("Animate")
+      .onChange(function () {
+        gsap.to(this.uniforms.uProgress, {
+          value: +datObj.next,
+          duration: 3,
+          ease: "none",
+        });
+      });
   }
 }
 
