@@ -61,6 +61,7 @@ class ExtendObject extends CustomObject {
     material.side = DoubleSide;
     material.transparent = true;
     console.log(material.uProgress);
+    console.log(material.uniforms.uProgress);
 
     return material;
   }
