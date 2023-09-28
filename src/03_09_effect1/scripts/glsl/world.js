@@ -100,7 +100,8 @@ function raycast() {
 
   // for (let i = 0; i < world.scene.children.length; i++) {
   for (let i = world.scene.children.length - 1; i >= 0; i--) {
-    if (AxesHelper) return;
+    // if (AxesHelper) return;
+
     const _mesh = world.scene.children[i];
 
     const uHover = _mesh.material.uniforms.uHover;
@@ -112,6 +113,7 @@ function raycast() {
     }
 
     uHover.value = lerp(uHover.value, uHover.__endValue, 0.01);
+    // console.log("uHover.value", uHover.value);
   }
 }
 

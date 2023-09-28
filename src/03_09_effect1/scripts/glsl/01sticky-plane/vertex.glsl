@@ -4,10 +4,9 @@ precision mediump float;
 
 varying vec2 vUv;
 varying float vDelay;
-uniform float uHover;
 attribute float aDelay;
 
-uniform float uProgress;
+uniform float uHover;
 
 void main() {
     vUv = uv;
