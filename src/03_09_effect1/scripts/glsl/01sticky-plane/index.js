@@ -74,7 +74,7 @@ class ExtendObject extends CustomObject {
     // const datData = { next: !!this.uniforms.uHover.value };
     toFolder.add(datData, "next").onChange(() => {
       gsap.to(this.uniforms.uProgress, {
-      // gsap.to(this.uniforms.uHover, {
+        // gsap.to(this.uniforms.uHover, {
         value: +datData.next,
         duration: 2,
         ease: "power2.inOut",
@@ -82,7 +82,6 @@ class ExtendObject extends CustomObject {
     });
   }
 }
-
 
 // function printMat(targetMatrix, col = 4, label = "") {
 //   const mat1D = targetMatrix?.elements ?? targetMatrix?.array ?? targetMatrix;
@@ -104,6 +103,5 @@ class ExtendObject extends CustomObject {
 //     );
 //     console.table(mat2D);
 //   });
-
 
 export default ExtendObject;
