@@ -103,10 +103,9 @@ function raycast() {
     // if (AxesHelper) return;
 
     const _mesh = world.scene.children[i];
-    // console.log(_mesh);
-    // console.log(_mesh.material.uniforms);
 
     const uHover = _mesh.material.uniforms.uHover;
+    // console.log(uHover);
     if (intersect?.object === _mesh) {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
       uHover.__endValue = 1;
@@ -115,7 +114,6 @@ function raycast() {
     }
 
     uHover.value = lerp(uHover.value, uHover.__endValue, 0.01);
-    // console.log("uHover.value", uHover.value);
   }
 }
 

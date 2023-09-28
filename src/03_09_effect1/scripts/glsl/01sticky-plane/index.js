@@ -65,13 +65,16 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      // .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .add(this.uniforms.uHover, "value", 0, 1, 0.1)
       .name("progess")
       .listen();
 
-    const datData = { next: !!this.uniforms.uProgress.value };
+    // const datData = { next: !!this.uniforms.uProgress.value };
+    const datData = { next: !!this.uniforms.uHover.value };
     toFolder.add(datData, "next").onChange(() => {
-      gsap.to(this.uniforms.uProgress, {
+      // gsap.to(this.uniforms.uProgress, {
+      gsap.to(this.uniforms.uHover, {
         value: +datData.next,
         duration: 2,
         ease: "power2.inOut",
