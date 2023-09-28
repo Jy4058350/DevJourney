@@ -29,6 +29,7 @@ function Run() {
       controls.enableDamping = true;
       const axis = new AxesHelper(1000);
       world.scene.add(axis);
+      console.log("3");
     })
     .catch((e) => {
       console.log(e);

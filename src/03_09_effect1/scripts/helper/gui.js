@@ -30,10 +30,12 @@ function open() {
     .onChange(() => {
       if (isActive.value) {
         orbit.Run();
+        console.log("1");
       } else {
         AxesHelper.visible = false;
         AxesHelper.visible = false;
         orbit.Stop();
+        console.log("2");
       }
     });
 
