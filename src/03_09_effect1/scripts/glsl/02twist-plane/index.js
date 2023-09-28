@@ -1,5 +1,5 @@
 import { CustomObject } from "../CustomObject";
-import { PlaneGeometry, Float32BufferAttribute } from "three";
+import { PlaneGeometry, Float32BufferAttribute, DoubleSide } from "three";
 import gsap from "gsap";
 
 import vertexShader from "./vertex.glsl";
@@ -51,8 +51,7 @@ class ExtendObject extends CustomObject {
 
   fixMaterial() {
     const material = super.fixMaterial();
-    console.log(super.fixMaterial());
-    console.log(material);
+    material.side = DoubleSide;
     return material;
   }
 
