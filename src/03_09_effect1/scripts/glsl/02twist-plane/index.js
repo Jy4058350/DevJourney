@@ -51,7 +51,7 @@ class ExtendObject extends CustomObject {
 
   fixMaterial() {
     super.fixMaterial();
-    console.log("fixMaterial");
+    console.log(this.material);
     return this.material;
   }
 
