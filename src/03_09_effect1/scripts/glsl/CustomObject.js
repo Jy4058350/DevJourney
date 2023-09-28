@@ -1,4 +1,10 @@
-import { PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from "three";
+import {
+  PlaneGeometry,
+  ShaderMaterial,
+  Mesh,
+  Vector2,
+  DoubleSide,
+} from "three";
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
@@ -91,6 +97,7 @@ class CustomObject {
       uniforms: this.uniforms,
       transparent: true,
       alphaTest: 0.5,
+      // side: DoubleSide,
     });
   }
 
