@@ -7,6 +7,7 @@ varying float vDelay;
 attribute float aDelay;
 
 uniform float uHover;
+uniform float uProgress;
 
 void main() {
     vUv = uv;
