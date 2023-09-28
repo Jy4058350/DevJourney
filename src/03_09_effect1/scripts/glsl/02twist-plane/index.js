@@ -51,6 +51,8 @@ class ExtendObject extends CustomObject {
 
   fixMaterial() {
     super.fixMaterial();
+    console.log("fixMaterial");
+    return this.material;
   }
 
   fixVertex() {
