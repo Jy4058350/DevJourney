@@ -20,7 +20,7 @@ function ga(cb) {
   cb(g);
 }
 
-let isActive = { value: true };
+let isActive = { value: false };
 function open() {
   if (!window.debug) return;
 

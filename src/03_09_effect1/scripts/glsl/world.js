@@ -100,7 +100,7 @@ function raycast() {
 
   // for (let i = 0; i < world.scene.children.length; i++) {
   for (let i = world.scene.children.length - 1; i >= 0; i--) {
-    // if (AxesHelper) return;
+    if (AxesHelper) return;
 
     const _mesh = world.scene.children[i];
 
