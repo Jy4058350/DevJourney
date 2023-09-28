@@ -1,4 +1,4 @@
-import { Vector2 } from "three";
+import { Vector2, ClampToEdgeWrapping, MirroredRepeatWrapping } from "three";
 import { gsap } from "gsap";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -11,6 +11,15 @@ class ExtendObject extends CustomObject {
     uniforms.uNoiseScale = { value: new Vector2(2, 2) };
 
     return uniforms;
+  }
+
+  fixTexes(u) {
+    this.texes.forEach((tex, key) => {
+      u[key] = { value: tex };
+      tex.wrapS = ClampToEdgeWrapping;
+      tex.wrapT = MirroredRepeatWrapping;
+    });
+    return u;
   }
 
   fixVertex() {
@@ -34,7 +43,6 @@ class ExtendObject extends CustomObject {
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("value")
       .listen();
-
     const datData = { next: !!this.uniforms.uProgress.value };
     toFolder.add(datData, "next").onChange(() => {
       gsap.to(this.uniforms.uProgress, {

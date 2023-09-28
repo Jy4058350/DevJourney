@@ -4,9 +4,9 @@ precision mediump float;
 #pragma glslify: noise3 = require(glsl-noise/simplex/3d);
 
 varying vec2 vUv;
-uniform sampler2D uTexCurrent;
-uniform sampler2D uTexNext;
-uniform sampler2D uTexDisp;
+uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform sampler2D texdisp;
 uniform float uTick;
 uniform float uProgress;
 uniform vec2 uNoiseScale;
@@ -24,14 +24,14 @@ void main() {
 
   // n = step(0.0, n);
   
-  vec4 texDisp = texture(uTexDisp, vUv);
+  vec4 texDisp = texture(texdisp, vUv);
   float disp = texDisp.r;
   disp = disp * parabola(uProgress, 1.0);
   vec2 dispUv = vec2(vUv.x, vUv.y + disp);
   vec2 dispUv2 = vec2(vUv.x, vUv.y - disp);
   
-  vec4 texCurrent = texture(uTexCurrent, dispUv);
-  vec4 texNext = texture(uTexNext, dispUv2);
+  vec4 texCurrent = texture(tex1, dispUv);
+  vec4 texNext = texture(tex2, dispUv2);
 
   gl_FragColor = mix(texCurrent, texNext, uProgress);
 }
