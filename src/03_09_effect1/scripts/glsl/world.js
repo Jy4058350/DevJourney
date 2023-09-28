@@ -105,7 +105,7 @@ function raycast() {
     const _mesh = world.scene.children[i];
 
     const uHover = _mesh.material.uniforms.uHover;
-    // console.log(uHover);
+    console.log(uHover);
     if (intersect?.object === _mesh) {
       _mesh.material.uniforms.uMouse.value = intersect.uv;
       uHover.__endValue = 1;
