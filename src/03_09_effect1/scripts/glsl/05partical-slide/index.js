@@ -12,9 +12,15 @@ import { CustomObject } from "../CustomObject";
 import { printMat } from "../../helper";
 
 class ExtendObject extends CustomObject {
+  fixTexes(u) {
+    u.uTexCurrent = { value: this.texes.get("tex1") };
+    u.uTexNext = { value: null };
+    return u;
+  }
+
   fixGeometry() {
-    const width = 600,
-      height = 300,
+    const width = this.rect.width,
+      height = this.rect.height,
       wSeg = width / 2,
       hSeg = height / 2;
 
@@ -71,8 +77,8 @@ class ExtendObject extends CustomObject {
   }
 
   fixMesh() {
-    const sphere = new Points(this.geometry, this.material);
-    return sphere;
+    const mesh = new Points(this.geometry, this.material);
+    return mesh;
   }
 
   fixVertex() {
