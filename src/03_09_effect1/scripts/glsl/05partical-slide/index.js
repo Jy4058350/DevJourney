@@ -1,4 +1,9 @@
-import { PlaneGeometry, Float32BufferAttribute, DoubleSide } from "three";
+import {
+  PlaneGeometry,
+  Float32BufferAttribute,
+  DoubleSide,
+  Points,
+} from "three";
 import gsap from "gsap";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -60,11 +65,14 @@ class ExtendObject extends CustomObject {
 
     material.side = DoubleSide;
     material.transparent = true;
-    console.log(material.uProgress);
-    console.log(material.uniforms.uProgress);
     console.log(this.uniforms.uProgress);
 
     return material;
+  }
+
+  fixMesh() {
+    const sphere = new Points(this.geometry, this.material);
+    return sphere;
   }
 
   fixVertex() {
@@ -81,10 +89,11 @@ class ExtendObject extends CustomObject {
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("progress")
       .listen();
+
     const datObj = { next: !!this.uniforms.uProgress.value };
     toFolder
       .add(datObj, "next")
-      .name("Animate")
+      // .name("Animate")
       .onChange(function () {
         gsap.to(this.uniforms.uProgress, {
           value: +datObj.next,
