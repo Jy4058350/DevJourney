@@ -16,8 +16,9 @@ class ExtendObject extends CustomObject {
   fixTexes(u) {
     this.texes.forEach((tex, key) => {
       u[key] = { value: tex };
-      tex.wrapS = ClampToEdgeWrapping;
-      tex.wrapT = MirroredRepeatWrapping;
+      const customTex = tex.clone();
+      customTex.wrapS = ClampToEdgeWrapping;
+      customTex.wrapT = MirroredRepeatWrapping;
     });
     return u;
   }
