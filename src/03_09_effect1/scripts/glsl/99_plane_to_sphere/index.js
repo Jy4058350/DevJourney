@@ -65,6 +65,7 @@ class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
     uniforms.uSaturation = { value: 1.0 };
+    uniforms.uBrightness = { value: 1.0 };
     return uniforms;
   }
 
@@ -86,8 +87,8 @@ class ExtendObject extends CustomObject {
       .name("uSaturation")
       .listen();
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progress")
+      .add(this.uniforms.uBrightness, "value", 0, 1, 0.1)
+      .name("uBrightness")
       .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
