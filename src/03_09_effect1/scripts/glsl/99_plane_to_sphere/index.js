@@ -74,24 +74,24 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  // debug(toFolder) {
-  //   toFolder
-  //     .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-  //     .name("progress")
-  //     .listen();
+  debug(toFolder) {
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("progress")
+      .listen();
 
-  //   const datObj = { next: !!this.uniforms.uProgress.value };
-  //   toFolder
-  //     .add(datObj, "next")
-  //     .name("Animate")
-  //     .onChange(function () {
-  //       gsap.to(this.uniforms.uProgress, {
-  //         value: +datObj.next,
-  //         duration: 3,
-  //         ease: "none",
-  //       });
-  //     });
-  // }
+    const datObj = { next: !!this.uniforms.uProgress.value };
+    toFolder
+      .add(datObj, "next")
+      .name("Animate")
+      .onChange(function () {
+        gsap.to(this.uniforms.uProgress, {
+          value: +datObj.next,
+          duration: 3,
+          ease: "none",
+        });
+      });
+  }
 }
 
 export default ExtendObject;
