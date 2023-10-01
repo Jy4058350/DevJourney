@@ -14,7 +14,7 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const wSeg = 30,
       hSeg = 30;
-    const geometry = new PlaneGeometry(600, 300, wSeg, hSeg);
+    const geometry = new SphereGeometry(200, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
     const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
