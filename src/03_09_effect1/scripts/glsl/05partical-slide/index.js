@@ -100,7 +100,7 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(datObj, "next")
       // .name("Animate")
-      .onChange(function () {
+      .onChange(() => {
         gsap.to(this.uniforms.uProgress, {
           value: +datObj.next,
           duration: 3,

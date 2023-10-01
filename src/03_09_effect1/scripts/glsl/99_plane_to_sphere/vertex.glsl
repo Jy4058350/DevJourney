@@ -23,7 +23,7 @@ void main() {
     float progress = easeCubic(delay);
 
     // z軸の手前方向に少しずらしておく
-    pos.z += 100.;
+    // pos.z += 100.;
 
     // 回転
     vec3 axis = vec3(1.0, 1.0, 1.0);

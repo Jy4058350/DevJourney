@@ -62,6 +62,12 @@ class ExtendObject extends CustomObject {
     return material;
   }
 
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    uniforms.uSaturation = { value: 1.0 };
+    return uniforms;
+  }
+
   fixMesh() {
     return new Points(this.geometry, this.material);
   }
@@ -75,6 +81,14 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
+    toFolder
+      .add(this.uniforms.uSaturation, "value", 0, 1, 0.01)
+      .name("uSaturation")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("progress")
+      .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("progress")
