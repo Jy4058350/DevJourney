@@ -1,4 +1,9 @@
-import { SphereGeometry, Float32BufferAttribute } from "three";
+import {
+  PlaneGeometry,
+  SphereGeometry,
+  Float32BufferAttribute,
+  Points,
+} from "three";
 import gsap from "gsap";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -9,7 +14,7 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const wSeg = 30,
       hSeg = 30;
-    const geometry = new SphereGeometry(200, wSeg, hSeg);
+    const geometry = new PlaneGeometry(600, 300, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
     const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
@@ -41,7 +46,7 @@ class ExtendObject extends CustomObject {
       return arry;
     }
 
-    console.log(delayVertices);
+    // console.log(delayVertices);
 
     geometry.setAttribute(
       "aDelay",
@@ -49,6 +54,16 @@ class ExtendObject extends CustomObject {
     );
 
     return geometry;
+  }
+
+  fixMaterial() {
+    const material = super.fixMaterial();
+    material.side = 2;
+    return material;
+  }
+
+  fixMesh() {
+    return new Points(this.geometry, this.material);
   }
 
   fixVertex() {
@@ -59,24 +74,24 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  debug(toFolder) {
-    toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progress")
-      .listen();
+  // debug(toFolder) {
+  //   toFolder
+  //     .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+  //     .name("progress")
+  //     .listen();
 
-    const datObj = { next: !!this.uniforms.uProgress.value };
-    toFolder
-      .add(datObj, "next")
-      .name("Animate")
-      .onChange(function () {
-        gsap.to(this.uniforms.uProgress, {
-          value: +datObj.next,
-          duration: 3,
-          ease: "none",
-        });
-      });
-  }
+  //   const datObj = { next: !!this.uniforms.uProgress.value };
+  //   toFolder
+  //     .add(datObj, "next")
+  //     .name("Animate")
+  //     .onChange(function () {
+  //       gsap.to(this.uniforms.uProgress, {
+  //         value: +datObj.next,
+  //         duration: 3,
+  //         ease: "none",
+  //       });
+  //     });
+  // }
 }
 
 export default ExtendObject;
