@@ -3,7 +3,7 @@ precision mediump float;
 varying vec2 vUv;
 varying float vDelay;
 
-uniform sampler2D uTex;
+uniform sampler2D tex1;
 uniform float uProgress;
 
 // gl_PointCoordについての説明
@@ -11,8 +11,12 @@ uniform float uProgress;
 
 void main() {
 
-  vec4 tex = texture(uTex, vUv);
-  
+    if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
+        discard;
+    }
+    vec4 tex = texture(tex1, gl_PointCoord);
+
   // gl_FragColor = vec4(vDelay, 0., 0., 1.);
-  gl_FragColor = tex;
+    gl_FragColor = tex;
+    gl_FragColor = vec4(vDelay, 0., 0., 1.);
 }

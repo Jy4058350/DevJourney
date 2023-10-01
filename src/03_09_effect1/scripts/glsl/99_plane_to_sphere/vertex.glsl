@@ -30,6 +30,6 @@ void main() {
     pos = rotate(pos, axis, 4.0 * HALF_PI * progress);
 
     // pos.z += progress * 300.;
-    gl_PointSize = 10.0;
+    gl_PointSize = 20.0;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
