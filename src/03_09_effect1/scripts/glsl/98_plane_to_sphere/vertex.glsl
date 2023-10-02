@@ -23,6 +23,7 @@ void main() {
     vec3 pos = mix(position, sphere, delay);    
 
     // gl_PointSize = 10.0 * delta;
-    gl_PointSize = 10.0;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+    gl_PointSize = 7.0 * (1000.0 / -mvPosition.z);
+    gl_Position = projectionMatrix * mvPosition;
 }

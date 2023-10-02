@@ -71,10 +71,10 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uColorTime = { value: 0.3 };
-    uniforms.uColorDelay = { value: 0.3 };
-    uniforms.uSaturation = { value: 0.5 };
-    uniforms.uBrightness = { value: 0.5 };
+    uniforms.uColorTime = { value: 0.005 };
+    uniforms.uColorDelay = { value: 0.0 };
+    uniforms.uSaturation = { value: 0.7 };
+    uniforms.uBrightness = { value: 0.67 };
     uniforms.uScaleTime = { value: 0.04 };
     uniforms.uScaleDelay = { value: 5 };
     return uniforms;
