@@ -1,4 +1,4 @@
-precision mediump float;
+precision lowp float;
 
 #pragma glslify: easeBack = require(glsl-easings/back-in-out)
 #pragma glslify: easeCubic = require(glsl-easings/cubic-in-out)
@@ -12,9 +12,6 @@ attribute float aDelay;
 attribute vec3 sphere;
 
 uniform float uProgress;
-uniform float uTick;
-uniform float uScaleDelay;
-uniform float uScaleTime;
 
 void main() {
     vUv = uv;

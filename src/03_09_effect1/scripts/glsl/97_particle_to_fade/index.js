@@ -13,15 +13,11 @@ import { CustomObject } from "../CustomObject";
 
 class ExtendObject extends CustomObject {
   fixGeometry() {
-    const wSeg = 30,
-      hSeg = 30;
-    const sphere = new SphereGeometry(200, wSeg, hSeg);
-    const plane = new PlaneGeometry(600, 300, wSeg, hSeg);
-    const geometry = new BufferGeometry();
-
-    geometry.setAttribute("position", plane.getAttribute("position"));
-    geometry.setAttribute("uv", plane.getAttribute("uv"));
-    geometry.setAttribute("sphere", sphere.getAttribute("position"));
+    const width = 600,
+      height = 300;
+    const wSeg = width / 2,
+      hSeg = height / 2;
+    const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
     const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
@@ -71,12 +67,6 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uColorTime = { value: 0.005 };
-    uniforms.uColorDelay = { value: 0.0 };
-    uniforms.uSaturation = { value: 0.7 };
-    uniforms.uBrightness = { value: 0.67 };
-    uniforms.uScaleTime = { value: 0.04 };
-    uniforms.uScaleDelay = { value: 5 };
     return uniforms;
   }
 
@@ -97,7 +87,6 @@ class ExtendObject extends CustomObject {
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
-    
 
     const datObj = { next: !!this.uniforms.uProgress.value };
     toFolder
