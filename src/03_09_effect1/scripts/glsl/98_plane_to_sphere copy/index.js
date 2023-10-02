@@ -1,7 +1,7 @@
 import {
   PlaneGeometry,
+  SphereGeometry,
   Float32BufferAttribute,
-  DoubleSide,
   Points,
 } from "three";
 import gsap from "gsap";
@@ -9,33 +9,21 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { printMat } from "../../helper";
 
 class ExtendObject extends CustomObject {
-  fixTexes(u) {
-    u.uTexCurrent = { value: this.texes.get("tex1") };
-    u.uTexNext = { value: null };
-    return u;
-  }
-
   fixGeometry() {
-    const width = this.rect.width,
-      height = this.rect.height,
-      wSeg = width / 2,
-      hSeg = height / 2;
-
-    const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
+    const wSeg = 30,
+      hSeg = 30;
+    const geometry = new SphereGeometry(200, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
-    const intensityVertices = getDiagonalVertices(
-      hSeg,
-      wSeg,
-      () => random(0, 1500),
-      0
-    );
+    const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
+    //  printMat(delayVertices, wSeg + 1, '遅延時間行列');
 
-    function random(a, b) {
-      return a + (b - a) * Math.random();
+    // 0~1までの値をstep毎に返す
+    function getValue(previousValue, currentIndex) {
+      let step = 1 / (hSeg + 1) / (wSeg + 1);
+      return previousValue + step;
     }
 
     // 対角線上に頂点を詰めた配列を返す
@@ -58,9 +46,11 @@ class ExtendObject extends CustomObject {
       return arry;
     }
 
+    // console.log(delayVertices);
+
     geometry.setAttribute(
-      "aIntensity",
-      new Float32BufferAttribute(intensityVertices, 1)
+      "aDelay",
+      new Float32BufferAttribute(delayVertices, 1)
     );
 
     return geometry;
@@ -68,17 +58,23 @@ class ExtendObject extends CustomObject {
 
   fixMaterial() {
     const material = super.fixMaterial();
-
-    material.side = DoubleSide;
-    material.transparent = true;
-    console.log(this.uniforms.uProgress);
-
+    material.side = 2;
     return material;
   }
 
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    uniforms.uColorTime = { value: 0.3 };
+    uniforms.uColorDelay = { value: 0.3 };
+    uniforms.uSaturation = { value: 0.5 };
+    uniforms.uBrightness = { value: 0.5 };
+    uniforms.uScaleTime = { value: 0.04 };
+    uniforms.uScaleDelay = { value: 5 };
+    return uniforms;
+  }
+
   fixMesh() {
-    const mesh = new Points(this.geometry, this.material);
-    return mesh;
+    return new Points(this.geometry, this.material);
   }
 
   fixVertex() {
@@ -90,16 +86,27 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
-    // toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progress")
+      .add(this.uniforms.uSaturation, "value", 0, 1, 0.01)
+      .name("uSaturation")
+      .listen();
+    toFolder
+      .add(this.uniforms.uBrightness, "value", 0, 1, 0.01)
+      .name("uBrightness")
+      .listen();
+    toFolder
+      .add(this.uniforms.uColorTime, "value", 0.001, 1, 0.01)
+      .name("uColorTime")
+      .listen();
+    toFolder
+      .add(this.uniforms.uColorDelay, "value", 0, 100, 1.0)
+      .name("uColorDelay")
       .listen();
 
     const datObj = { next: !!this.uniforms.uProgress.value };
     toFolder
       .add(datObj, "next")
-      // .name("Animate")
+      .name("Animate")
       .onChange(() => {
         gsap.to(this.uniforms.uProgress, {
           value: +datObj.next,
