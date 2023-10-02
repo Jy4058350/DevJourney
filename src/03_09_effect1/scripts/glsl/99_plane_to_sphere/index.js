@@ -64,8 +64,12 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uSaturation = { value: 1.0 };
-    uniforms.uBrightness = { value: 1.0 };
+    uniforms.uColorTime = { value: 0.3 };
+    uniforms.uColorDelay = { value: 0.3 };
+    uniforms.uSaturation = { value: 0.5 };
+    uniforms.uBrightness = { value: 0.5 };
+    uniforms.uScaleTime = { value: 0.04 };
+    uniforms.uScaleDelay = { value: 5 };
     return uniforms;
   }
 
@@ -87,12 +91,16 @@ class ExtendObject extends CustomObject {
       .name("uSaturation")
       .listen();
     toFolder
-      .add(this.uniforms.uBrightness, "value", 0, 1, 0.1)
+      .add(this.uniforms.uBrightness, "value", 0, 1, 0.01)
       .name("uBrightness")
       .listen();
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progress")
+      .add(this.uniforms.uColorTime, "value", 0.001, 1, 0.01)
+      .name("uColorTime")
+      .listen();
+    toFolder
+      .add(this.uniforms.uColorDelay, "value", 0, 100, 1.0)
+      .name("uColorDelay")
       .listen();
 
     const datObj = { next: !!this.uniforms.uProgress.value };

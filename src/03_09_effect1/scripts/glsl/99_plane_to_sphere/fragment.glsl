@@ -5,8 +5,11 @@ varying float vDelay;
 
 uniform sampler2D tex1;
 uniform float uProgress;
+uniform float uTick;
 uniform float uSaturation;
 uniform float uBrightness;
+uniform float uColorTime;
+uniform float uColorDelay;
 
 #pragma glslify: hsl2rgb = require(glsl-hsl2rgb);
 
@@ -15,16 +18,17 @@ uniform float uBrightness;
 
 void main() {
 
-    if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
-        discard;
-    }
-    vec4 tex = texture(tex1, gl_PointCoord);
+  if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
+    discard;
+  }
+  vec4 tex = texture(tex1, gl_PointCoord);
 
   // gl_FragColor = vec4(vDelay, 0., 0., 1.);
-    gl_FragColor = tex;
+  // gl_FragColor = tex;
 
     // vec3 rgb = hsl2rgb(vec3(vDelay, 1., 0.5));
-    vec3 rgb = hsl2rgb(vec3(vDelay, uSaturation, uBrightness));
-    gl_FragColor = vec4(vDelay, 0., 0., 1.);
-    gl_FragColor = vec4(rgb, 1.);
+  float hue = sin(uTick * uColorTime - vDelay * uColorDelay) * 0.5 + 0.5;
+  vec3 rgb = hsl2rgb(vec3(hue, uSaturation, uBrightness));
+  // gl_FragColor = vec4(vDelay, 0., 0., 1.);
+  gl_FragColor = vec4(rgb, 1.);
 }
