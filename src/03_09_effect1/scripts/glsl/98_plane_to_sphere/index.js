@@ -1,6 +1,7 @@
 import {
   PlaneGeometry,
   SphereGeometry,
+  BufferGeometry,
   Float32BufferAttribute,
   Points,
 } from "three";
@@ -14,7 +15,13 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const wSeg = 30,
       hSeg = 30;
-    const geometry = new SphereGeometry(200, wSeg, hSeg);
+    const sphere = new SphereGeometry(200, wSeg, hSeg);
+    const plane = new PlaneGeometry(600, 300, wSeg, hSeg);
+    const geometry = new BufferGeometry();
+
+    geometry.setAttribute("position", plane.getAttribute("position"));
+    geometry.setAttribute("uv", plane.getAttribute("uv"));
+    geometry.setAttribute("sphere", sphere.getAttribute("position"));
 
     // 対角線上に詰められた遅延時間用の頂点データ
     const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
@@ -64,10 +71,10 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uColorTime = { value: 0.3 };
-    uniforms.uColorDelay = { value: 0.3 };
-    uniforms.uSaturation = { value: 0.5 };
-    uniforms.uBrightness = { value: 0.5 };
+    uniforms.uColorTime = { value: 0.005 };
+    uniforms.uColorDelay = { value: 0.0 };
+    uniforms.uSaturation = { value: 0.7 };
+    uniforms.uBrightness = { value: 0.67 };
     uniforms.uScaleTime = { value: 0.04 };
     uniforms.uScaleDelay = { value: 5 };
     return uniforms;
@@ -87,21 +94,10 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uSaturation, "value", 0, 1, 0.01)
-      .name("uSaturation")
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
+      .name("uProgress")
       .listen();
-    toFolder
-      .add(this.uniforms.uBrightness, "value", 0, 1, 0.01)
-      .name("uBrightness")
-      .listen();
-    toFolder
-      .add(this.uniforms.uColorTime, "value", 0.001, 1, 0.01)
-      .name("uColorTime")
-      .listen();
-    toFolder
-      .add(this.uniforms.uColorDelay, "value", 0, 100, 1.0)
-      .name("uColorDelay")
-      .listen();
+    
 
     const datObj = { next: !!this.uniforms.uProgress.value };
     toFolder
