@@ -26,10 +26,14 @@ class ExtendObject extends CustomObject {
     function random(a, b) {
       return a + (b - a) * Math.random();
     }
-    // 0~1までの値をstep毎に返す
+    // // 0~1までの値をstep毎に返す
+    // function intensity() {
+    //   return random(0, 2000);
+    // }
+
     function intensity(previousValue, currentIndex) {
-     
-      return random(0, 2000);
+      let step = 1 / (hSeg + 1) / (wSeg + 1);
+      return previousValue + step;
     }
 
     // 対角線上に頂点を詰めた配列を返す
