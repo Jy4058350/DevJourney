@@ -17,12 +17,12 @@ varying float vProgress;
 
 void main() {
     vUv = uv;
-    // vDelay = aDelay;
     vec3 pos = position;
 
     float progress = vProgress = 1.0 - abs(2.0 * uProgress - 1.0);
     // float vProgress = progress;
     pos.z += progress * aIntensity;
+    pos.y += progress * aIntensity;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = 9.0 * (1000.0 / -mvPosition.z);
