@@ -20,17 +20,17 @@ class ExtendObject extends CustomObject {
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
-    const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
+    const delayVertices = intensityVertices(hSeg, wSeg, intensity, 0);
     //  printMat(delayVertices, wSeg + 1, '遅延時間行列');
 
     // 0~1までの値をstep毎に返す
-    function getValue(previousValue, currentIndex) {
+    function intensity(previousValue, currentIndex) {
       let step = 1 / (hSeg + 1) / (wSeg + 1);
       return previousValue + step;
     }
 
     // 対角線上に頂点を詰めた配列を返す
-    function getDiagonalVertices(hSeg, wSeg, getValue, defaultValue) {
+    function intensityVertices(hSeg, wSeg, intensity, defaultValue) {
       const hSeg1 = hSeg + 1,
         wSeg1 = wSeg + 1;
       let arry = [],
@@ -42,7 +42,7 @@ class ExtendObject extends CustomObject {
           j--
         ) {
           let currentIndex = j * wSeg1 + i - j;
-          currentValue = getValue(currentValue, currentIndex);
+          currentValue = intensity(currentValue, currentIndex);
           arry[currentIndex] = currentValue;
         }
       }
