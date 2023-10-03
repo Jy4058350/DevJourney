@@ -13,7 +13,7 @@ varying float vProgress;
 
 void main() {
 
-  if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
+  if(vProgress > 0.1 && distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
     discard;
   }
 

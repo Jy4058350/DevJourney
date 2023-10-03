@@ -13,13 +13,16 @@ attribute vec3 sphere;
 
 uniform float uProgress;
 
+varying float vProgress;
+
 void main() {
     vUv = uv;
     vDelay = aDelay;
     vec3 pos = position;
 
     float progress = 1.0 - abs(2.0 * uProgress - 1.0);
-    pos.z += progress * 1000.0;
+    float vProgress = 1.0 - abs(2.0 * uProgress - 1.0);
+    pos.z += progress * 500.0;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = 10.0 * (1000.0 / -mvPosition.z);
