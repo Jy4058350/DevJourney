@@ -18,11 +18,11 @@ void main() {
     discard;
   }
 
-  vec4 texCurrent = texture(tex1, vUv);
-  vec4 texNext = texture(tex2, vUv);
-  vec4 color = mix(texCurrent, texNext, uProgress);
+  vec4 texC = texture(tex1, vUv);
+  vec4 texN = texture(tex2, vUv);
+  vec4 color = mix(texC, texN, uProgress);
   color.a = vAlpha;
   gl_FragColor = color;
-  gl_FragColor = texCurrent;
-  // gl_FragColor = texNext;
+  // gl_FragColor = texC;
+  // gl_FragColor = texN;
 }

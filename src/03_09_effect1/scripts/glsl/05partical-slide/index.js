@@ -12,11 +12,11 @@ import { CustomObject } from "../CustomObject";
 import { printMat } from "../../helper";
 
 class ExtendObject extends CustomObject {
-  fixTexes(u) {
-    u.uTexCurrent = { value: this.texes.get("tex1") };
-    u.uTexNext = { value: null };
-    return u;
-  }
+  // fixTexes(u) {
+  //   u.uTexCurrent = { value: this.texes.get("tex1") };
+  //   u.uTexNext = { value: null };
+  //   return u;
+  // }
 
   fixGeometry() {
     const width = Math.floor(this.rect.width),
@@ -73,6 +73,11 @@ class ExtendObject extends CustomObject {
     material.transparent = true;
 
     return material;
+  }
+
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    return uniforms;
   }
 
   fixMesh() {
