@@ -7,7 +7,7 @@ precision lowp float;
 
 varying vec2 vUv;
 varying float vDelay;
-attribute float aDelay;
+attribute float aIntensity;
 
 attribute vec3 sphere;
 
@@ -17,12 +17,12 @@ varying float vProgress;
 
 void main() {
     vUv = uv;
-    vDelay = aDelay;
+    // vDelay = aDelay;
     vec3 pos = position;
 
     float progress = vProgress = 1.0 - abs(2.0 * uProgress - 1.0);
     // float vProgress = progress;
-    pos.z += progress * 500.0;
+    pos.z += progress * aIntensity;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = 9.0 * (1000.0 / -mvPosition.z);

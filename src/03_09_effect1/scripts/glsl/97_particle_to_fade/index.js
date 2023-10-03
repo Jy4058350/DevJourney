@@ -20,17 +20,17 @@ class ExtendObject extends CustomObject {
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
-    const delayVertices = intensityVertices(hSeg, wSeg, intensity, 0);
-    //  printMat(delayVertices, wSeg + 1, '遅延時間行列');
+    const intensityV = intensityVertices(hSeg, wSeg, intensity, 0);
+    //  printMat(intensityV, wSeg + 1, '遅延時間行列');
 
     function random(a, b) {
       return a + (b - a) * Math.random();
     }
     // 0~1までの値をstep毎に返す
     function intensity(previousValue, currentIndex) {
-      // let step = 1 / (hSeg + 1) / (wSeg + 1);
-      let step = random(0, 800);
-      return previousValue + step;
+      let step = 1 / (hSeg + 1) / (wSeg + 1);
+      // let step = random(0, 800);
+      return random(0, 800);
     }
 
     // 対角線上に頂点を詰めた配列を返す
@@ -53,11 +53,11 @@ class ExtendObject extends CustomObject {
       return arry;
     }
 
-    // console.log(delayVertices);
+    // console.log(intensityV);
 
     geometry.setAttribute(
-      "aDelay",
-      new Float32BufferAttribute(delayVertices, 1)
+      "aIntensity",
+      new Float32BufferAttribute(intensityV, 1)
     );
 
     return geometry;
