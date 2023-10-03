@@ -25,6 +25,7 @@ class ExtendObject extends CustomObject {
       height = this.rect.height,
       wSeg = width / 2,
       hSeg = height / 2;
+      console.log(width, height);
 
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
