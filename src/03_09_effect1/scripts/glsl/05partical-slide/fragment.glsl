@@ -23,4 +23,6 @@ void main() {
   vec4 color = mix(texCurrent, texNext, uProgress);
   color.a = vAlpha;
   gl_FragColor = color;
+  gl_FragColor = texCurrent;
+  // gl_FragColor = texNext;
 }
