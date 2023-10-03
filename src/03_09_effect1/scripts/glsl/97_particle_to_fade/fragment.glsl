@@ -21,5 +21,5 @@ void main() {
   vec4 tex2 = texture(tex2, vUv);
 
   // gl_FragColor = tex;
-  gl_FragColor = mix(tex1, tex2, uProgress);
+  gl_FragColor = mix(tex1, tex2, vProgress);
 }

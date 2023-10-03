@@ -85,7 +85,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("uProgress")
       .listen();
 
