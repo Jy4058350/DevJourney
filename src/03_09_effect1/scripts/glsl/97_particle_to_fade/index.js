@@ -23,9 +23,13 @@ class ExtendObject extends CustomObject {
     const delayVertices = intensityVertices(hSeg, wSeg, intensity, 0);
     //  printMat(delayVertices, wSeg + 1, '遅延時間行列');
 
+    function random(a, b) {
+      return a + (b - a) * Math.random();
+    }
     // 0~1までの値をstep毎に返す
     function intensity(previousValue, currentIndex) {
-      let step = 1 / (hSeg + 1) / (wSeg + 1);
+      // let step = 1 / (hSeg + 1) / (wSeg + 1);
+      let step = random(0, 800);
       return previousValue + step;
     }
 
