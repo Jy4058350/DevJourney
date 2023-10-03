@@ -19,8 +19,10 @@ class ExtendObject extends CustomObject {
   }
 
   fixGeometry() {
-    const width = this.rect.width,
-      height = this.rect.height,
+    const width = 600,
+      height = 300,
+    // const width = this.rect.width,
+    //   height = this.rect.height,
       wSeg = width / 2,
       hSeg = height / 2;
 
@@ -71,14 +73,12 @@ class ExtendObject extends CustomObject {
 
     material.side = DoubleSide;
     material.transparent = true;
-    console.log(this.uniforms.uProgress);
 
     return material;
   }
 
   fixMesh() {
-    const mesh = new Points(this.geometry, this.material);
-    return mesh;
+    return new Points(this.geometry, this.material);
   }
 
   fixVertex() {
@@ -99,7 +99,7 @@ class ExtendObject extends CustomObject {
     const datObj = { next: !!this.uniforms.uProgress.value };
     toFolder
       .add(datObj, "next")
-      // .name("Animate")
+      .name("Animate")
       .onChange(() => {
         gsap.to(this.uniforms.uProgress, {
           value: +datObj.next,
