@@ -19,10 +19,10 @@ class ExtendObject extends CustomObject {
   }
 
   fixGeometry() {
-    const width = 600,
-      height = 300,
-    // const width = this.rect.width,
-    //   height = this.rect.height,
+    // const width = 600,
+    //   height = 300,
+    const width = this.rect.width,
+      height = this.rect.height,
       wSeg = width / 2,
       hSeg = height / 2;
 
