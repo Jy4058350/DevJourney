@@ -19,14 +19,15 @@ class ExtendObject extends CustomObject {
   }
 
   fixGeometry() {
-    // const width = 800,
-    //   height = 400,
-    const width = this.rect.width,
-      height = this.rect.height,
+    const width =800.,
+      height = 400.,
+    // const width =800.0000610351562,
+    //   height = 400.000030517578,
+    // const width = this.rect.width,
+    //   height = this.rect.height,
       wSeg = width / 2,
       hSeg = height / 2;
-      console.log(this.rect.width);
-
+    console.log(width, height);
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
