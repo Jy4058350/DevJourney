@@ -16,11 +16,12 @@ uniform float uProgress;
 void main() {
     vUv = uv;
     vDelay = aDelay;
-    // float delay = easeBack(clamp(uProgress * 3.0 - (1.0 - uv.x), 0.0, 1.0));
-    // vec3 pos = mix(position, sphere, delay);    
+    vec3 pos = position;
 
-    // gl_PointSize = 10.0 * delta;
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-    gl_PointSize = 7.0 * (1000.0 / -mvPosition.z);
+    float progress = 1.0 - abs(2.0 * uProgress - 1.0);
+    pos.z += progress * 1000.0;
+
+    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+    gl_PointSize = 10.0 * (1000.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
 }

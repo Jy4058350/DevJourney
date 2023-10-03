@@ -6,12 +6,16 @@ uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform float uProgress;
 
-#pragma glslify: hsl2rgb = require(glsl-hsl2rgb);
+varying float vProgress;
 
 // gl_PointCoordについての説明
 // https://khronos.org/registry/OpenGL-Refpages/gl4/html/gl_PointCoord.xhtml
 
 void main() {
+
+  if(distance(gl_PointCoord, vec2(0.5, 0.5)) > 0.5) {
+    discard;
+  }
 
   vec4 tex1 = texture(tex1, vUv);
   vec4 tex2 = texture(tex2, vUv);
