@@ -32,7 +32,7 @@ async function init(canvasRect, viewport) {
   world.renderer.setClearColor(0x000000, 0);
 
   world.scene = new Scene();
-  console.log(world.scene);
+  // console.log(world.scene);
 
   world.camera = new PerspectiveCamera(
     viewport.fov,

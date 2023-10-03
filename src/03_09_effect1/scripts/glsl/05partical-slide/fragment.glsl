@@ -2,8 +2,8 @@ precision lowp float;
 
 varying vec2 vUv;
 
-uniform sampler2D tex1;
-uniform sampler2D tex2;
+uniform sampler2D texCurrent;
+uniform sampler2D texNext;
 
 uniform float uProgress;
 varying float vProgress;
@@ -18,8 +18,8 @@ void main() {
     discard;
   }
 
-  vec4 texC = texture(tex1, vUv);
-  vec4 texN = texture(tex2, vUv);
+  vec4 texC = texture(texCurrent, vUv);
+  vec4 texN = texture(texNext, vUv);
   vec4 color = mix(texC, texN, uProgress);
   color.a = vAlpha;
   gl_FragColor = color;
