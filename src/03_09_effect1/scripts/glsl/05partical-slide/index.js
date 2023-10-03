@@ -19,12 +19,8 @@ class ExtendObject extends CustomObject {
   }
 
   fixGeometry() {
-    const width =800.,
-      height = 400.,
-    // const width =800.0000610351562,
-    //   height = 400.000030517578,
-    // const width = this.rect.width,
-    //   height = this.rect.height,
+    const width = Math.floor(this.rect.width),
+      height = Math.floor(this.rect.height),
       wSeg = width / 2,
       hSeg = height / 2;
     console.log(width, height);
