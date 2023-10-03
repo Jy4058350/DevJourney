@@ -19,12 +19,14 @@ void main() {
     vUv = uv;
     vec3 pos = position;
 
-    // float progress = 1.0 - abs(2.0 * uProgress - 1.0);
+
     float progress = vProgress = 1.0 - abs(2.0 * uProgress - 1.0);
-    // float vProgress = progress;
-    // pos.z += progress * aIntensity;
-    pos.z += progress;
-    // pos.z += vProgress;
+    float speed = easeCubic(progress);
+    vec2 xyDirection = (uv - 0.5) * 2.0;
+    float constXY = 500.0;
+    pos.z = speed * aIntensity;
+
+    pos.xy += xyDirection * constXY * pos.z / 500.0;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = 9.0 * (1000.0 / -mvPosition.z);
