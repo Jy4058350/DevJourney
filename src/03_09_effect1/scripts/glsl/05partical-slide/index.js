@@ -40,17 +40,17 @@ class ExtendObject extends CustomObject {
       onComplete: () => {
         this.uniforms.uProgress.value = 0;
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
-        const imgEl = this.texes.get(`img${_idx}`).source.data;
+        const imgEl = nextTex.source.data;
         console.log(imgEl);
         const parentEl = this.$.el.parentElement;
-        parentEl.appendChild(imgEl);
+        parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;
       },
     });
   }
   afterInit() {
-    this.goToNext(1, 0);
+    this.goToNext(0, 0);
   }
 
   fixGeometry() {
