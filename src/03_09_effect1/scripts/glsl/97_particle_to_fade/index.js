@@ -28,9 +28,8 @@ class ExtendObject extends CustomObject {
     }
     // 0~1までの値をstep毎に返す
     function intensity(previousValue, currentIndex) {
-      let step = 1 / (hSeg + 1) / (wSeg + 1);
-      // let step = random(0, 800);
-      return random(0, 800);
+     
+      return random(0, 2000);
     }
 
     // 対角線上に頂点を詰めた配列を返す
