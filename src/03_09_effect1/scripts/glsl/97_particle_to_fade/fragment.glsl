@@ -7,6 +7,7 @@ uniform sampler2D tex2;
 uniform float uProgress;
 
 varying float vProgress;
+varying float vAlpha;
 
 // gl_PointCoordについての説明
 // https://khronos.org/registry/OpenGL-Refpages/gl4/html/gl_PointCoord.xhtml
@@ -20,6 +21,7 @@ void main() {
   vec4 tex1 = texture(tex1, vUv);
   vec4 tex2 = texture(tex2, vUv);
 
-  // gl_FragColor = tex;
-  gl_FragColor = mix(tex1, tex2, uProgress);
+  vec4 color = mix(tex1, tex2, uProgress);
+  color.a = vAlpha;
+  gl_FragColor = color;
 }
