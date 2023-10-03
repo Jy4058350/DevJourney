@@ -3,6 +3,7 @@ precision lowp float;
 varying vec2 vUv;
 
 uniform sampler2D tex1;
+uniform sampler2D tex2;
 uniform float uProgress;
 
 #pragma glslify: hsl2rgb = require(glsl-hsl2rgb);
@@ -12,7 +13,9 @@ uniform float uProgress;
 
 void main() {
 
-  vec4 tex = texture(tex1, vUv);
+  vec4 tex1 = texture(tex1, vUv);
+  vec4 tex2 = texture(tex2, vUv);
 
-  gl_FragColor = tex;
+  // gl_FragColor = tex;
+  gl_FragColor = mix(tex1, tex2, uProgress);
 }

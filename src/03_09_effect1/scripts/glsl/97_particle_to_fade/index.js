@@ -62,6 +62,7 @@ class ExtendObject extends CustomObject {
   fixMaterial() {
     const material = super.fixMaterial();
     material.side = 2;
+    transparent: true;
     return material;
   }
 
