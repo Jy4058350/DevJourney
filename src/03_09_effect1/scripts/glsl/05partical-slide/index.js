@@ -12,48 +12,6 @@ import { CustomObject } from "../CustomObject";
 import { printMat } from "../../helper";
 
 class ExtendObject extends CustomObject {
-  fixTexes(u) {
-    u.texCurrent = { value: this.texes.get("tex1") };
-    u.texNext = { value: null };
-    // console.log(this.texes.size);
-    return u;
-  }
-
-  running = false;
-  goToNext(idx, duration = 3) {
-    const _idx = (idx % this.texes.size) + 1;
-    console.log(_idx);
-
-    if (this.running) return;
-    this.running = true;
-
-    const nextTex = this.texes.get(`tex${_idx + 1}`);
-    this.uniforms.texNext.value = nextTex;
-    console.log(nextTex);
-    gsap.to(this.uniforms.uProgress, {
-      value: 0,
-      duration,
-      ease: "none",
-      onStart: () => {
-        this.$.el.nextElementSibling?.remove();
-        this.mesh.visible = true;
-      },
-      onComplete: () => {
-        this.uniforms.uProgress.value = 0;
-        this.uniforms.texCurrent.value = this.uniforms.texNext.value;
-        const imgEl = nextTex.source.data;
-        console.log(imgEl);
-        const parentEl = this.$.el.parentElement;
-        parentEl.append(imgEl);
-        this.mesh.visible = false;
-        this.running = false;
-      },
-    });
-  }
-  // afterInit() {
-  //   this.goToNext(0, 0);
-  // }
-
   fixGeometry() {
     const width = Math.floor(this.rect.width),
       height = Math.floor(this.rect.height),
@@ -125,6 +83,48 @@ class ExtendObject extends CustomObject {
 
   fixFragment() {
     return fragmentShader;
+  }
+
+  fixTexes(u) {
+    u.texCurrent = { value: this.texes.get("tex1") };
+    u.texNext = { value: null };
+    return u;
+  }
+
+  running = false;
+  goToNext(idx) {
+    const _idx = (idx % this.texes.size) + 1;
+    console.log(_idx);
+
+    if (this.running) return;
+    this.running = true;
+
+    const nextTex = this.texes.get(`tex${_idx}`);
+    this.uniforms.texNext.value = nextTex;
+    console.log(nextTex);
+    gsap.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 1.0,
+      ease: "none",
+      onStart: () => {
+        this.$.el.nextElementSibling?.remove();
+        this.mesh.visible = true;
+      },
+      onComplete: () => {
+        this.uniforms.texCurrent.value = this.uniforms.texNext.value;
+        this.uniforms.uProgress.value = 0;
+        // const imgEl = nextTex.source.data;
+        const imgEl = this.texes.get("tex" + _idx).source.data;
+        console.log(imgEl);
+        const parentEl = this.$.el.parentElement;
+        parentEl.append(imgEl);
+        this.mesh.visible = false;
+        this.running = false;
+      },
+    });
+  }
+  afterInit() {
+    this.goToNext(0, 0);
   }
 
   debug(toFolder) {
