@@ -13,17 +13,52 @@ import { printMat } from "../../helper";
 
 class ExtendObject extends CustomObject {
   fixTexes(u) {
-    u.uTexCurrent = { value: this.texes.get("tex1") };
-    u.uTexNext = { value: null };
+    u.texCurrent = { value: this.texes.get("tex1") };
+    u.texNext = { value: null };
     return u;
   }
 
+  running = false;
+  goToNext(idx) {
+    const _idx = (idx % this.texes.size) + 1;
+    console.log(_idx);
+
+    if (this.running) return;
+    this.running = true;
+
+    const nextTex = this.texes.get(`tex${_idx}`);
+    this.uniforms.texNext.value = nextTex;
+    console.log(nextTex);
+    gsap.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 3.0,
+      ease: "none",
+      onStart: () => {
+        this.$.el.nextElementSibling?.remove();
+        this.mesh.visible = true;
+      },
+      onComplete: () => {
+        this.uniforms.texCurrent.value = this.uniforms.texNext.value;
+        this.uniforms.uProgress.value = 0;
+        const imgEl = nextTex.source.data;
+        const parentEl = this.$.el.parentElement;
+        parentEl.append(imgEl);
+        this.mesh.visible = false;
+        this.running = false;
+      },
+    });
+  }
+  afterInit() {
+    this.goToNext(0, 0);
+  }
+
   fixGeometry() {
-    const width = this.rect.width,
-      height = this.rect.height,
+    // const width = this.rect.width,
+    //   height = this.rect.height,
+      const width = Math.floor(this.rect.width),
+        height = Math.floor(this.rect.height),
       wSeg = width / 2,
       hSeg = height / 2;
-
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
 
     // 対角線上に詰められた遅延時間用の頂点データ
@@ -71,14 +106,17 @@ class ExtendObject extends CustomObject {
 
     material.side = DoubleSide;
     material.transparent = true;
-    console.log(this.uniforms.uProgress);
 
     return material;
   }
 
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    return uniforms;
+  }
+
   fixMesh() {
-    const mesh = new Points(this.geometry, this.material);
-    return mesh;
+    return new Points(this.geometry, this.material);
   }
 
   fixVertex() {
@@ -96,16 +134,13 @@ class ExtendObject extends CustomObject {
       .name("progress")
       .listen();
 
-    const datObj = { next: !!this.uniforms.uProgress.value };
+    // const datObj = { next: !!this.uniforms.uProgress.value };
+    const sliderIdx = { value: 0 };
     toFolder
-      .add(datObj, "next")
-      // .name("Animate")
+      .add(sliderIdx, "value", 0, 12, 1)
+      .name("go to next")
       .onChange(() => {
-        gsap.to(this.uniforms.uProgress, {
-          value: +datObj.next,
-          duration: 3,
-          ease: "none",
-        });
+        this.goToNext(sliderIdx.value);
       });
   }
 }

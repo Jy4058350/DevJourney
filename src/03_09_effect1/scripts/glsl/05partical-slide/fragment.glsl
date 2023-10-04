@@ -1,12 +1,13 @@
 precision lowp float;
 
 varying vec2 vUv;
-varying float vAlpha;
 
-uniform sampler2D uTexCurrent;
-uniform sampler2D uTexNext;
+uniform sampler2D texCurrent;
+uniform sampler2D texNext;
+
 uniform float uProgress;
 varying float vProgress;
+varying float vAlpha;
 
 // gl_PointCoordについての説明
 // https://khronos.org/registry/OpenGL-Refpages/gl4/html/gl_PointCoord.xhtml
@@ -17,9 +18,11 @@ void main() {
     discard;
   }
 
-  vec4 texCurrent = texture(uTexCurrent, vUv);
-  vec4 texNext = texture(uTexNext, vUv);
-  vec4 color = mix(texCurrent, texNext, uProgress);
+  vec4 texC = texture(texCurrent, vUv);
+  vec4 texN = texture(texNext, vUv);
+  vec4 color = mix(texC, texN, uProgress);
   color.a = vAlpha;
   gl_FragColor = color;
+  // gl_FragColor = texC;
+  // gl_FragColor = texN;
 }
