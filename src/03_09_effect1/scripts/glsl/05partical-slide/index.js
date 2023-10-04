@@ -22,11 +22,12 @@ class ExtendObject extends CustomObject {
   running = false;
   goToNext(idx, duration = 3) {
     const _idx = (idx % this.texes.size) + 1;
+    console.log(_idx);
 
     if (this.running) return;
     this.running = true;
 
-    const nextTex = this.texes.get(`tex${_idx}`);
+    const nextTex = this.texes.get(`tex${_idx + 1}`);
     this.uniforms.texNext.value = nextTex;
     console.log(nextTex);
     gsap.to(this.uniforms.uProgress, {
@@ -49,9 +50,9 @@ class ExtendObject extends CustomObject {
       },
     });
   }
-  afterInit() {
-    this.goToNext(0, 0);
-  }
+  // afterInit() {
+  //   this.goToNext(0, 0);
+  // }
 
   fixGeometry() {
     const width = Math.floor(this.rect.width),
@@ -133,16 +134,13 @@ class ExtendObject extends CustomObject {
       .name("progress")
       .listen();
 
-    const datObj = { next: !!this.uniforms.uProgress.value };
+    // const datObj = { next: !!this.uniforms.uProgress.value };
+    const sliderIdx = { value: 0 };
     toFolder
-      .add(datObj, "next")
-      .name("Animate")
+      .add(sliderIdx, "value", 0, 12, 1)
+      .name("go to next")
       .onChange(() => {
-        gsap.to(this.uniforms.uProgress, {
-          value: +datObj.next,
-          duration: 3,
-          ease: "none",
-        });
+        this.goToNext(sliderIdx.value);
       });
   }
 }
