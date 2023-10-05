@@ -47,20 +47,17 @@ async function init(canvasRect, viewport) {
 
 async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
-  const prms = [...els].map(async (el) => {
+  const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
     // console.log(type);
     // const o = await import(`./${type}/index.js`).then(
-    return  await import(`./${type}/index.js`).then(
-      ({ default: CustomObject }) => {
-        return CustomObject.init({ el, type });
-      }
-    );
+    return import(`./${type}/index.js`).then(({ default: CustomObject }) => {
+      return CustomObject.init({ el, type });
+    });
   });
   const _AsyncOs = await Promise.all(prms);
   _AsyncOs.forEach((o) => {
     if (!o.mesh) return;
-    console.log(o);
     world.scene.add(o.mesh);
     os.push(o);
 
