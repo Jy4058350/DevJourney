@@ -48,7 +48,7 @@ class ExtendObject extends CustomObject {
       },
     });
   }
-  afterInit() {
+  async afterInit() {
     this.goToNext(0, 0);
   }
 
