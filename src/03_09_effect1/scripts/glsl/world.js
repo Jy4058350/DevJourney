@@ -56,11 +56,13 @@ async function initObjects(canvasRect) {
       }
     );
     if (!o.mesh) return;
+    console.log(o);
     world.scene.add(o.mesh);
     os.push(o);
 
     return o;
   });
+  console.log(prms);
   await Promise.all(prms);
   let first = true;
   const prmsA = os.map(async (o) => {
