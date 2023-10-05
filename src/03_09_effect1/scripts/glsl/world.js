@@ -79,6 +79,14 @@ function addMesh(o) {
   os.push(o);
 }
 
+function removeMesh(o) {
+  world.scene.remove(o.mesh);
+ const index = world.os.indexOf(o);
+  if (index > -1) {
+    world.os.splice(index, 1);
+  }
+}
+
 function render() {
   world.tick++;
   requestAnimationFrame(render);
