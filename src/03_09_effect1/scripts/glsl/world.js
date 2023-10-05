@@ -18,6 +18,9 @@ const world = {
   render,
   osResize,
   tick: 0,
+  getOs,
+  addMesh,
+  removeMesh,
 };
 
 const raycaster = new Raycaster();
@@ -81,10 +84,16 @@ function addMesh(o) {
 
 function removeMesh(o) {
   world.scene.remove(o.mesh);
- const index = world.os.indexOf(o);
+  const index = world.os.indexOf(o);
   if (index > -1) {
     world.os.splice(index, 1);
   }
+}
+
+function getOs(select) {
+  const El = document.querySelector(select);
+  const o = world.os.find((o) => o.$.el === El);
+  return o;
 }
 
 function render() {
