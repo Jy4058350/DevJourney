@@ -26,9 +26,9 @@ void main() {
     pos.xy += xyDirection * constXY * pos.z / 1000.0;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-    gl_PointSize = 9.0 * (1000.0 / -mvPosition.z);
+    gl_PointSize = 10.0 * (1000.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
 
-    vAlpha = mix(0.1, 1.0, -mvPosition.z / 1000.0);
+    vAlpha = mix(0.1, 1.5, -mvPosition.z / 1000.0);
 
 }

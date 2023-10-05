@@ -42,21 +42,22 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0;
         const imgEl = nextTex.source.data;
         const parentEl = this.$.el.parentElement;
+        console.log(parentEl);
         parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;
       },
     });
   }
-  afterInit() {
+  async afterInit() {
     this.goToNext(0, 0);
   }
 
   fixGeometry() {
     // const width = this.rect.width,
     //   height = this.rect.height,
-      const width = Math.floor(this.rect.width),
-        height = Math.floor(this.rect.height),
+    const width = Math.floor(this.rect.width),
+      height = Math.floor(this.rect.height),
       wSeg = width / 2,
       hSeg = height / 2;
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
@@ -135,12 +136,12 @@ class ExtendObject extends CustomObject {
       .listen();
 
     // const datObj = { next: !!this.uniforms.uProgress.value };
-    const sliderIdx = { value: 0 };
+    const idx = { value: 0 };
     toFolder
-      .add(sliderIdx, "value", 0, 12, 1)
+      .add(idx, "value", 0, 12, 1)
       .name("go to next")
       .onChange(() => {
-        this.goToNext(sliderIdx.value);
+        this.goToNext(idx.value);
       });
   }
 }
