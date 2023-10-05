@@ -19,10 +19,8 @@ vec2 coverUv(vec2 uv, vec4 resolution) {
 }
 
 void main() {
-    vec4 tex = texture(tex1, gl_PointCoord);
+    vec4 tex = texture(tex1, vUv);
 
-    float hue = sin(uTick * uColorTime - vDelay * uColorDelay) * .5 + .5;
-    vec3 rgb = hsl12rgb(vec3(hue, uSaturation, uBrightness));
-    gl_FragColor = vec4(rgb, 1.0);
+    gl_FragColor = tex;
 
 }

@@ -18,10 +18,8 @@ class ExtendObject extends CustomObject {
       height = this.rect.height;
     const wSeg = Math.floor(this.rect.width) / 20,
       hSeg = Math.floor(this.rect.height) / 20;
-    // const wSeg = 30,
-    //   hSeg = 30;
-    const sphere = new SphereGeometry(200, wSeg, hSeg);
-    // const plane = new PlaneGeometry(width, height, wSeg, hSeg);
+    const radius = 200;
+    const sphere = new SphereGeometry(radius, wSeg, hSeg);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
 
@@ -99,13 +97,16 @@ class ExtendObject extends CustomObject {
       .listen();
 
     const datData = { next: !!this.uniforms.uProgress.value };
-    toFolder.add(datData, "next").onChange(() => {
-      gsap.to(this.uniforms.uProgress, {
-        value: +datData.next,
-        duration: 2,
-        ease: "power2.inOut",
+    toFolder
+      .add(datData, "next")
+      .name("Animate")
+      .onChange(() => {
+        gsap.to(this.uniforms.uProgress, {
+          value: +datData.next,
+          duration: 2,
+          ease: "power2.inOut",
+        });
       });
-    });
   }
 }
 
