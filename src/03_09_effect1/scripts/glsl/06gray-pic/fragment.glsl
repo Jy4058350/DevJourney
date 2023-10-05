@@ -20,6 +20,7 @@ void main() {
     vec4 t1 = texture2D(tex1, uv);
     vec4 t2 = texture2D(tex2, uv);
     vec4 color = mix(t1, t2, step(.5, uv.x));
+    // vec4 gray = vec4 grayscale(color);
     vec4 gray = grayscale(color);
     gl_FragColor = gray;
 }

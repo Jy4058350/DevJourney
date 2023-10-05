@@ -4,5 +4,4 @@ vec4 grayscale(vec4 tex) {
     return vec4(grayScale, grayScale, grayScale, tex.a);
 }
 
-// #pragma glslify: export(vec4 grayscale(vec4))
 #pragma glslify: export(grayscale)
