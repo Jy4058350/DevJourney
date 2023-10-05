@@ -18,6 +18,9 @@ const world = {
   render,
   osResize,
   tick: 0,
+  getOs,
+  addMesh,
+  removeMesh,
 };
 
 const raycaster = new Raycaster();
@@ -47,23 +50,20 @@ async function init(canvasRect, viewport) {
 
 async function initObjects(canvasRect) {
   const els = document.querySelectorAll("[data-webgl]");
-  const prms = [...els].map(async (el) => {
+  const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
     // console.log(type);
     // const o = await import(`./${type}/index.js`).then(
-    return  await import(`./${type}/index.js`).then(
-      ({ default: CustomObject }) => {
-        return CustomObject.init({ el, type });
-      }
-    );
+    return import(`./${type}/index.js`).then(({ default: CustomObject }) => {
+      return CustomObject.init({ el, type });
+    });
   });
   const _AsyncOs = await Promise.all(prms);
   _AsyncOs.forEach((o) => {
     if (!o.mesh) return;
-    console.log(o);
-    world.scene.add(o.mesh);
-    os.push(o);
-
+    // world.scene.add(o.mesh);
+    // os.push(o);
+    addMesh(o);
     return o;
   });
 
@@ -75,6 +75,29 @@ async function initObjects(canvasRect) {
     }
   });
   await Promise.all(prmsA);
+}
+
+function addMesh(o) {
+  world.scene.add(o.mesh);
+  os.push(o);
+}
+
+function removeMesh(o, dispose = true) {
+  world.scene.remove(o.mesh);
+  const index = world.os.indexOf(o);
+  if (index > -1) {
+    world.os.splice(index, 1);
+  }
+  if (dispose) {
+    o.mesh.geometry.dispose();
+    o.mesh.material.dispose();
+  }
+}
+
+function getOs(select) {
+  const El = document.querySelector(select);
+  const o = world.os.find((o) => o.$.el === El);
+  return o;
 }
 
 function render() {
