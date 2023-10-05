@@ -44,7 +44,7 @@ class ExtendObject extends CustomObject {
         const parentEl = this.$.el.parentElement;
         console.log(parentEl);
         parentEl.append(imgEl);
-        // this.mesh.visible = false;
+        this.mesh.visible = false;
         this.running = false;
       },
     });
@@ -136,12 +136,12 @@ class ExtendObject extends CustomObject {
       .listen();
 
     // const datObj = { next: !!this.uniforms.uProgress.value };
-    const sliderIdx = { value: 0 };
+    const idx = { value: 0 };
     toFolder
-      .add(sliderIdx, "value", 0, 12, 1)
+      .add(idx, "value", 0, 12, 1)
       .name("go to next")
       .onChange(() => {
-        this.goToNext(sliderIdx.value);
+        this.goToNext(idx.value);
       });
   }
 }
