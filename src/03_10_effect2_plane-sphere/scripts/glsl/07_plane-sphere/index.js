@@ -16,10 +16,10 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const width = this.rect.width,
       height = this.rect.height;
-    // const wSeg = this.rect.width / 10,
-    //   hSeg = this.rect.height / 10;
-    const wSeg = 30,
-      hSeg = 30;
+    const wSeg = Math.floor(this.rect.width) / 20,
+      hSeg = Math.floor(this.rect.height) / 20;
+    // const wSeg = 30,
+    //   hSeg = 30;
     const sphere = new SphereGeometry(200, wSeg, hSeg);
     // const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
