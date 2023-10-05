@@ -43,8 +43,8 @@ class ExtendObject extends CustomObject {
         const imgEl = nextTex.source.data;
         const parentEl = this.$.el.parentElement;
         parentEl.append(imgEl);
-        this.mesh.visible = false;
-        this.running = false;
+        // this.mesh.visible = false;
+        // this.running = false;
       },
     });
   }
