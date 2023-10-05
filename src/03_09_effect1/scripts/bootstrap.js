@@ -1,4 +1,5 @@
 import "../styles/style.scss";
+import gsap from "gsap";
 
 import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
@@ -46,6 +47,14 @@ export async function init() {
 
   loader.loadingAnimation();
 
-  gui.open();
+  const client = world.getOs(`[data-webgl="03noise-slide"]`);
+  gsap.to(client.uniforms.uProgress, {
+    value: 1,
+    duration: 1.0,
+    ease: "none",
+    repeat: -1,
+    yoyo: true,
+  });
 
+  gui.open();
 }

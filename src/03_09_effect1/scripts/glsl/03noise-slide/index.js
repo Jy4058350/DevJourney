@@ -8,7 +8,7 @@ import { CustomObject } from "../CustomObject";
 class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uNoiseScale = { value: new Vector2(2, 2) };
+    uniforms.uNoiseScale = { value: new Vector2(6, 6) };
 
     return uniforms;
   }
@@ -31,7 +31,7 @@ class ExtendObject extends CustomObject {
       .name("y")
       .listen();
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .add(this.uniforms.uProgress, "value", 0, 1.0, 0.1)
       .name("value")
       .listen();
 
@@ -39,7 +39,7 @@ class ExtendObject extends CustomObject {
     toFolder.add(datData, "next").onChange(() => {
       gsap.to(this.uniforms.uProgress, {
         value: +datData.next,
-        duration: 2,
+        duration: 0.5,
         ease: "power2.inOut",
       });
     });
