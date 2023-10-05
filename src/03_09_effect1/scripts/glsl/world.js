@@ -82,11 +82,15 @@ function addMesh(o) {
   os.push(o);
 }
 
-function removeMesh(o) {
+function removeMesh(o, dispose = true) {
   world.scene.remove(o.mesh);
   const index = world.os.indexOf(o);
   if (index > -1) {
     world.os.splice(index, 1);
+  }
+  if (dispose) {
+    o.mesh.geometry.dispose();
+    o.mesh.material.dispose();
   }
 }
 

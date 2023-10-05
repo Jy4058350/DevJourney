@@ -48,6 +48,7 @@ export async function init() {
   loader.loadingAnimation();
 
   setTimeout(() => {
+    let dispose;
     const client = world.getOs(`[data-webgl="03noise-slide"]`);
     gsap.to(client.uniforms.uProgress, {
       value: 1,
@@ -56,8 +57,8 @@ export async function init() {
       // repeat: -1,
       yoyo: true,
       onComplete: () => {
-        world.removeMesh(client.mesh);
-        console.log(client.mesh);
+        world.removeMesh(client, (dispose = true));
+        console.log(client);
       },
     });
   }, 6000);
