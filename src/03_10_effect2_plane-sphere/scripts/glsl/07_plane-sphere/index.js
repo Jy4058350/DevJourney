@@ -14,15 +14,15 @@ import { CustomObject } from "../CustomObject";
 
 class ExtendObject extends CustomObject {
   fixGeometry() {
-    // const width = this.rect.width,
-    //   height = this.rect.height;
+    const width = this.rect.width,
+      height = this.rect.height;
     // const wSeg = this.rect.width / 10,
     //   hSeg = this.rect.height / 10;
     const wSeg = 30,
       hSeg = 30;
     const sphere = new SphereGeometry(200, wSeg, hSeg);
     // const plane = new PlaneGeometry(width, height, wSeg, hSeg);
-    const plane = new PlaneGeometry(600, 300, wSeg, hSeg);
+    const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
 
     geometry.setAttribute("position", plane.getAttribute("position"));
