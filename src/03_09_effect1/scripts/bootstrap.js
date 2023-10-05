@@ -47,14 +47,20 @@ export async function init() {
 
   loader.loadingAnimation();
 
-  const client = world.getOs(`[data-webgl="03noise-slide"]`);
-  gsap.to(client.uniforms.uProgress, {
-    value: 1,
-    duration: 1.0,
-    ease: "none",
-    repeat: -1,
-    yoyo: true,
-  });
+  setTimeout(() => {
+    const client = world.getOs(`[data-webgl="03noise-slide"]`);
+    gsap.to(client.uniforms.uProgress, {
+      value: 1,
+      duration: 1.0,
+      ease: "none",
+      // repeat: -1,
+      yoyo: true,
+      onComplete: () => {
+        world.removeMesh(client.mesh);
+        console.log(client.mesh);
+      },
+    });
+  }, 6000);
 
   gui.open();
 }
