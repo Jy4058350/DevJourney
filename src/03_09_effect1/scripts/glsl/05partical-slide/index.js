@@ -42,9 +42,10 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0;
         const imgEl = nextTex.source.data;
         const parentEl = this.$.el.parentElement;
+        console.log(parentEl);
         parentEl.append(imgEl);
         // this.mesh.visible = false;
-        // this.running = false;
+        this.running = false;
       },
     });
   }
@@ -55,8 +56,8 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     // const width = this.rect.width,
     //   height = this.rect.height,
-      const width = Math.floor(this.rect.width),
-        height = Math.floor(this.rect.height),
+    const width = Math.floor(this.rect.width),
+      height = Math.floor(this.rect.height),
       wSeg = width / 2,
       hSeg = height / 2;
     const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
