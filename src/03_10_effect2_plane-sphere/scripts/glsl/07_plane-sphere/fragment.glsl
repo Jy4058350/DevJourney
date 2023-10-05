@@ -12,11 +12,7 @@ uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform float uProgress;
 
-#pragma glslify: hsl12rgb = require(glsl-hsl2rgb);
 
-vec2 coverUv(vec2 uv, vec4 resolution) {
-    return (uv - .5) * resolution.zw + .5;
-}
 
 void main() {
     vec4 tex = texture(tex1, vUv);

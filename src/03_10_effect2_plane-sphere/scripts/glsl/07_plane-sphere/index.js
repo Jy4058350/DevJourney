@@ -80,9 +80,9 @@ class ExtendObject extends CustomObject {
     return uniforms;
   }
 
-  fixMesh() {
-    return new Points(this.geometry, this.material);
-  }
+  // fixMesh() {
+  //   return new Points(this.geometry, this.material);
+  // }
 
   fixVertex() {
     return vertexShader;
