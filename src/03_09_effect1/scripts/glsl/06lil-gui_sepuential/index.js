@@ -21,12 +21,14 @@ class ExtendObject extends CustomObject {
   running = false;
   goToNext(idx) {
     const _idx = (idx % this.texes.size) + 1;
+    console.log(_idx);
 
     if (this.running) return;
     this.running = true;
 
     const nextTex = this.texes.get(`tex${_idx}`);
     this.uniforms.texNext.value = nextTex;
+    console.log(nextTex);
     gsap.to(this.uniforms.uProgress, {
       value: 1,
       duration: 3.0,
@@ -40,6 +42,7 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0;
         const imgEl = nextTex.source.data;
         const parentEl = this.$.el.parentElement;
+        console.log(parentEl);
         parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;

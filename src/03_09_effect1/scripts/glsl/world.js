@@ -50,18 +50,23 @@ async function initObjects(canvasRect) {
   const prms = [...els].map(async (el) => {
     const type = el.dataset.webgl;
     // console.log(type);
-    const o = await import(`./${type}/index.js`).then(
+    // const o = await import(`./${type}/index.js`).then(
+    return  await import(`./${type}/index.js`).then(
       ({ default: CustomObject }) => {
         return CustomObject.init({ el, type });
       }
     );
+  });
+  const _AsyncOs = await Promise.all(prms);
+  _AsyncOs.forEach((o) => {
     if (!o.mesh) return;
+    console.log(o);
     world.scene.add(o.mesh);
     os.push(o);
 
     return o;
   });
-  await Promise.all(prms);
+
   let first = true;
   const prmsA = os.map(async (o) => {
     if (first) {
