@@ -55,6 +55,9 @@ async function initObjects(canvasRect) {
         return CustomObject.init({ el, type });
       }
     );
+  });
+  const asyncOs = await Promise.all(prms);
+  asyncOs.forEach((o) => {
     if (!o.mesh) return;
     console.log(o);
     world.scene.add(o.mesh);
@@ -62,8 +65,7 @@ async function initObjects(canvasRect) {
 
     return o;
   });
-  console.log(prms);
-  await Promise.all(prms);
+
   let first = true;
   const prmsA = os.map(async (o) => {
     if (first) {
