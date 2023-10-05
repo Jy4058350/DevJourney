@@ -58,7 +58,6 @@ export async function init() {
       yoyo: true,
       onComplete: () => {
         world.removeMesh(client, (dispose = true));
-        console.log(client);
       },
     });
   }, 6000);
