@@ -57,8 +57,8 @@ async function initObjects(canvasRect) {
       }
     );
   });
-  const asyncOs = await Promise.all(prms);
-  asyncOs.forEach((o) => {
+  const _AsyncOs = await Promise.all(prms);
+  _AsyncOs.forEach((o) => {
     if (!o.mesh) return;
     console.log(o);
     world.scene.add(o.mesh);
