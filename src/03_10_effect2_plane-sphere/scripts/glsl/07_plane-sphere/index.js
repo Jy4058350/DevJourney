@@ -16,15 +16,16 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const width = this.rect.width,
       height = this.rect.height;
-    const wSeg = Math.floor(this.rect.width) / 20,
-      hSeg = Math.floor(this.rect.height) / 20;
+    const wSeg = Math.floor(this.rect.width) / 10,
+      hSeg = Math.floor(this.rect.height) / 10;
     const radius = 200;
     const sphere = new SphereGeometry(radius, wSeg, hSeg);
-    const plane = new PlaneGeometry(width, height, wSeg, hSeg);
-    const geometry = new BufferGeometry();
+    const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
+    // const plane = new PlaneGeometry(width, height, wSeg, hSeg);
+    // const geometry = new BufferGeometry();
 
-    geometry.setAttribute("position", plane.getAttribute("position"));
-    geometry.setAttribute("uv", plane.getAttribute("uv"));
+    // geometry.setAttribute("position", plane.getAttribute("position"));
+    // geometry.setAttribute("uv", plane.getAttribute("uv"));
     geometry.setAttribute("sphere", sphere.getAttribute("position"));
 
     // 対角線上に詰められた遅延時間用の頂点データ
