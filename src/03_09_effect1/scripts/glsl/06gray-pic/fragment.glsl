@@ -9,7 +9,7 @@ vec2 coverUv(vec2 uv, vec4 resolution) {
     return (uv - .5) * resolution.zw + .5;
 }
 
-#pragma glslify: require(../shader-helper/grayscale);
+#pragma glslify: grayscale = require(../shader-helper/grayscale);
 
 void main() {
           // vec2 mouse = step(uMouse, vUv);
@@ -21,6 +21,5 @@ void main() {
     vec4 t2 = texture2D(tex2, uv);
     vec4 color = mix(t1, t2, step(.5, uv.x));
     vec4 gray = grayscale(color);
-    gl_FragColor = color;
     gl_FragColor = gray;
 }
