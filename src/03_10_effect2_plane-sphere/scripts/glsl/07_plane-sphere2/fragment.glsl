@@ -26,8 +26,8 @@ void main() {
 
     //sphere color
     // vec3 ray = vec3(0.0, 0.0, -1.0);
-    vec3 ray = vec3(0.0, 0.0, 0.5);
-    // vec3 ray = vec3(cos(uTick * 0.01), sin(uTick * 0.01), 0.5);
+    // vec3 ray = vec3(0.0, 0.0, 0.5);
+    vec3 ray = vec3(cos(uTick * 0.01) * 0.3, sin(uTick * 0.01) * 0.3, 0.5);
     // vec3 ray = vec3(cos(uTick * 0.01), 0.0, sin(uTick * 0.01));
     // float fresnel = dot(ray, vSphereNormal);
     float fresnel = 1.0 - dot(ray, vSphereNormal);

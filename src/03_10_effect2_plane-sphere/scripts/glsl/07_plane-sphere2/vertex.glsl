@@ -20,7 +20,7 @@ void main() {
 
     //add noise
     vec3 sphere = sphere;
-    float noise = spherenoise(vec3((sphereNormal.x - uTick * frequency) * noiseScale, (sphereNormal.y - uTick * frequency) * noiseScale, (sphereNormal.z - uTick * frequency) * noiseScale));
+    float noise = spherenoise(vec3((sphereNormal.x) * noiseScale - uTick * frequency, (sphereNormal.y)* noiseScale - uTick * frequency , (sphereNormal.z)* noiseScale - uTick * frequency ));
     sphere += sphere * noise * strength;
 
     //calculate scalar
