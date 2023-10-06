@@ -17,8 +17,8 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const width = this.rect.width,
       height = this.rect.height;
-    const wSeg = Math.floor(this.rect.width) / 40,
-      hSeg = Math.floor(this.rect.height) / 40;
+    const wSeg = Math.floor(this.rect.width) / 10,
+      hSeg = Math.floor(this.rect.height) / 10;
     const radius = 100;
     const sphere = new SphereGeometry(radius, wSeg, hSeg);
     sphere.rotateY(Math.PI * 1.4);
