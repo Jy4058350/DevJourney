@@ -1,7 +1,7 @@
 precision mediump float;
 
 attribute float aDelay;
-attribute float sphereNormal;
+attribute vec3 sphereNormal;
 attribute vec3 sphere;
 
 

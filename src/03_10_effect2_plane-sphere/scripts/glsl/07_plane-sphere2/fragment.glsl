@@ -23,13 +23,14 @@ void main() {
     vec4 texColor = mix(gray, tex, uHover);
 
     //sphere color
-    vec3 ray = vec3(0.0, 0.0, -1.0);
+    // vec3 ray = vec3(0.0, 0.0, -1.0);
+    vec3 ray = vec3(0.0, 0.0, 1.0);
     float fresnel = dot(ray, vSphereNormal);
     // float fresnel = 1.0 - dot(ray, vSphereNormal);
-    vec4 sphereTexColor = vec4(vec3(fresnel), 1.0);
+    vec4 sphereColor = vec4(vec3(fresnel), 1.0);
 
     //mix colors
-    vec4 color = mix(sphereTexColor, texColor, vProgress);
+    vec4 color = mix(sphereColor, texColor, vProgress);
     gl_FragColor = color;
 
 }

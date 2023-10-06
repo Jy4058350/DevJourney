@@ -30,6 +30,7 @@ class ExtendObject extends CustomObject {
     geometry.setAttribute("sphere", sphere.getAttribute("position"));
     geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
     geometry.setAttribute("planeNormal", plane.getAttribute("normal"));
+    console.log(sphere.getAttribute("normal"));
 
     // planegeometryのindexをbuffergeometryにセット
     const planeIndexs = plane.getIndex().array;
