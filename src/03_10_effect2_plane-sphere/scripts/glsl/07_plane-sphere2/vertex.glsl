@@ -19,14 +19,13 @@ void main() {
 
     //add noise
     vec3 sphere = sphere;
-    // float noise = spherenoise(vec3(sphereNormal.x, sphereNormal.y, sphereNormal.z - uTick * 0.001));
-    float noise = spherenoise(vec3(sphereNormal.x - uTick * frequency, sphereNormal.y- uTick * frequency, sphereNormal.z- uTick * frequency));
-    sphere += noise * strength;
+    float noise = spherenoise(vec3(sphereNormal.x - uTick * frequency, sphereNormal.y - uTick * frequency, sphereNormal.z - uTick * frequency));
+    sphere += sphere * noise * strength;
 
     //calculate scalar
     vec3 p = position;
     vUv = uv;
-    vSphereNormal = sphereNormal;
+    vSphereNormal = sphereNormal + sphereNormal * noise * 0.3;
 
     float distanceFromCenter = distance(uv, vec2(0.5, 0.5));
 

@@ -102,7 +102,7 @@ class ExtendObject extends CustomObject {
       .name("progess")
       .listen();
     toFolder
-      .add(this.uniforms.strength, "value", 0, 20, 1.0)
+      .add(this.uniforms.strength, "value", 0, 1, 0.1)
       .name("strength")
       .listen();
     toFolder
