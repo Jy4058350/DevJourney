@@ -1,7 +1,9 @@
 precision mediump float;
 
 attribute float aDelay;
+attribute float sphereNormal;
 attribute vec3 sphere;
+
 
 uniform float uProgress;
 
@@ -9,9 +11,11 @@ uniform float uSphereRadius;
 
 varying vec2 vUv;
 varying float vProgress;
+varying float vSphereNormal;
 
 void main() {
     vUv = uv;
+    vSphereNormal = sphereNormal;
 
     float distancFromCenter = distance(uv, vec2(0.5, 0.5));
 

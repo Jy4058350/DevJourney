@@ -3,20 +3,33 @@ varying float vDelay;
 uniform vec2 uMouse;
 uniform vec4 uResolution;
 uniform float uTick;
-uniform float uSaturation;
-uniform float uBrightness;
-uniform float uColorTime;
 uniform float uColorDelay;
 uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 varying float vProgress;
+varying float vSphereNormal;
+
+#pragma glslify: grayscale = require(../shader-helper/grayscale);
+#pragma glslify: coverUv = require(../shader-helper/coverUv);
 
 void main() {
-    vec4 tex = texture(tex1, vUv);
-    vec4 sphereTexColor = vec4(1.0, 0.0, 1.0, 1.0);
 
-    vec4 color = mix(sphereTexColor, tex, vProgress);
+    vec2 uv = coverUv(vUv, uResolution);
+
+    //texture color
+    vec4 tex = texture(tex1, uv);
+    vec4 gray = grayscale(tex);
+    vec4 texColor = mix(gray, tex, uHover);
+
+    //sphere color
+    vec3 ray = vec3(0.0, 0.0, -1.0);
+    float fresnel = dot(ray, vSphereNormal);
+    // float fresnel = 1.0 - dot(ray, vSphereNormal);
+    vec4 sphereTexColor = vec4(vec3(fresnel), 1.0);
+
+    //mix colors
+    vec4 color = mix(sphereTexColor, texColor, vProgress);
     gl_FragColor = color;
 
 }
