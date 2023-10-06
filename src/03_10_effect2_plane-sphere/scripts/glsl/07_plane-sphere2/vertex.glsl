@@ -13,7 +13,8 @@ void main() {
     vDelay = aDelay;
 
     float delay = clamp(uProgress * 3.0 - (1.0 - uv.x), 0.0, 1.0);
-    vec3 pos = mix(position, sphere, delay);
+    // vec3 pos = mix(position, sphere, delay);
+    vec3 pos = mix(position, sphere, uProgress);
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 

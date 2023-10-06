@@ -24,7 +24,6 @@ class ExtendObject extends CustomObject {
     sphere.rotateY(Math.PI * 1.4);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
-    console.log(geometry);
 
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
