@@ -11,6 +11,7 @@ uniform float uSphereRadius;
 uniform float uTick;
 uniform float strength;
 uniform float frequency;
+uniform float noiseScale;
 varying vec2 vUv;
 varying float vScalar;
 varying vec3 vSphereNormal;
@@ -19,7 +20,7 @@ void main() {
 
     //add noise
     vec3 sphere = sphere;
-    float noise = spherenoise(vec3(sphereNormal.x - uTick * frequency, sphereNormal.y - uTick * frequency, sphereNormal.z - uTick * frequency));
+    float noise = spherenoise(vec3((sphereNormal.x - uTick * frequency) * noiseScale, (sphereNormal.y - uTick * frequency) * noiseScale, (sphereNormal.z - uTick * frequency) * noiseScale));
     sphere += sphere * noise * strength;
 
     //calculate scalar

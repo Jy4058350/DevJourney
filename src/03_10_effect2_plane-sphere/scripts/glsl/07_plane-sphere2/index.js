@@ -79,8 +79,9 @@ class ExtendObject extends CustomObject {
     const uniforms = super.fixUniforms();
     uniforms.uScaleDelay = { value: 5 };
     uniforms.uSphereRadius = { value: 1.0 };
-    uniforms.strength = { value: 0.0 };
-    uniforms.frequency = { value: 0.0 };
+    uniforms.strength = { value: 0.2 };
+    uniforms.frequency = { value: 0.01 };
+    uniforms.noiseScale = { value: 0.1 };
     return uniforms;
   }
 
@@ -106,8 +107,12 @@ class ExtendObject extends CustomObject {
       .name("strength")
       .listen();
     toFolder
-      .add(this.uniforms.frequency, "value", 0, 0.1, 0.001)
+      .add(this.uniforms.frequency, "value", 0.01, 0.1, 0.001)
       .name("frequency")
+      .listen();
+    toFolder
+      .add(this.uniforms.noiseScale, "value", 0.01, 5.0, 0.1)
+      .name("noiseScale")
       .listen();
 
     const datData = { next: !!this.uniforms.uProgress.value };
