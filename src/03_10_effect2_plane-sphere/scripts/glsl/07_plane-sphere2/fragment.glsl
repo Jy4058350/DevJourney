@@ -10,13 +10,13 @@ uniform float uColorDelay;
 uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
-uniform float uProgress;
-
-
+varying float vProgress;
 
 void main() {
     vec4 tex = texture(tex1, vUv);
+    vec4 sphereTexColor = vec4(1.0, 0.0, 1.0, 1.0);
 
-    gl_FragColor = tex;
+    vec4 color = mix(sphereTexColor, tex, vProgress);
+    gl_FragColor = color;
 
 }

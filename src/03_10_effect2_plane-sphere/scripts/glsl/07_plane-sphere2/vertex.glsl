@@ -8,6 +8,7 @@ uniform float uProgress;
 uniform float uSphereRadius;
 
 varying vec2 vUv;
+varying float vProgress;
 
 void main() {
     vUv = uv;
@@ -17,6 +18,8 @@ void main() {
     float progress = uProgress * 2.0 - distancFromCenter;
 
     progress = clamp(progress, 0.0, 1.0);
+
+    vProgress = progress;
 
     vec3 pos = mix(sphere * uSphereRadius, position, progress);
 
