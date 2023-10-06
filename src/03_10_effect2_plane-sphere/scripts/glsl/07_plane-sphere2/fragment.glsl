@@ -7,7 +7,7 @@ uniform float uColorDelay;
 uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
-varying float vProgress;
+varying float vScalar;
 varying vec3 vSphereNormal;
 
 #pragma glslify: grayscale = require(../shader-helper/grayscale);
@@ -33,7 +33,7 @@ void main() {
     vec4 sphereColor = vec4(vec3(fresnel), 1.0);
 
     //mix colors
-    vec4 color = mix(sphereColor, texColor, vProgress);
+    vec4 color = mix(sphereColor, texColor, vScalar);
     gl_FragColor = color;
 
 }
