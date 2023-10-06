@@ -16,7 +16,7 @@ void main() {
 
     progress = clamp(progress, 0.0, 1.0);
 
-    vec3 pos = mix(sphere, position, progress);
+    vec3 pos = mix(sphere * 0.5, position, progress);
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 
