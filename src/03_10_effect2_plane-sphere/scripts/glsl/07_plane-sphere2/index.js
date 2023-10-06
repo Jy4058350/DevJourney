@@ -17,20 +17,24 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const width = this.rect.width,
       height = this.rect.height;
-    const wSeg = Math.floor(this.rect.width) / 20,
-      hSeg = Math.floor(this.rect.height) / 20;
-    const radius = 200;
-    // const sphere = new SphereGeometry(radius, wSeg, hSeg);
-    // const geometry = new PlaneGeometry(width, height, wSeg, hSeg);
+    const wSeg = Math.floor(this.rect.width) / 40,
+      hSeg = Math.floor(this.rect.height) / 40;
+    const radius = 100;
+    const sphere = new SphereGeometry(radius, wSeg, hSeg);
+    sphere.rotateY(Math.PI * 1.4);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
     console.log(geometry);
 
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    // geometry.setAttribute("sphere", sphere.getAttribute("position"));
-    // geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
-    // geometry.setAttribute("planeNormal", plane.getAttribute("normal"));
+    geometry.setAttribute("sphere", sphere.getAttribute("position"));
+    geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
+    geometry.setAttribute("planeNormal", plane.getAttribute("normal"));
+
+    // planegeometryのindexをbuffergeometryにセット
+    const planeIndexs = plane.getIndex().array;
+    geometry.setIndex(new BufferAttribute(planeIndexs, 1));
 
     // 対角線上に詰められた遅延時間用の頂点データ
     const delayVertices = getDiagonalVertices(hSeg, wSeg, getValue, 0);
@@ -68,10 +72,6 @@ class ExtendObject extends CustomObject {
       "aDelay",
       new Float32BufferAttribute(delayVertices, 1)
     );
-
-    // planegeometryのindexをbuffergeometryにセット
-    const planeIndexs = plane.getIndex().array;
-    geometry.setIndex(new BufferAttribute(planeIndexs, 1));
 
     return geometry;
   }
