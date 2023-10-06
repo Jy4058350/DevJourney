@@ -8,7 +8,7 @@ uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 varying float vProgress;
-varying float vSphereNormal;
+varying vec3 vSphereNormal;
 
 #pragma glslify: grayscale = require(../shader-helper/grayscale);
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
@@ -24,9 +24,9 @@ void main() {
 
     //sphere color
     // vec3 ray = vec3(0.0, 0.0, -1.0);
-    vec3 ray = vec3(0.0, 0.0, 1.0);
-    float fresnel = dot(ray, vSphereNormal);
-    // float fresnel = 1.0 - dot(ray, vSphereNormal);
+    vec3 ray = vec3(0.0, 0.0, 0.5);
+    // float fresnel = dot(ray, vSphereNormal);
+    float fresnel = 1.0 - dot(ray, vSphereNormal);
     vec4 sphereColor = vec4(vec3(fresnel), 1.0);
 
     //mix colors

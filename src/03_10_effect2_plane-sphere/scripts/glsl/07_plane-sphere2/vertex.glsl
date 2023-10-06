@@ -4,14 +4,13 @@ attribute float aDelay;
 attribute vec3 sphereNormal;
 attribute vec3 sphere;
 
-
 uniform float uProgress;
 
 uniform float uSphereRadius;
 
 varying vec2 vUv;
 varying float vProgress;
-varying float vSphereNormal;
+varying vec3 vSphereNormal;
 
 void main() {
     vUv = uv;
