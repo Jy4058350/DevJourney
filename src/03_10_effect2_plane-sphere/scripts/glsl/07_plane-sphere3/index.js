@@ -14,6 +14,8 @@ import fragmentShader from "./fragment.glsl";
 import { CustomObject } from "../CustomObject";
 import { getWorldPosition } from "../../helper";
 
+let scrolling = false;
+
 class ExtendObject extends CustomObject {
   fixGeometry() {
     const width = this.rect.width,
@@ -98,14 +100,23 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
+  scroll() {
+    scrolling = true;
+    const s = super.scroll();
+    scrolling = false;
+    return s;
+  }
+
   render(tick, canvasRect) {
     const renderer = super.render(tick);
     const el = this.$.el;
 
-    const rect = el.getBoundingClientRect();
-    const { x, y } = getWorldPosition(this.rect, this.canvasRect);
-    this.mesh.position.x = x + this.uniforms.uMouse.value.x * 100;
-    this.mesh.position.y = y + this.uniforms.uMouse.value.y * 100;
+    if (scrolling) {
+      const rect = el.getBoundingClientRect();
+      const { x, y } = getWorldPosition(this.rect, this.canvasRect);
+      this.mesh.position.x = x + this.uniforms.uMouse.value.x * 100;
+      this.mesh.position.y = y + this.uniforms.uMouse.value.y * 100;
+    }
 
     this.mesh.rotation.x =
       ((this.uniforms.uMouse.value.y - 0.5) * this.uniforms.uHover.value) / 1.5;
