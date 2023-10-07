@@ -108,6 +108,9 @@ class ExtendObject extends CustomObject {
   }
 
   render(tick, canvasRect) {
+    if (!this.uniforms.uHover.value) return;
+
+    console.log("hovering");
     const renderer = super.render(tick);
     const el = this.$.el;
 
