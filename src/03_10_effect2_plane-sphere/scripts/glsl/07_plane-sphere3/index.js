@@ -109,8 +109,9 @@ class ExtendObject extends CustomObject {
 
   render(tick, canvasRect) {
     const renderer = super.render(tick);
-    if (this.uniforms.uHover) return;
+    if (!this.uniforms.uHover) return;
     console.log("hovering");
+    console.log(this.uniforms.uHover.value);
     const el = this.$.el;
 
     if (!scrolling) {
