@@ -12,6 +12,7 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
+import { getWorldPosition } from "../../helper";
 
 class ExtendObject extends CustomObject {
   fixGeometry() {
@@ -97,13 +98,14 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  render(tick) {
+  render(tick, canvasRect) {
     const renderer = super.render(tick);
+    const el = this.$.el;
 
-    this.mesh.position.x =
-      this.uniforms.uMouse.value.x * 100 * this.uniforms.uHover.value;
-    this.mesh.position.y =
-      this.uniforms.uMouse.value.y * 100 * this.uniforms.uHover.value;
+    const rect = el.getBoundingClientRect();
+    const { x, y } = getWorldPosition(this.rect, this.canvasRect);
+    this.mesh.position.x = x + this.uniforms.uMouse.value.x * 100;
+    this.mesh.position.y = y + this.uniforms.uMouse.value.y * 100;
 
     this.mesh.rotation.x =
       ((this.uniforms.uMouse.value.y - 0.5) * this.uniforms.uHover.value) / 1.5;
