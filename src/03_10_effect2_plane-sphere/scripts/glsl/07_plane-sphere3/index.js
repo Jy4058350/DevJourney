@@ -97,6 +97,14 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
+  render(tick) {
+    const renderer = super.render(tick);
+
+    this.mesh.rotateX = this.mesh.position.y + 0.5 * this.uniforms.uHover.value;
+
+    return renderer;
+  }
+
   debug(toFolder) {
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
