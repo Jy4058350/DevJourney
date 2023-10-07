@@ -100,8 +100,10 @@ class ExtendObject extends CustomObject {
   render(tick) {
     const renderer = super.render(tick);
 
-    this.mesh.position.x = this.uniforms.uMouse.value.x * 100;
-    this.mesh.position.y = this.uniforms.uMouse.value.y * 100;
+    this.mesh.position.x =
+      this.uniforms.uMouse.value.x * 100 * this.uniforms.uHover.value;
+    this.mesh.position.y =
+      this.uniforms.uMouse.value.y * 100 * this.uniforms.uHover.value;
 
     this.mesh.rotation.x =
       ((this.uniforms.uMouse.value.y - 0.5) * this.uniforms.uHover.value) / 1.5;
