@@ -111,10 +111,10 @@ class ExtendObject extends CustomObject {
     const renderer = super.render(tick);
     const el = this.$.el;
 
-    if (scrolling) {
+    if (!scrolling) {
       const rect = el.getBoundingClientRect();
-      const { x, y } = getWorldPosition(this.rect, this.canvasRect);
-      this.mesh.position.x = x + this.uniforms.uMouse.value.x * 100;
+      const { x, y } = getWorldPosition(rect, this.canvasRect);
+      this.mesh.position.x = x + this.uniforms.uMouse.value.x * 500;
       this.mesh.position.y = y + this.uniforms.uMouse.value.y * 100;
     }
 
