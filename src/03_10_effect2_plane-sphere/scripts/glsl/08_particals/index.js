@@ -114,8 +114,8 @@ class ExtendObject extends CustomObject {
     if (this.uniforms.uHover.value === 0) return;
     if (this.uniforms.uHover.value === 1) return;
 
-    console.log("hovering");
-    console.log(this.uniforms.uHover.value);
+    // console.log("hovering");
+    // console.log(this.uniforms.uHover.value);
     const el = this.$.el;
 
     const rect = el.getBoundingClientRect();
