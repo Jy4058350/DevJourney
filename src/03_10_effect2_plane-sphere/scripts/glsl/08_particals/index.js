@@ -23,15 +23,15 @@ class ExtendObject extends CustomObject {
     const wSeg = Math.floor(this.rect.width) / 10,
       hSeg = Math.floor(this.rect.height) / 10;
     const radius = 100;
-    const sphere = new SphereGeometry(radius, wSeg, hSeg);
-    sphere.rotateY(Math.PI * 1.4);
+    // const sphere = new SphereGeometry(radius, wSeg, hSeg);
+    // sphere.rotateY(Math.PI * 1.4);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
 
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    geometry.setAttribute("sphere", sphere.getAttribute("position"));
-    geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
+    // geometry.setAttribute("sphere", sphere.getAttribute("position"));
+    // geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
     geometry.setAttribute("planeNormal", plane.getAttribute("normal"));
 
     // planegeometryのindexをbuffergeometryにセット
@@ -68,7 +68,6 @@ class ExtendObject extends CustomObject {
       return arry;
     }
 
-    // console.log(delayVertices);
 
     geometry.setAttribute(
       "aDelay",
@@ -88,9 +87,6 @@ class ExtendObject extends CustomObject {
     return uniforms;
   }
 
-  // fixMesh() {
-  //   return new Points(this.geometry, this.material);
-  // }
 
   fixVertex() {
     return vertexShader;
