@@ -34,7 +34,7 @@ class ExtendObject extends CustomObject {
     this.uniforms.texNext.value = nextTex;
     gsap.to(this.uniforms.uProgress, {
       value: 1,
-      duration: 3.0,
+      duration: 1.0,
       ease: "none",
       onStart: () => {
         this.$.el.nextElementSibling?.remove();
@@ -116,9 +116,9 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uScaleDelay = { value: 5 };
-    uniforms.uSphereRadius = { value: 1.0 };
-    uniforms.strength = { value: 0.2 };
+    uniforms.uSpeed = { value: 0.1 };
+    uniforms.uSparkle = { value: 0.1 };
+    uniforms.uSize = { value: 1.0 };
     uniforms.frequency = { value: 0.01 };
     uniforms.noiseScale = { value: 1.4 };
     return uniforms;
@@ -145,16 +145,16 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progess")
+      .add(this.uniforms.uSpeed, "value", 0, 1, 0.1)
+      .name("uSpeed")
       .listen();
     toFolder
-      .add(this.uniforms.strength, "value", 0, 1, 0.1)
-      .name("strength")
+      .add(this.uniforms.uSparkle, "value", 0, 1, 0.1)
+      .name("uSparkle")
       .listen();
     toFolder
-      .add(this.uniforms.frequency, "value", 0.01, 0.1, 0.001)
-      .name("frequency")
+      .add(this.uniforms.uSize, "value", 0.1, 50, 0.1)
+      .name("uSize")
       .listen();
     toFolder
       .add(this.uniforms.noiseScale, "value", 0.01, 5.0, 0.1)
