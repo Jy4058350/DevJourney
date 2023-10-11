@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#page-container {
+  visibility: hidden;
+  z-index: 0;
+  position: relative;
+  overflow: hidden;
+}/*# sourceMappingURL=test.css.map */

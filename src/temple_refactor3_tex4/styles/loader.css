@@ -1,0 +1,56 @@
+@charset "UTF-8";
+progress {
+  background-color: #fff; /* プログレスバーの背景色/-moz- 用 */
+  width: 50%;
+  animation: fadein 1s;
+}
+
+::-webkit-progress-bar {
+  background-color: #fff;
+  animation: fadein 1s;
+}
+
+::-webkit-progress-value {
+  background-color: rgb(217, 217, 217);
+  animation: fadein 0.3s;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background: radial-gradient(#ffffff, #000000);
+  opacity: 1;
+  font-size: 17px;
+}
+
+.loader-persent {
+  position: relative;
+  top: 40em;
+  left: 2em;
+  font-size: 1em;
+  color: white;
+  line-height: 1;
+  padding-top: 0.5em;
+  animation: fadein 3s;
+}
+
+.progress-bar {
+  position: relative;
+  top: 40em;
+  left: 1em;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0.3;
+    transform: translate(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px);
+  }
+}/*# sourceMappingURL=loader.css.map */
