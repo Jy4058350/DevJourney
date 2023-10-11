@@ -14,6 +14,7 @@ varying float vScalar;
 
 #pragma glslify: grayscale = require(../shader-helper/grayscale);
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
+#pragma glslify: curlNoise = require(../shader-helper/curl-noise);
 
 void main() {
 
@@ -45,5 +46,6 @@ void main() {
     // vec4 color = mix(d, texColor, vScalar);
     // gl_FragColor = color;
     gl_FragColor = tex;
+    // gl_FragColor = cur;
 
 }
