@@ -23,16 +23,16 @@ class ExtendObject extends CustomObject {
     this.$.MediaEls = iNode.qsa("video, img");
     this.texes.forEach((tex) => {
       const el = tex.source.data;
-      console.log(el);
-      this.$.MediaEls.push(el);
+      // console.log(el);
       el.classList.add("MediaChild");
+      this.$.MediaEls.push(el);
+      // this.$.el.parentElement.append(el);
     });
 
-
-    console.log(this.$.MediaEls);
+    // console.log(this.$.MediaEls);
   }
   getEl(idx) {
-    console.log(this.$.MediaEls[idx]);
+    // console.log(this.$.MediaEls[idx]);
     return this.$.MediaEls[idx];
   }
 
@@ -136,7 +136,7 @@ class ExtendObject extends CustomObject {
     const uniforms = super.fixUniforms();
     uniforms.uSpeed = { value: 0.1 };
     uniforms.uSparkle = { value: 0.1 };
-    uniforms.uSize = { value: 5.0 };
+    uniforms.uSize = { value: 20.0 };
     return uniforms;
   }
 
