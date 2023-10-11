@@ -17,12 +17,6 @@ import { getWorldPosition } from "../../helper";
 let scrolling = false;
 
 class ExtendObject extends CustomObject {
-
-before() {
-  this.$.MediaEls = this.$.el.qsa("video, img");
-  console.log(this.$.MediaEls);
-}
-
   fixTexes(u) {
     u.texCurrent = { value: this.texes.get("tex1") };
     u.texNext = { value: null };
