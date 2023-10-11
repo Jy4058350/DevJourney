@@ -19,13 +19,13 @@ let scrolling = false;
 class ExtendObject extends CustomObject {
   before() {
     // this.$.MediaEls = this.$.el.qsa("video, img");
+    let _idx = 1;
     this.$.MediaEls = iNode.qsa("video, img");
     this.texes.forEach((tex) => {
-      const el = this.tex.get(`tex${_idx}`).source.data;
+      const el = tex.source.data;
       console.log(el);
     });
     console.log(Els);
-
 
     this.$.MediaEls.push(Els);
     console.log(this.$.MediaEls);
