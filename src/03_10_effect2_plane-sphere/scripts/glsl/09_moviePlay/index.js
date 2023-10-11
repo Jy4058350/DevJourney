@@ -23,7 +23,8 @@ class ExtendObject extends CustomObject {
     console.log(this.$.MediaEls);
   }
   getEl(idx) {
-    console.log("getEl");
+    console.log(this.$.MediaEls[idx]);
+    return this.$.MediaEls[idx];
   }
 
   fixTexes(u) {
