@@ -22,6 +22,9 @@ class ExtendObject extends CustomObject {
     this.$.MediaEls = iNode.qsa("video, img");
     console.log(this.$.MediaEls);
   }
+  getEl(idx) {
+    console.log("getEl");
+  }
 
   fixTexes(u) {
     u.texCurrent = { value: this.texes.get("tex1") };
@@ -56,6 +59,7 @@ class ExtendObject extends CustomObject {
         this.mesh.visible = false;
         this.running = false;
         // this.el.play?.();
+        this.getEl(_idx);
       },
     });
   }
