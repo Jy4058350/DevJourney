@@ -18,9 +18,9 @@ let scrolling = false;
 
 class ExtendObject extends CustomObject {
   before() {
-    // this.$.MediaEls = this.$.el.iNode.qsa("video, img");
-    // console.log(this.$.MediaEls);
-    console.log("before");
+    // this.$.MediaEls = this.$.el.qsa("video, img");
+    this.$.MediaEls = iNode.qsa("video, img");
+    console.log(this.$.MediaEls);
   }
 
   fixTexes(u) {
