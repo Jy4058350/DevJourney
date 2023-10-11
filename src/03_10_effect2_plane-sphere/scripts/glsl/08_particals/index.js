@@ -17,6 +17,12 @@ import { getWorldPosition } from "../../helper";
 let scrolling = false;
 
 class ExtendObject extends CustomObject {
+
+before() {
+  this.$.MediaEls = this.$.el.qsa("video, img");
+  console.log(this.$.MediaEls);
+}
+
   fixTexes(u) {
     u.texCurrent = { value: this.texes.get("tex1") };
     u.texNext = { value: null };
@@ -39,7 +45,7 @@ class ExtendObject extends CustomObject {
       onStart: () => {
         this.$.el.nextElementSibling?.remove();
         this.mesh.visible = true;
-        this.el.pause?.();
+        // this.el.pause?.();
       },
       onComplete: () => {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
@@ -49,7 +55,7 @@ class ExtendObject extends CustomObject {
         parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;
-        this.el.play?.();
+        // this.el.play?.();
       },
     });
   }
