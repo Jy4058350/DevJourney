@@ -20,6 +20,8 @@ class ExtendObject extends CustomObject {
   before() {
     // this.$.MediaEls = this.$.el.qsa("video, img");
     this.$.MediaEls = iNode.qsa("video, img");
+    const El = this.texes.get("tex1").source.data;
+    this.$.MediaEls.push(El);
     console.log(this.$.MediaEls);
   }
   getEl(idx) {
