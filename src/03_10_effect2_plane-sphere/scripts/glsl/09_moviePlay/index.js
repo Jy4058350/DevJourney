@@ -24,12 +24,12 @@ class ExtendObject extends CustomObject {
     this.texes.forEach((tex) => {
       const el = tex.source.data;
       console.log(el);
+      this.$.MediaEls.push(el);
+      el.classList.add("MediaChild");
     });
-    console.log(Els);
 
-    this.$.MediaEls.push(Els);
+
     console.log(this.$.MediaEls);
-    Els.classList.add("MediaChild");
   }
   getEl(idx) {
     console.log(this.$.MediaEls[idx]);
