@@ -20,7 +20,13 @@ class ExtendObject extends CustomObject {
   before() {
     // this.$.MediaEls = this.$.el.qsa("video, img");
     this.$.MediaEls = iNode.qsa("video, img");
-    const Els = this.texes.get("tex1").source.data;
+    this.texes.forEach((tex) => {
+      const el = this.tex.get(`tex${_idx}`).source.data;
+      console.log(el);
+    });
+    console.log(Els);
+
+
     this.$.MediaEls.push(Els);
     console.log(this.$.MediaEls);
     Els.classList.add("MediaChild");
