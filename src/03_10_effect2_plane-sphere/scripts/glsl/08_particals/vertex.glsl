@@ -23,8 +23,7 @@ void main() {
     vec3 curl = curlNoise(vec3(position.x * uTick * 0.1, position.y * uTick * 0.1, position.z * uTick * 0.1));
     p += ex * curl * progress;
 
-
     vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
-    gl_PointSize = 1.0 * (10.0 / -mvPosition.z);
+    gl_PointSize = 15.0 * (2000.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
 }

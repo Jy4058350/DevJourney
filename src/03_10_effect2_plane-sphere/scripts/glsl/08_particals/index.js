@@ -17,6 +17,44 @@ import { getWorldPosition } from "../../helper";
 let scrolling = false;
 
 class ExtendObject extends CustomObject {
+  fixTexes(u) {
+    u.texCurrent = { value: this.texes.get("tex1") };
+    u.texNext = { value: null };
+    return u;
+  }
+
+  running = false;
+  goToNext(idx) {
+    const _idx = (idx % this.texes.size) + 1;
+
+    if (this.running) return;
+    this.running = true;
+
+    const nextTex = this.texes.get(`tex${_idx}`);
+    this.uniforms.texNext.value = nextTex;
+    gsap.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 3.0,
+      ease: "none",
+      onStart: () => {
+        this.$.el.nextElementSibling?.remove();
+        this.mesh.visible = true;
+      },
+      onComplete: () => {
+        this.uniforms.texCurrent.value = this.uniforms.texNext.value;
+        this.uniforms.uProgress.value = 0;
+        const imgEl = nextTex.source.data;
+        const parentEl = this.$.el.parentElement;
+        parentEl.append(imgEl);
+        this.mesh.visible = false;
+        this.running = false;
+      },
+    });
+  }
+  async afterInit() {
+    this.goToNext(0, 0);
+  }
+
   fixGeometry() {
     const width = this.rect.width,
       height = this.rect.height;
@@ -68,7 +106,6 @@ class ExtendObject extends CustomObject {
       return arry;
     }
 
-
     geometry.setAttribute(
       "aDelay",
       new Float32BufferAttribute(delayVertices, 1)
@@ -87,6 +124,9 @@ class ExtendObject extends CustomObject {
     return uniforms;
   }
 
+  fixMesh() {
+    return new Points(this.geometry, this.material);
+  }
 
   fixVertex() {
     return vertexShader;
@@ -101,33 +141,6 @@ class ExtendObject extends CustomObject {
     const s = super.scroll();
     scrolling = false;
     return s;
-  }
-
-  render(tick, canvasRect) {
-    const renderer = super.render(tick);
-
-    // if (!this.uniforms.uHover || this.uniforms.uHover === 0) return;
-    if (this.uniforms.uHover.value === 0) return;
-    if (this.uniforms.uHover.value === 1) return;
-
-    // console.log("hovering");
-    // console.log(this.uniforms.uHover.value);
-    const el = this.$.el;
-
-    const rect = el.getBoundingClientRect();
-    const { x, y } = getWorldPosition(rect, this.canvasRect);
-    this.mesh.position.x = x + this.uniforms.uMouse.value.x * 50;
-    this.mesh.position.y = y + this.uniforms.uMouse.value.y * 50;
-
-    this.mesh.scale.x = this.uniforms.uHover.value * 0.1 + 1;
-    this.mesh.scale.y = this.uniforms.uHover.value * 0.1 + 1;
-
-    this.mesh.rotation.x =
-      ((this.uniforms.uMouse.value.y - 0.5) * this.uniforms.uHover.value) / 1.5;
-    this.mesh.rotation.y =
-      ((this.uniforms.uMouse.value.x - 0.5) * this.uniforms.uHover.value) / 1.5;
-
-    return renderer;
   }
 
   debug(toFolder) {
@@ -148,16 +161,13 @@ class ExtendObject extends CustomObject {
       .name("noiseScale")
       .listen();
 
-    const datData = { next: !!this.uniforms.uProgress.value };
+    // const datData = { next: !!this.uniforms.uProgress.value };
+    const idx = { value: 0 };
     toFolder
-      .add(datData, "next")
-      .name("Animate")
+      .add(idx, "value", 0, 12, 1)
+      .name("go to next")
       .onChange(() => {
-        gsap.to(this.uniforms.uProgress, {
-          value: +datData.next,
-          duration: 2,
-          ease: "power2.inOut",
-        });
+        this.goToNext(idx.value);
       });
   }
 }

@@ -1,14 +1,10 @@
 precision mediump float;
 
 varying vec2 vUv;
-varying float vDelay;
-uniform vec2 uMouse;
 uniform vec4 uResolution;
 uniform float uTick;
-uniform float uColorDelay;
-uniform float uHover;
-uniform sampler2D tex1;
-uniform sampler2D tex2;
+uniform sampler2D texCurrent;
+uniform sampler2D texNext;
 uniform float uProgress;
 
 #pragma glslify: grayscale = require(../shader-helper/grayscale);
@@ -19,11 +15,13 @@ void main() {
 
     vec2 uv = coverUv(vUv, uResolution);
 
-    vec4 tex1 = texture(tex1, uv);
-    vec4 tex2 = texture(tex2, uv);
+    vec4 texC = texture(texCurrent, uv);
+    vec4 texN = texture(texNext, uv);
 
-    vec4 tex = mix(tex1, tex2, uProgress);
+    vec4 color = mix(texC, texN, uProgress);
 
-    gl_FragColor = tex;
+    gl_FragColor = color;
+    // gl_FragColor = texC;
+    // gl_FragColor = texN;
 
 }
