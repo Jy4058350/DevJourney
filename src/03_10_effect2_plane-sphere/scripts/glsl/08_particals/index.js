@@ -39,6 +39,7 @@ class ExtendObject extends CustomObject {
       onStart: () => {
         this.$.el.nextElementSibling?.remove();
         this.mesh.visible = true;
+        // this.el.pause?.();
       },
       onComplete: () => {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
@@ -48,6 +49,7 @@ class ExtendObject extends CustomObject {
         parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;
+        // this.el.play?.();
       },
     });
   }
@@ -61,15 +63,11 @@ class ExtendObject extends CustomObject {
     const wSeg = Math.floor(this.rect.width) / 10,
       hSeg = Math.floor(this.rect.height) / 10;
     const radius = 100;
-    // const sphere = new SphereGeometry(radius, wSeg, hSeg);
-    // sphere.rotateY(Math.PI * 1.4);
     const plane = new PlaneGeometry(width, height, wSeg, hSeg);
     const geometry = new BufferGeometry();
 
     geometry.setAttribute("position", plane.getAttribute("position"));
     geometry.setAttribute("uv", plane.getAttribute("uv"));
-    // geometry.setAttribute("sphere", sphere.getAttribute("position"));
-    // geometry.setAttribute("sphereNormal", sphere.getAttribute("normal"));
     geometry.setAttribute("planeNormal", plane.getAttribute("normal"));
 
     // planegeometryのindexをbuffergeometryにセット
@@ -118,9 +116,7 @@ class ExtendObject extends CustomObject {
     const uniforms = super.fixUniforms();
     uniforms.uSpeed = { value: 0.1 };
     uniforms.uSparkle = { value: 0.1 };
-    uniforms.uSize = { value: 1.0 };
-    uniforms.frequency = { value: 0.01 };
-    uniforms.noiseScale = { value: 1.4 };
+    uniforms.uSize = { value: 5.0 };
     return uniforms;
   }
 
@@ -155,10 +151,6 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uSize, "value", 0.1, 50, 0.1)
       .name("uSize")
-      .listen();
-    toFolder
-      .add(this.uniforms.noiseScale, "value", 0.01, 5.0, 0.1)
-      .name("noiseScale")
       .listen();
 
     // const datData = { next: !!this.uniforms.uProgress.value };
