@@ -10,7 +10,7 @@ uniform float uProgress;
 void main() {
 
     vec2 uv = coverUv(vUv, uResolution);
-    vec2 zoomedUv = zoomUv(uv, uResolution);
+    vec2 zoomedUv = zoomUv(uv, uResolution, uProgress);
 
     vec4 t1 = texture2D(tex1, uv);
     vec4 t2 = texture2D(tex2, uv);
@@ -25,7 +25,6 @@ void main() {
 
     vec4 color = mix(t1, t2, smoothstep(uProgress, uProgress + variable, uv.y));
     gl_FragColor = color;
+    gl_FragColor = t1a;
 
-    vec4 zcolor = mix(t1, t1a, uProgress);
-    gl_FragColor = zcolor;
 }
