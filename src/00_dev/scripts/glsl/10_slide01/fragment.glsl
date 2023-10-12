@@ -4,9 +4,11 @@ uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform float uProgress;
 
-vec2 coverUv(vec2 uv, vec4 resolution) {
-    return (uv - .5) * resolution.zw + .5;
-}
+// vec2 coverUv(vec2 uv, vec4 resolution) {
+//     return (uv - .5) * resolution.zw + .5;
+// }
+
+#pragma glslify: coverUv = require(../shader-helper/coverUv);
 
 void main() {
 
