@@ -21,26 +21,25 @@
     </div>
     <div id="global-container">
       <div id="page-container">
-        <div id="partical-slide">
-          <h2>08_particals</h2>
+        <div id="particle-slide">
           <!-- <div
             class="div"
             data-webgl="05partical-slide"
             data-tex-1="/img/output0.jpg"
-            data-tex-2="/img/output1.jpg"
+            data-tex-2="/img/output2.jpg"
           ></div> -->
-          <div
+          <!-- <div
             class="div"
             data-webgl="09_moviePlay"
             data-tex-1="/movie/mount.mp4"
             data-tex-2="/movie/5.mp4"
-          ></div>
-          <!-- <div
+          ></div> -->
+          <div
             class="div"
             data-webgl="08_particals"
             data-tex-1="/img/uv.jpg"
             data-tex-2="/img/output5.jpg"
-          ></div> -->
+          ></div>
         </div>
 
         <div
@@ -140,15 +139,24 @@
             position: relative;
             display: inline-block;
           }
+          #particle-slide > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            width: 800px;
+            height: 400px;
+            object-fit: cover;
+            margin: 0;
+          }
           .MediaChild {
             position: absolute;
             top: 0;
             left: 0;
-            /* width: 100%;
-            height: 100%; */
-            width: 500px;
-            height: 500px;
-            /* object-fit: cover; */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             margin: 0;
           }
         </style>

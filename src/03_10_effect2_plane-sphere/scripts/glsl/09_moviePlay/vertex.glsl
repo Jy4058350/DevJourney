@@ -11,6 +11,8 @@ uniform float uTick;
 uniform float uSpeed;
 uniform float uSparkle;
 uniform float uSize;
+uniform vec3 uPan;
+uniform vec3 uNoise;
 varying vec2 vUv;
 varying float progress;
 varying float vProgress;
@@ -25,8 +27,9 @@ void main() {
 
     // add curlNoise
     vec3 p = position;
-    vec3 ex = vec3(p.x + sparkle, p.y + sparkle, p.z + sparkle);
-    vec3 curl = curlNoise(vec3(position.x * time, position.y * time, position.z * time));
+    // vec3 ex = vec3(p.x + sparkle, p.y + sparkle, p.z + sparkle);
+    vec3 ex = vec3(p.x * uPan.x, p.y * uPan.y, 1.0);
+    vec3 curl = curlNoise(vec3(p.x * time * uNoise.x, p.y * time * uNoise.y, p.z * time * uNoise.z));
     p += ex * curl * progress;
 
     vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
