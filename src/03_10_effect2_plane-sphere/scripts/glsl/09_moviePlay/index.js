@@ -5,6 +5,7 @@ import {
   BufferGeometry,
   Points,
   BufferAttribute,
+  Vector3,
 } from "three";
 import gsap from "gsap";
 
@@ -53,12 +54,12 @@ class ExtendObject extends CustomObject {
     this.uniforms.texNext.value = nextTex;
     gsap.to(this.uniforms.uProgress, {
       value: 1,
-      duration: 1.0,
+      duration: 3.0,
       ease: "none",
       onStart: () => {
         this.$.el.nextElementSibling?.remove();
         this.mesh.visible = true;
-        // this.el.pause?.();
+        this.$.el.pause?.();
       },
       onComplete: () => {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
@@ -68,7 +69,7 @@ class ExtendObject extends CustomObject {
         parentEl.append(imgEl);
         this.mesh.visible = false;
         this.running = false;
-        // this.el.play?.();
+        this.$.el.play?.();
         this.getEl(_idx);
       },
     });
@@ -137,6 +138,8 @@ class ExtendObject extends CustomObject {
     uniforms.uSpeed = { value: 0.1 };
     uniforms.uSparkle = { value: 0.1 };
     uniforms.uSize = { value: 20.0 };
+    uniforms.uPan = { value: new Vector3(0.5, 0.5, 0.5) };
+    uniforms.uNoise = { value: new Vector3(0.005, 0.0, 0.01) };
     return uniforms;
   }
 
@@ -171,6 +174,30 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uSize, "value", 0.1, 50, 0.1)
       .name("uSize")
+      .listen();
+    toFolder
+      .add(this.uniforms.uPan.value, "x", 0.0, 10, 0.1)
+      .name("uPan.x")
+      .listen();
+    toFolder
+      .add(this.uniforms.uPan.value, "y", 0.0, 10, 0.1)
+      .name("uPan.y")
+      .listen();
+    toFolder
+      .add(this.uniforms.uPan.value, "z", 0.0, 10, 0.1)
+      .name("uPan.z")
+      .listen();
+    toFolder
+      .add(this.uniforms.uNoise.value, "x", 0.0, 10, 0.1)
+      .name("uNoise.x")
+      .listen();
+    toFolder
+      .add(this.uniforms.uNoise.value, "y", 0.0, 10, 0.1)
+      .name("uNoise.y")
+      .listen();
+    toFolder
+      .add(this.uniforms.uNoise.value, "z", 0.0, 10, 0.1)
+      .name("uNoise.z")
       .listen();
 
     // const datData = { next: !!this.uniforms.uProgress.value };
