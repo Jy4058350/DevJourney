@@ -1,4 +1,4 @@
-.samuel-ferrara-1527pjeb6jg-uns-icon {
+#div1 {
   align-self: stretch;
   flex: 1;
   position: relative;
@@ -7,11 +7,18 @@
   max-height: 99%;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: 100;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .macbook-pro-16-1 {
   position: relative;
-  background-color: #fff;
   width: 100%;
   height: 100%;
   overflow: hidden;

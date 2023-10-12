@@ -1,25 +1,38 @@
-.samuel-ferrara-1527pjeb6jg-uns-icon {
-    align-self: stretch;
+// .samuel-ferrara-1527pjeb6jg-uns-icon {
+//   align-self: stretch;
+//   flex: 1;
+//   position: relative;
+//   max-width: 99%;
+//   overflow: hidden;
+//   max-height: 99%;
+//   object-fit: cover;
+// }
+#div1 {
+  align-self: stretch;
     flex: 1;
     position: relative;
     max-width: 99%;
     overflow: hidden;
     max-height: 99%;
     object-fit: cover;
-  }
-  .macbook-pro-16-1 {
-    position: relative;
-    background-color: #fff;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 500px;
-    max-width: 1700px;
-    min-height: 500px;
-    max-height: 1100px;
-  }
-  
+    z-index: 100;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.macbook-pro-16-1{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 500px;
+  max-width: 1700px;
+  min-height: 500px;
+  max-height: 1100px;
+}
