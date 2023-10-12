@@ -14,6 +14,10 @@ void main() {
 
     vec4 t1 = texture2D(tex1, uv);
     vec4 t2 = texture2D(tex2, uv);
+
+    t1.a = uProgress;
+    t2.a = 1.0 - uProgress;
+
     vec4 color = mix(t1, t2, step(uProgress, uv.y));
     gl_FragColor = color;
 }
