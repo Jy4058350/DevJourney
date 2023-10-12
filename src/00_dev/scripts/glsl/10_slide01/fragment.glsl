@@ -18,6 +18,9 @@ void main() {
     t1.a = uProgress;
     t2.a = 1.0 - uProgress;
 
-    vec4 color = mix(t1, t2, step(uProgress, uv.y));
+    //variable definition
+    float variable = clamp(uProgress, 0.0, 0.5);
+
+    vec4 color = mix(t1, t2, smoothstep(uProgress, uProgress + variable, uv.y));
     gl_FragColor = color;
 }
