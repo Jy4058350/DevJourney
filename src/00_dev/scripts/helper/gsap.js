@@ -4,13 +4,14 @@ function startGsapAnimation(uniforms) {
   const box = new Map();
   const uni = uniforms;
   for (let key in uni) {
-    if(!key.startsWith("uProgress")) continue;
+    if (!key.startsWith("uProgress")) continue;
     if (key.startsWith("uProgress")) {
       box.set(key, uni[key]);
       console.log(box);
     }
   }
 
+  
   //   const tl = new gsap.timeline({
   //     onComplete: () => {
   //       //   console.log(uniforms);
@@ -36,4 +37,8 @@ function startGsapAnimation(uniforms) {
   //   });
 }
 
-export { startGsapAnimation };
+function gsapActive() {
+    console.log("gsapActive");
+  }
+
+export { startGsapAnimation, gsapActive };
