@@ -1,10 +1,9 @@
 import gsap from "gsap";
 
-function startGsapAnimation() {
-  const uniforms = super.fixUniforms();
+function startGsapAnimation(uniforms) {
   const tl = new gsap.timeline({
     onComplete: () => {
-      console.log(this.uniforms.uProgress.value);
+      console.log(uniforms);
       //   this.uniforms.uProgress.value = 0;
       //   this.uniforms.uIndex.value = 0;
       console.log("Animation sequence complete");

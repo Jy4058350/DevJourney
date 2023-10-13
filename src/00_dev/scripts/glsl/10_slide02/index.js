@@ -4,11 +4,14 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
+import { startGsapAnimation } from "../../helper";
 
 class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
     uniforms.uIndex = { value: 0 };
+    console.log(uniforms);
+    startGsapAnimation(uniforms);
     return uniforms;
   }
 

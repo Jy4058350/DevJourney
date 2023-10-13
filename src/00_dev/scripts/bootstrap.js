@@ -64,6 +64,4 @@ export async function init() {
   // }, 6000);
 
   gui.open();
-
-  startGsapAnimation();
 }
