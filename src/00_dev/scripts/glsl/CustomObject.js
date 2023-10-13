@@ -38,6 +38,8 @@ class CustomObject {
       this.uniforms = this.fixUniforms();
       this.uniforms = this.fixTexes(this.uniforms);
       this.uniforms = this.setupResolution(this.uniforms);
+      this.gsap = this.gsap ?? this.fixGsap();
+      // this.gsap = this.fixGsap();
       this.vertexShader = this.fixVertex();
       this.fragmentShader = this.fixFragment();
       this.geometry = this.fixGeometry();
@@ -108,6 +110,10 @@ class CustomObject {
       uProgress: { value: 0 },
       uIndex: { value: 0 },
     };
+  }
+
+  fixGsap() {
+    return {};
   }
 
   fixVertex() {

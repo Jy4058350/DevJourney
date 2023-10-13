@@ -7,15 +7,16 @@ import { CustomObject } from "../CustomObject";
 import { startGsapAnimation } from "../../helper";
 
 class ExtendObject extends CustomObject {
-  before() {
-    const uniforms = super.fixUniforms();
-    startGsapAnimation(uniforms);
-  }
+  // before() {
+  // fixGsap() {
+  //   const uniforms = super.fixUniforms();
+  //   startGsapAnimation(uniforms);
+  // }
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    // console.log(uniforms);
-    // startGsapAnimation(uniforms);
+    uniforms.uProgress1 = { value: 0 };
+    startGsapAnimation(uniforms);
     return uniforms;
   }
 
