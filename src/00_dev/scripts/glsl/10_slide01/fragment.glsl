@@ -28,8 +28,4 @@ void main() {
     gl_FragColor = color;
     // gl_FragColor = t1a;
 
-    if(uProgress > 0.9) {
-
-        gl_FragColor = t2a;
-    }
 }
