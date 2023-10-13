@@ -3,7 +3,9 @@ uniform vec4 uResolution;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform float uProgress;
+uniform float uProgress1;
 uniform float uTick;
+uniform float uIndex;
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
 #pragma glslify: zoomUv = require(../shader-helper/zoomUv);
@@ -11,7 +13,7 @@ uniform float uTick;
 void main() {
 
     vec2 uv = coverUv(vUv, uResolution);
-    vec2 zoomedUv = zoomUv(uv, uResolution, uProgress);
+    vec2 zoomedUv = zoomUv(uv, uResolution, uProgress1);
 
     vec4 t1 = texture2D(tex1, uv);
     vec4 t2 = texture2D(tex2, uv);
@@ -24,8 +26,14 @@ void main() {
     //variable definition
     float variable = clamp(uProgress, 0.0, 0.5);
 
-    vec4 color = mix(t2, t1, smoothstep(uProgress, uProgress + variable, uv.y));
-    gl_FragColor = color;
+    if(uIndex == 0.0) {
+        vec4 color = mix(t2, t1, smoothstep(uProgress, uProgress + variable, uv.y));
+        gl_FragColor = color;
+    }
+
+    if(uIndex == 1.0) {
+        gl_FragColor = t2a;
+    }
     // gl_FragColor = t1a;
 
 }

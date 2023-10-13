@@ -30,8 +30,16 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
+      .add(this.uniforms.uIndex, "value", 0, 2, 1)
+      .name("uIndex")
+      .listen();
+    toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
       .name("uProgress")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress1, "value", 0, 1, 0.1)
+      .name("uProgress1")
       .listen();
 
     const datData = { next: !!this.uniforms.uProgress.value };
