@@ -43,21 +43,25 @@ function gsapActive() {
       //   startGsapAnimation(uniforms);
     },
   });
-  console.log(_box);
-  console.log(_box.get("uProgress").value);
-  console.log(_box.get[0].value);
+  //   console.log(_box);
+  //   console.log(_box.get("uProgress").value);
+  const _boxArray = [..._box];
+  const _idxArray = [..._idx];
+  console.log(_boxArray);
+  console.log(_boxArray[0]);
+  console.log(_idxArray[0]);
   //   tl.to(uniforms.uProgress, {
-  tl.to(_box[0], {
+  tl.to(_boxArray[0], {
     value: 1.0,
     duration: 1.0,
     ease: "ease",
     onComplete: () => {
-      uniforms.uIndex.value = 0;
-      tl.to(uniforms.uProgress1, {
+      _idxArray[0] = 0;
+      tl.to(_boxArray[1], {
         value: 1.0,
         duration: 1.0,
         onComplete: () => {
-          uniforms.uIndex.value = 1;
+          _idxArray[1] = 1;
         },
       });
     },
