@@ -24,7 +24,7 @@ class ExtendObject extends CustomObject {
 toFolder.add(datData, "next").onChange(() => {
   gsap.to(this.uniforms.uProgress, {
     value: datData.next ? 1 : 0,
-    duration: 1.0,
+    duration: 2.0,
     ease: "none",
   });
 })
