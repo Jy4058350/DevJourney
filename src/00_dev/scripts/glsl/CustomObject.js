@@ -108,7 +108,6 @@ class CustomObject {
       uHover: { value: 0 },
       uTick: { value: 0 },
       uProgress: { value: 0 },
-      uProgress0: { value: 0 },
       uIndex: { value: 0 },
     };
   }

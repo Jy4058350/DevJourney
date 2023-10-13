@@ -1,18 +1,16 @@
 import gsap from "gsap";
 
 function startGsapAnimation(uniforms) {
-  let progs = [];
-  const uProgress = uniforms.uProgress;
-//   console.log(uProgress);
-  for (let i = 1; i < 5; i++) {
-      console.log(uniforms.uProgress[1]);
-    const prog = `uProgress${i}`;
-    // console.log(progs);
-    // progs.push(prog);
-    // console.log(progs);
-    // const x = uniforms.progs[i].value;
-    // console.log(x);
+  const box = new Map();
+  const uni = uniforms;
+  for (let key in uni) {
+    if(!key.startsWith("uProgress")) continue;
+    if (key.startsWith("uProgress")) {
+      box.set(key, uni[key]);
+      console.log(box);
+    }
   }
+
   //   const tl = new gsap.timeline({
   //     onComplete: () => {
   //       //   console.log(uniforms);
