@@ -1,12 +1,16 @@
 import gsap from "gsap";
 
 function startGsapAnimation(uniforms) {
-  console.log(uniforms);
-  let idx = 0;
+  const uPro = uniforms.uProgress;
+  const uPro1 = uniforms.uProgress1;
+  console.log(uPro);
+  console.log(uPro1);
+  let idx = [];
   for (let i = 0; i < 5; i++) {
     idx = i;
-    uProgress = `uProgress${idx}`;
-    console.log(uProgress);
+    // Progress = `uPro${idx}`;
+    const progs = `uProgress${i}`;
+    console.log(progs);
   }
   //   const tl = new gsap.timeline({
   //     onComplete: () => {
