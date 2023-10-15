@@ -32,8 +32,11 @@ void main() {
     }
 
     if(uIndex == 1.0) {
+        float uProgress1 = 0.0;
         gl_FragColor = t2a;
     }
+
+    // gl_FragColor = t2a;
     // gl_FragColor = t1a;
 
 }

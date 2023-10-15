@@ -2,6 +2,10 @@ import gsap from "gsap";
 
 const _box = new Map();
 const _idx = new Map();
+
+const _boxArray = [..._box];
+const _idxArray = [..._idx];
+
 function startGsapAnimation(uniforms) {
   const uni = uniforms;
   for (let key in uni) {
@@ -18,56 +22,36 @@ function startGsapAnimation(uniforms) {
   }
 }
 
-let first = false;
-
-// function gsapActive() {
-//   const tl = new gsap.timeline({
-//     onComplete: () => {
-//       _box.forEach((uProgressOf, key) => {
-//         uProgressOf.value = 0;
-//       });
-
-//       _idx.forEach((uIndexOf, key) => {
-//         uIndexOf.value = 0;
-//       });
-//     },
-//   });
-//   const _boxArray = [..._box];
-//   const _idxArray = [..._idx];
-
-  
-//   let i = 0;
-//   console.log(_boxArray[i]);
-//   tl.to(_boxArray[0], {
-//     value: 1.0,
-//     duration: 4.0,
-//     ease: "ease",
-//     onComplete: () => {
-//       _idxArray[0] = 0;
-//       tl.to(_boxArray[1], {
-//         value: 1.0,
-//         duration: 4.0,
-//         onComplete: () => {
-//           _idxArray[1] = 1;
-//         },
-//       });
-//     },
-//   });
-//   tl.to(_boxArray[1], {
-//     value: 1.0,
-//     duration: 4.0,
-//     ease: "ease",
-//     onComplete: () => {
-//       _idxArray[1] = 0;
-//       tl.to(_boxArray[2], {
-//         value: 1.0,
-//         duration: 4.0,
-//         onComplete: () => {
-//           _idxArray[2] = 1;
-//         },
-//       });
-//     },
-//   });
-// }
+function gsapActive() {
+  const _boxArray = [..._box];
+  const _idxArray = [..._idx];
+  //   console.log(_boxArray[0]);
+  const tl = new gsap.timeline();
+  _idxArray[0].value = 0.0;
+  _boxArray[0].value = 0.0;
+  _boxArray[1].value = 0.0;
+  tl.to(_idxArray[0], {
+    value: 0.0,
+    duration: 5.0,
+    ease: "ease",
+    onComplete: () => {
+      console.log(_idxArray[0].value);
+      _idxArray[0].value = 1.0;
+    },
+  });
+  tl.to(_boxArray[0], {
+    value: 1.0,
+    duration: 3.0,
+    ease: "ease",
+    onComplete: () => {
+      console.log(_idxArray[1].value);
+    },
+  });
+  tl.to(_boxArray[1], {
+    value: 1.0,
+    duration: 5.0,
+    ease: "ease",
+  });
+}
 
 export { startGsapAnimation, gsapActive };

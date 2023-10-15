@@ -8,9 +8,34 @@ import { startGsapAnimation, gsapActive } from "../../helper";
 
 class ExtendObject extends CustomObject {
   fixGsap() {
-    const gsap = super.fixGsap();
-    gsapActive();
-    return gsap;
+    // gsapActive();
+    // return gsap;
+
+    const tl = new gsap.timeline();
+    tl.to(this.uniforms.uIndex, {
+      value: 0.0,
+      duration: 3.0,
+      ease: "ease",
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 1.0;
+      },
+    });
+
+    // tl.to(this.uniforms.uIndex, {
+    //   value: 1.0,
+    //   duration: 0.1,
+    //   // ease: "ease",
+    // });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 3.0,
+      // ease: "ease",
+    });
   }
 
   fixUniforms() {
@@ -30,7 +55,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 2, 1)
+      .add(this.uniforms.uIndex, "value", 0, 1, 1)
       .name("uIndex")
       .listen();
     toFolder
