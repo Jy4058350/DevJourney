@@ -33,7 +33,7 @@ class ExtendObject extends CustomObject {
     // });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       // ease: "ease",
     });
   }
