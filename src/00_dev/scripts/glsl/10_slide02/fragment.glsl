@@ -13,6 +13,7 @@ uniform float uIndex;
 void main() {
 
     vec2 uv = coverUv(vUv, uResolution);
+    float uTick = uTick;
     vec2 zoomedUv = zoomUv(vUv, uResolution, uProgress1, uTick);
 
     vec4 t1 = texture2D(tex1, uv);
@@ -32,7 +33,6 @@ void main() {
     }
 
     if(uIndex == 1.0) {
-        float uProgress1 = 0.0;
         gl_FragColor = t2a;
     }
 
@@ -43,8 +43,30 @@ void main() {
     }
 
     if(uIndex == 3.0) {
-        float uProgress = 0.0;
         gl_FragColor = t1a;
+    }
+
+    if(uIndex == 4.0) {
+        vec4 color = mix(t2, t1a, smoothstep(uProgress, uProgress + variable, uv.y));
+        gl_FragColor = color;
+    }
+
+    if(uIndex == 5.0) {
+        gl_FragColor = t2a;
+    }
+
+    if(uIndex == 6.0) {
+        vec4 color = mix(t1, t2a, smoothstep(uProgress, uProgress + variable, uv.y));
+        gl_FragColor = color;
+    }
+
+    if(uIndex == 7.0) {
+        gl_FragColor = t1a;
+    }
+
+    if(uIndex == 8.0) {
+        vec4 color = mix(t2, t1a, smoothstep(uProgress, uProgress + variable, uv.y));
+        gl_FragColor = color;
     }
 
 }

@@ -30,12 +30,10 @@ class ExtendObject extends CustomObject {
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
       duration: 10.0,
-      // ease: "ease",
+      ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 2.0;
         this.uniforms.uProgress.value = 0.0;
-        this.uniforms.uProgress1.value = 0.0;
-        console.log(this.uniforms.uTick.value);
       },
     });
     tl.to(this.uniforms.uProgress, {
@@ -44,18 +42,65 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 3.0;
-        // this.uniforms.uProgress1.value = 0.0;
-        console.log(this.uniforms.uTick.value);
+        this.uniforms.uProgress1.value = 0.0;
+        this.uniforms.uTick.value = 0.0;
       },
     });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
       duration: 10.0,
-      // ease: "ease",
+      ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 4.0;
         this.uniforms.uProgress.value = 0.0;
-        console.log(this.uniforms.uTick.value);
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 5.0;
+        this.uniforms.uProgress1.value = 0.0;
+        this.uniforms.uTick.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 10.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 6.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 7.0;
+        this.uniforms.uProgress1.value = 0.0;
+        this.uniforms.uTick.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 10.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 8.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 9.0;
+        this.uniforms.uProgress1.value = 0.0;
+        this.uniforms.uTick.value = 0.0;
       },
     });
   }
