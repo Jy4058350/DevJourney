@@ -13,7 +13,7 @@ uniform float uIndex;
 void main() {
 
     vec2 uv = coverUv(vUv, uResolution);
-    vec2 zoomedUv = zoomUv(vUv, uResolution, uProgress1);
+    vec2 zoomedUv = zoomUv(vUv, uResolution, uProgress1, uTick);
 
     vec4 t1 = texture2D(tex1, uv);
     vec4 t2 = texture2D(tex2, uv);
