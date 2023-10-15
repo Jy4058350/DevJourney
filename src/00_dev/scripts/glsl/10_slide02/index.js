@@ -26,15 +26,13 @@ class ExtendObject extends CustomObject {
       },
     });
 
-    // tl.to(this.uniforms.uIndex, {
-    //   value: 1.0,
-    //   duration: 0.1,
-    //   // ease: "ease",
-    // });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
       duration: 10.0,
       // ease: "ease",
+      onComplete: () => {
+        console.log("Animation sequence1 complete");
+      },
     });
   }
 
