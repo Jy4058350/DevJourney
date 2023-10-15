@@ -8,6 +8,7 @@ import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 import { gui } from "./helper/gui";
 import { orbit } from "./helper/orbit";
+import { startGsapAnimation } from "./helper";
 
 window.debug = debugmode(1) ? 1 : 0;
 
