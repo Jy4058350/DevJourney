@@ -23,6 +23,7 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 1.0;
+        console.log(this.uniforms.uTick.value);
       },
     });
 
@@ -31,8 +32,10 @@ class ExtendObject extends CustomObject {
       duration: 10.0,
       // ease: "ease",
       onComplete: () => {
-        this.uniforms.uProgress.value = 0.0;
         this.uniforms.uIndex.value = 2.0;
+        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uProgress1.value = 0.0;
+        console.log(this.uniforms.uTick.value);
       },
     });
     tl.to(this.uniforms.uProgress, {
@@ -41,8 +44,8 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 3.0;
-        this.uniforms.uProgress1.value = 0.0;
-        this.uniforms.uTick.value = 0.0;
+        // this.uniforms.uProgress1.value = 0.0;
+        console.log(this.uniforms.uTick.value);
       },
     });
     tl.to(this.uniforms.uProgress1, {
@@ -50,8 +53,9 @@ class ExtendObject extends CustomObject {
       duration: 10.0,
       // ease: "ease",
       onComplete: () => {
-        this.uniforms.uProgress.value = 0.0;
         this.uniforms.uIndex.value = 4.0;
+        this.uniforms.uProgress.value = 0.0;
+        console.log(this.uniforms.uTick.value);
       },
     });
   }
