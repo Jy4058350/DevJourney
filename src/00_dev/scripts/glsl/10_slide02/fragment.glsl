@@ -56,6 +56,7 @@ void main() {
     }
 
     if(uIndex == 6.0) {
+         t1.a = uProgress;
         vec4 color = mix(t1, t2a, smoothstep(uProgress, uProgress + variable, uv.y));
         gl_FragColor = color;
     }
