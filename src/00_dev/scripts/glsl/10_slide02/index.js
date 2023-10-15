@@ -31,7 +31,27 @@ class ExtendObject extends CustomObject {
       duration: 10.0,
       // ease: "ease",
       onComplete: () => {
-        console.log("Animation sequence1 complete");
+        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uIndex.value = 2.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 3.0;
+        this.uniforms.uProgress1.value = 0.0;
+        this.uniforms.uTick.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 10.0,
+      // ease: "ease",
+      onComplete: () => {
+        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uIndex.value = 4.0;
       },
     });
   }
@@ -53,7 +73,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 1, 1)
+      .add(this.uniforms.uIndex, "value", 0, 5, 1)
       .name("uIndex")
       .listen();
     toFolder
