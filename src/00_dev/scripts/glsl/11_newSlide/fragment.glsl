@@ -70,7 +70,7 @@ void main() {
     }
     vec4 color1;
     if(distanceFromCenter < radius) {
-        color1 = texture2D(tex1, uv);
+        color1 = texture2D(tex1, uv1);
     } else {
 
         if(currentTexture == 0) {
@@ -94,7 +94,7 @@ void main() {
 
     vec4 color2;
     if(distanceFromCenter < radius) {
-        color2 = texture2D(tex1, uv);
+        color2 = texture2D(tex1, uv2);
     } else {
 
         if(currentTexture == 0) {
@@ -117,7 +117,7 @@ void main() {
     }
     vec4 color3;
     if(distanceFromCenter < radius) {
-        color3 = texture2D(tex1, uv);
+        color3 = texture2D(tex1, uv3);
     } else {
 
         if(currentTexture == 0) {
