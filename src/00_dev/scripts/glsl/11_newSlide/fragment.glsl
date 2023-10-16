@@ -16,12 +16,12 @@ uniform float uTick;
 uniform float uIndex;
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
-#pragma glslify: zoomUv = require(../shader-helper/zoomUv);
+#pragma glslify: panUv = require(../shader-helper/panUv);
 
 void main() {
 
     // vec2 uv = coverUv(vUv, uResolution);
-    vec2 uv = zoomUv(vUv, uResolution, uProgress1 * uSpeed, uTick);
+    vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick);
     //try other slide transitions
     int currentTexture = int(uProgress * 6.0);
     float texBlend = fract(uProgress * 6.0);
