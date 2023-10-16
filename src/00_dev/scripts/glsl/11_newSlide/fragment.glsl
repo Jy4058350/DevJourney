@@ -29,6 +29,7 @@ void main() {
     float texBlend = fract(uProgress * 6.0);
     // vec4 try = mix(t1, t2, fract(uProgress * 2.0));
 
+    vec4 t1 = texture2D(tex2, uv);
  // Blend between the current and next textures
     vec4 color;
     if(currentTexture == 0) {
@@ -49,5 +50,6 @@ void main() {
         color = texture2D(tex1, uv);
     }
 
-    gl_FragColor = color;
+    vec4 c = mix(color, color, step(0.5, vUv.x));
+    gl_FragColor = c;
 }
