@@ -13,15 +13,18 @@ class ExtendObject extends CustomObject {
       value: 1.0,
       duration: 3.0,
       ease: "ease",
+      onComplete: () => {
+        this.uniforms.uProgress.value = 0.0;
+      },
     });
-    // tl.to(this.uniforms.uProgress, {
-    //   value: 0.0,
-    //   duration: 3.0,
-    //   ease: "ease",
-    //   onComplete: () => {
-    //     // this.fixGsap();
-    //   },
-    // });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.fixGsap();
+      },
+    });
   }
 
   fixUniforms() {
