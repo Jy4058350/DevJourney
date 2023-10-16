@@ -6,6 +6,8 @@ uniform sampler2D tex3;
 uniform sampler2D tex4;
 uniform sampler2D tex5;
 uniform sampler2D tex6;
+uniform sampler2D tex7;
+uniform sampler2D tex8;
 uniform float uSpeed;
 
 uniform float uProgress;
@@ -18,16 +20,32 @@ uniform float uIndex;
 
 void main() {
 
-    vec2 uv = coverUv(vUv, uResolution);
+    // vec2 uv = coverUv(vUv, uResolution);
+    vec2 uv = zoomUv(vUv, uResolution, uProgress1 * uSpeed, uTick);
+    //try other slide transitions
+    int currentTexture = int(uProgress * 6.0);
+    float texBlend = fract(uProgress * 6.0);
+    // vec4 try = mix(t1, t2, fract(uProgress * 2.0));
 
-    vec4 t1 = texture2D(tex1, uv);
-    vec4 t2 = texture2D(tex2, uv);
-    vec4 t3 = texture2D(tex3, uv);
-    vec4 t4 = texture2D(tex4, uv);
+ // Blend between the current and next textures
+    vec4 color;
+    if(currentTexture == 0) {
+        color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
+    } else if(currentTexture == 1) {
+        color = mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
+    } else if(currentTexture == 2) {
+        color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
+    } else if(currentTexture == 3) {
+        color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
+    } else if(currentTexture == 4) {
+        color = mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
+    } else if(currentTexture == 5) {
+        color = mix(texture2D(tex6, uv), texture2D(tex7, uv), texBlend);
+    } else if(currentTexture == 6) {
+        color = mix(texture2D(tex1, uv), texture2D(tex8, uv), texBlend);
+    } else {
+        color = texture2D(tex1, uv);
+    }
 
-    vec4 m12 = mix(t1, t1, step(0.5, uv.y));
-    vec4 m34 = mix(t1, t1, step(0.5, uv.y));
-    vec4 m1234 = mix(m12, m34, step(0.5, uv.x));
-    gl_FragColor = m1234;
-
+    gl_FragColor = color;
 }

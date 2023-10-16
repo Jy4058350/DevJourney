@@ -31,7 +31,7 @@ class ExtendObject extends CustomObject {
       .name("uIndex")
       .listen();
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
     toFolder
@@ -47,7 +47,7 @@ class ExtendObject extends CustomObject {
     toFolder.add(datData, "next").onChange(() => {
       gsap.to(this.uniforms.uProgress, {
         value: datData.next ? 1 : 0,
-        duration: 2.0,
+        duration:  0.5,
         ease: "none",
       });
     });
