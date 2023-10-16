@@ -25,8 +25,8 @@ void main() {
     vec4 t3 = texture2D(tex3, uv);
     vec4 t4 = texture2D(tex4, uv);
 
-    vec4 m12 = mix(t1, t2, step(0.5, uv.y));
-    vec4 m34 = mix(t3, t4, step(0.5, uv.y));
+    vec4 m12 = mix(t1, t1, step(0.5, uv.y));
+    vec4 m34 = mix(t1, t1, step(0.5, uv.y));
     vec4 m1234 = mix(m12, m34, step(0.5, uv.x));
     gl_FragColor = m1234;
 
