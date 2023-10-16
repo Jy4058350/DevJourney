@@ -9,6 +9,8 @@ uniform sampler2D tex6;
 uniform sampler2D tex7;
 uniform sampler2D tex8;
 uniform float uSpeed;
+uniform float xOffset;
+uniform float yOffset;
 
 uniform float uProgress;
 uniform float uProgress1;
@@ -21,7 +23,7 @@ uniform float uIndex;
 void main() {
 
     // vec2 uv = coverUv(vUv, uResolution);
-    vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick);
+    vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     //try other slide transitions
     int currentTexture = int(uProgress * 6.0);
     float texBlend = fract(uProgress * 6.0);

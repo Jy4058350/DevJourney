@@ -11,8 +11,10 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.uProgress1 = { value: 0 };
+    uniforms.xOffset = { value: 0.1 };
+    uniforms.yOffset = { value: 0.1 };
     uniforms.uSpeed = { value: 1.0 };
+
     startGsapAnimation(uniforms);
     return uniforms;
   }
@@ -35,8 +37,12 @@ class ExtendObject extends CustomObject {
       .name("uProgress")
       .listen();
     toFolder
-      .add(this.uniforms.uProgress1, "value", 0, 1, 0.1)
-      .name("uProgress1")
+      .add(this.uniforms.xOffset, "value", 0, 1, 0.1)
+      .name("xOffset")
+      .listen();
+    toFolder
+      .add(this.uniforms.yOffset, "value", 0, 1, 0.1)
+      .name("yOffset")
       .listen();
     toFolder
       .add(this.uniforms.uSpeed, "value", 1, 5, 0.1)
