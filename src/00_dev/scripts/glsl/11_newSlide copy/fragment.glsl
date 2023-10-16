@@ -31,8 +31,9 @@ void main() {
     vec2 uv2 = panUv2(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv3 = panUv3(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     //try other slide transitions
-    int currentTexture = int(uProgress * 7.0);
-    float texBlend = fract(uProgress * 7.0);
+    int currentTexture = int(uProgress * 6.0);
+    float texBlend = fract(uProgress * 6.0);
+    // vec4 try = mix(t1, t2, fract(uProgress * 2.0));
 
     // vec4 t1 = texture2D(tex2, uv);
  // Blend between the current and next textures
