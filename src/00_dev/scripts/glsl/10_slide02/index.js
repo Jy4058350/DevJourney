@@ -14,7 +14,7 @@ class ExtendObject extends CustomObject {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uIndex, {
       value: 0.0,
-      duration: 3.0,
+      duration: 15.0,
       ease: "ease",
     });
     tl.to(this.uniforms.uProgress, {
@@ -23,13 +23,12 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 1.0;
-        console.log(this.uniforms.uTick.value);
       },
     });
 
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
-      duration: 10.0,
+      duration: 15.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 2.0;
@@ -43,13 +42,12 @@ class ExtendObject extends CustomObject {
       onComplete: () => {
         this.uniforms.uIndex.value = 3.0;
         this.uniforms.uProgress1.value = 0.0;
-        this.uniforms.uTick.value = 0.0;
       },
     });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
-      duration: 10.0,
-      ease: "ease",
+      duration: 15.0,
+      // ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 4.0;
         this.uniforms.uProgress.value = 0.0;
@@ -62,13 +60,12 @@ class ExtendObject extends CustomObject {
       onComplete: () => {
         this.uniforms.uIndex.value = 5.0;
         this.uniforms.uProgress1.value = 0.0;
-        this.uniforms.uTick.value = 0.0;
       },
     });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
-      duration: 10.0,
-      ease: "ease",
+      duration: 15.0,
+      // ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 6.0;
         this.uniforms.uProgress.value = 0.0;
@@ -81,13 +78,12 @@ class ExtendObject extends CustomObject {
       onComplete: () => {
         this.uniforms.uIndex.value = 7.0;
         this.uniforms.uProgress1.value = 0.0;
-        this.uniforms.uTick.value = 0.0;
       },
     });
     tl.to(this.uniforms.uProgress1, {
       value: 1.0,
-      duration: 10.0,
-      ease: "ease",
+      duration: 15.0,
+      // ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 8.0;
         this.uniforms.uProgress.value = 0.0;
@@ -100,7 +96,45 @@ class ExtendObject extends CustomObject {
       onComplete: () => {
         this.uniforms.uIndex.value = 9.0;
         this.uniforms.uProgress1.value = 0.0;
-        this.uniforms.uTick.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 15.0,
+      // ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 10.0;
+        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uProgress1.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 11.0;
+        this.uniforms.uProgress1.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress1, {
+      value: 1.0,
+      duration: 15.0,
+      // ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 12.0;
+        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uProgress1.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 0.0;
+        this.uniforms.uProgress1.value = 0.0;
+        this.fixGsap();
       },
     });
   }
@@ -108,6 +142,7 @@ class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
     uniforms.uProgress1 = { value: 0 };
+    uniforms.uSpeed = { value: 1.0 };
     startGsapAnimation(uniforms);
     return uniforms;
   }
@@ -122,7 +157,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 5, 1)
+      .add(this.uniforms.uIndex, "value", 0, 8, 1)
       .name("uIndex")
       .listen();
     toFolder
@@ -132,6 +167,10 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uProgress1, "value", 0, 1, 0.1)
       .name("uProgress1")
+      .listen();
+    toFolder
+      .add(this.uniforms.uSpeed, "value", 1, 5, 0.1)
+      .name("uSpeed")
       .listen();
 
     const datData = { next: !!this.uniforms.uProgress.value };
