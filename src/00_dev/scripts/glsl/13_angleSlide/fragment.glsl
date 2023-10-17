@@ -29,26 +29,29 @@ void main() {
     //Common variables
     vec2 u = coverUv(vUv, uResolution);
     vec2 zoomedUv2 = zoomUv2(vUv, uResolution, uProgress * uSpeed, uTick);
+    vec2 center = vec2(0.5, 0.5);
 
-    //Calculate the distance from the center
-    // float distanceFromCenter = length(vUv - vec2(0.5, 0.5));
-    float distanceFromCenter = length(u - vec2(0.5, 0.5));
-
-    //Set a radius for the circular transition
-    float radius = 0.20;
-    float radius1 = 0.24;
-
-    // vec2 uv = coverUv(vUv, uResolution);
+ // 4 pan transitions
     vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv1 = panUv1(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv2 = panUv2(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv3 = panUv3(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
-    //try other slide transitions
+
+    //Calculate the distance from the center
+    float distanceFromCenter = length(u - vec2(0.5, 0.5));
+    
+
+    //Set a radius for the circular transition
+    float aspectRatio = uResolution.y / uResolution.x;
+    float radius = 0.20;
+    float radius1 = 0.22;
+   
+    //try other slide transitions here 7textures
     int currentTexture = int(uProgress * 7.0);
     float texBlend = fract(uProgress * 7.0);
 
    //Calculate the angle from the center based on uProgress
-    vec2 center = vec2(0.5, 0.5);
+    // vec2 center = vec2(0.5, 0.5);
     vec2 delta = uv - center;
     float angle = degrees(atan(delta.x, delta.y));
     float a = uProgress * 90.0;
@@ -61,9 +64,12 @@ void main() {
     vec4 color;
 
     if(distanceFromCenter < radius) {
+    // if(distanceFromCenter < ra) {
+    // if(distance < ra) {
         color = texture2D(tex1, zoomedUv2);
     } else {
         if(distanceFromCenter < radius1) {
+        // if(distance < radius1) {
             if(angle >= 0.0 && angle < a2) {
                 color = texture2D(tex1, uv);
             } else {
