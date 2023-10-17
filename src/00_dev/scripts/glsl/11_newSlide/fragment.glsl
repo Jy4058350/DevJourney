@@ -37,6 +37,21 @@ void main() {
     float radius = 0.25;
     float radius1 = 0.35;
 
+    //Calculate the angle from the center
+    vec2 center = vec2(0.5, 0.5);
+    vec2 delta = vUv - center;
+    float angle = atan(delta.y, delta.x);
+
+    //Convert the angle to degrees and ensure it is positive
+    angle = degrees(angle);
+    if(angle < 0.0) {
+        angle = angle + 360.0;
+    }
+
+    //Set the angle for clockwise rotations
+    float angle1 = 0.0;
+    float angle2 = 90.0;
+
     // vec2 uv = coverUv(vUv, uResolution);
     vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv1 = panUv1(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
@@ -55,6 +70,7 @@ void main() {
     } else {
         if(distanceFromCenter < radius1) {
             color = texture2D(tex4, zoomedUv2);
+
         } else if(currentTexture == 0) {
             color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
         } else if(currentTexture == 1) {
