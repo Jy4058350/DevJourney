@@ -47,7 +47,7 @@ void main() {
  // Blend between the current and next textures
     vec4 color;
     if(distanceFromCenter < radius) {
-        color = texture2D(tex1, uv);
+        color = texture2D(tex1, vUv);
     } else {
 
         if(currentTexture == 0) {
