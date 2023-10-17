@@ -19,15 +19,9 @@ img {
 
 .macbook-pro-16-1 {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-width: 900px;
-  max-width: 1700px;
-  min-height: 900px;
-  max-height: 1100px;
 }/*# sourceMappingURL=style.css.map */
