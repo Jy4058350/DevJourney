@@ -26,6 +26,14 @@ uniform float uIndex;
 
 void main() {
 
+//perfect circle build
+    vec2 centerdUv = vUv - vec2(0.5, 0.5);
+    float aspectRatio = uResolution.x / uResolution.y;
+    centerdUv.x *= aspectRatio;
+    float distance = length(centerdUv);
+    float radius = 0.2;
+    float radius1 = 0.3;
+
     //Common variables
     vec2 u = coverUv(vUv, uResolution);
     vec2 zoomedUv2 = zoomUv2(vUv, uResolution, uProgress * uSpeed, uTick);
@@ -37,15 +45,6 @@ void main() {
     vec2 uv2 = panUv2(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
     vec2 uv3 = panUv3(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
 
-    //Calculate the distance from the center
-    float distanceFromCenter = length(u - vec2(0.5, 0.5));
-    
-
-    //Set a radius for the circular transition
-    float aspectRatio = uResolution.y / uResolution.x;
-    float radius = 0.20;
-    float radius1 = 0.22;
-   
     //try other slide transitions here 7textures
     int currentTexture = int(uProgress * 7.0);
     float texBlend = fract(uProgress * 7.0);
@@ -63,17 +62,15 @@ void main() {
  // Blend between the current and next textures
     vec4 color;
 
-    if(distanceFromCenter < radius) {
-    // if(distanceFromCenter < ra) {
-    // if(distance < ra) {
+    if(distance < radius) {
         color = texture2D(tex1, zoomedUv2);
     } else {
-        if(distanceFromCenter < radius1) {
-        // if(distance < radius1) {
+        if(distance < radius1) {
             if(angle >= 0.0 && angle < a2) {
                 color = texture2D(tex1, uv);
             } else {
                 color = texture2D(tex4, uv);
+                color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
             }
 
         } else if(currentTexture == 0) {
@@ -93,13 +90,12 @@ void main() {
         } else {
             color = texture2D(tex1, uv);
         }
-
     }
     vec4 color1;
-    if(distanceFromCenter < radius) {
+    if(distance < radius) {
         color1 = texture2D(tex1, zoomedUv2);
     } else {
-        if(distanceFromCenter < radius1) {
+        if(distance < radius1) {
             if(angle >= 0.0 && angle < a1) {
                 color1 = texture2D(tex1, uv1);
             } else {
@@ -123,12 +119,11 @@ void main() {
             color1 = texture2D(tex1, uv1);
         }
     }
-
     vec4 color2;
-    if(distanceFromCenter < radius) {
+    if(distance < radius) {
         color2 = texture2D(tex1, zoomedUv2);
     } else {
-        if(distanceFromCenter < radius1) {
+        if(distance < radius1) {
             if(angle >= 0.0 && angle < a3) {
                 color2 = texture2D(tex1, uv2);
             } else {
@@ -153,10 +148,10 @@ void main() {
         }
     }
     vec4 color3;
-    if(distanceFromCenter < radius) {
+    if(distance < radius) {
         color3 = texture2D(tex1, zoomedUv2);
     } else {
-        if(distanceFromCenter < radius1) {
+        if(distance < radius1) {
             if(angle >= 0.0 && angle < a) {
                 color3 = texture2D(tex1, uv3);
             } else {
@@ -180,7 +175,6 @@ void main() {
             color3 = texture2D(tex1, uv3);
         }
     }
-
     vec4 c = mix(color, color1, step(0.5, vUv.x));
     vec4 d = mix(color2, color3, step(0.5, vUv.x));
     vec4 e = mix(c, d, step(0.5, vUv.y));
