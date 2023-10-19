@@ -32,8 +32,8 @@ class ExtendObject extends CustomObject {
 
   fixUniforms() {
     const uniforms = super.fixUniforms();
-    uniforms.xOffset = { value: 0.1 };
-    uniforms.yOffset = { value: 0.1 };
+    uniforms.xOffset = { value: 0.5 };
+    uniforms.yOffset = { value: 0.5 };
     uniforms.radius = { value: 0.3 };
     uniforms.radius1 = { value: 0.35 };
     uniforms.uIndex = { value: 0.0 };
