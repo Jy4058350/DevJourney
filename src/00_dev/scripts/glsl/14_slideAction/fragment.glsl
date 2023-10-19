@@ -56,7 +56,7 @@ void main() {
     float angle = calculateAngle(uv, uProgress);
     if(uIndex == 0.0) {
     // Blend between the current and next textures
-        vec4 color;
+        vec4 color; //lower left
 
         if(distance < radius) {
             color = texture2D(tex1, zoomedUv2);
