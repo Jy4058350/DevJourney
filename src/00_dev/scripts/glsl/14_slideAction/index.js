@@ -15,14 +15,17 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         this.uniforms.uProgress.value = 0.0;
+        this.uniforms.uIndex.value = 1.0;
       },
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 20.0,
       ease: "ease",
       onComplete: () => {
-        this.fixGsap();
+        this.uniforms.uIndex.value = 0.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
       },
     });
   }
@@ -32,8 +35,9 @@ class ExtendObject extends CustomObject {
     uniforms.xOffset = { value: 0.1 };
     uniforms.yOffset = { value: 0.1 };
     uniforms.uSpeed = { value: 1.0 };
-    uniforms.radius = { value: 0.1 };
-    uniforms.radius1 = { value: 0.55 };
+    uniforms.radius = { value: 0.3 };
+    uniforms.radius1 = { value: 0.35 };
+    uniforms.uIndex = { value: 0.0 };
 
     startGsapAnimation(uniforms);
     return uniforms;
