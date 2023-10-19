@@ -4,6 +4,7 @@ import {
   Mesh,
   Vector2,
   DoubleSide,
+  TextureLoader,
 } from "three";
 
 import { loader } from "../component/loader";
