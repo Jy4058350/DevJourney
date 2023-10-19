@@ -12,9 +12,9 @@ uniform sampler2D tex8;
 uniform float radius;
 uniform float radius1;
 
-uniform float uSpeed;
 uniform float xOffset;
 uniform float yOffset;
+uniform float uRaito;
 
 uniform float uProgress;
 uniform float uTick;
@@ -39,15 +39,15 @@ void main() {
     float distance = distanceFromCenter(vUv, uResolution);
     //Common variables
     vec2 u = coverUv(vUv, uResolution);
-    vec2 zoomedUv2 = zoomUv2(vUv, uResolution, uProgress * uSpeed, uTick);
-    vec2 zoomedUv3 = zoomUv3(vUv, uResolution, uProgress * uSpeed, uTick);
+    vec2 zoomedUv2 = zoomUv2(vUv, uResolution, uProgress, uTick, uRaito);
+    vec2 zoomedUv3 = zoomUv3(vUv, uResolution, uProgress, uTick, uRaito);
     // vec2 center = vec2(0.5, 0.5);
 
- // 4 pan transitions
-    vec2 uv = panUv(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
-    vec2 uv1 = panUv1(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
-    vec2 uv2 = panUv2(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
-    vec2 uv3 = panUv3(vUv, uResolution, uProgress * uSpeed, uTick, xOffset, yOffset);
+    // 4 pan transitions
+    vec2 uv = panUv(vUv, uResolution, uProgress, uTick, xOffset, yOffset, uRaito);
+    vec2 uv1 = panUv1(vUv, uResolution, uProgress, uTick, xOffset, yOffset, uRaito);
+    vec2 uv2 = panUv2(vUv, uResolution, uProgress, uTick, xOffset, yOffset, uRaito);
+    vec2 uv3 = panUv3(vUv, uResolution, uProgress, uTick, xOffset, yOffset, uRaito);
 
     //try other slide transitions here 7textures
     int currentTexture = int(uProgress * 7.0);
@@ -55,7 +55,7 @@ void main() {
 
     float angle = calculateAngle(uv, uProgress);
     if(uIndex == 0.0) {
- // Blend between the current and next textures
+    // Blend between the current and next textures
         vec4 color;
 
         if(distance < radius) {
