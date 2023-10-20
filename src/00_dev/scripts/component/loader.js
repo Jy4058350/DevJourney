@@ -13,7 +13,6 @@ const loader = {
   loadingAnimation,
   loadVideo,
   $,
-  test,
 };
 
 const texLoader = new TextureLoader();
@@ -154,13 +153,8 @@ async function texMap(el) {
     await m;
     // console.log(url);
   }
-  
-  return texes;
-}
 
-function test(el) {
-  const t = texMap(el);
-  console.log(t);
+  return texes;
 }
 
 function loadingAnimation() {
