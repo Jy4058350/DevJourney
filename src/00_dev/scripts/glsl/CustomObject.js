@@ -14,10 +14,6 @@ class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
 
-    // //Convert Map to Array add 11/20
-    // const arrayFromTexes = Array.from(texes);
-    // console.log(arrayFromTexes[0]);
-
     const i = new this({ texes, el, type });
     return i;
   }
@@ -54,7 +50,6 @@ class CustomObject {
       this.disv();
       this.style();
       this.convertMapToArray(texes);
-      
 
       this.mesh.__marker = type;
     } catch (e) {
@@ -72,6 +67,10 @@ class CustomObject {
   }
 
   convertMapToArray(texes) {
+    for(let [key, value] of texes) {
+      // console.log(key, value);
+      console.log(value);
+    }
     const arrayFromTexes = Array.from(texes);
     console.log(arrayFromTexes[0]);
   }
