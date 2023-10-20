@@ -13,6 +13,9 @@ import { getWorldPosition, getResolution } from "../helper/utils";
 class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
+    const arrayFromTexes = Array.from(texes);
+
+    console.log(arrayFromTexes[0]);
     const i = new this({ texes, el, type });
     return i;
   }
