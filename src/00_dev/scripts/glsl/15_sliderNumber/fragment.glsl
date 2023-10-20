@@ -9,6 +9,8 @@ uniform sampler2D tex6;
 uniform sampler2D tex7;
 uniform sampler2D tex8;
 
+uniform sampler2D textures[8];
+
 uniform float radius;
 uniform float radius1;
 
@@ -187,4 +189,8 @@ void main() {
     if(uIndex == 1.0) {
         gl_FragColor = texture2D(tex1, zoomedUv3);
     }
+
+    vec4 z = textures[0];
+
+    gl_FragColor = z;
 }
