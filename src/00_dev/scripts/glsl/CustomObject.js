@@ -75,6 +75,7 @@ class CustomObject {
     }
     const arrayFromTexes = Array.from(texes);
     // console.log(arrayFromTexes[0]);
+    console.log(this.uniforms.textures.value);
   }
 
   before() {}
