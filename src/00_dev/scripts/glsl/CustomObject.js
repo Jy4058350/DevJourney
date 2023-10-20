@@ -67,15 +67,20 @@ class CustomObject {
   }
 
   convertMapToArray(texes) {
-    for(let [key, value] of texes) {
+    // for(let [key, value] of texes) {
       // console.log(key, value);
       // console.log(value);
       // this.uniforms.textures = uniforms.textures || { value: []};
-      this.uniforms.textures.value.push(value);
-    }
-    const arrayFromTexes = Array.from(texes);
+      // this.uniforms.textures.value.push(value);
+    // }
+    // const arrayFromTexes = Array.from(texes);
     // console.log(arrayFromTexes[0]);
-    console.log(this.uniforms.textures.value);
+    // console.log(this.uniforms.textures.value[0]);
+
+    for(let i = 0; i < texes.size; i++) {
+      this.uniforms.textures.value.push(texes.get(`tex${i+1}`));
+      console.log(this.uniforms.textures.value[i]);
+    }
   }
 
   before() {}
