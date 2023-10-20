@@ -69,10 +69,12 @@ class CustomObject {
   convertMapToArray(texes) {
     for(let [key, value] of texes) {
       // console.log(key, value);
-      console.log(value);
+      // console.log(value);
+      // this.uniforms.textures = uniforms.textures || { value: []};
+      this.uniforms.textures.value.push(value);
     }
     const arrayFromTexes = Array.from(texes);
-    console.log(arrayFromTexes[0]);
+    // console.log(arrayFromTexes[0]);
   }
 
   before() {}
@@ -121,6 +123,7 @@ class CustomObject {
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uIndex: { value: 0 },
+      textures: { value: [] },
     };
   }
 
