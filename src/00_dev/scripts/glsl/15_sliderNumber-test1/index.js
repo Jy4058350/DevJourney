@@ -33,8 +33,26 @@ class ExtendObject extends CustomObject {
       duration: 1.0,
       ease: "ease",
       onComplete: () => {
-        this.uniforms.uProgress.value = 0.0;
         this.uniforms.uIndex.value = 3.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 4.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 5.0;
+        this.uniforms.uProgress.value = 0.0;
       },
     });
     tl.to(this.uniforms.uProgress, {
