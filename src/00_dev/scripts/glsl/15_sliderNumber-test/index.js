@@ -45,6 +45,8 @@ class ExtendObject extends CustomObject {
     uniforms.radius1 = { value: 0.35 };
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
+    uniforms.uT = { value: 1 };
+    console.log(uniforms.textures.value);
 
     startGsapAnimation(uniforms);
     return uniforms;

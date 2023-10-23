@@ -153,7 +153,7 @@ async function texMap(el) {
     await m;
     // console.log(url);
   }
-  // console.log(texes);
+
   return texes;
 }
 

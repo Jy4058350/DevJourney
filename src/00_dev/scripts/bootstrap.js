@@ -5,7 +5,7 @@ import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
 import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
-import { loader } from "./component/loader";
+import { loader} from "./component/loader";
 import { gui } from "./helper/gui";
 import { orbit } from "./helper/orbit";
 import { startGsapAnimation, getResolution, getWorldPosition } from "./helper";

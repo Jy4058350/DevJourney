@@ -9,6 +9,8 @@ uniform sampler2D tex6;
 uniform sampler2D tex7;
 uniform sampler2D tex8;
 
+uniform sampler2D textures[8];
+
 uniform float radius;
 uniform float radius1;
 
@@ -33,8 +35,6 @@ uniform float uIndex;
 uniform int textureIndex;
 
 void main() {
-
-
 
     float radius = radius;
     float radius1 = radius1;
@@ -65,8 +65,8 @@ void main() {
             color = texture2D(tex1, zoomedUv2);
         } else {
             if(distance < radius1) {
-            if(angle >= 0.0 && angle < calculateAngle(uv, uProgress)) {
-                // if(angle >= 0.0 && angle < uProgress * 270.0) {
+            // if(angle >= 0.0 && angle < calculateAngle(uv, uProgress)) {
+                if(angle >= 0.0 && angle < uProgress * 270.0) {
                     color = texture2D(tex1, uv);
                 } else {
                 // color = texture2D(tex4, uv);
@@ -186,5 +186,10 @@ void main() {
     }
     if(uIndex == 1.0) {
         gl_FragColor = texture2D(tex1, zoomedUv3);
+    }
+
+    if(uIndex == 0.0) {
+        gl_FragColor = texture2D(textures[5], vUv);
+
     }
 }

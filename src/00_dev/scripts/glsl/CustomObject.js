@@ -4,6 +4,7 @@ import {
   Mesh,
   Vector2,
   DoubleSide,
+  TextureLoader,
 } from "three";
 
 import { loader } from "../component/loader";
@@ -12,6 +13,7 @@ import { getWorldPosition, getResolution } from "../helper/utils";
 class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
+
     const i = new this({ texes, el, type });
     return i;
   }
@@ -47,6 +49,7 @@ class CustomObject {
       this.mesh = this.fixMesh();
       this.disv();
       this.style();
+      this.convertMapToArray(texes);
 
       this.mesh.__marker = type;
     } catch (e) {
@@ -60,6 +63,23 @@ class CustomObject {
     if (this.mesh) {
       this.mesh.position.x = x;
       this.mesh.position.y = y;
+    }
+  }
+
+  convertMapToArray(texes) {
+    // for(let [key, value] of texes) {
+      // console.log(key, value);
+      // console.log(value);
+      // this.uniforms.textures = uniforms.textures || { value: []};
+      // this.uniforms.textures.value.push(value);
+    // }
+    // const arrayFromTexes = Array.from(texes);
+    // console.log(arrayFromTexes[0]);
+    // console.log(this.uniforms.textures.value[0]);
+
+    for(let i = 0; i < texes.size; i++) {
+      this.uniforms.textures.value.push(texes.get(`tex${i+1}`));
+      console.log(this.uniforms.textures.value[i]);
     }
   }
 
@@ -109,6 +129,7 @@ class CustomObject {
       uTick: { value: 0 },
       uProgress: { value: 0 },
       uIndex: { value: 0 },
+      textures: { value: [] },
     };
   }
 
