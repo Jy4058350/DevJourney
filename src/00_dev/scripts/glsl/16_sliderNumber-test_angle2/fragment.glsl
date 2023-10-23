@@ -31,6 +31,7 @@ uniform float uIndex;
 #pragma glslify: panUv3 = require(../shader-helper/panUv3);
 #pragma glslify: distanceFromCenter = require(../shader-helper/distanceFromCenter);
 #pragma glslify: calculateAngle = require(../shader-helper/calculateAngle);
+#pragma glslify: testangle = require(../shader-helper/testangle);
 
 uniform int textureIndex;
 
@@ -63,16 +64,18 @@ void main() {
         vec4 color; //lower left
 
         if(distance < radius) {
-            color = texture2D(textures[0], zoomedUv2);
+            color = texture2D(tex1, zoomedUv2);
 
         } else {
             if(distance < radius1) {
-                if(angle >= 0.0 && angle < calculateAngle(uv, uProgress)) {
-                // if(angle >= 0.0 && angle < uProgress * 270.0) {
-                    color = texture2D(textures[1], uv);
-                } else {
-                    color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
-                }
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv) : texture2D(tex2, uv);
 
             } else if(currentTexture == 0) {
                 color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
@@ -98,12 +101,14 @@ void main() {
             color1 = texture2D(tex1, zoomedUv2);
         } else {
             if(distance < radius1) {
-                if(angle >= 0.0 && angle < uProgress * 180.0) {
-                    color1 = texture2D(tex1, uv1);
-                } else {
-                // color1 = texture2D(tex4, uv1);
-                    color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
-                }
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv1) : texture2D(tex2, uv1);
             } else if(currentTexture == 0) {
                 color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
             } else if(currentTexture == 1) {
@@ -189,10 +194,9 @@ void main() {
         gl_FragColor = texture2D(textures[0], zoomedUv3);
     }
 
-
     // second transition
 
-     if(uIndex == 2.0) {
+    if(uIndex == 2.0) {
 
     // Blend between the current and next textures
         vec4 color; //lower left
@@ -326,7 +330,7 @@ void main() {
 
     // third transition
 
-     if(uIndex == 4.0) {
+    if(uIndex == 4.0) {
 
     // Blend between the current and next textures
         vec4 color; //lower left
