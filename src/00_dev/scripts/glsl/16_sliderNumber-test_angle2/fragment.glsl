@@ -31,7 +31,6 @@ uniform float uIndex;
 #pragma glslify: panUv3 = require(../shader-helper/panUv3);
 #pragma glslify: distanceFromCenter = require(../shader-helper/distanceFromCenter);
 #pragma glslify: calculateAngle = require(../shader-helper/calculateAngle);
-// #pragma glslify: testangle = require(../shader-helper/testangle);
 
 uniform int textureIndex;
 
