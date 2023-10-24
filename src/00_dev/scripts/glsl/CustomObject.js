@@ -68,17 +68,17 @@ class CustomObject {
 
   convertMapToArray(texes) {
     // for(let [key, value] of texes) {
-      // console.log(key, value);
-      // console.log(value);
-      // this.uniforms.textures = uniforms.textures || { value: []};
-      // this.uniforms.textures.value.push(value);
+    // console.log(key, value);
+    // console.log(value);
+    // this.uniforms.textures = uniforms.textures || { value: []};
+    // this.uniforms.textures.value.push(value);
     // }
     // const arrayFromTexes = Array.from(texes);
     // console.log(arrayFromTexes[0]);
     // console.log(this.uniforms.textures.value[0]);
 
-    for(let i = 0; i < texes.size; i++) {
-      this.uniforms.textures.value.push(texes.get(`tex${i+1}`));
+    for (let i = 0; i < texes.size; i++) {
+      this.uniforms.textures.value.push(texes.get(`tex${i + 1}`));
       // console.log(this.uniforms.textures.value[i]);
     }
   }
@@ -199,7 +199,7 @@ class CustomObject {
       geometry,
       rect,
     } = this;
-    const nextRect = el.getBoundingClientRect();
+    const nextRect = el.getBoundingClientRect(this.$.el);
     const { x, y } = getWorldPosition(nextRect, newCanvasRect);
     mesh.position.x = x;
     mesh.position.y = y;
@@ -210,7 +210,7 @@ class CustomObject {
       nextRect.height / rect.height,
       1
     );
-
+    console.log(rect, nextRect);
     this.rect = nextRect;
   }
 
