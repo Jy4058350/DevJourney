@@ -36,34 +36,91 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0.0;
       },
     });
-    // tl.to(this.uniforms.uProgress, {
-    //   value: 1.0,
-    //   duration: 3.0,
-    //   ease: "ease",
-    //   onComplete: () => {
-    //     this.uniforms.uIndex.value = 4.0;
-    //     this.uniforms.uProgress.value = 0.0;
-    //   },
-    // });
-    // tl.to(this.uniforms.uProgress, {
-    //   value: 1.0,
-    //   duration: 1.0,
-    //   ease: "ease",
-    //   onComplete: () => {
-    //     this.uniforms.uIndex.value = 5.0;
-    //     this.uniforms.uProgress.value = 0.0;
-    //   },
-    // });
-    // tl.to(this.uniforms.uProgress, {
-    //   value: 1.0,
-    //   duration: 3.0,
-    //   ease: "ease",
-    //   onComplete: () => {
-    //     this.uniforms.uIndex.value = 0.0;
-    //     this.uniforms.uProgress.value = 0.0;
-    //     // this.fixGsap();
-    //   },
-    // });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 4.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 5.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 6.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 7.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 8.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 9.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 10.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 11.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 3.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 0.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
   }
 
   fixUniforms() {
@@ -89,7 +146,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
       .name("uIndex")
       .listen();
     toFolder
