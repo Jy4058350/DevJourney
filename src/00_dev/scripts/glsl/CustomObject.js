@@ -204,9 +204,15 @@ class CustomObject {
     mesh.position.x = x;
     mesh.position.y = y;
 
+    var scaleFactor = Math.min(
+      nextRect.width / rect.width,
+      nextRect.height / rect.height
+    );
+    geometry.scale(scaleFactor, scaleFactor, 1);
+
     // 大きさの変更
     geometry.scale(
-      nextRect.width / rect.width / 100,
+      nextRect.width / rect.width,
       nextRect.height / rect.height,
       1
     );
