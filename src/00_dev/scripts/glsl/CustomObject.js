@@ -79,7 +79,7 @@ class CustomObject {
 
     for(let i = 0; i < texes.size; i++) {
       this.uniforms.textures.value.push(texes.get(`tex${i+1}`));
-      console.log(this.uniforms.textures.value[i]);
+      // console.log(this.uniforms.textures.value[i]);
     }
   }
 
