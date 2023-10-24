@@ -144,12 +144,10 @@ function raycast() {
     uHover.value = lerp(uHover.value, uHover.__endValue, 0.01);
   }
 }
-const newCanvasRect = canvas.getBoundingClientRect();
-function osResize(os, newCanvasRect) {
+
+function osResize() {
   world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
-  os.forEach((o) => o.resize());
-  console.log(world.os === os);
-  console.log(viewport.newCanvasRect);
+  os.forEach((o) => o.resize(o, viewport.newCanvasRect));
   world.camera.fov = viewport.fov;
   world.camera.near = viewport.near;
   world.camera.far = viewport.far;

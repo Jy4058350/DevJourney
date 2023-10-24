@@ -206,7 +206,7 @@ class CustomObject {
 
     // 大きさの変更
     geometry.scale(
-      nextRect.width / rect.width,
+      nextRect.width / rect.width / 100,
       nextRect.height / rect.height,
       1
     );
