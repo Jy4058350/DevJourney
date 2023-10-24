@@ -20,7 +20,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 2.0;
@@ -29,7 +29,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 1.0,
+      duration: 2.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 3.0;
@@ -38,7 +38,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 4.0;
@@ -56,7 +56,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 6.0;
@@ -75,7 +75,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 8.0;
@@ -94,7 +94,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 10.0;
@@ -113,12 +113,50 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 3.0,
+      duration: 10.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 12.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 13.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 10.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 14.0;
+        this.uniforms.uProgress.value = 0.0;
+        // this.fixGsap();
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = 15.0;
+        this.uniforms.uProgress.value = 0.0;
+      },
+    });
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: 10.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 0.0;
         this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
+        this.fixGsap();
       },
     });
   }
@@ -128,7 +166,7 @@ class ExtendObject extends CustomObject {
     uniforms.xOffset = { value: 0.2 };
     uniforms.yOffset = { value: 0.2 };
     uniforms.radius = { value: 0.3 };
-    uniforms.radius1 = { value: 0.35 };
+    uniforms.radius1 = { value: 0.38 };
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
 

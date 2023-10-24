@@ -64,7 +64,9 @@ void main() {
         vec4 color; //lower left
 
         if(distance < radius) {
-            color = texture2D(tex1, zoomedUv2);
+            vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c2 = texture2D(tex1, zoomedUv2);
+            color = mix(c1, c2, uProgress);
 
         } else {
             if(distance < radius1) {
@@ -75,22 +77,24 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv) : texture2D(tex2, uv);
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv) : texture2D(tex1, uv);
 
             } else if(currentTexture == 0) {
-                color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
+                color = mix(texture2D(tex7, uv), texture2D(tex8, uv), texBlend);
             } else if(currentTexture == 1) {
-                color = mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
+                color = mix(texture2D(tex8, uv), texture2D(tex1, uv), texBlend);
             } else if(currentTexture == 2) {
-                color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
+                color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
             } else if(currentTexture == 3) {
-                color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
+                color = mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
             } else if(currentTexture == 4) {
-                color = mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
+                color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
             } else if(currentTexture == 5) {
-                color = mix(texture2D(tex6, uv), texture2D(tex7, uv), texBlend);
+                color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
             } else if(currentTexture == 6) {
-                color = mix(texture2D(tex1, uv), texture2D(tex8, uv), texBlend);
+                color = mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
+            } else if(currentTexture == 7) {
+                color = mix(texture2D(tex6, uv), texture2D(tex1, uv), texBlend);
             } else {
                 color = texture2D(tex1, uv);
 
@@ -98,7 +102,9 @@ void main() {
         }
         vec4 color1;
         if(distance < radius) {
-            color1 = texture2D(tex1, zoomedUv2);
+            vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c2 = texture2D(tex1, zoomedUv2);
+            color1 = mix(c1, c2, uProgress);
         } else {
             if(distance < radius1) {
                 float startAngle = -180.0;
@@ -108,28 +114,33 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv1) : texture2D(tex2, uv1);
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv1) : texture2D(tex1, uv1);
             } else if(currentTexture == 0) {
-                color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
+                color1 = mix(texture2D(tex7, uv1), texture2D(tex8, uv1), texBlend);
             } else if(currentTexture == 1) {
-                color1 = mix(texture2D(tex2, uv1), texture2D(tex3, uv1), texBlend);
+                color1 = mix(texture2D(tex8, uv1), texture2D(tex1, uv1), texBlend);
             } else if(currentTexture == 2) {
-                color1 = mix(texture2D(tex3, uv1), texture2D(tex4, uv1), texBlend);
+                color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
             } else if(currentTexture == 3) {
-                color1 = mix(texture2D(tex4, uv1), texture2D(tex5, uv1), texBlend);
+                color1 = mix(texture2D(tex2, uv1), texture2D(tex3, uv1), texBlend);
             } else if(currentTexture == 4) {
-                color1 = mix(texture2D(tex5, uv1), texture2D(tex6, uv1), texBlend);
+                color1 = mix(texture2D(tex3, uv1), texture2D(tex4, uv1), texBlend);
             } else if(currentTexture == 5) {
-                color1 = mix(texture2D(tex6, uv1), texture2D(tex7, uv1), texBlend);
+                color1 = mix(texture2D(tex4, uv1), texture2D(tex5, uv1), texBlend);
             } else if(currentTexture == 6) {
-                color1 = mix(texture2D(tex1, uv1), texture2D(tex8, uv1), texBlend);
+                color1 = mix(texture2D(tex5, uv1), texture2D(tex6, uv1), texBlend);
+            } else if(currentTexture == 7) {
+                color1 = mix(texture2D(tex6, uv1), texture2D(tex1, uv1), texBlend);
             } else {
                 color1 = texture2D(tex1, uv1);
+
             }
         }
         vec4 color2;
         if(distance < radius) {
-            color2 = texture2D(tex1, zoomedUv2);
+            vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c2 = texture2D(tex1, zoomedUv2);
+            color2 = mix(c1, c2, uProgress);
         } else {
             if(distance < radius1) {
                 float startAngle = -90.0;
@@ -139,28 +150,33 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv2) : texture2D(tex2, uv2);
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv2) : texture2D(tex1, uv2);
             } else if(currentTexture == 0) {
-                color2 = mix(texture2D(tex1, uv2), texture2D(tex2, uv2), texBlend);
+                color2 = mix(texture2D(tex7, uv2), texture2D(tex8, uv2), texBlend);
             } else if(currentTexture == 1) {
-                color2 = mix(texture2D(tex2, uv2), texture2D(tex3, uv2), texBlend);
+                color2 = mix(texture2D(tex8, uv2), texture2D(tex1, uv2), texBlend);
             } else if(currentTexture == 2) {
-                color2 = mix(texture2D(tex3, uv2), texture2D(tex4, uv2), texBlend);
+                color2 = mix(texture2D(tex1, uv2), texture2D(tex2, uv2), texBlend);
             } else if(currentTexture == 3) {
-                color2 = mix(texture2D(tex4, uv2), texture2D(tex5, uv2), texBlend);
+                color2 = mix(texture2D(tex2, uv2), texture2D(tex3, uv2), texBlend);
             } else if(currentTexture == 4) {
-                color2 = mix(texture2D(tex5, uv2), texture2D(tex6, uv2), texBlend);
+                color2 = mix(texture2D(tex3, uv2), texture2D(tex4, uv2), texBlend);
             } else if(currentTexture == 5) {
-                color2 = mix(texture2D(tex6, uv2), texture2D(tex7, uv2), texBlend);
+                color2 = mix(texture2D(tex4, uv2), texture2D(tex5, uv2), texBlend);
             } else if(currentTexture == 6) {
-                color2 = mix(texture2D(tex1, uv2), texture2D(tex8, uv2), texBlend);
+                color2 = mix(texture2D(tex5, uv2), texture2D(tex6, uv2), texBlend);
+            } else if(currentTexture == 7) {
+                color2 = mix(texture2D(tex6, uv2), texture2D(tex1, uv2), texBlend);
             } else {
                 color2 = texture2D(tex1, uv2);
+
             }
         }
         vec4 color3;
         if(distance < radius) {
-            color3 = texture2D(tex1, zoomedUv2);
+           vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c2 = texture2D(tex1, zoomedUv2);
+            color3 = mix(c1, c2, uProgress);
         } else {
             if(distance < radius1) {
                 float startAngle = -150.0;
@@ -170,23 +186,26 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv3) : texture2D(tex2, uv3);
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv3) : texture2D(tex1, uv3);
             } else if(currentTexture == 0) {
-                color3 = mix(texture2D(tex1, uv3), texture2D(tex2, uv3), texBlend);
+                color3 = mix(texture2D(tex7, uv3), texture2D(tex8, uv3), texBlend);
             } else if(currentTexture == 1) {
-                color3 = mix(texture2D(tex2, uv3), texture2D(tex3, uv3), texBlend);
+                color3 = mix(texture2D(tex8, uv3), texture2D(tex1, uv3), texBlend);
             } else if(currentTexture == 2) {
-                color3 = mix(texture2D(tex3, uv3), texture2D(tex4, uv3), texBlend);
+                color3 = mix(texture2D(tex1, uv3), texture2D(tex2, uv3), texBlend);
             } else if(currentTexture == 3) {
-                color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
+                color3 = mix(texture2D(tex2, uv3), texture2D(tex3, uv3), texBlend);
             } else if(currentTexture == 4) {
-                color3 = mix(texture2D(tex5, uv3), texture2D(tex6, uv3), texBlend);
+                color3 = mix(texture2D(tex3, uv3), texture2D(tex4, uv3), texBlend);
             } else if(currentTexture == 5) {
-                color3 = mix(texture2D(tex6, uv3), texture2D(tex7, uv3), texBlend);
+                color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
             } else if(currentTexture == 6) {
-                color3 = mix(texture2D(tex1, uv3), texture2D(tex8, uv3), texBlend);
+                color3 = mix(texture2D(tex5, uv3), texture2D(tex6, uv3), texBlend);
+          } else if(currentTexture == 7) {
+                color3 = mix(texture2D(tex6, uv3), texture2D(tex1, uv3), texBlend);
             } else {
-                color3 = texture2D(tex1, uv3);
+                color3 = texture2D(tex1, uv2);
+
             }
         }
         vec4 c = mix(color, color1, step(0.5, vUv.x));
@@ -539,7 +558,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex4, uv);
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex5, uv);
 
             } else if(currentTexture == 0) {
                 color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
@@ -575,7 +594,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex4, uv);
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex5, uv);
 
             } else if(currentTexture == 0) {
                 color1 = mix(texture2D(tex3, uv1), texture2D(tex4, uv1), texBlend);
@@ -611,7 +630,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex4, uv);
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv) : texture2D(tex5, uv);
 
             } else if(currentTexture == 0) {
                 color2 = mix(texture2D(tex3, uv2), texture2D(tex4, uv2), texBlend);
@@ -647,7 +666,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex3, uv3) : texture2D(tex4, uv3);
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex4, uv3) : texture2D(tex5, uv3);
             } else if(currentTexture == 0) {
                 color3 = mix(texture2D(tex3, uv3), texture2D(tex4, uv3), texBlend);
             } else if(currentTexture == 1) {
@@ -698,7 +717,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex5, uv);
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex6, uv);
 
             } else if(currentTexture == 0) {
                 color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
@@ -734,7 +753,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex5, uv);
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex6, uv);
 
             } else if(currentTexture == 0) {
                 color1 = mix(texture2D(tex4, uv1), texture2D(tex5, uv1), texBlend);
@@ -770,7 +789,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex5, uv);
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv) : texture2D(tex6, uv);
 
             } else if(currentTexture == 0) {
                 color2 = mix(texture2D(tex4, uv2), texture2D(tex5, uv2), texBlend);
@@ -806,7 +825,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv3) : texture2D(tex5, uv3);
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex5, uv3) : texture2D(tex6, uv3);
             } else if(currentTexture == 0) {
                 color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
             } else if(currentTexture == 1) {
@@ -857,7 +876,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex6, uv);
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex7, uv);
 
             } else if(currentTexture == 0) {
                 color = mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
@@ -893,7 +912,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex6, uv);
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex7, uv);
 
             } else if(currentTexture == 0) {
                 color1 = mix(texture2D(tex5, uv1), texture2D(tex6, uv1), texBlend);
@@ -929,7 +948,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex6, uv);
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv) : texture2D(tex7, uv);
 
             } else if(currentTexture == 0) {
                 color2 = mix(texture2D(tex5, uv2), texture2D(tex6, uv2), texBlend);
@@ -965,7 +984,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv3) : texture2D(tex6, uv3);
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex6, uv3) : texture2D(tex7, uv3);
             } else if(currentTexture == 0) {
                 color3 = mix(texture2D(tex5, uv3), texture2D(tex6, uv3), texBlend);
             } else if(currentTexture == 1) {
@@ -993,5 +1012,323 @@ void main() {
     }
     if(uIndex == 11.0) {
         gl_FragColor = texture2D(textures[5], zoomedUv3);
+    }
+
+    // seventh transition
+
+    if(uIndex == 12.0) {
+
+    // Blend between the current and next textures
+        vec4 color; //lower left
+
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex6, zoomedUv2);
+            vec4 c2 = texture2D(tex7, zoomedUv2);
+            color = mix(c1, c2, uProgress);
+
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex7, uv) : texture2D(tex8, uv);
+
+            } else if(currentTexture == 0) {
+                color = mix(texture2D(tex6, uv), texture2D(tex7, uv), texBlend);
+            } else if(currentTexture == 1) {
+                color = mix(texture2D(tex7, uv), texture2D(tex8, uv), texBlend);
+            } else if(currentTexture == 2) {
+                color = mix(texture2D(tex8, uv), texture2D(tex1, uv), texBlend);
+            } else if(currentTexture == 3) {
+                color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
+            } else if(currentTexture == 4) {
+                color = mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
+            } else if(currentTexture == 5) {
+                color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
+            } else if(currentTexture == 6) {
+                color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
+            } else if(currentTexture == 7) {
+                color = mix(texture2D(tex5, uv), texture2D(tex7, uv), texBlend);
+            } else {
+                color = texture2D(tex7, uv);
+            }
+        }
+        vec4 color1;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex6, zoomedUv2);
+            vec4 c2 = texture2D(tex7, zoomedUv2);
+            color1 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex7, uv) : texture2D(tex8, uv);
+
+            } else if(currentTexture == 0) {
+                color1 = mix(texture2D(tex6, uv1), texture2D(tex7, uv1), texBlend);
+            } else if(currentTexture == 1) {
+                color1 = mix(texture2D(tex7, uv1), texture2D(tex8, uv1), texBlend);
+            } else if(currentTexture == 2) {
+                color1 = mix(texture2D(tex8, uv1), texture2D(tex1, uv1), texBlend);
+            } else if(currentTexture == 3) {
+                color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
+            } else if(currentTexture == 4) {
+                color1 = mix(texture2D(tex2, uv1), texture2D(tex3, uv1), texBlend);
+            } else if(currentTexture == 5) {
+                color1 = mix(texture2D(tex3, uv1), texture2D(tex4, uv1), texBlend);
+            } else if(currentTexture == 6) {
+                color1 = mix(texture2D(tex4, uv1), texture2D(tex5, uv1), texBlend);
+            } else if(currentTexture == 7) {
+                color1 = mix(texture2D(tex5, uv1), texture2D(tex7, uv1), texBlend);
+            } else {
+                color1 = texture2D(tex7, uv1);
+            }
+        }
+        vec4 color2;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex6, zoomedUv2);
+            vec4 c2 = texture2D(tex7, zoomedUv2);
+            color2 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex7, uv) : texture2D(tex8, uv);
+
+            } else if(currentTexture == 0) {
+                color2 = mix(texture2D(tex6, uv2), texture2D(tex7, uv2), texBlend);
+            } else if(currentTexture == 1) {
+                color2 = mix(texture2D(tex7, uv2), texture2D(tex8, uv2), texBlend);
+            } else if(currentTexture == 2) {
+                color2 = mix(texture2D(tex8, uv2), texture2D(tex1, uv2), texBlend);
+            } else if(currentTexture == 3) {
+                color2 = mix(texture2D(tex1, uv2), texture2D(tex2, uv2), texBlend);
+            } else if(currentTexture == 4) {
+                color2 = mix(texture2D(tex2, uv2), texture2D(tex3, uv2), texBlend);
+            } else if(currentTexture == 5) {
+                color2 = mix(texture2D(tex3, uv2), texture2D(tex4, uv2), texBlend);
+            } else if(currentTexture == 6) {
+                color2 = mix(texture2D(tex4, uv2), texture2D(tex5, uv2), texBlend);
+            } else if(currentTexture == 7) {
+                color2 = mix(texture2D(tex5, uv2), texture2D(tex7, uv2), texBlend);
+            } else {
+                color2 = texture2D(tex7, uv2);
+            }
+        }
+        vec4 color3;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex6, zoomedUv2);
+            vec4 c2 = texture2D(tex7, zoomedUv2);
+            color3 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -150.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex7, uv3) : texture2D(tex8, uv3);
+            } else if(currentTexture == 0) {
+                color3 = mix(texture2D(tex6, uv3), texture2D(tex7, uv3), texBlend);
+            } else if(currentTexture == 1) {
+                color3 = mix(texture2D(tex7, uv3), texture2D(tex8, uv3), texBlend);
+            } else if(currentTexture == 2) {
+                color3 = mix(texture2D(tex8, uv3), texture2D(tex1, uv3), texBlend);
+            } else if(currentTexture == 3) {
+                color3 = mix(texture2D(tex1, uv3), texture2D(tex2, uv3), texBlend);
+            } else if(currentTexture == 4) {
+                color3 = mix(texture2D(tex2, uv3), texture2D(tex3, uv3), texBlend);
+            } else if(currentTexture == 5) {
+                color3 = mix(texture2D(tex3, uv3), texture2D(tex4, uv3), texBlend);
+            } else if(currentTexture == 6) {
+                color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
+            } else if(currentTexture == 7) {
+                color3 = mix(texture2D(tex5, uv3), texture2D(tex7, uv3), texBlend);
+            } else {
+                color3 = texture2D(tex7, uv);
+            }
+        }
+        vec4 c = mix(color, color1, step(0.5, vUv.x));
+        vec4 d = mix(color2, color3, step(0.5, vUv.x));
+        vec4 e = mix(c, d, step(0.5, vUv.y));
+        gl_FragColor = e;
+    }
+    if(uIndex == 13.0) {
+        gl_FragColor = texture2D(textures[6], zoomedUv3);
+    }
+
+    // eighth transition
+
+    if(uIndex == 14.0) {
+
+    // Blend between the current and next textures
+        vec4 color; //lower left
+
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c2 = texture2D(tex1, zoomedUv2);
+            color = mix(c1, c2, uProgress);
+
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv) : texture2D(tex1, uv);
+
+            } else if(currentTexture == 0) {
+                color = mix(texture2D(tex7, uv), texture2D(tex8, uv), texBlend);
+            } else if(currentTexture == 1) {
+                color = mix(texture2D(tex8, uv), texture2D(tex1, uv), texBlend);
+            } else if(currentTexture == 2) {
+                color = mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
+            } else if(currentTexture == 3) {
+                color = mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
+            } else if(currentTexture == 4) {
+                color = mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
+            } else if(currentTexture == 5) {
+                color = mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
+            } else if(currentTexture == 6) {
+                color = mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
+            } else if(currentTexture == 7) {
+                color = mix(texture2D(tex6, uv), texture2D(tex8, uv), texBlend);
+            } else {
+                color = texture2D(tex8, uv);
+            }
+        }
+        vec4 color1;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex7, zoomedUv2);
+            vec4 c2 = texture2D(tex8, zoomedUv2);
+            color1 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv) : texture2D(tex1, uv);
+
+            } else if(currentTexture == 0) {
+                color1 = mix(texture2D(tex7, uv1), texture2D(tex8, uv1), texBlend);
+            } else if(currentTexture == 1) {
+                color1 = mix(texture2D(tex8, uv1), texture2D(tex1, uv1), texBlend);
+            } else if(currentTexture == 2) {
+                color1 = mix(texture2D(tex1, uv1), texture2D(tex2, uv1), texBlend);
+            } else if(currentTexture == 3) {
+                color1 = mix(texture2D(tex2, uv1), texture2D(tex3, uv1), texBlend);
+            } else if(currentTexture == 4) {
+                color1 = mix(texture2D(tex3, uv1), texture2D(tex4, uv1), texBlend);
+            } else if(currentTexture == 5) {
+                color1 = mix(texture2D(tex4, uv1), texture2D(tex5, uv1), texBlend);
+            } else if(currentTexture == 6) {
+                color1 = mix(texture2D(tex5, uv1), texture2D(tex6, uv1), texBlend);
+            } else if(currentTexture == 7) {
+                color1 = mix(texture2D(tex6, uv1), texture2D(tex8, uv1), texBlend);
+            } else {
+                color1 = texture2D(tex8, uv1);
+            }
+        }
+        vec4 color2;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex7, zoomedUv2);
+            vec4 c2 = texture2D(tex8, zoomedUv2);
+            color2 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -180.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv) : texture2D(tex1, uv);
+
+            } else if(currentTexture == 0) {
+                color2 = mix(texture2D(tex7, uv2), texture2D(tex8, uv2), texBlend);
+            } else if(currentTexture == 1) {
+                color2 = mix(texture2D(tex8, uv2), texture2D(tex1, uv2), texBlend);
+            } else if(currentTexture == 2) {
+                color2 = mix(texture2D(tex1, uv2), texture2D(tex2, uv2), texBlend);
+            } else if(currentTexture == 3) {
+                color2 = mix(texture2D(tex2, uv2), texture2D(tex3, uv2), texBlend);
+            } else if(currentTexture == 4) {
+                color2 = mix(texture2D(tex3, uv2), texture2D(tex4, uv2), texBlend);
+            } else if(currentTexture == 5) {
+                color2 = mix(texture2D(tex4, uv2), texture2D(tex5, uv2), texBlend);
+            } else if(currentTexture == 6) {
+                color2 = mix(texture2D(tex5, uv2), texture2D(tex6, uv2), texBlend);
+            } else if(currentTexture == 7) {
+                color2 = mix(texture2D(tex6, uv2), texture2D(tex8, uv2), texBlend);
+            } else {
+                color2 = texture2D(tex8, uv2);
+            }
+        }
+        vec4 color3;
+        if(distance < radius) {
+            vec4 c1 = texture2D(tex7, zoomedUv2);
+            vec4 c2 = texture2D(tex8, zoomedUv2);
+            color3 = mix(c1, c2, uProgress);
+        } else {
+            if(distance < radius1) {
+                float startAngle = -150.0;
+                float endAngle = 180.0;
+
+                vec2 center1 = vec2(0.5, 0.5);
+                vec2 delta1 = vUv - center1;
+                float angle = degrees(atan(delta1.y, delta1.x));
+                float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv3) : texture2D(tex1, uv3);
+            } else if(currentTexture == 0) {
+                color3 = mix(texture2D(tex7, uv3), texture2D(tex8, uv3), texBlend);
+            } else if(currentTexture == 1) {
+                color3 = mix(texture2D(tex8, uv3), texture2D(tex1, uv3), texBlend);
+            } else if(currentTexture == 2) {
+                color3 = mix(texture2D(tex1, uv3), texture2D(tex2, uv3), texBlend);
+            } else if(currentTexture == 3) {
+                color3 = mix(texture2D(tex2, uv3), texture2D(tex3, uv3), texBlend);
+            } else if(currentTexture == 4) {
+                color3 = mix(texture2D(tex3, uv3), texture2D(tex4, uv3), texBlend);
+            } else if(currentTexture == 5) {
+                color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
+            } else if(currentTexture == 6) {
+                color3 = mix(texture2D(tex5, uv3), texture2D(tex6, uv3), texBlend);
+            } else if(currentTexture == 7) {
+                color3 = mix(texture2D(tex6, uv3), texture2D(tex8, uv3), texBlend);
+            } else {
+                color3 = texture2D(tex8, uv);
+            }
+        }
+        vec4 c = mix(color, color1, step(0.5, vUv.x));
+        vec4 d = mix(color2, color3, step(0.5, vUv.x));
+        vec4 e = mix(c, d, step(0.5, vUv.y));
+        gl_FragColor = e;
+    }
+    if(uIndex == 15.0) {
+        gl_FragColor = texture2D(textures[7], zoomedUv3);
     }
 }
