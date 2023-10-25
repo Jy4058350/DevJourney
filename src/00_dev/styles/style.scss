@@ -4,7 +4,7 @@
   position: relative;
   max-width: 100%;
   overflow: hidden;
-  max-height: 90%;
+  max-height: 70%;
   object-fit: cover;
   z-index: 100;
 }
@@ -15,9 +15,16 @@ img {
 }
 .macbook-pro-16-1 {
   position: relative;
+  top: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
+}
+
+h1 {
+  position: absolute;
+  top: 80%;
+  left: 5%;
 }
