@@ -20,7 +20,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 2.0;
@@ -38,7 +38,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 4.0;
@@ -56,7 +56,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 6.0;
@@ -75,7 +75,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 8.0;
@@ -94,7 +94,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 10.0;
@@ -113,7 +113,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 12.0;
@@ -132,7 +132,7 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 14.0;
@@ -151,12 +151,12 @@ class ExtendObject extends CustomObject {
     });
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 10.0,
+      duration: 1.0,
       ease: "ease",
       onComplete: () => {
         this.uniforms.uIndex.value = 0.0;
         this.uniforms.uProgress.value = 0.0;
-        this.fixGsap();
+        // this.fixGsap();
       },
     });
   }

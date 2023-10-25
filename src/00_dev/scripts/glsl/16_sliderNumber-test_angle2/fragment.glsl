@@ -36,14 +36,14 @@ uniform int textureIndex;
 
 void main() {
 
-    float as = uResolution.x / uResolution.y;
-    vec2 scale = vec2(1.0);
-    if(as > 1.0) {
-        scale.x = 1.0 / as;
-    } else {
-        scale.y = as;
-    }
-    vec2 vUv = vUv * scale;
+    // float as = uResolution.x / uResolution.y;
+    // vec2 scale = vec2(1.0);
+    // if(as > 1.0) {
+    //     scale.x = 1.0 / as;
+    // } else {
+    //     scale.y = as;
+    // }
+    // vec2 vUv = vUv * scale;
 
     float radius = radius;
     float radius1 = radius1;
