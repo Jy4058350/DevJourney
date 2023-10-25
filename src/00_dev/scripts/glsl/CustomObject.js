@@ -3,6 +3,7 @@ import {
   ShaderMaterial,
   Mesh,
   Vector2,
+  Vector4,
   DoubleSide,
   TextureLoader,
 } from "three";
@@ -130,6 +131,7 @@ class CustomObject {
       uProgress: { value: 0 },
       uIndex: { value: 0 },
       textures: { value: [] },
+      uResolution: { value: new Vector4(0, 0, 0, 0) },
     };
   }
 
@@ -170,26 +172,8 @@ class CustomObject {
     const resolution = getResolution(this.rect, mrect);
 
     u.uResolution = { value: resolution };
+    console.log(this.uniforms.uResolution.value);
     return u;
-  }
-
-  scroll(canvasRect) {
-    const newCanvasRect = canvas.getBoundingClientRect();
-    const {
-      $: { el },
-      mesh,
-    } = this;
-    const rect = el.getBoundingClientRect();
-    if (newCanvasRect) {
-      const { x, y } = getWorldPosition(rect, newCanvasRect);
-      // mesh.position.x = x;
-      mesh.position.y = y;
-    }
-    if (!newCanvasRect && canvasRect) {
-      const { x, y } = getWorldPosition(rect, canvasRect);
-      // mesh.position.x = x;
-      mesh.position.y = y;
-    }
   }
 
   resize(newCanvasRect) {
@@ -213,13 +197,35 @@ class CustomObject {
 
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
-    console.log(aspectRw, aspectRh);
-    console.log(this.uniforms.uResolution.value.x);
+
     this.uniforms.uResolution.value.x *= aspectRw;
     this.uniforms.uResolution.value.y *= aspectRh;
 
+    console.log(this.uniforms.uResolution.value);
+
     this.rect = nextRect;
   }
+
+  scroll(canvasRect) {
+    const newCanvasRect = canvas.getBoundingClientRect();
+    const {
+      $: { el },
+      mesh,
+    } = this;
+    const rect = el.getBoundingClientRect();
+    if (newCanvasRect) {
+      const { x, y } = getWorldPosition(rect, newCanvasRect);
+      // mesh.position.x = x;
+      mesh.position.y = y;
+    }
+    if (!newCanvasRect && canvasRect) {
+      const { x, y } = getWorldPosition(rect, canvasRect);
+      // mesh.position.x = x;
+      mesh.position.y = y;
+    }
+  }
+
+  
 
   render(tick) {
     this.uniforms.uTick.value = tick;
