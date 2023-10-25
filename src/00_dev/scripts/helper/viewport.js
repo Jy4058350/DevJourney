@@ -5,7 +5,7 @@ const viewport = {
   bindResizeEvents,
 };
 
-function init(canvasRect, cameraZ=2000, near=10, far=4000) {
+function init(canvasRect, cameraZ = 2000, near = 10, far = 4000) {
   viewport.cameraWidth = canvasRect.width;
   viewport.cameraHeight = canvasRect.height;
   viewport.near = near;
@@ -18,13 +18,12 @@ function init(canvasRect, cameraZ=2000, near=10, far=4000) {
   return viewport;
 }
 
+let timerId = null;
 function bindResizeEvents() {
-  let timerId = null;
-
   window.addEventListener("resize", () => {
     clearTimeout(timerId);
     timerId = setTimeout(() => {
-      console.log("resize");
+      // console.log("resize");
       updateCanvas();
     }, 500);
   });
@@ -40,6 +39,7 @@ function updateCanvas() {
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   world.osResize(world.os, newCanvasRect);
+  // console.log(newCanvasRect);
 }
 
 export { viewport };

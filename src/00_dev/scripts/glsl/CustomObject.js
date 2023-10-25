@@ -3,6 +3,7 @@ import {
   ShaderMaterial,
   Mesh,
   Vector2,
+  Vector4,
   DoubleSide,
   TextureLoader,
 } from "three";
@@ -68,17 +69,17 @@ class CustomObject {
 
   convertMapToArray(texes) {
     // for(let [key, value] of texes) {
-      // console.log(key, value);
-      // console.log(value);
-      // this.uniforms.textures = uniforms.textures || { value: []};
-      // this.uniforms.textures.value.push(value);
+    // console.log(key, value);
+    // console.log(value);
+    // this.uniforms.textures = uniforms.textures || { value: []};
+    // this.uniforms.textures.value.push(value);
     // }
     // const arrayFromTexes = Array.from(texes);
     // console.log(arrayFromTexes[0]);
     // console.log(this.uniforms.textures.value[0]);
 
-    for(let i = 0; i < texes.size; i++) {
-      this.uniforms.textures.value.push(texes.get(`tex${i+1}`));
+    for (let i = 0; i < texes.size; i++) {
+      this.uniforms.textures.value.push(texes.get(`tex${i + 1}`));
       // console.log(this.uniforms.textures.value[i]);
     }
   }
@@ -130,6 +131,7 @@ class CustomObject {
       uProgress: { value: 0 },
       uIndex: { value: 0 },
       textures: { value: [] },
+      uResolution: { value: new Vector4(0, 0, 0, 0) },
     };
   }
 
@@ -170,7 +172,38 @@ class CustomObject {
     const resolution = getResolution(this.rect, mrect);
 
     u.uResolution = { value: resolution };
+    console.log(this.uniforms.uResolution.value);
     return u;
+  }
+
+  resize(newCanvasRect) {
+    const {
+      $: { el },
+      mesh,
+      geometry,
+      rect,
+    } = this;
+    const nextRect = el.getBoundingClientRect(this.$.el);
+    const { x, y } = getWorldPosition(nextRect, newCanvasRect);
+    mesh.position.x = x;
+    mesh.position.y = y;
+
+    // 大きさの変更
+    geometry.scale(
+      nextRect.width / rect.width,
+      nextRect.height / rect.height,
+      1
+    );
+
+    const aspectRw = nextRect.width / rect.width;
+    const aspectRh = nextRect.height / rect.height;
+
+    this.uniforms.uResolution.value.x *= aspectRw;
+    this.uniforms.uResolution.value.y *= aspectRh;
+
+    console.log(this.uniforms.uResolution.value);
+
+    this.rect = nextRect;
   }
 
   scroll(canvasRect) {
@@ -192,27 +225,7 @@ class CustomObject {
     }
   }
 
-  resize(newCanvasRect) {
-    const {
-      $: { el },
-      mesh,
-      geometry,
-      rect,
-    } = this;
-    const nextRect = el.getBoundingClientRect();
-    const { x, y } = getWorldPosition(nextRect, newCanvasRect);
-    mesh.position.x = x;
-    mesh.position.y = y;
-
-    // 大きさの変更
-    geometry.scale(
-      nextRect.width / rect.width,
-      nextRect.height / rect.height,
-      1
-    );
-
-    this.rect = nextRect;
-  }
+  
 
   render(tick) {
     this.uniforms.uTick.value = tick;
