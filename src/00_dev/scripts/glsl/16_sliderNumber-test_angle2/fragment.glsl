@@ -36,6 +36,15 @@ uniform int textureIndex;
 
 void main() {
 
+    float as = uResolution.x / uResolution.y;
+    vec2 scale = vec2(1.0);
+    if(as > 1.0) {
+        scale.x = 1.0 / as;
+    } else {
+        scale.y = as;
+    }
+    vec2 vUv = vUv * scale;
+
     float radius = radius;
     float radius1 = radius1;
 
@@ -173,7 +182,7 @@ void main() {
         }
         vec4 color3;
         if(distance < radius) {
-           vec4 c1 = texture2D(tex8, zoomedUv2);
+            vec4 c1 = texture2D(tex8, zoomedUv2);
             vec4 c2 = texture2D(tex1, zoomedUv2);
             color3 = mix(c1, c2, uProgress);
         } else {
@@ -200,7 +209,7 @@ void main() {
                 color3 = mix(texture2D(tex4, uv3), texture2D(tex5, uv3), texBlend);
             } else if(currentTexture == 6) {
                 color3 = mix(texture2D(tex5, uv3), texture2D(tex6, uv3), texBlend);
-          } else if(currentTexture == 7) {
+            } else if(currentTexture == 7) {
                 color3 = mix(texture2D(tex6, uv3), texture2D(tex1, uv3), texBlend);
             } else {
                 color3 = texture2D(tex1, uv2);
