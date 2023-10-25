@@ -204,19 +204,20 @@ class CustomObject {
     mesh.position.x = x;
     mesh.position.y = y;
 
-    var scaleFactor = Math.min(
-      nextRect.width / rect.width,
-      nextRect.height / rect.height
-    );
-    geometry.scale(scaleFactor, scaleFactor, 1);
-
     // 大きさの変更
     geometry.scale(
       nextRect.width / rect.width,
       nextRect.height / rect.height,
       1
     );
-    console.log(rect, nextRect);
+
+    const aspectRw = nextRect.width / rect.width;
+    const aspectRh = nextRect.height / rect.height;
+    console.log(aspectRw, aspectRh);
+    console.log(this.uniforms.uResolution.value.x);
+    this.uniforms.uResolution.value.x *= aspectRw;
+    this.uniforms.uResolution.value.y *= aspectRh;
+
     this.rect = nextRect;
   }
 
