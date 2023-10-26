@@ -17,11 +17,15 @@
 
   &_text {
     &-shader {
-        display: block;
-        margin-left: auto;
-        pointer-events: none;
-        width: 100%;
-        aspect-ratio: 1 / 1;
+      display: block;
+      margin-left: auto;
+      pointer-events: none;
+      width: 100%;
+      aspect-ratio: 1/ 1;
     }
+  }
+
+  &_slider {
+    aspect-ratio: 16/9;
   }
 }
