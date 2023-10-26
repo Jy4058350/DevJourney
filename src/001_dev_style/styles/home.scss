@@ -4,10 +4,11 @@
 
   &_content {
     position: absolute;
-    max-width: 500px;
-    width: 100%;
+    max-width: 200px;
+    width: 50%;
     text-align: center;
     margin: 0 auto;
+    z-index: 100;
 
     top: auto;
     transform: none;
@@ -27,5 +28,24 @@
 
   &_slider {
     aspect-ratio: 16/9;
+  }
+
+  &_main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
+
+  &_holder {
+    position: relative;
+    width: 100%;
+    max-width: unset;
+    margin: 0 auto;
+    margin-bottom: 10%;
   }
 }
