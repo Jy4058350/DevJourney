@@ -1,4 +1,4 @@
-import "../styles/global.scss";
+import "../styles/home.scss";
 import gsap from "gsap";
 
 import world from "./glsl/world";

@@ -1,0 +1,27 @@
+.fv {
+  position: absolute;
+  height: 100%;
+
+  &_content {
+    position: absolute;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+
+    top: auto;
+    transform: none;
+    bottom: 5%;
+    left: 0;
+  }
+
+  &_text {
+    &-shader {
+        display: block;
+        margin-left: auto;
+        pointer-events: none;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+  }
+}
