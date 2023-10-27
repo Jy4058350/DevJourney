@@ -38,6 +38,10 @@ class ExtendObject extends CustomObject {
       console.log(tex);
       cylinderMat.uniforms.tex1 = { value: tex };
 
+      const planeGeo = this.geometry.clone();
+      // const planeGeo = this.geometry;
+      const plane = new Mesh(planeGeo, cylinderMat);
+      cylinder.add(plane);
     });
 
     return cylinder;
