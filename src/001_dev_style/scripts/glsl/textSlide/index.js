@@ -90,8 +90,9 @@ class ExtendObject extends CustomObject {
   goToNext(index) {
     this.differenceRadius +=
       // ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
-    this.differenceRadius +=
-      ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
+      ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    // this.differenceRadius +=
+    //   ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
     this.activeIndex = index;
     console.log(this.differenceRadius);
   }
