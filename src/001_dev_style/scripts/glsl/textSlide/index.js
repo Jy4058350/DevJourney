@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { Group } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -23,6 +24,12 @@ class ExtendObject extends CustomObject {
 
   fixFragment() {
     return fragmentShader;
+  }
+
+  fixMesh() {
+    const group = new Group();
+
+    return group;
   }
 }
 
