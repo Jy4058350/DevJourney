@@ -24,7 +24,7 @@ class ExtendObject extends CustomObject {
       this.radius,
       this.radius,
       this.rect.height / 2,
-      120,
+      80,
       1,
       true
     );
@@ -43,7 +43,7 @@ class ExtendObject extends CustomObject {
     const oneLoop = cylinderGeo.attributes.position.count;
     const step = Math.floor(oneLoop / this.texes.size);
     // console.log(this.texes.size);
-    // console.log(step);
+    console.log(step);
     let index = 0;
 
     // console.log(this.texes);
@@ -61,13 +61,13 @@ class ExtendObject extends CustomObject {
 
       const pickIndex = index * step;
       console.log(pickIndex);
-      // const x = position.getX(pickIndex);
-      // const y = position.getY(pickIndex);
-      // const z = position.getZ(pickIndex);
+      const x = position.getX(pickIndex);
+      const y = position.getY(pickIndex);
+      const z = position.getZ(pickIndex);
       // console.log(x, y, z);
-      // plane.position.set(x, 1, z);
-      plane.position.x = position.getX(pickIndex);
-      plane.position.z = position.getZ(pickIndex);
+      plane.position.set(x, 1, z);
+      // plane.position.x = position.getX(pickIndex);
+      // plane.position.z = position.getZ(pickIndex);
 
       const originalDir = { x: 0, y: 0, z: 1 };
       const targetDir = {
