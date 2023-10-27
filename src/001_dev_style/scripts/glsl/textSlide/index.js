@@ -113,6 +113,10 @@ class ExtendObject extends CustomObject {
     const rad = lerp(this.differenceRadius, 0, 0.95);
     this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
     this.differenceRadius -= rad;
+
+    const uActiveIndex = this.uniforms.uActiveIndex.value;
+    const index = lerp(uActiveIndex, this.activeIndex, 0.01);
+    this.uniforms.uActiveIndex.value = index;
   }
 
   debug(toFolder) {
