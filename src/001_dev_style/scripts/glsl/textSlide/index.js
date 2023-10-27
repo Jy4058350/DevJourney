@@ -39,24 +39,17 @@ class ExtendObject extends CustomObject {
     // cylinder.position.z = -this.radius;
 
     const { position, normal } = cylinderGeo.attributes;
-    // console.log(position);
     const oneLoop = cylinderGeo.attributes.position.count;
     const step = Math.floor(oneLoop / this.texes.size);
-    // console.log(this.texes.size);
     console.log(step);
     let index = 0;
 
-    // console.log(this.texes);
     this.texes.forEach((tex) => {
       const planeMat = this.material.clone();
-      // console.log(cylinderMat);
-      // cylinderMat.uniforms.texture.value = tex;
-      // console.log(tex);
       planeMat.uniforms.tex1 = { value: tex };
       planeMat.side = 2;
 
       const planeGeo = this.geometry.clone();
-      // const planeGeo = this.geometry;
       const plane = new Mesh(planeGeo, planeMat);
 
       const pickIndex = index * step;
@@ -64,10 +57,7 @@ class ExtendObject extends CustomObject {
       const x = position.getX(pickIndex);
       const y = position.getY(pickIndex);
       const z = position.getZ(pickIndex);
-      // console.log(x, y, z);
       plane.position.set(x, 1, z);
-      // plane.position.x = position.getX(pickIndex);
-      // plane.position.z = position.getZ(pickIndex);
 
       const originalDir = { x: 0, y: 0, z: 1 };
       const targetDir = {
@@ -90,6 +80,25 @@ class ExtendObject extends CustomObject {
 
   fixFragment() {
     return fragmentShader;
+  }
+
+  goToNext(idx) {}
+
+  debug(toFolder) {
+    // toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("progress")
+      .listen();
+
+    // const datObj = { next: !!this.uniforms.uProgress.value };
+    const idx = { value: 0 };
+    toFolder
+      .add(idx, "value", 0, 12, 1)
+      .name("go to next")
+      .onChange(() => {
+        this.goToNext(idx.value);
+      });
   }
 }
 
