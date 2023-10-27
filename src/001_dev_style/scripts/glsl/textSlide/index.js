@@ -5,14 +5,13 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { pointTo } from "../../helper/utils";
+import { pointTo, lerp } from "../../helper/utils";
 
 class ExtendObject extends CustomObject {
   before() {
     this.radius = this.rect.width;
     this.differenceRadius = 0;
     this.activeIndex = 0;
-    // this.rotateAxis = { x: 0, y: 1, z: 0 };
     this.rotateAxis = new Vector3(0, 1, 0);
   }
 
@@ -90,10 +89,8 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  
-
   goToNext(index) {
-    this.differenceRadius +=
+    this.differenceRadius -=
       // ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
       ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
     // this.differenceRadius +=
@@ -105,8 +102,12 @@ class ExtendObject extends CustomObject {
   render(tick) {
     super.render(tick);
     if (this.differenceRadius === 0) return;
-    this.mesh.rotateOnWorldAxis(this.rotateAxis, this.differenceRadius);
-    this.differenceRadius = 0;
+
+    const rad = lerp(this.differenceRadius, 0, 0.95);
+    // this.mesh.rotateOnWorldAxis(this.rotateAxis, this.differenceRadius);
+    this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
+    // this.differenceRadius = 0;
+    this.differenceRadius -= rad;
   }
 
   debug(toFolder) {
