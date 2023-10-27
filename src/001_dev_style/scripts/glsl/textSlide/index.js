@@ -10,6 +10,8 @@ import { pointTo } from "../../helper/utils";
 class ExtendObject extends CustomObject {
   before() {
     this.radius = this.rect.width;
+    this.differenceRadius = 0;
+    this.activeIndex = 0;
   }
 
   fixGeometry() {
@@ -71,6 +73,9 @@ class ExtendObject extends CustomObject {
       index++;
     });
 
+    // console.log(cylinder);
+    const slides = Array.from(cylinder.children);
+    console.log(slides);
     return cylinder;
   }
 
@@ -82,7 +87,14 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  goToNext(idx) {}
+  goToNext(index) {
+    this.differenceRadius +=
+      ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
+    // this.differenceRadius +=
+    //   ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
+    this.activeIndex = index;
+    console.log(this.differenceRadius);
+  }
 
   debug(toFolder) {
     // toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
