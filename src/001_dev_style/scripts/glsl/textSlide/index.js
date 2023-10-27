@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { CylinderGeometry, Mesh, MeshBasicMaterial } from "three";
+import { CylinderGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -12,6 +12,8 @@ class ExtendObject extends CustomObject {
     this.radius = this.rect.width;
     this.differenceRadius = 0;
     this.activeIndex = 0;
+    // this.rotateAxis = { x: 0, y: 1, z: 0 };
+    this.rotateAxis = new Vector3(0, 1, 0);
   }
 
   fixGeometry() {
@@ -76,6 +78,7 @@ class ExtendObject extends CustomObject {
     // console.log(cylinder);
     this.slides = Array.from(cylinder.children);
     console.log(this.slides.length);
+
     return cylinder;
   }
 
@@ -87,6 +90,8 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
+  
+
   goToNext(index) {
     this.differenceRadius +=
       // ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
@@ -95,6 +100,13 @@ class ExtendObject extends CustomObject {
     //   ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
     this.activeIndex = index;
     console.log(this.differenceRadius);
+  }
+
+  render(tick) {
+    super.render(tick);
+    if (this.differenceRadius === 0) return;
+    this.mesh.rotateOnWorldAxis(this.rotateAxis, this.differenceRadius);
+    this.differenceRadius = 0;
   }
 
   debug(toFolder) {
