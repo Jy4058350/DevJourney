@@ -61,7 +61,7 @@ class ExtendObject extends CustomObject {
       const planeMat = this.material.clone();
       planeMat.uniforms.tex1 = { value: tex };
       planeMat.side = 2;
-
+      planeMat.uniforms.uSlideIndex.value = index;
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
