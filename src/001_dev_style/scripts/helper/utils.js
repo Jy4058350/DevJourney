@@ -1,4 +1,4 @@
-import { Vector4 } from "three";
+import { Vector3,Vector4, Quaternion } from "three";
 import { viewport } from "./viewport";
 
 // 線形補間
@@ -56,4 +56,23 @@ function printMat(targetMatrix, col = 4, label = "") {
   });
 }
 
-export { lerp, getWorldPosition, getResolution, printMat };
+function pointTo(_mesh, originalDir, targetDir) {
+  
+  // 回転軸の計算
+  const _originalDir = new Vector3(originalDir.x, originalDir.y, originalDir.z).normalize();
+  const _targetDir = new Vector3(targetDir.x, targetDir.y, targetDir.z).normalize();
+  const dir = new Vector3().crossVectors(_originalDir, _targetDir).normalize();
+
+  // 回転角の計算
+  const dot = _originalDir.dot(_targetDir);
+  const rad = Math.acos(dot);
+
+  // クォータニオンの作成
+  const q = new Quaternion();
+  q.setFromAxisAngle(dir, rad);
+
+  // メッシュを回転
+  _mesh.rotation.setFromQuaternion(q);
+}
+
+export { lerp, getWorldPosition, getResolution, printMat, pointTo };

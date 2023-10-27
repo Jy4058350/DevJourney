@@ -1,22 +1,33 @@
 import gsap from "gsap";
-import { CylinderGeometry, Mesh, MeshBasicMaterial } from "three";
+import { CylinderGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
+import { pointTo, lerp } from "../../helper/utils";
 
 class ExtendObject extends CustomObject {
   before() {
     this.radius = this.rect.width;
+    this.differenceRadius = 0;
+    this.activeIndex = 0;
+    this.rotateAxis = new Vector3(0, 1, 0);
+  }
+
+  fixGeometry() {
+    // return new PlaneGeometry(this.rect.width, this.rect.height, 1, 1);
+    const geo = super.fixGeometry();
+    geo.scale(0.5, 0.5, 0.5);
+    return geo;
   }
 
   fixMesh() {
     const cylinderGeo = new CylinderGeometry(
-      this.radius / 2,
-      this.radius / 2,
+      this.radius,
+      this.radius,
       this.rect.height / 2,
-      60,
+      80,
       1,
       true
     );
@@ -30,19 +41,42 @@ class ExtendObject extends CustomObject {
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
 
-    // console.log(this.texes);
+    const { position, normal } = cylinderGeo.attributes;
+    const oneLoop = cylinderGeo.attributes.position.count;
+    const step = Math.floor(oneLoop / this.texes.size);
+    console.log(step);
+    let index = 0;
+
     this.texes.forEach((tex) => {
-      const cylinderMat = this.material.clone();
-      console.log(cylinderMat);
-      // cylinderMat.uniforms.texture.value = tex;
-      console.log(tex);
-      cylinderMat.uniforms.tex1 = { value: tex };
+      const planeMat = this.material.clone();
+      planeMat.uniforms.tex1 = { value: tex };
+      planeMat.side = 2;
 
       const planeGeo = this.geometry.clone();
-      // const planeGeo = this.geometry;
-      const plane = new Mesh(planeGeo, cylinderMat);
+      const plane = new Mesh(planeGeo, planeMat);
+
+      const pickIndex = index * step;
+      // console.log(pickIndex);
+      const x = position.getX(pickIndex);
+      const y = position.getY(pickIndex);
+      const z = position.getZ(pickIndex);
+      plane.position.set(x, 1, z);
+
+      const originalDir = { x: 0, y: 0, z: 1 };
+      const targetDir = {
+        x: normal.getX(pickIndex),
+        y: 0,
+        z: normal.getZ(pickIndex),
+      };
+      pointTo(plane, originalDir, targetDir);
       cylinder.add(plane);
+
+      index++;
     });
+
+    // console.log(cylinder);
+    this.slides = Array.from(cylinder.children);
+    console.log(this.slides.length);
 
     return cylinder;
   }
@@ -53,6 +87,44 @@ class ExtendObject extends CustomObject {
 
   fixFragment() {
     return fragmentShader;
+  }
+
+  goToNext(index) {
+    this.differenceRadius -=
+      // ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
+      ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    // this.differenceRadius +=
+    //   ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
+    this.activeIndex = index;
+    console.log(this.differenceRadius);
+  }
+
+  render(tick) {
+    super.render(tick);
+    if (this.differenceRadius === 0) return;
+
+    const rad = lerp(this.differenceRadius, 0, 0.95);
+    // this.mesh.rotateOnWorldAxis(this.rotateAxis, this.differenceRadius);
+    this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
+    // this.differenceRadius = 0;
+    this.differenceRadius -= rad;
+  }
+
+  debug(toFolder) {
+    // toFolder.add(this.uniforms.uEdge, "value", 0, 1, 0.1);
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
+      .name("progress")
+      .listen();
+
+    // const datObj = { next: !!this.uniforms.uProgress.value };
+    const idx = { value: 0 };
+    toFolder
+      .add(idx, "value", 0, 12, 1)
+      .name("go to next")
+      .onChange(() => {
+        this.goToNext(idx.value);
+      });
   }
 }
 

@@ -3,6 +3,7 @@ import {
   ShaderMaterial,
   Mesh,
   Vector2,
+  Vector3,
   Vector4,
   DoubleSide,
   TextureLoader,
@@ -224,8 +225,6 @@ class CustomObject {
       mesh.position.y = y;
     }
   }
-
-  
 
   render(tick) {
     this.uniforms.uTick.value = tick;
