@@ -172,7 +172,7 @@ class CustomObject {
     const resolution = getResolution(this.rect, mrect);
 
     u.uResolution = { value: resolution };
-    console.log(this.uniforms.uResolution.value);
+    // console.log(this.uniforms.uResolution.value);
     return u;
   }
 

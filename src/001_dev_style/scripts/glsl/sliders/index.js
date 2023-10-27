@@ -7,6 +7,8 @@ import { CustomObject } from "../CustomObject";
 import { startGsapAnimation, gsapActive } from "../../helper";
 
 class ExtendObject extends CustomObject {
+
+  
   fixGsap() {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
