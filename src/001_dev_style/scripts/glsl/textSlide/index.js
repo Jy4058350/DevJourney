@@ -35,8 +35,9 @@ class ExtendObject extends CustomObject {
       const cylinderMat = this.material.clone();
       console.log(cylinderMat);
       // cylinderMat.uniforms.texture.value = tex;
+      console.log(tex);
       cylinderMat.uniforms.tex1 = { value: tex };
-      
+
     });
 
     return cylinder;
