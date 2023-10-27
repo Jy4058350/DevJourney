@@ -27,18 +27,21 @@ class ExtendObject extends CustomObject {
   }
 
   fixMesh() {
-    const group = new Group();
+
+    console.log(this.texes);
+    // const group = new Group();
 
 
-    const planeGeo = this.geometry;
-    const planeMat = this.material;
-    console.log(planeMat);
-    console.log(planeGeo);
-    const plane = new Mesh(planeGeo, planeMat);
+    // // const planeGeo = this.geometry;
+    // // const planeMat = this.material;
+    // // console.log(planeMat);
+    // // console.log(planeGeo);
+    // // const plane = new Mesh(planeGeo, planeMat);
 
-    group.add(plane);
+    // // group.add(plane);
 
-    return group;
+    // return group;
+    return super.fixMesh();
   }
 }
 
