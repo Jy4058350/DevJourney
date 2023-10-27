@@ -15,6 +15,16 @@ class ExtendObject extends CustomObject {
     this.activeIndex = 0;
   }
 
+  fixUniforms() {
+    const uniforms = super.fixUniforms();
+    uniforms.uRadius = { value: this.radius };
+    uniforms.uSlideIndex = { value: 0 };
+    uniforms.uSlideTotal = { value: this.texes.size };
+    uniforms.uActiveIndex = { value: this.activeIndex };
+
+    return uniforms;
+  }
+
   fixGeometry() {
     const geo = super.fixGeometry();
     geo.scale(0.5, 0.5, 0.5);
