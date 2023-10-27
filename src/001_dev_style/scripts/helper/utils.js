@@ -1,4 +1,4 @@
-import { Vector4 } from "three";
+import { Vector3,Vector4, Quaternion } from "three";
 import { viewport } from "./viewport";
 
 // 線形補間
