@@ -5,6 +5,8 @@ uniform float uSlideIndex;
 uniform float uSlideTotal;
 uniform float uActiveIndex;
 
+varying float vDistanceProgress;
+
 void main() {
     vUv = uv;
 
@@ -15,15 +17,16 @@ void main() {
     float depth = uSlideTotal / 2.;
 
     float distanceProgress = abs(distance - depth) / depth;
-    vDistanceProgress = distanceProgress;  
+    vDistanceProgress = distanceProgress;
 
-    float radius = uRadius * distanceProgress;
+    // float scaleProgress = clamp(1. - distanceProgress, 0., 1.);
 
-    pos.y = pos.y * radius;
+    // pos.x = pos.x * scaleProgress;
+    pos.xy = pos.xy * (0.9 + 0.5 * distanceProgress);
 
-    pos.x = pos.x * radius;
-    
-
+    // float roundZ = uRadius - sqrt(uRadius * uRadius - pos.x * pos.x);
+    float roundZ = uRadius - sqrt(pow(uRadius, 2.) - pow(pos.x, 2.));
+    pos.z -= roundZ;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
 }
