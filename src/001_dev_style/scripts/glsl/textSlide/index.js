@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { Group } from "three";
+import { Group, Mesh } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -28,6 +28,15 @@ class ExtendObject extends CustomObject {
 
   fixMesh() {
     const group = new Group();
+
+
+    const planeGeo = this.geometry;
+    const planeMat = this.material;
+    console.log(planeMat);
+    console.log(planeGeo);
+    const plane = new Mesh(planeGeo, planeMat);
+
+    group.add(plane);
 
     return group;
   }
