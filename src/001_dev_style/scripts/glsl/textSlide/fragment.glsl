@@ -1,17 +1,12 @@
 varying vec2 vUv;
-uniform vec2 uMouse;
 uniform vec4 uResolution;
-uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
+uniform float uActiveIndex;
 
-vec2 coverUv(vec2 uv, vec4 resolution) {
-    return (uv - .5) * resolution.zw + .5;
-}
+#pragma glslify: coverUv = require(../shader-helper/coverUv);
 
 void main() {
-          // vec2 mouse = step(uMouse, vUv);
-          // gl_FragColor = vec4(mouse, uHover, 1.);
 
     vec2 uv = coverUv(vUv, uResolution);
 
