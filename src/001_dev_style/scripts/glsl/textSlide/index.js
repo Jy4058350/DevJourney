@@ -13,6 +13,7 @@ class ExtendObject extends CustomObject {
     this.rotateAxis = new Vector3(0, 1, 0);
     this.differenceRadius = 0;
     this.activeIndex = 0;
+    this.scale = 1;
   }
 
   fixUniforms() {
@@ -21,6 +22,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideIndex = { value: 0 };
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
+    uniforms.scale = { value: this.scale };
 
     return uniforms;
   }
@@ -115,7 +117,7 @@ class ExtendObject extends CustomObject {
     this.differenceRadius -= rad;
 
     const uActiveIndex = this.uniforms.uActiveIndex.value;
-    const index = lerp(uActiveIndex, this.activeIndex, 0.01);
+    const index = lerp(uActiveIndex, this.activeIndex, 0.05);
     this.uniforms.uActiveIndex.value = index;
   }
 
