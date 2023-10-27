@@ -13,9 +13,9 @@ class ExtendObject extends CustomObject {
 
   fixMesh() {
     const cylinderGeo = new CylinderGeometry(
-      this.radius,
-      this.radius,
-      this.rect.height,
+      this.radius/2,
+      this.radius/2,
+      this.rect.height/2,
       60,
       1,
       true,
@@ -29,7 +29,7 @@ class ExtendObject extends CustomObject {
       color: 0x000000,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
-    cylinder.position.z = -this.radius;
+    // cylinder.position.z = -this.radius;
     return cylinder;
   }
 
