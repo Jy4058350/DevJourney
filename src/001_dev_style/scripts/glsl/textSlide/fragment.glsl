@@ -1,8 +1,7 @@
 varying vec2 vUv;
 uniform vec4 uResolution;
 uniform sampler2D tex1;
-uniform sampler2D tex2;
-uniform float uActiveIndex;
+
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
 

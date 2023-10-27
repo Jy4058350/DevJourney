@@ -13,13 +13,12 @@ class ExtendObject extends CustomObject {
 
   fixMesh() {
     const cylinderGeo = new CylinderGeometry(
-      this.radius/2,
-      this.radius/2,
-      this.rect.height/2,
+      this.radius / 2,
+      this.radius / 2,
+      this.rect.height / 2,
       60,
       1,
-      true,
-     
+      true
     );
     const cylinderMat = new MeshBasicMaterial({
       transparent: true,
@@ -30,6 +29,16 @@ class ExtendObject extends CustomObject {
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
+
+    // console.log(this.texes);
+    this.texes.forEach((tex) => {
+      const cylinderMat = this.material.clone();
+      console.log(cylinderMat);
+      // cylinderMat.uniforms.texture.value = tex;
+      cylinderMat.uniforms.tex1 = { value: tex };
+      
+    });
+
     return cylinder;
   }
 
