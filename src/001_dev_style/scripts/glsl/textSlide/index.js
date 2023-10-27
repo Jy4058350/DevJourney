@@ -55,7 +55,7 @@ class ExtendObject extends CustomObject {
       const plane = new Mesh(planeGeo, planeMat);
 
       const pickIndex = index * step;
-      console.log(pickIndex);
+      // console.log(pickIndex);
       const x = position.getX(pickIndex);
       const y = position.getY(pickIndex);
       const z = position.getZ(pickIndex);
@@ -74,8 +74,8 @@ class ExtendObject extends CustomObject {
     });
 
     // console.log(cylinder);
-    const slides = Array.from(cylinder.children);
-    console.log(slides);
+    this.slides = Array.from(cylinder.children);
+    console.log(this.slides.length);
     return cylinder;
   }
 
@@ -89,9 +89,9 @@ class ExtendObject extends CustomObject {
 
   goToNext(index) {
     this.differenceRadius +=
-      ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
-    // this.differenceRadius +=
-    //   ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
+      // ((index - this.activeIndex) * 2 * Math.PI) / this.texes.size;
+    this.differenceRadius +=
+      ((index - this.activeIndex) / this.slides.length) * 2 * Math.PI;
     this.activeIndex = index;
     console.log(this.differenceRadius);
   }
