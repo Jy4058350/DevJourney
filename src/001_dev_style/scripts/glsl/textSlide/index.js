@@ -18,14 +18,18 @@ class ExtendObject extends CustomObject {
       this.rect.height,
       60,
       1,
-      true
+      true,
+     
     );
     const cylinderMat = new MeshBasicMaterial({
       transparent: true,
       opacity: 1,
       alphaTest: 0.5,
+      wireframe: true,
+      color: 0x000000,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
+    cylinder.position.z = -this.radius;
     return cylinder;
   }
 
