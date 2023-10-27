@@ -30,12 +30,15 @@ class ExtendObject extends CustomObject {
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
 
+    const attribute = cylinder.geometry.attributes;
+    console.log(attribute);
+
     // console.log(this.texes);
     this.texes.forEach((tex) => {
       const cylinderMat = this.material.clone();
-      console.log(cylinderMat);
+      // console.log(cylinderMat);
       // cylinderMat.uniforms.texture.value = tex;
-      console.log(tex);
+      // console.log(tex);
       cylinderMat.uniforms.tex1 = { value: tex };
 
       const planeGeo = this.geometry.clone();
