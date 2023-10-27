@@ -40,8 +40,8 @@ class ExtendObject extends CustomObject {
       console.log(group);
     });
 
-    // return group;
-    return super.fixMesh();
+    return group;
+    // return super.fixMesh();
   }
 }
 
