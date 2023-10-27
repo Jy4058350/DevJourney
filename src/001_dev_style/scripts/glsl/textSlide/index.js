@@ -30,8 +30,12 @@ class ExtendObject extends CustomObject {
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
 
-    const attribute = cylinder.geometry.attributes;
-    console.log(attribute);
+    const { position } = cylinderGeo.attributes;
+    // console.log(position);
+    const oneLoop = cylinderGeo.attributes.position.count;
+    const step = Math.floor(oneLoop / this.texes.size);
+    // console.log(step);
+    let index = 0;
 
     // console.log(this.texes);
     this.texes.forEach((tex) => {
@@ -44,7 +48,24 @@ class ExtendObject extends CustomObject {
       const planeGeo = this.geometry.clone();
       // const planeGeo = this.geometry;
       const plane = new Mesh(planeGeo, cylinderMat);
+
+      const pickIndex = index * step;
+      console.log(pickIndex);
+      const x = position.getX(pickIndex);
+      const y = position.getY(pickIndex);
+      const z = position.getZ(pickIndex);
+      // console.log(x, y, z);
+      plane.position.set(x, 1, z);
       cylinder.add(plane);
+
+      const originalDir = { x: 0, y: 0, z: 1 };
+      const targetDir = {
+        x: normalize.getX(pickIndex),
+        y: 0,
+        z: normalize.getZ(pickIndex),
+      };
+
+      index++;
     });
 
     return cylinder;
