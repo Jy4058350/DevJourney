@@ -65,6 +65,7 @@ class ExtendObject extends CustomObject {
       planeMat.side = 2;
       planeMat.uniforms.uSlideIndex.value = index;
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
+      planeMat.uniforms.uTick = this.uniforms.uTick;
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
@@ -123,10 +124,9 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uProgress, "value", 0, 1, 0.1)
-      .name("progress")
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
+      .name("uProgress")
       .listen();
-
     const idx = { value: 0 };
     toFolder
       .add(idx, "value", 0, 12, 1)
@@ -134,6 +134,15 @@ class ExtendObject extends CustomObject {
       .onChange(() => {
         this.goToNext(idx.value);
       });
+
+    const datData = { next: !!this.uniforms.uProgress.value };
+    toFolder.add(datData, "next").onChange(() => {
+      gsap.to(this.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 0.5,
+        ease: "none",
+      });
+    });
   }
 }
 

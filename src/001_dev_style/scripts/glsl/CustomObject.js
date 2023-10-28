@@ -128,7 +128,7 @@ class CustomObject {
       uMouse: { value: new Vector2(0.5, 0.5) },
       uHover: { value: 0 },
       uTick: { value: 0 },
-      uProgress: { value: 0 },
+      uProgress: { value: 0.0 },
       uIndex: { value: 0 },
       textures: { value: [] },
       uResolution: { value: new Vector4(0, 0, 0, 0) },
@@ -228,6 +228,7 @@ class CustomObject {
   render(tick) {
     this.uniforms.uTick.value = tick;
   }
+
   async afterInit() {
     this.pauseVideo();
     setTimeout(() => {
@@ -248,8 +249,6 @@ class CustomObject {
     if (a instanceof HTMLVideoElement) {
       await a.pause();
     }
-
-    console.log(uTick.value);
   }
 }
 
