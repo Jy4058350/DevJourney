@@ -114,7 +114,7 @@ class ExtendObject extends CustomObject {
     this.differenceRadius -=
       ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
     this.activeIndex = index;
-    console.log("go to next");
+    this.playVideo(index);
   }
 
   render(tick) {
@@ -133,10 +133,10 @@ class ExtendObject extends CustomObject {
   playVideo(index) {
     const i = index % this.slides.length;
     const slide = this.slides.at(i);
-    console.log("video play");
-    console.log(slide);
     this.playingVideo = slide.material.uniforms.tex1.value.source.data;
-    this.playingVideo?.pause();
+
+    console.log(this.playingVideo);
+    this.playingVideo.pause?.();
     // if (slide.material.uniforms.tex1.value instanceof HTMLVideoElement) {
     //   // if (slide.material.uniforms.tex1.value instanceof VideoTexture) {
     //   this.playInterval = setInterval(() => {
