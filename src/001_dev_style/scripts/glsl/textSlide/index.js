@@ -66,6 +66,7 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uSlideIndex.value = index;
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
+      planeMat.uniforms.uProgress = this.uniforms.uProgress;
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
