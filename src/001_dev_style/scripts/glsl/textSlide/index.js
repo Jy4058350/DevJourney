@@ -1,5 +1,11 @@
 import gsap from "gsap";
-import { CylinderGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import {
+  CylinderGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  Vector3,
+  VideoTexture,
+} from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -121,6 +127,25 @@ class ExtendObject extends CustomObject {
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05);
     this.uniforms.uActiveIndex.value = index;
+  }
+
+  playVideo(index) {
+    const i = index % this.slides.length;
+    const slide = this.slides.at(i);
+
+    this.playingVideo?.pause();
+    if (slide.material.uniforms.tex1.value instanceof HTMLVideoElement) {
+      // if (slide.material.uniforms.tex1.value instanceof VideoTexture) {
+      this.playInterval = setInterval(() => {
+        if (this.uniforms.uActiveIndex.value === index) {
+          // slide.material.uniforms.tex1.value.play?.();
+          this.playingVideo = slide.material.uniforms.tex1.value.source.data;
+          // slide.material.uniforms.tex1.value.source.data.play?.();
+          this.playingVideo.play?.();
+          clearInterval(this.playInterval);
+        }
+      }, 200);
+    }
   }
 
   debug(toFolder) {
