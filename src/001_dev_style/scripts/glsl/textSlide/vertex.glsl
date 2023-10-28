@@ -4,6 +4,7 @@ uniform float uRadius;
 uniform float uSlideIndex;
 uniform float uSlideTotal;
 uniform float uActiveIndex;
+uniform float uTick;
 
 varying float vDistanceProgress;
 
@@ -11,6 +12,8 @@ void main() {
     vUv = uv;
 
     vec3 pos = position;
+
+    float radius = (uRadius + cos(uTick * 0.01)) * 10.0;
 
     float activeSlideIndex = mod(uActiveIndex, uSlideTotal);
     float distance = abs(activeSlideIndex - uSlideIndex);
@@ -27,8 +30,11 @@ void main() {
     pos.xy = pos.xy * (0.8 + 0.3 * distanceProgress);
 
     // float roundZ = uRadius - sqrt(uRadius * uRadius - pos.x * pos.x);
-    float roundZ = uRadius - sqrt(pow(uRadius, 2.) - pow(pos.x, 2.));
+    // float roundZ = uRadius - sqrt(pow(uRadius, 2.) - pow(pos.x, 2.));
+    float roundZ = radius - sqrt(pow(radius, 2.) - pow(pos.x, 2.));
     pos.z -= roundZ;
+
+    pos.y += cos(uTick * 0.03) * 10.0;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
 }

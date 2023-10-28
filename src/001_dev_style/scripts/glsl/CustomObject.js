@@ -3,7 +3,6 @@ import {
   ShaderMaterial,
   Mesh,
   Vector2,
-  Vector3,
   Vector4,
   DoubleSide,
   TextureLoader,
@@ -249,6 +248,8 @@ class CustomObject {
     if (a instanceof HTMLVideoElement) {
       await a.pause();
     }
+
+    console.log(uTick.value);
   }
 }
 
