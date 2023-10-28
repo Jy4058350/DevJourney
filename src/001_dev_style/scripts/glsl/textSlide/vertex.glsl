@@ -14,7 +14,7 @@ void main() {
 
     vec3 pos = position;
 
-    float radius = cos(uTick * 0.001) * uRadius;
+    // float radius = cos(uTick * 0.001) * uRadius;
 
     float activeSlideIndex = mod(uActiveIndex, uSlideTotal);
     float distance = abs(activeSlideIndex - uSlideIndex);
@@ -31,9 +31,9 @@ void main() {
     pos.xy = pos.xy * (0.8 + 0.3 * scaleProgress);
     vScaleProgress = scaleProgress;
 
-    // float roundZ = uRadius - sqrt(uRadius * uRadius - pos.x * pos.x);
+    float roundZ = uRadius - sqrt(uRadius * uRadius - pos.x * pos.x);
     // float roundZ = uRadius - sqrt(pow(uRadius, 2.) - pow(pos.x, 2.));
-    float roundZ = radius - sqrt(pow(radius, 2.) - pow(pos.x, 2.));
+    // float roundZ = radius - sqrt(pow(radius, 2.) - pow(pos.x, 2.));
     pos.z -= roundZ;
 
     pos.y += cos(uTick * 0.03) * 10.;
