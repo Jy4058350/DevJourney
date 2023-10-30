@@ -10,6 +10,7 @@ import {
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
+import { startGsapAnimation } from "../helper";
 
 class CustomObject {
   static async init({ el, type }) {
@@ -41,7 +42,6 @@ class CustomObject {
       this.uniforms = this.fixUniforms();
       this.uniforms = this.fixTexes(this.uniforms);
       this.uniforms = this.setupResolution(this.uniforms);
-      // this.gsap = this.gsap ?? this.fixGsap();
       this.gsap = this.fixGsap();
       this.vertexShader = this.fixVertex();
       this.fragmentShader = this.fixFragment();
