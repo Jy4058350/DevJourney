@@ -42,6 +42,10 @@ class ExtendObject extends CustomObject {
     return uniforms;
   }
 
+  fixTexes(u) {
+    return u;
+  }
+
   fixGeometry() {
     const geo = super.fixGeometry();
     geo.scale(0.5, 0.5, 0.5);
