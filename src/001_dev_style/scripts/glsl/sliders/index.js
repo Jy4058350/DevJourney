@@ -4,25 +4,27 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import  slideIndex  from "../../component/index";
-let index = slideIndex;
+import { countUp } from "../../component/slideIndex";
 class ExtendObject extends CustomObject {
   fixGsap() {
+    let index = countUp();
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 1.0 : 5.0,
+      duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         console.log(index);
         this.uniforms.uIndex.value = index;
         this.uniforms.uProgress.value = 0.0;
         this.fixGsap(index);
-        if (index == 15) {
-          index = 0;
-        } else {
-          index++;
-        }
+        // if (index == 15) {
+        //   index = 0;
+        // } else {
+        //   // index++;
+        //   countUp();
+        //   console.log(countUp());
+        // }
       },
     });
   }
