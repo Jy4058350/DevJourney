@@ -162,7 +162,7 @@ function loadingAnimation() {
   tl.to($.l, {
     opacity: 0,
     duration: 0.5,
-    delay: 0.0,
+    delay: 1.5,
   })
     .set($.g, {
       duration: 0.5,

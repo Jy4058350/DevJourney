@@ -140,8 +140,8 @@ class ExtendObject extends CustomObject {
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
     this.uniforms.uActiveIndex.value = index;
-    console.log(this.differenceRadius);
-    console.log(index, uActiveIndex, this.activeIndex);
+    // console.log(this.differenceRadius);
+    // console.log(index, uActiveIndex, this.activeIndex);
   }
 
   playVideo(index) {

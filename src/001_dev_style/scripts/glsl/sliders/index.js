@@ -156,8 +156,8 @@ class ExtendObject extends CustomObject {
       duration: 1.0,
       ease: "ease",
       onComplete: () => {
-        this.uniforms.uIndex.value = 0.0;
-        this.uniforms.uProgress.value = 0.0;
+        // this.uniforms.uIndex.value = 0.0;
+        // this.uniforms.uProgress.value = 0.0;
         // this.fixGsap();
       },
     });
@@ -169,7 +169,7 @@ class ExtendObject extends CustomObject {
     uniforms.yOffset = { value: 0.2 };
     uniforms.radius = { value: 0.3 };
     uniforms.radius1 = { value: 0.38 };
-    uniforms.uIndex = { value: 0.0 };
+    uniforms.uIndex = { value: 16.0 };
     uniforms.uRaito = { value: 0.1 };
 
     startGsapAnimation(uniforms);
