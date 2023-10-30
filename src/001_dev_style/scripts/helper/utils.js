@@ -2,9 +2,9 @@ import { Vector3,Vector4, Quaternion } from "three";
 import { viewport } from "./viewport";
 
 // 線形補間
-function lerp(a, b, n) {
+function lerp(a, b, n, limit = 0.001) {
   let current = (1 - n) * a + n * b;
-  if (Math.abs(b - current) < 0.001) current = b;
+  if (Math.abs(b - current) < limit) current = b;
   return current;
 }
 

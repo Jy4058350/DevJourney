@@ -1,5 +1,11 @@
 import gsap from "gsap";
-import { CylinderGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import {
+  CylinderGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  Vector3,
+  VideoTexture,
+} from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -14,6 +20,15 @@ class ExtendObject extends CustomObject {
     this.differenceRadius = 0;
     this.activeIndex = 0;
     this.scale = 1;
+
+    this.texes.forEach((tex) => {
+      if (tex.source.data instanceof HTMLVideoElement) {
+        tex.source.data.pause?.();
+      }
+    });
+  }
+  afterInit() {
+    this.goToNext(this.activeIndex);
   }
 
   fixUniforms() {
@@ -25,6 +40,10 @@ class ExtendObject extends CustomObject {
     uniforms.scale = { value: this.scale };
 
     return uniforms;
+  }
+
+  fixTexes(u) {
+    return u;
   }
 
   fixGeometry() {
@@ -44,10 +63,8 @@ class ExtendObject extends CustomObject {
     );
     const cylinderMat = new MeshBasicMaterial({
       transparent: true,
-      opacity: 1,
+      opacity: 0,
       alphaTest: 0.5,
-      wireframe: true,
-      color: 0x000000,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
@@ -56,7 +73,6 @@ class ExtendObject extends CustomObject {
     // const oneLoop = cylinderGeo.attributes.position.count;
     const oneLoop = cylinderGeo.attributes.position.count / 2;
     const step = Math.floor(oneLoop / this.texes.size);
-    console.log(step);
     let index = 0;
 
     this.texes.forEach((tex) => {
@@ -69,6 +85,7 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
+      // console.log(planeMat.uniforms);
 
       const pickIndex = index * step;
       // console.log(pickIndex);
@@ -91,7 +108,6 @@ class ExtendObject extends CustomObject {
 
     // console.log(cylinder);
     this.slides = Array.from(cylinder.children);
-    console.log(this.slides.length);
 
     return cylinder;
   }
@@ -108,19 +124,42 @@ class ExtendObject extends CustomObject {
     this.differenceRadius -=
       ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
     this.activeIndex = index;
+    this.playVideo(index);
   }
 
   render(tick) {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-    const rad = lerp(this.differenceRadius, 0, 0.95);
+    const rad =
+      lerp(this.differenceRadius, 0, 0.95, 0.0001) || this.differenceRadius;
+    // const rad = lerp(this.differenceRadius, 0, 0.95);
     this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
     this.differenceRadius -= rad;
 
     const uActiveIndex = this.uniforms.uActiveIndex.value;
-    const index = lerp(uActiveIndex, this.activeIndex, 0.05);
+    const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
     this.uniforms.uActiveIndex.value = index;
+    console.log(this.differenceRadius);
+    console.log(index, uActiveIndex, this.activeIndex);
+  }
+
+  playVideo(index) {
+    const i = index % this.slides.length;
+    const slide = this.slides.at(i);
+
+    this.playingVideo?.pause?.();
+    if (
+      slide.material.uniforms.tex1.value.source.data instanceof HTMLVideoElement
+    ) {
+      this.playInterval = setInterval(() => {
+        if (this.uniforms.uActiveIndex.value === index) {
+          this.playingVideo = slide.material.uniforms.tex1.value.source.data;
+          this.playingVideo.play?.();
+          clearInterval(this.playInterval);
+        }
+      }, 200);
+    }
   }
 
   debug(toFolder) {
