@@ -11,17 +11,21 @@ class ExtendObject extends CustomObject {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 1.0,
+      duration: index % 2 === 0 ? 1.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         console.log(index);
-        this.uniforms.uIndex.value = index++;
+        this.uniforms.uIndex.value = index;
         this.uniforms.uProgress.value = 0.0;
-        if(index < 16) {
-          this.fixGsap(index);
+        this.fixGsap(index);
+        if (index == 15) {
+          index = 0;
+        } else {
+          index++;
         }
       },
     });
+
     // tl.to(this.uniforms.uProgress, {
     //   value: 1.0,
     //   duration: 1.0,
@@ -42,8 +46,6 @@ class ExtendObject extends CustomObject {
     //     this.uniforms.uProgress.value = 0.0;
     //   },
     // });
-
-  
   }
   // fixGsap() {
   //   const tl = new gsap.timeline();
