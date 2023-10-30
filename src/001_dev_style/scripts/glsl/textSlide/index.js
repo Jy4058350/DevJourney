@@ -20,6 +20,16 @@ class ExtendObject extends CustomObject {
     this.differenceRadius = 0;
     this.activeIndex = 0;
     this.scale = 1;
+
+    this.texes.forEach((tex) => {
+      if (tex.source.data instanceof HTMLVideoElement) {
+        tex.source.data.pause?.();
+      }
+    });
+  }
+  afterInit() {
+    console.log(this.activeIndex);
+    this.goToNext(this.activeIndex);
   }
 
   fixUniforms() {
@@ -128,27 +138,27 @@ class ExtendObject extends CustomObject {
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05);
     this.uniforms.uActiveIndex.value = index;
+    console.log(this.differenceRadius);
+    this.differenceRadius = 0;
+    console.log(this.differenceRadius);
   }
 
   playVideo(index) {
     const i = index % this.slides.length;
     const slide = this.slides.at(i);
-    this.playingVideo = slide.material.uniforms.tex1.value.source.data;
 
-    console.log(this.playingVideo);
-    this.playingVideo.pause?.();
-    // if (slide.material.uniforms.tex1.value instanceof HTMLVideoElement) {
-    //   // if (slide.material.uniforms.tex1.value instanceof VideoTexture) {
-    //   this.playInterval = setInterval(() => {
-    //     if (this.uniforms.uActiveIndex.value === index) {
-    //       // slide.material.uniforms.tex1.value.play?.();
-    //       this.playingVideo = slide.material.uniforms.tex1.value.source.data;
-    //       // slide.material.uniforms.tex1.value.source.data.play?.();
-    //       this.playingVideo.play?.();
-    //       clearInterval(this.playInterval);
-    //     }
-    //   }, 200);
-    // }
+    this.playingVideo?.pause?.();
+    if (
+      slide.material.uniforms.tex1.value.source.data instanceof HTMLVideoElement
+    ) {
+      this.playInterval = setInterval(() => {
+        if (this.uniforms.uActiveIndex.value === index) {
+          this.playingVideo = slide.material.uniforms.tex1.value.source.data;
+          this.playingVideo.play?.();
+          clearInterval(this.playInterval);
+        }
+      }, 200);
+    }
   }
 
   debug(toFolder) {
