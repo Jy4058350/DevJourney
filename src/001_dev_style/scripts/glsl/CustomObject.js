@@ -10,7 +10,6 @@ import {
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
-import { startGsapAnimation } from "../helper";
 
 class CustomObject {
   static async init({ el, type }) {
