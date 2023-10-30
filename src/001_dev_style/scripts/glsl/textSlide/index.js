@@ -81,6 +81,7 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
+      console.log(planeMat.uniforms);
 
       const pickIndex = index * step;
       // console.log(pickIndex);
@@ -135,6 +136,7 @@ class ExtendObject extends CustomObject {
     const index = lerp(uActiveIndex, this.activeIndex, 0.05);
     this.uniforms.uActiveIndex.value = index;
     console.log(this.differenceRadius);
+    console.log(index, uActiveIndex, this.activeIndex);
   }
 
   playVideo(index) {
