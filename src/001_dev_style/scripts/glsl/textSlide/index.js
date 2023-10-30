@@ -28,7 +28,6 @@ class ExtendObject extends CustomObject {
     });
   }
   afterInit() {
-    console.log(this.activeIndex);
     this.goToNext(this.activeIndex);
   }
 
@@ -60,10 +59,8 @@ class ExtendObject extends CustomObject {
     );
     const cylinderMat = new MeshBasicMaterial({
       transparent: true,
-      opacity: 1,
+      opacity: 0,
       alphaTest: 0.5,
-      wireframe: true,
-      color: 0x000000,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMat);
     // cylinder.position.z = -this.radius;
@@ -72,7 +69,6 @@ class ExtendObject extends CustomObject {
     // const oneLoop = cylinderGeo.attributes.position.count;
     const oneLoop = cylinderGeo.attributes.position.count / 2;
     const step = Math.floor(oneLoop / this.texes.size);
-    console.log(step);
     let index = 0;
 
     this.texes.forEach((tex) => {
@@ -107,7 +103,6 @@ class ExtendObject extends CustomObject {
 
     // console.log(cylinder);
     this.slides = Array.from(cylinder.children);
-    console.log(this.slides.length);
 
     return cylinder;
   }
@@ -131,15 +126,14 @@ class ExtendObject extends CustomObject {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-    const rad = lerp(this.differenceRadius, 0, 0.95);
+    const rad = lerp(this.differenceRadius, 0, 0.95) || this.differenceRadius;
+    // const rad = lerp(this.differenceRadius, 0, 0.95);
     this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
     this.differenceRadius -= rad;
 
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05);
     this.uniforms.uActiveIndex.value = index;
-    console.log(this.differenceRadius);
-    this.differenceRadius = 0;
     console.log(this.differenceRadius);
   }
 
