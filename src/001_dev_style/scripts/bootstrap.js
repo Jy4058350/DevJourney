@@ -9,6 +9,7 @@ import { loader } from "./component/loader";
 import { gui } from "./helper/gui";
 import { orbit } from "./helper/orbit";
 import { startGsapAnimation, getResolution, getWorldPosition } from "./helper";
+import { slideHandler } from "./component/slide-handler";
 
 window.debug = debugmode(1) ? 1 : 0;
 
@@ -41,6 +42,8 @@ export async function init() {
   await loader.init();
 
   await world.init(canvasRect, viewport);
+
+  slideHandler(".fv_slider", ".fv_text-shader");
 
   mouse.init();
 

@@ -95,7 +95,7 @@ function removeMesh(o, dispose = true) {
 }
 
 function getOs(select) {
-  // console.log(select);
+  console.log(select);
   const El = document.querySelector(select);
   const o = world.os.find((o) => o.$.el === El);
   return o;
