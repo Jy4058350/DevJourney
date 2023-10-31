@@ -12,7 +12,11 @@ import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
 import { pointTo, lerp } from "../../helper/utils";
-import { countUp, slideTextIndex } from "../../component/slideIndex";
+import {
+  countUp,
+  slideTextIndex,
+  updateSlideIndex,
+} from "../../component/slideIndex";
 
 let slideIndex = 0;
 
@@ -32,14 +36,15 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    let index = countUp();
+    let index = countUp(slideIndex);
+    console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        this.uniforms.uIndex.value = slideTextIndex();
+        this.uniforms.uIndex.value = slideTextIndex(index);
         this.uniforms.uProgress.value = 0.0;
         this.fixGsap();
         slideIndex++;
@@ -185,6 +190,10 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
+    toFolder
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .name("uIndex")
+      .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")

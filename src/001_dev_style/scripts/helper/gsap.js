@@ -18,7 +18,6 @@ function startGsapAnimation(uniforms) {
     if (!key.startsWith("uIndex")) continue;
     if (key.startsWith("uIndex")) {
       _idx.set(key, uni[key]);
-      console.log(_idx.get(key));
     }
   }
   

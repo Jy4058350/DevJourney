@@ -1,24 +1,28 @@
-
-
 let slideIndex = 0;
-function countUp() {
+
+function countUp(slideIndex) {
   slideIndex++;
   if (slideIndex > 15) {
     slideIndex = 0;
   }
 
-  slideTextIndex(slideIndex);
+  // slideTextIndex(slideIndex);
   return slideIndex;
 }
 
 function slideTextIndex(slideIndex) {
   const slideText = document.querySelector(".fv_text-shader");
-  // console.log(slideText);
+  const slideTex = document.querySelector(".fv_slider");
 
-  function goTo(index) {
-    slideText.goToNext(index);
+  function goTo(slideIndex) {
+    slideText.goToNext(slideIndex);
+    slideTex.goToNext(slideIndex);
   }
   return slideIndex;
 }
 
-export { countUp, slideTextIndex };
+function updateSlideIndex() {
+  slideIndex = newIndex;
+}
+
+export { countUp, slideTextIndex, updateSlideIndex };
