@@ -41,7 +41,6 @@ class CustomObject {
       this.uniforms = this.fixUniforms();
       this.uniforms = this.fixTexes(this.uniforms);
       this.uniforms = this.setupResolution(this.uniforms);
-      // this.gsap = this.gsap ?? this.fixGsap();
       this.gsap = this.fixGsap();
       this.vertexShader = this.fixVertex();
       this.fragmentShader = this.fixFragment();

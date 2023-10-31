@@ -4,161 +4,32 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { startGsapAnimation, gsapActive } from "../../helper";
+import {
+  countUp,
+  slideTextIndex,
+  updateSlideIndex,
+} from "../../component/slideIndex";
+
+let slideIndex = 0;
 
 class ExtendObject extends CustomObject {
-
-  
   fixGsap() {
+    let index = countUp(this.uniforms.uIndex.value);
+    // console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: 1.0,
+      duration: index % 2 === 0 ? 1.0 : 1.0,
       ease: "ease",
       onComplete: () => {
+        // console.log(this.uniforms.uIndex.value);
+        // console.log(index);
+        // this.uniforms.uIndex.value = index;
+        // this.uniforms.uIndex.value = slideTextIndex(slideTextIndex(index));
+        this.uniforms.uIndex.value = slideTextIndex(index);
         this.uniforms.uProgress.value = 0.0;
-        this.uniforms.uIndex.value = 1.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 2.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 2.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 3.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 4.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 5.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 6.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 7.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 8.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 9.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 10.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 11.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 12.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 13.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 14.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 15.0;
-        this.uniforms.uProgress.value = 0.0;
-      },
-    });
-    tl.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: 1.0,
-      ease: "ease",
-      onComplete: () => {
-        this.uniforms.uIndex.value = 0.0;
-        this.uniforms.uProgress.value = 0.0;
-        // this.fixGsap();
+        slideIndex++;
+        this.fixGsap(index);
       },
     });
   }
@@ -172,7 +43,6 @@ class ExtendObject extends CustomObject {
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
 
-    startGsapAnimation(uniforms);
     return uniforms;
   }
 
@@ -216,5 +86,5 @@ class ExtendObject extends CustomObject {
     });
   }
 }
-
+// export const uIndexValue = this.uniforms.uIndex.value;
 export default ExtendObject;

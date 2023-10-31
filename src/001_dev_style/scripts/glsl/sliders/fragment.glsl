@@ -9,7 +9,7 @@ uniform sampler2D tex6;
 uniform sampler2D tex7;
 uniform sampler2D tex8;
 
-uniform sampler2D textures[8];
+// uniform sampler2D textures[8];
 
 uniform float radius;
 uniform float radius1;
@@ -85,7 +85,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv) : texture2D(tex1, uv);
+                color = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv) : texture2D(tex2, uv);
 
             } else if(currentTexture == 0) {
                 color = mix(texture2D(tex7, uv), texture2D(tex8, uv), texBlend);
@@ -122,7 +122,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv1) : texture2D(tex1, uv1);
+                color1 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv1) : texture2D(tex2, uv1);
             } else if(currentTexture == 0) {
                 color1 = mix(texture2D(tex7, uv1), texture2D(tex8, uv1), texBlend);
             } else if(currentTexture == 1) {
@@ -158,7 +158,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv2) : texture2D(tex1, uv2);
+                color2 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv2) : texture2D(tex2, uv2);
             } else if(currentTexture == 0) {
                 color2 = mix(texture2D(tex7, uv2), texture2D(tex8, uv2), texBlend);
             } else if(currentTexture == 1) {
@@ -194,7 +194,7 @@ void main() {
                 vec2 delta1 = vUv - center1;
                 float angle = degrees(atan(delta1.y, delta1.x));
                 float iangle = mix(startAngle, endAngle, (1.0 - uProgress));
-                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex8, uv3) : texture2D(tex1, uv3);
+                color3 = (angle >= iangle && angle <= endAngle) ? texture2D(tex1, uv3) : texture2D(tex2, uv3);
             } else if(currentTexture == 0) {
                 color3 = mix(texture2D(tex7, uv3), texture2D(tex8, uv3), texBlend);
             } else if(currentTexture == 1) {
@@ -542,7 +542,7 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 5.0) {
-        gl_FragColor = texture2D(textures[2], zoomedUv3);
+        gl_FragColor = texture2D(tex3, zoomedUv3);
     }
 
     // fourth transition
@@ -701,7 +701,7 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 7.0) {
-        gl_FragColor = texture2D(textures[3], zoomedUv3);
+        gl_FragColor = texture2D(tex4, zoomedUv3);
     }
 
     // fifth transition
@@ -860,7 +860,7 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 9.0) {
-        gl_FragColor = texture2D(textures[4], zoomedUv3);
+        gl_FragColor = texture2D(tex5, zoomedUv3);
     }
 
     // sixth transition
@@ -1019,7 +1019,7 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 11.0) {
-        gl_FragColor = texture2D(textures[5], zoomedUv3);
+        gl_FragColor = texture2D(tex6, zoomedUv3);
     }
 
     // seventh transition
@@ -1178,7 +1178,7 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 13.0) {
-        gl_FragColor = texture2D(textures[6], zoomedUv3);
+        gl_FragColor = texture2D(tex7, zoomedUv3);
     }
 
     // eighth transition
@@ -1189,8 +1189,8 @@ void main() {
         vec4 color; //lower left
 
         if(distance < radius) {
-            vec4 c1 = texture2D(tex8, zoomedUv2);
-            vec4 c2 = texture2D(tex1, zoomedUv2);
+            vec4 c1 = texture2D(tex7, zoomedUv2);
+            vec4 c2 = texture2D(tex8, zoomedUv2);
             color = mix(c1, c2, uProgress);
 
         } else {
@@ -1337,6 +1337,6 @@ void main() {
         gl_FragColor = e;
     }
     if(uIndex == 15.0) {
-        gl_FragColor = texture2D(textures[7], zoomedUv3);
+        gl_FragColor = texture2D(tex8, zoomedUv3);
     }
 }

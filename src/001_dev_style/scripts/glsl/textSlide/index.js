@@ -12,6 +12,13 @@ import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
 import { pointTo, lerp } from "../../helper/utils";
+import {
+  countUp,
+  slideTextIndex,
+  updateSlideIndex,
+} from "../../component/slideIndex";
+
+let slideIndex = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -27,6 +34,28 @@ class ExtendObject extends CustomObject {
       }
     });
   }
+
+  fixGsap() {
+    // let index = countUp(slideIndex);
+    let index = countUp(this.uniforms.uIndex.value);
+    // console.log(index);
+    const tl = new gsap.timeline();
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: index % 2 === 0 ? 1.0 : 1.0,
+      ease: "ease",
+      onComplete: () => {
+        // console.log(this.uniforms.uIndex.value);
+        this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.uProgress.value = 0.0;
+        slideIndex++;
+        this.fixGsap(index);
+        // this.goToNext(this.uniforms.uIndex.value);
+        this.goToNext(slideTextIndex(index));
+      },
+    });
+  }
+
   afterInit() {
     this.goToNext(this.activeIndex);
   }
@@ -38,6 +67,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
+    uniforms.uIndex = { value: 0.0 };
 
     return uniforms;
   }
@@ -120,11 +150,12 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  goToNext(index) {
+  // goToNext(index) {
+  goToNext(slideIndex) {
     this.differenceRadius -=
-      ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
-    this.activeIndex = index;
-    this.playVideo(index);
+      ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    this.activeIndex = slideIndex;
+    this.playVideo(slideIndex);
   }
 
   render(tick) {
@@ -140,8 +171,8 @@ class ExtendObject extends CustomObject {
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
     this.uniforms.uActiveIndex.value = index;
-    console.log(this.differenceRadius);
-    console.log(index, uActiveIndex, this.activeIndex);
+    // console.log(this.differenceRadius);
+    // console.log(index, uActiveIndex, this.activeIndex);
   }
 
   playVideo(index) {
@@ -164,15 +195,21 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .name("uIndex")
+      .listen();
+    toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
-    const idx = { value: 0 };
+    // const idx = { value: 0 };
+    // let idx = this.uniforms.uIndex;
     toFolder
-      .add(idx, "value", 0, 12, 1)
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
       .name("go to next")
       .onChange(() => {
-        this.goToNext(idx.value);
+        // this.goToNext(idx.value);
+        this.goToNext(this.uniforms.uIndex.value);
       });
 
     const datData = { next: !!this.uniforms.uProgress.value };
