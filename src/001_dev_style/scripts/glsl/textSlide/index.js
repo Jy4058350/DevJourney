@@ -49,7 +49,7 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap(index);
-        // this.goToNext(index);
+        this.goToNext(this.uniforms.uIndex.value);
       },
     });
   }
@@ -148,11 +148,12 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  goToNext(index) {
+  // goToNext(index) {
+  goToNext(slideIndex) {
     this.differenceRadius -=
-      ((index - this.activeIndex) * 2 * Math.PI) / this.slides.length;
-    this.activeIndex = index;
-    this.playVideo(index);
+      ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    this.activeIndex = slideIndex;
+    this.playVideo(slideIndex);
   }
 
   render(tick) {
@@ -199,12 +200,14 @@ class ExtendObject extends CustomObject {
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
-    const idx = { value: 0 };
+    // const idx = { value: 0 };
+    // let idx = this.uniforms.uIndex;
     toFolder
-      .add(idx, "value", 0, 12, 1)
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
       .name("go to next")
       .onChange(() => {
-        this.goToNext(idx.value);
+        // this.goToNext(idx.value);
+        this.goToNext(this.uniforms.uIndex.value);
       });
 
     const datData = { next: !!this.uniforms.uProgress.value };

@@ -11,13 +11,13 @@ function countUp(slideIndex) {
 }
 
 function slideTextIndex(slideIndex) {
-  const slideText = document.querySelector(".fv_text-shader");
-  const slideTex = document.querySelector(".fv_slider");
+  // const slideText = document.querySelector(".fv_text-shader");
+  // const slideTex = document.querySelector(".fv_slider");
 
-  function goTo(slideIndex) {
-    slideText.goToNext(slideIndex);
-    slideTex.goToNext(slideIndex);
-  }
+  // function goTo(slideIndex) {
+  //   slideText.goToNext(slideIndex);
+  //   slideTex.goToNext(slideIndex);
+  // }
   return slideIndex;
 }
 
