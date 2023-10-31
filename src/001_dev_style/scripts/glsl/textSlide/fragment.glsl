@@ -13,13 +13,8 @@ void main() {
 
     vec4 t1 = texture2D(tex1, uv);
 
-    uv = uv - 0.5;
-    float scale = mix(0.7, 1.0, vScaleProgress);
-    uv = uv * scale;
-    uv = uv + 0.5;
-
     gl_FragColor = t1;
 
-    gl_FragColor.a = mix(0.0, t1.a, vDistanceProgress);
+    // gl_FragColor.a = mix(0.0, t1.a, vDistanceProgress);
 
 }

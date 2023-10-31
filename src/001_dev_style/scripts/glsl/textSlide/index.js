@@ -119,7 +119,7 @@ class ExtendObject extends CustomObject {
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
-      console.log(plane);
+      // console.log(plane);
 
       // const pickIndex = index * step;
       // console.log(pickIndex);
@@ -155,8 +155,8 @@ class ExtendObject extends CustomObject {
   }
 
   goToNext(slideIndex) {
-    // this.differenceRadius -=
-    //   ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    this.differenceRadius -=
+      ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
     this.activeIndex = slideIndex;
     this.playVideo(slideIndex);
   }
@@ -165,11 +165,11 @@ class ExtendObject extends CustomObject {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-    const rad =
-      lerp(this.differenceRadius, 0, 0.95, 0.0001) || this.differenceRadius;
-    // const rad = lerp(this.differenceRadius, 0, 0.95);
-    this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
-    this.differenceRadius -= rad;
+    // const rad =
+    //   lerp(this.differenceRadius, 0, 0.95, 0.0001) || this.differenceRadius;
+    // // const rad = lerp(this.differenceRadius, 0, 0.95);
+    // this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
+    // this.differenceRadius -= rad;
 
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
