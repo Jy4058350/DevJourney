@@ -14,15 +14,15 @@ let slideIndex = 0;
 
 class ExtendObject extends CustomObject {
   fixGsap() {
-    let index = countUp(slideIndex);
+    let index = countUp(this.uniforms.uIndex.value);
     // console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 5.0 : 1.0,
+      duration: index % 2 === 0 ? 1.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        console.log(this.uniforms.uIndex.value);
+        // console.log(this.uniforms.uIndex.value);
         // console.log(index);
         // this.uniforms.uIndex.value = index;
         // this.uniforms.uIndex.value = slideTextIndex(slideTextIndex(index));

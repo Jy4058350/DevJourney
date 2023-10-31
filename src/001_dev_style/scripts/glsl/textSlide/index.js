@@ -36,20 +36,22 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    let index = countUp(slideIndex);
+    // let index = countUp(slideIndex);
+    let index = countUp(this.uniforms.uIndex.value);
     // console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 5.0 : 1.0,
+      duration: index % 2 === 0 ? 1.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        console.log(this.uniforms.uIndex.value);
+        // console.log(this.uniforms.uIndex.value);
         this.uniforms.uIndex.value = slideTextIndex(index);
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap(index);
-        this.goToNext(this.uniforms.uIndex.value);
+        // this.goToNext(this.uniforms.uIndex.value);
+        this.goToNext(slideTextIndex(index));
       },
     });
   }
