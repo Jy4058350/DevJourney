@@ -12,6 +12,9 @@ import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
 import { pointTo, lerp } from "../../helper/utils";
+import { countUp, slideTextIndex } from "../../component/slideIndex";
+
+let slideIndex = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -27,6 +30,24 @@ class ExtendObject extends CustomObject {
       }
     });
   }
+
+  fixGsap() {
+    let index = countUp();
+    const tl = new gsap.timeline();
+    tl.to(this.uniforms.uProgress, {
+      value: 1.0,
+      duration: index % 2 === 0 ? 5.0 : 1.0,
+      ease: "ease",
+      onComplete: () => {
+        this.uniforms.uIndex.value = slideTextIndex();
+        this.uniforms.uProgress.value = 0.0;
+        this.fixGsap();
+        slideIndex++;
+        this.goToNext(slideIndex);
+      },
+    });
+  }
+
   afterInit() {
     this.goToNext(this.activeIndex);
   }
@@ -38,6 +59,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
+    uniforms.uIndex = { value: 0.0 };
 
     return uniforms;
   }

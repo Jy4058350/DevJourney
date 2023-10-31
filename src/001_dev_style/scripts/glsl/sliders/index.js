@@ -14,17 +14,10 @@ class ExtendObject extends CustomObject {
       duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        console.log(index);
+        // console.log(index);
         this.uniforms.uIndex.value = index;
         this.uniforms.uProgress.value = 0.0;
         this.fixGsap(index);
-        // if (index == 15) {
-        //   index = 0;
-        // } else {
-        //   // index++;
-        //   countUp();
-        //   console.log(countUp());
-        // }
       },
     });
   }
@@ -35,7 +28,7 @@ class ExtendObject extends CustomObject {
     uniforms.yOffset = { value: 0.2 };
     uniforms.radius = { value: 0.3 };
     uniforms.radius1 = { value: 0.38 };
-    uniforms.uIndex = { value: 16.0 };
+    uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
 
     return uniforms;
