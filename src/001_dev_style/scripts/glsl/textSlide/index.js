@@ -5,6 +5,7 @@ import {
   MeshBasicMaterial,
   Vector3,
   VideoTexture,
+  Group,
 } from "three";
 
 import vertexShader from "./vertex.glsl";
@@ -83,26 +84,27 @@ class ExtendObject extends CustomObject {
   }
 
   fixMesh() {
-    const cylinderGeo = new CylinderGeometry(
-      this.radius,
-      this.radius,
-      this.rect.height / 2,
-      100,
-      1,
-      true
-    );
-    const cylinderMat = new MeshBasicMaterial({
-      transparent: true,
-      opacity: 0,
-      alphaTest: 0.5,
-    });
-    const cylinder = new Mesh(cylinderGeo, cylinderMat);
-    // cylinder.position.z = -this.radius;
+    const group = new Group();
+    // const cylinderGeo = new CylinderGeometry(
+    //   this.radius,
+    //   this.radius,
+    //   this.rect.height / 2,
+    //   100,
+    //   1,
+    //   true
+    // );
+    // const cylinderMat = new MeshBasicMaterial({
+    //   transparent: true,
+    //   opacity: 0,
+    //   alphaTest: 0.5,
+    // });
+    // const cylinder = new Mesh(cylinderGeo, cylinderMat);
+    // // cylinder.position.z = -this.radius;
 
-    const { position, normal } = cylinderGeo.attributes;
+    // const { position, normal } = cylinderGeo.attributes;
     // const oneLoop = cylinderGeo.attributes.position.count;
-    const oneLoop = cylinderGeo.attributes.position.count / 2;
-    const step = Math.floor(oneLoop / this.texes.size);
+    // const oneLoop = cylinderGeo.attributes.position.count / 2;
+    // const step = Math.floor(oneLoop / this.texes.size);
     let index = 0;
 
     this.texes.forEach((tex) => {
@@ -113,33 +115,35 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
+
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
-      // console.log(planeMat.uniforms);
 
-      const pickIndex = index * step;
+      console.log(plane);
+
+      // const pickIndex = index * step;
       // console.log(pickIndex);
-      const x = position.getX(pickIndex);
-      const y = position.getY(pickIndex);
-      const z = position.getZ(pickIndex);
-      plane.position.set(x, 1, z);
+      // const x = position.getX(pickIndex);
+      // const y = position.getY(pickIndex);
+      // const z = position.getZ(pickIndex);
+      // plane.position.set(x, 1, z);
 
-      const originalDir = { x: 0, y: 0, z: 1 };
-      const targetDir = {
-        x: normal.getX(pickIndex),
-        y: 0,
-        z: normal.getZ(pickIndex),
-      };
-      pointTo(plane, originalDir, targetDir);
-      cylinder.add(plane);
+      // const originalDir = { x: 0, y: 0, z: 1 };
+      // const targetDir = {
+      //   x: normal.getX(pickIndex),
+      //   y: 0,
+      //   z: normal.getZ(pickIndex),
+      // };
+      // pointTo(plane, originalDir, targetDir);
+      group.add(plane);
 
       index++;
     });
 
-    // console.log(cylinder);
-    this.slides = Array.from(cylinder.children);
+    console.log(group);
+    this.slides = Array.from(group.children);
 
-    return cylinder;
+    return group;
   }
 
   fixVertex() {
@@ -150,10 +154,9 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  // goToNext(index) {
   goToNext(slideIndex) {
-    this.differenceRadius -=
-      ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    // this.differenceRadius -=
+    //   ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
     this.activeIndex = slideIndex;
     this.playVideo(slideIndex);
   }
