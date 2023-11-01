@@ -43,7 +43,7 @@ class ExtendObject extends CustomObject {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 1.0 : 1.0,
+      duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         // console.log(this.uniforms.uIndex.value);
@@ -80,6 +80,8 @@ class ExtendObject extends CustomObject {
   fixGeometry() {
     const geo = super.fixGeometry();
     geo.scale(0.5, 0.5, 0.5);
+    geo.translate(-100, 0, 100.0);
+
     return geo;
   }
 
