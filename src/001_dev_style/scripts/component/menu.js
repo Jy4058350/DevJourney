@@ -33,6 +33,8 @@ function _handlePointerDown() {
     backgroundColor: "black",
     borderRadius: 5,
   });
+    // tl.play();
+    tl.reverse();
 }
 
 function _handleMouseEnter() {
