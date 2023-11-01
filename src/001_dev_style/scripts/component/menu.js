@@ -43,6 +43,9 @@ function _handleMouseEnter() {
     .to($.bars, {
       scaleX: 1,
     })
+    .set($.wraps, {
+      rotate: 0,
+    })
     .to($.wraps, {
       rotate: 180,
     });
