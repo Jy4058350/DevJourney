@@ -1,6 +1,3 @@
-import "../styles/home.scss";
-// import gsap from "gsap";
-
 import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
 import { scroll } from "./component/scroll";
