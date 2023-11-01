@@ -23,22 +23,32 @@ function _handlePointerDownAndMouseEnter() {
   $.btn.addEventListener("mouseenter", _handleMouseEnter);
 }
 
-function _handlePointerDown() {}
+function _handlePointerDown() {
+  const tl = gsap.timeline();
+  tl.set($.wraps, {
+    rotate: 0,
+  }).to($.bars, {
+    height: "5px",
+    duration: 0.2,
+    backgroundColor: "black",
+    borderRadius: 5,
+  });
+}
 
 function _handleMouseEnter() {
   const tl = gsap.timeline({
     defaults: { duration: 0.2, stagger: 0.1, ease: "power1.inOut" },
   });
   tl.set($.bars, {
-    // transformOrigin: "right center",
-    transformOrigin: "right",
+    transformOrigin: "right center",
+    // transformOrigin: "right",
   })
     .to($.bars, {
       scaleX: 0,
     })
     .set($.bars, {
-      // transformOrigin: "left center",
-      transformOrigin: "left",
+      transformOrigin: "left center",
+      //   transformOrigin: "left",
     })
     .to($.bars, {
       scaleX: 1,
