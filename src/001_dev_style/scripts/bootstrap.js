@@ -1,6 +1,3 @@
-import "../styles/home.scss";
-// import gsap from "gsap";
-
 import world from "./glsl/world";
 import { viewport } from "./helper/viewport";
 import { scroll } from "./component/scroll";
@@ -10,7 +7,7 @@ import { gui } from "./helper/gui";
 // import { orbit } from "./helper/orbit";
 // import { startGsapAnimation, getResolution, getWorldPosition } from "./helper";
 
-window.debug = debugmode(1) ? 1 : 0;
+window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
