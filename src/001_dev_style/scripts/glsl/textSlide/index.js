@@ -142,7 +142,6 @@ class ExtendObject extends CustomObject {
       index++;
     });
 
-    console.log(group);
     this.slides = Array.from(group.children);
 
     return group;
