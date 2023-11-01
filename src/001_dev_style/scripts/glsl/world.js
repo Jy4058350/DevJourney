@@ -132,7 +132,7 @@ function raycast() {
     // if (AxesHelper) return;
 
     const _mesh = world.scene.children[i];
-    if (!_mesh.material.uniforms) continue;
+    if (!_mesh.material?.uniforms) continue;
     const uHover = _mesh.material.uniforms.uHover;
     // console.log(uHover);
     if (intersect?.object === _mesh) {
