@@ -4,13 +4,17 @@ const menu = {
   init,
 };
 
-function init() {
-  const btn = iNode.qs(".btn-menu");
-  const inner = iNode.qs(".btn-menu_inner");
-  const wrap = iNode.qsa(".btn-menu_wrap");
-  const bar = iNode.qsa(".btn-menu_bar");
+const $ = {};
 
-console.log(btn, inner, wrap, bar);
+function init() {
+  $.container = iNode.qs("#global-container");
+  $.btn = iNode.qs(".btn-menu");
+  $.inner = iNode.qs(".btn-menu_inner");
+  $.wrap = iNode.qsa(".btn-menu_wrap");
+  $.bar = iNode.qsa(".btn-menu_bar");
+  $.page = iNode.qs("#page-container");
+
+  console.log($.container);
 }
 
 export default menu;
