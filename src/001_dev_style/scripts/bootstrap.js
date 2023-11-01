@@ -4,8 +4,7 @@ import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 import { gui } from "./helper/gui";
-// import { orbit } from "./helper/orbit";
-// import { startGsapAnimation, getResolution, getWorldPosition } from "./helper";
+import menu from "./component/menu";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -36,6 +35,8 @@ export async function init() {
   viewport.bindResizeEvents();
 
   await loader.init();
+
+  menu.init();
 
   await world.init(canvasRect, viewport);
 
