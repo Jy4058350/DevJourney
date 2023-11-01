@@ -24,7 +24,7 @@ function _handlePointerDownAndMouseEnter() {
 }
 
 function _handlePointerDown() {
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({ paused: true });
   tl.set($.wraps, {
     rotate: 0,
   }).to($.bars, {
@@ -41,14 +41,12 @@ function _handleMouseEnter() {
   });
   tl.set($.bars, {
     transformOrigin: "right center",
-    // transformOrigin: "right",
   })
     .to($.bars, {
       scaleX: 0,
     })
     .set($.bars, {
       transformOrigin: "left center",
-      //   transformOrigin: "left",
     })
     .to($.bars, {
       scaleX: 1,
