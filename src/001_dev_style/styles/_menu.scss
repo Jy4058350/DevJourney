@@ -42,9 +42,10 @@
 }
 
 .menu {
-  clip-path: circle(100px at calc(100% - 2.5em) 2.5em);
+  clip-path: circle(0 at calc(100% - 2.5em) 2.5em);
+  transition: clip-path 0.5s ease-in-out;
 
-  opacity: 0;
+  // opacity: 0;
   position: fixed;
   z-index: 10;
   top: 0;
@@ -88,6 +89,7 @@
 
 .is-open {
   .menu {
-    opacity: 1;
+    clip-path: circle(100% at calc(100% - 2.5em) 2.5em);
+    // opacity: 1;
   }
 }
