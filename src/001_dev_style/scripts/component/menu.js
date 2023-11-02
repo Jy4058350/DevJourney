@@ -27,7 +27,7 @@ function _handlePointerDownAndMouseEnter() {
 }
 
 function _onClickSelector() {
-  const tl = gsap.timeline({ paused: true });
+  const tl = gsap.timeline({  paused: true, defaults: { duration: 0.3 } });
 
   tl.to($.bars, {
     height: "3px",
@@ -44,6 +44,7 @@ function _handlePointerDown() {
   } else {
     t1.reverse();
   }
+  isOpen = !isOpen;
 }
 
 function _handleMouseEnter() {
