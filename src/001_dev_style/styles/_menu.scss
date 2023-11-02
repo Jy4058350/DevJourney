@@ -42,6 +42,8 @@
 }
 
 .menu {
+  clip-path: circle(100px at calc(100% - 2.5em) 2.5em);
+
   opacity: 0;
   position: fixed;
   z-index: 10;
