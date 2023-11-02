@@ -18,7 +18,7 @@ function init() {
   $.page = iNode.qs("#page-container");
 
   _handlePointerDownAndMouseEnter();
-  const t1 = _onClickSelector();
+  t1 = _onClickSelector();
 }
 
 function _handlePointerDownAndMouseEnter() {
@@ -26,13 +26,11 @@ function _handlePointerDownAndMouseEnter() {
   $.btn.addEventListener("mouseenter", _handleMouseEnter);
 }
 
-
-
 function _onClickSelector() {
   const tl = gsap.timeline({ paused: true });
 
   tl.to($.bars, {
-    height: "5px",
+    height: "3px",
     duration: 0.2,
     backgroundColor: "black",
     borderRadius: 5,
@@ -42,19 +40,10 @@ function _onClickSelector() {
 
 function _handlePointerDown() {
   if (!isOpen) {
-    // const tl = _onClickSelector();
-    // tl.play();
     t1.play();
-    console.log("true", tl);
   } else {
-    // const tl = _onClickSelector();
-    // tl.reverse();
     t1.reverse();
-    console.log("else", tl);
   }
-  console.log(isOpen);
-  isOpen = !isOpen;
-  console.log(isOpen);
 }
 
 function _handleMouseEnter() {
