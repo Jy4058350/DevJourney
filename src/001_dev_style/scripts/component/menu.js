@@ -22,7 +22,7 @@ function init() {
 }
 
 function _handlePointerDownAndMouseEnter() {
-  $.btn.addEventListener("pointerdown", _handlePointerDown);
+  $.btn.addEventListener("pointerdown", _toggle);
   $.btn.addEventListener("mouseenter", _handleMouseEnter);
 }
 
@@ -38,7 +38,7 @@ function _onClickSelector() {
   return tl;
 }
 
-function _handlePointerDown() {
+function _toggle() {
   if (!isOpen) {
     t1.play();
   } else {
