@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const scroll = {
   initScroller,
+  disablePlugin,
+  enablePlugin,
 };
 
 function initScroller() {
