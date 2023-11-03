@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import Scrollbar from "smooth-scrollbar";
+import { ScrollbarPlugin } from 'smooth-scrollbar';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const scroll = {
@@ -32,6 +33,14 @@ function initScroller() {
   });
 
   const el = document.querySelector("[data-webgl]");
+
+// disable scrollbar
+
+class DisableScroll extends ScrollbarPlugin {
+  static pluginName = 'disableScroll';
+}
+
+
 }
 
 export { scroll };
