@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { iNode } from "../helper/iNode.js";
+import { scroll } from "./scroll.js";
 
 const menu = {
   init,
