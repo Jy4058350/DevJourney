@@ -42,7 +42,7 @@ function _onClickSelector() {
   tl.to($.bars, {
     height: "3px",
     duration: 0.2,
-    backgroundColor: "black",
+    backgroundColor: " #dadada",
     borderRadius: 5,
   });
   return tl;

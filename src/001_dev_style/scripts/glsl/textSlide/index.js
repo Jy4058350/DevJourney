@@ -79,8 +79,8 @@ class ExtendObject extends CustomObject {
 
   fixGeometry() {
     const geo = super.fixGeometry();
-    geo.scale(0.5, 0.5, 0.5);
-    geo.translate(-100, 0, 100.0);
+    geo.scale(1.0, 1.0, 1.0);
+    geo.translate(0, 0, 1.0);
 
     return geo;
   }
