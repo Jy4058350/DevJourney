@@ -1,6 +1,6 @@
 import gsap from "gsap";
-import Scrollbar from "smooth-scrollbar";
-import { ScrollbarPlugin } from 'smooth-scrollbar';
+// import Scrollbar from "smooth-scrollbar";
+import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar"; //import with named import
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const scroll = {
@@ -9,6 +9,7 @@ const scroll = {
 
 function initScroller() {
   gsap.registerPlugin(ScrollTrigger);
+  Scrollbar.use(DisablePlugin);
 
   const pageContainer = document.querySelector("#page-container");
 
@@ -33,14 +34,14 @@ function initScroller() {
   });
 
   const el = document.querySelector("[data-webgl]");
-
-// disable scrollbar
-
-class DisableScroll extends ScrollbarPlugin {
-  static pluginName = 'disableScroll';
 }
 
-
+// disable scrollbar plugin description
+class DisablePlugin extends ScrollbarPlugin {
+  static pluginName = "disablePlugin";
+  transformDelta(delta) {
+    console.log(delta);
+  }
 }
 
 export { scroll };
