@@ -7,7 +7,7 @@ const menu = {
 
 const $ = {};
 let isOpen = false;
-let t1 = null;
+let tl = null;
 
 function init() {
   $.container = iNode.qs("#global-container");
@@ -18,33 +18,34 @@ function init() {
   $.page = iNode.qs("#page-container");
 
   _handlePointerDownAndMouseEnter();
-  t1 = _onClickSelector();
+  tl = _onClickSelector();
 }
 
 function _handlePointerDownAndMouseEnter() {
-  $.btn.addEventListener("pointerdown", _handlePointerDown);
+  $.btn.addEventListener("pointerdown", _toggle);
   $.btn.addEventListener("mouseenter", _handleMouseEnter);
 }
 
+function _toggle() {
+  $.container.classList.toggle("is-open");
+  if (!isOpen) {
+    tl.play();
+  } else {
+    tl.reverse();
+  }
+  isOpen = !isOpen;
+}
+
 function _onClickSelector() {
-  const tl = gsap.timeline({  paused: true, defaults: { duration: 0.3 } });
+  const tl = gsap.timeline({ paused: true, defaults: { duration: 0.3 } });
 
   tl.to($.bars, {
     height: "3px",
     duration: 0.2,
-    backgroundColor: "black",
+    backgroundColor: " #dadada",
     borderRadius: 5,
   });
   return tl;
-}
-
-function _handlePointerDown() {
-  if (!isOpen) {
-    t1.play();
-  } else {
-    t1.reverse();
-  }
-  isOpen = !isOpen;
 }
 
 function _handleMouseEnter() {

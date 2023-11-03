@@ -1,26 +1,29 @@
 .fv {
   position: relative;
+  // position: absolute;
   height: 100vh;
 
   &_content {
     position: absolute;
-    max-width: 400px;
+    max-width: 200px;
     width: 30%;
     text-align: center;
     margin: 0 auto;
+    margin: 0;
     z-index: 100;
 
-    top: auto;
+    // top: auto;
     transform: none;
-    bottom: 30%;
-    left: 20%;
-
+    top: 40%;
+    bottom: 0%;
+    // left: 20%;
   }
 
   &_text {
     &-shader {
       display: block;
       margin-left: auto;
+      margin-bottom: 0;
       pointer-events: none;
       width: 100%;
       aspect-ratio: 1/ 1;
@@ -32,21 +35,25 @@
   }
 
   &_main {
+    margin: 0;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+
     width: 100%;
     display: flex;
-    align-items: center;
-    height: 100vh;
+    // align-items: center;
+    height: 100%;
   }
 
   &_holder {
-    position: relative;
+    // position: relative;
+    position: absolute;
     width: 100%;
     max-width: unset;
     margin: 0 auto;
-    margin-bottom: 10%;
+    // margin-bottom: 10%;
   }
 }
