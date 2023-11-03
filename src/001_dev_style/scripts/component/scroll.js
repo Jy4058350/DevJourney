@@ -1,5 +1,4 @@
 import gsap from "gsap";
-// import Scrollbar from "smooth-scrollbar";
 import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar"; //import with named import
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -16,6 +15,8 @@ function initScroller() {
   const pageContainer = document.querySelector("#page-container");
 
   const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+
+  scroll.scrollBar = scrollBar;
 
   ScrollTrigger.scrollerProxy(pageContainer, {
     scrollTop(value) {
@@ -50,6 +51,19 @@ class DisablePlugin extends ScrollbarPlugin {
     delta = this.options.disabled ? { x: 0, y: 0 } : delta;
     return delta;
   }
+}
+// switch off the plugin
+function disablePlugin() {
+  scroll.scrollBar.updatePluginOptions("disablePlugin", {
+    disabled: true,
+  });
+}
+
+// switch on the plugin
+function enablePlugin() {
+  scroll.scrollBar.updatePluginOptions("disablePlugin", {
+    disabled: false,
+  });
 }
 
 export { scroll };
