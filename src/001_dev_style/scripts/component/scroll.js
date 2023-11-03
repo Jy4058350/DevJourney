@@ -41,8 +41,12 @@ function initScroller() {
 // disable scrollbar plugin description
 class DisablePlugin extends ScrollbarPlugin {
   static pluginName = "disablePlugin";
+  static defaultOptions = {
+    disabled: false,
+  };
+
   transformDelta(delta) {
-    console.log(delta);
+    // console.log(delta);
   }
 }
 
