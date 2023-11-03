@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { iNode } from "../helper/iNode.js";
+import { scroll } from "./scroll.js";
 
 const menu = {
   init,
@@ -30,8 +31,10 @@ function _toggle() {
   $.container.classList.toggle("is-open");
   if (!isOpen) {
     tl.play();
+    scroll.disablePlugin();
   } else {
     tl.reverse();
+    scroll.enablePlugin();
   }
   isOpen = !isOpen;
 }
