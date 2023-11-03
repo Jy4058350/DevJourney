@@ -47,8 +47,7 @@ class DisablePlugin extends ScrollbarPlugin {
 
   transformDelta(delta) {
     // console.log(delta);
-    delta = this.defaultOptions.disabled ? { x: 0, y: 0 } : delta;
-    console.log(this.options);
+    delta = this.options.disabled ? { x: 0, y: 0 } : delta;
     return delta;
   }
 }
