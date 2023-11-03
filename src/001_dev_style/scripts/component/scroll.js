@@ -9,6 +9,8 @@ const scroll = {
 
 function initScroller() {
   gsap.registerPlugin(ScrollTrigger);
+
+  // Calling the plugin
   Scrollbar.use(DisablePlugin);
 
   const pageContainer = document.querySelector("#page-container");
