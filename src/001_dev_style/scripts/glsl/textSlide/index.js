@@ -1,8 +1,6 @@
 import gsap from "gsap";
 import {
-  CylinderGeometry,
   Mesh,
-  MeshBasicMaterial,
   Vector3,
   VideoTexture,
   Group,
@@ -16,7 +14,8 @@ import { pointTo, lerp } from "../../helper/utils";
 import {
   countUp,
   slideTextIndex,
-  updateSlideIndex,
+  // updateSlideIndex,
+  TextIndex,
 } from "../../component/slideIndex";
 
 let slideIndex = 0;
@@ -46,13 +45,15 @@ class ExtendObject extends CustomObject {
       duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        // console.log(this.uniforms.uIndex.value);
+        let tIdx = TextIndex(index);
+        console.log(index);
+        console.log(tIdx);
         this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.tIndex.value = tIdx;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap(index);
-        // this.goToNext(this.uniforms.uIndex.value);
-        this.goToNext(slideTextIndex(index));
+        this.goToNext(slideTextIndex(tIdx));
       },
     });
   }
@@ -69,6 +70,7 @@ class ExtendObject extends CustomObject {
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
+    uniforms.tIndex = { value: 0.0 };
 
     return uniforms;
   }
@@ -79,34 +81,15 @@ class ExtendObject extends CustomObject {
 
   fixGeometry() {
     const geo = super.fixGeometry();
-    geo.scale(1.0, 1.0, 1.0);
-    geo.translate(0, 0, 1.0);
+    // geo.scale(0.5, 0.5, 0.5);
+    geo.translate(0, 0, 10.0);
 
     return geo;
   }
 
   fixMesh() {
     const group = new Group();
-    // const cylinderGeo = new CylinderGeometry(
-    //   this.radius,
-    //   this.radius,
-    //   this.rect.height / 2,
-    //   100,
-    //   1,
-    //   true
-    // );
-    // const cylinderMat = new MeshBasicMaterial({
-    //   transparent: true,
-    //   opacity: 0,
-    //   alphaTest: 0.5,
-    // });
-    // const cylinder = new Mesh(cylinderGeo, cylinderMat);
-    // // cylinder.position.z = -this.radius;
-
-    // const { position, normal } = cylinderGeo.attributes;
-    // const oneLoop = cylinderGeo.attributes.position.count;
-    // const oneLoop = cylinderGeo.attributes.position.count / 2;
-    // const step = Math.floor(oneLoop / this.texes.size);
+   
     let index = 0;
 
     this.texes.forEach((tex) => {
@@ -121,22 +104,7 @@ class ExtendObject extends CustomObject {
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
-      // console.log(plane);
-
-      // const pickIndex = index * step;
-      // console.log(pickIndex);
-      // const x = position.getX(pickIndex);
-      // const y = position.getY(pickIndex);
-      // const z = position.getZ(pickIndex);
-      // plane.position.set(x, 1, z);
-
-      // const originalDir = { x: 0, y: 0, z: 1 };
-      // const targetDir = {
-      //   x: normal.getX(pickIndex),
-      //   y: 0,
-      //   z: normal.getZ(pickIndex),
-      // };
-      // pointTo(plane, originalDir, targetDir);
+    
       group.add(plane);
 
       index++;
@@ -166,17 +134,12 @@ class ExtendObject extends CustomObject {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-    // const rad =
-    //   lerp(this.differenceRadius, 0, 0.95, 0.0001) || this.differenceRadius;
-    // // const rad = lerp(this.differenceRadius, 0, 0.95);
-    // this.mesh.rotateOnWorldAxis(this.rotateAxis, rad);
-    // this.differenceRadius -= rad;
+   
 
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
     this.uniforms.uActiveIndex.value = index;
-    // console.log(this.differenceRadius);
-    // console.log(index, uActiveIndex, this.activeIndex);
+   
   }
 
   playVideo(index) {
