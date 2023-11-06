@@ -25,26 +25,18 @@ function updateSlideIndex() {
 function TextIndex(slideIndex) {
   slideIndex++;
   // if (slideIndex === 0) {
-  if (slideIndex === 0 || slideIndex >= 15) {
+  if (slideIndex === 0 || slideIndex >= 16) {
     textIndex = 0;
     return textIndex;
   }
-  if (slideIndex % 2 === 0) {
+  if (slideIndex % 2 === 1) {
     textIndex++;
     return textIndex;
   }
 
-  if (slideIndex % 2 === 1) {
+  if (slideIndex % 2 === 0) {
     return textIndex;
   }
-
-  // if (slideIndex >= 15) {
-  //   slideIndex = 0;
-  //   textIndex = 0;
-  //   return textIndex;
-  // }
-  // console.log(textIndex);
-  // return textIndex;
 }
 
 export { countUp, slideTextIndex, updateSlideIndex, TextIndex };

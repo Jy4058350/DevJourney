@@ -68,6 +68,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    overflow: hidden;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
   }
 
   &_li {
@@ -76,8 +79,8 @@
     transform: scaleX(0);
     transform-origin: left;
     transition: 0.8s transform, 0.5s opacity;
-    // transition: 0.2s transform, 0.2s opacity;
 
+    // border-bottom: 1px solid white;
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         transition-delay: 0.1s * $i;
