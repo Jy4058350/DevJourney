@@ -24,7 +24,8 @@ function updateSlideIndex() {
 
 function TextIndex(slideIndex) {
   slideIndex++;
-  if (slideIndex === 0) {
+  // if (slideIndex === 0) {
+  if (slideIndex === 0 || slideIndex >= 15) {
     textIndex = 0;
     return textIndex;
   }
@@ -32,12 +33,17 @@ function TextIndex(slideIndex) {
     textIndex++;
     return textIndex;
   }
-  if (slideIndex >= 15) {
-    slideIndex = 0;
-    textIndex = 0;
+
+  if (slideIndex % 2 === 1) {
     return textIndex;
   }
-  console.log(textIndex);
+
+  // if (slideIndex >= 15) {
+  //   slideIndex = 0;
+  //   textIndex = 0;
+  //   return textIndex;
+  // }
+  // console.log(textIndex);
   // return textIndex;
 }
 

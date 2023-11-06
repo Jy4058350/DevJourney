@@ -45,14 +45,18 @@ class ExtendObject extends CustomObject {
       duration: index % 2 === 0 ? 1.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        TextIndex(index);
+        let tIdx = TextIndex(index);
+        console.log(index);
+        console.log(tIdx);
         // console.log(this.uniforms.uIndex.value);
         this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.tIndex.value = tIdx;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap(index);
         // this.goToNext(this.uniforms.uIndex.value);
         this.goToNext(slideTextIndex(index));
+        // this.goToNext(slideTextIndex(index));
       },
     });
   }
@@ -69,6 +73,7 @@ class ExtendObject extends CustomObject {
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
+    uniforms.tIndex = { value: 0.0 };
 
     return uniforms;
   }
