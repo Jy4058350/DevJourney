@@ -80,6 +80,9 @@
     transform-origin: left;
     transition: 0.8s transform, 0.5s opacity;
 
+    overflow: hidden;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     // border-bottom: 1px solid white;
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
