@@ -1,8 +1,16 @@
+
+@use "../globals" as *;
+
+body {
+  @include mq("lg") {
+    background-color: red;
+  }
+}
+
 .fv {
   position: relative;
-  // position: absolute;
   height: 100vh;
-  aspect-ratio: 16/9;
+  aspect-ratio: 14/9;
   width: 100%;
   height: 100%;
 
@@ -13,8 +21,6 @@
     // width: 100%;
     width: 10rem;
     text-align: center;
-    margin: 0 auto;
-    margin: 0;
     z-index: 100;
 
     // top: auto;
@@ -63,6 +69,6 @@
   }
 
   &_slider {
-    aspect-ratio: 16/9;
+    aspect-ratio: 14/9;
   }
 }

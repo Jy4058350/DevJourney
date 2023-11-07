@@ -1,4 +1,5 @@
 @use "./variables";
+@use "./mq";
 
 @mixin list-template {
   &:nth-child(n) {
@@ -26,4 +27,41 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@mixin html-style {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-family: variables.$textsub-font-family;
+}
+
+@mixin img-style {
+  vertical-align: bottom;
+  max-width: 100%;
+  height: auto;
+}
+
+@mixin xlsize-style {
+  @include mq.mq("xl") {
+    display: none;
+  }
+}
+
+@mixin smHidden-style {
+  @include mq.mq("sm") {
+    display: block;
+  }
+}
+
+@mixin contentWide-style {
+  width: 95%;
+  margin: 0 auto;
+  max-width: to-rem(1600px);
+}
+
+@mixin contentNarrow-style {
+  width: 55%;
+  margin: 0 auto;
+  max-width: to-rem(1200px);
 }

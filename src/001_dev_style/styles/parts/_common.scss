@@ -18,7 +18,7 @@ html {
 
 body {
   @include body-style;
-  font-size: 50px;
+ 
 }
 
 #asides {
@@ -31,7 +31,7 @@ body {
   position: fixed;
   z-index: 999;
   top: 0;
-  right: 0;
+  // right: 0;
 
   color: #dadada;
   height: 100vh;
@@ -42,4 +42,48 @@ body {
     flex-direction: column;
     align-items: center;
   }
+}
+
+#canvas {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li {
+  @include html-style;
+}
+
+img {
+  @include img-style;
+}
+
+.sm-visible {
+  @include xlsize-style;
+}
+
+.sm-hidden {
+  @include smHidden-style;
+}
+
+.content-wide {
+  @include contentWide-style;
+}
+
+.content-narrow {
+  @include contentNarrow-style;
+}
+
+main {
+  @extend .content-wide;
 }
