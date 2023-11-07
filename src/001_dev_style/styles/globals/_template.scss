@@ -1,4 +1,4 @@
-list-template {
+@mixin list-template {
     &:nth-child(n) {
         border-top: none;
       }
@@ -10,5 +10,5 @@ list-template {
 
 
 @mixin p-style {
-    color : red;
+    color : blue;
 }

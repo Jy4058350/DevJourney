@@ -1,9 +1,4 @@
 @use "../globals" as *;
-// @use "../globals/list-template";
-
-@mixin p-style {
-  color : red;
-}
 
 .btn-menu {
   position: relative;
@@ -96,15 +91,7 @@
 
     overflow: hidden;
 
-   
-
-    // &:nth-child(n) {
-    //   border-top: none;
-    // }
-    // &:nth-child(1) {
-    //   border-top: 1px solid var(--border-color);
-    // }
-    // border-bottom: 1px solid var(--border-color);
+    @include list-template();
 
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
@@ -129,11 +116,6 @@
     text-decoration: none;
     transition: transform 0.3s ease-in-out;
   }
-
-  p {
-    // color: red;
-    @include p-style();
-  }
 }
 
 .is-open {
@@ -142,8 +124,7 @@
     // clip-path: polygon(100% 100%, 100% 0%, 0% 0%, 20% 100%);
 
     // clip-path: polygon(50% 0%, 29% 95%, 100% 36%, 0% 36%, 71% 95%);
-    // background-color: black;
-    background-color: white;
+    background-color: black;
 
     &_li {
       opacity: 1;
