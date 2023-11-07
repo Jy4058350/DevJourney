@@ -1,0 +1,14 @@
+list-template {
+    &:nth-child(n) {
+        border-top: none;
+      }
+      &:nth-child(1) {
+        border-top: 1px solid var(--border-color);
+      }
+      border-bottom: 1px solid var(--border-color);  
+}
+
+
+@mixin p-style {
+    color : red;
+}

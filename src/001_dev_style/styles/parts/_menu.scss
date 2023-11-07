@@ -1,7 +1,8 @@
 @use "../globals" as *;
+// @use "../globals/list-template";
 
-:root {
-  --border-color: #{$c-border};
+@mixin p-style {
+  color : red;
 }
 
 .btn-menu {
@@ -62,22 +63,28 @@
   overflow: hidden;
 
   display: flex;
+
   align-items: center;
 
+  &_container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
   &_inner {
-    font-size: 50px;
+    font-size: 20px;
     font-weight: 700;
     width: 100%;
-    margin: 4em;
-    // margin-left: 5em;
+    // margin: 4em;
+    margin-left: 10rem;
+    margin-right: 10rem;
 
-    display: flex;
+    // display: flex;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    // border-top: 1px solid var(--border-color);
-    // border-top: 1px solid var($c-border);
-    // border-bottom: 1px solid var(--border-color);
+
+    letter-spacing: 0.1em;
   }
 
   &_li {
@@ -88,17 +95,27 @@
     transition: 0.8s transform, 0.5s opacity;
 
     overflow: hidden;
-    // border-bottom: 1px solid --border-color;
-    // border-top: 1px solid var($c-border);
-    border-bottom: 1px solid var(--border-color);
-    // border-bottom: 1px solid #{border-color};
-    // border-bottom: 1px solid $border-color;
-    // border-bottom: 1px solid white;
+
+   
+
+    // &:nth-child(n) {
+    //   border-top: none;
+    // }
+    // &:nth-child(1) {
+    //   border-top: 1px solid var(--border-color);
+    // }
+    // border-bottom: 1px solid var(--border-color);
+
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         transition-delay: 0.1s * $i;
       }
     }
+
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 20px 0;
 
     &:hover a {
       color: gray;
@@ -112,6 +129,11 @@
     text-decoration: none;
     transition: transform 0.3s ease-in-out;
   }
+
+  p {
+    // color: red;
+    @include p-style();
+  }
 }
 
 .is-open {
@@ -120,7 +142,8 @@
     // clip-path: polygon(100% 100%, 100% 0%, 0% 0%, 20% 100%);
 
     // clip-path: polygon(50% 0%, 29% 95%, 100% 36%, 0% 36%, 71% 95%);
-    background-color: black;
+    // background-color: black;
+    background-color: white;
 
     &_li {
       opacity: 1;
