@@ -6,6 +6,12 @@
     <script src="./scripts/index.js" type="module"></script>
     <title>WebGL Practical</title>
     <link rel="stylesheet" href="./styles/loader.scss" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600&family=Noto+Serif+JP:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="loader" class="loader">
@@ -40,16 +46,19 @@
           </div>
         </aside>
         <div class="menu">
-          <div class="menu_inner">
-            <nav class="menu_nav">
-              <ul class="menu_ul">
-                <li class="menu_li"><a href="/">HOME</a></li>
-                <li class="menu_li"><a href="/">VISION</a></li>
-                <li class="menu_li"><a href="/">PLAY</a></li>
-                <li class="menu_li"><a href="/">CHORE</a></li>
-                <li class="menu_li"><a href="/">FEAR</a></li>
-              </ul>
-            </nav>
+          <p>test</p>
+          <div class="menu_container">
+            <div class="menu_inner">
+              <nav class="menu_nav">
+                <ul class="menu_ul">
+                  <li class="menu_li list-template"><a href="/">HOME</a></li>
+                  <li class="menu_li list-template"><a href="/">VISION</a></li>
+                  <li class="menu_li list-template"><a href="/">PLAY</a></li>
+                  <li class="menu_li list-template"><a href="/">CHORE</a></li>
+                  <li class="menu_li list-template"><a href="/">FEAR</a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
@@ -73,6 +82,7 @@
             </div>
           </div>
           <div class="fv_content">
+            <p>rem</p>
             <div
               class="fv_text-shader"
               data-webgl="textSlide"

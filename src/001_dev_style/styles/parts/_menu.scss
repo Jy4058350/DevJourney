@@ -1,3 +1,5 @@
+@use "../globals" as *;
+
 .btn-menu {
   position: relative;
   z-index: 999;
@@ -56,21 +58,28 @@
   overflow: hidden;
 
   display: flex;
+
   align-items: center;
 
+  &_container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
   &_inner {
-    font-size: 50px;
+    font-size: 20px;
     font-weight: 700;
     width: 100%;
-    margin: 4em;
-    // margin-left: 5em;
+    // margin: 4em;
+    margin-left: 10rem;
+    margin-right: 10rem;
 
-    display: flex;
+    // display: flex;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+
+    letter-spacing: 0.05em;
   }
 
   &_li {
@@ -80,12 +89,20 @@
     transform-origin: left;
     transition: 0.8s transform, 0.5s opacity;
 
-    // border-bottom: 1px solid white;
+    overflow: hidden;
+
+    @include list-template();
+
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         transition-delay: 0.1s * $i;
       }
     }
+
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 20px 0;
 
     &:hover a {
       color: gray;
