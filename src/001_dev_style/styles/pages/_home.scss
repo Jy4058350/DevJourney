@@ -9,9 +9,8 @@ body {
 
 .fv {
   position: relative;
-  // position: absolute;
   height: 100vh;
-  aspect-ratio: 16/9;
+  aspect-ratio: 14/9;
   width: 100%;
   height: 100%;
 
@@ -22,8 +21,6 @@ body {
     // width: 100%;
     width: 10rem;
     text-align: center;
-    margin: 0 auto;
-    margin: 0;
     z-index: 100;
 
     // top: auto;
@@ -72,6 +69,6 @@ body {
   }
 
   &_slider {
-    aspect-ratio: 16/9;
+    aspect-ratio: 14/9;
   }
 }

@@ -53,3 +53,15 @@
     display: block;
   }
 }
+
+@mixin contentWide-style {
+  width: 95%;
+  margin: 0 auto;
+  max-width: to-rem(1600px);
+}
+
+@mixin contentNarrow-style {
+  width: 55%;
+  margin: 0 auto;
+  max-width: to-rem(1200px);
+}
