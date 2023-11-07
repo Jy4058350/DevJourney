@@ -1,7 +1,8 @@
 @use "../globals" as *;
 
 body {
-  font-family: $heading-font-family;
+ @include body-style;
+//  font-family: $heading-font-family;
 }
 
 #asides {
