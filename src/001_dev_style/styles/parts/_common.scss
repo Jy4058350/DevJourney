@@ -1,8 +1,14 @@
 @use "../globals" as *;
 
+:root {
+  --color-white: #{$color-white};
+  --color-black: #{$color-black};
+  --color-gray: #{$color-gray};
+  --border-color: #{$color-border};
+}
+
 body {
- @include body-style;
-//  font-family: $heading-font-family;
+  @include body-style;
 }
 
 #asides {

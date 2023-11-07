@@ -10,10 +10,6 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-@mixin p-style {
-  color: blue;
-}
-
 @mixin body-style {
   margin: 0;
   font-family: variables.$heading-font-family;
