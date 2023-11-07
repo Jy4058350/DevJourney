@@ -16,7 +16,7 @@
 
 @mixin body-style {
   margin: 0;
-  font-family: $heading-font-family;
+  font-family: variables.$heading-font-family;
   letter-spacing: 0.05em;
 
   text-size-adjust: 100%;
