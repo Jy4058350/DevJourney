@@ -5,6 +5,7 @@ import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
+import "./component/scroll-animation";
 
 window.debug = debugmode(0) ? 1 : 0;
 
