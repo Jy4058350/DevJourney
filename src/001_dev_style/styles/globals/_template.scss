@@ -23,4 +23,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   color: var(--color-text);
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -1,4 +1,5 @@
 @use "../globals" as *;
+@use "sass:math";
 
 :root {
   --color-white: #{$color-white};
@@ -7,8 +8,17 @@
   --border-color: #{$color-border};
 }
 
+html {
+  // font-size: 100%;
+  // font-size: math.div($root-font-size, 1rem) * 1rem;
+  font-size: math.div($root-font-size, 16px) * 100%;
+  // font-size: 300%;
+  // font-size: 50px;
+}
+
 body {
   @include body-style;
+  font-size: 50px;
 }
 
 #asides {

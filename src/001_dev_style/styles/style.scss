@@ -2,13 +2,7 @@
 @use "./parts/common";
 @use "./parts/menu";
 
-html {
-  font-size: 100%;
-}
 
-body {
-  margin: 0;
-}
 
 #canvas {
   height: 100vh;
