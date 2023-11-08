@@ -1,5 +1,5 @@
-@use "./variables";
-@use "./mq";
+@use "./variables" as *;
+@use "./mq" as *;
 
 @mixin list-template {
   &:nth-child(n) {
@@ -13,7 +13,7 @@
 
 @mixin body-style {
   margin: 0;
-  font-family: variables.$heading-font-family;
+  font-family: $heading-font-family;
   letter-spacing: 0.05em;
 
   text-size-adjust: 100%;
@@ -33,7 +33,7 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  font-family: variables.$textsub-font-family;
+  font-family: $textsub-font-family;
 }
 
 @mixin img-style {
@@ -43,13 +43,13 @@
 }
 
 @mixin xlsize-style {
-  @include mq.mq("xl") {
+  @include mq("xl") {
     display: none;
   }
 }
 
 @mixin smHidden-style {
-  @include mq.mq("sm") {
+  @include mq("sm") {
     display: block;
   }
 }
