@@ -194,7 +194,8 @@ class CustomObject {
       nextRect.height / rect.height,
       1
     );
-
+    console.log(rect.width, rect.height);
+    console.log(nextRect.width, nextRect.height);
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
 
