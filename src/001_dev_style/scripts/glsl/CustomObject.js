@@ -172,7 +172,7 @@ class CustomObject {
     const resolution = getResolution(this.rect, mrect);
 
     u.uResolution = { value: resolution };
-    // console.log(this.uniforms.uResolution.value);
+    console.log(this.uniforms.uResolution.value);
     return u;
   }
 
@@ -182,6 +182,7 @@ class CustomObject {
       mesh,
       geometry,
       rect,
+      group,
     } = this;
     const nextRect = el.getBoundingClientRect(this.$.el);
     const { x, y } = getWorldPosition(nextRect, newCanvasRect);
@@ -194,17 +195,24 @@ class CustomObject {
       nextRect.height / rect.height,
       1
     );
-    console.log(rect.width, rect.height);
-    console.log(nextRect.width, nextRect.height);
+    // console.log(rect.width, rect.height);
+    // console.log(nextRect.width, nextRect.height);
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
+
+    console.log(group);
+
+    if (group) {
+      group.scale.x *= aspectRw;
+      group.scale.y *= aspectRh;
+    }
 
     console.log(aspectRw, aspectRh);
 
     this.uniforms.uResolution.value.x *= aspectRw;
     this.uniforms.uResolution.value.y *= aspectRh;
 
-    console.log(this.uniforms.uResolution.value);
+    // console.log(this.uniforms.uResolution.value);
 
     this.rect = nextRect;
   }

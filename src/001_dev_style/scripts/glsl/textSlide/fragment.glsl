@@ -16,7 +16,7 @@ void main() {
 
     gl_FragColor = t1;
 
-    // float alpha = smoothstep(0.9, 1.0, cos(vDistanceAngle));
-    // gl_FragColor.a *= alpha;
+    float alpha = smoothstep(0.9, 1.0, cos(vDistanceAngle));
+    gl_FragColor.a *= alpha;
 
 }

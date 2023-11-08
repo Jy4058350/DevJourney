@@ -100,18 +100,22 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
+      planeMat.uniforms.uResolution = this.uniforms.uResolution;
+      // console.log(planeMat.uniforms.uResolution);
 
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
     
+      console.log(plane);
       group.add(plane);
-
+      
       index++;
     });
-
+    
     this.slides = Array.from(group.children);
-
+    
+    console.log(group);
     return group;
   }
 
