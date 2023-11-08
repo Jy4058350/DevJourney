@@ -1,5 +1,5 @@
-
 @use "../globals" as *;
+@use "../parts/font" as *;
 
 body {
   @include mq("lg") {
@@ -40,8 +40,10 @@ body {
       display: block;
       margin-left: 1em;
       pointer-events: none;
-      width: 100%;
-     
+      // width: 100%;
+      // max-width: 10rem;
+      font-size: fluid-text(50px, 120px);
+
       aspect-ratio: 1/ 1;
     }
   }
