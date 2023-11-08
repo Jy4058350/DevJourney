@@ -1,5 +1,6 @@
 @use "sass:math";
-@use "variables";
+@use "variables" as *;
+
 
 @function fluid-text(
   $min-px,
@@ -20,10 +21,10 @@
 }
 
 // font-size: to-rem(16px) -> 1rem
-@function to-rem($px) {
-  $rem: math.div($px, $root-font-size) * 1rem;
-  @return $rem;
-}
+// @function to-rem($px) {
+//   $rem: math.div($px, $root-font-size) * 1rem;
+//   @return $rem;
+// }
 
 @function to-em($px, $self-px: $root-font-size) {
   $em: math.div($px, $self-px) * 1em;
