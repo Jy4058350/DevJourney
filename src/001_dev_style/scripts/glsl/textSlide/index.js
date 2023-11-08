@@ -46,8 +46,8 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         let tIdx = TextIndex(index);
-        console.log(index);
-        console.log(tIdx);
+        // console.log(index);
+        // console.log(tIdx);
         this.uniforms.uIndex.value = slideTextIndex(index);
         this.uniforms.tIndex.value = tIdx;
         this.uniforms.uProgress.value = 0.0;

@@ -153,6 +153,7 @@ class CustomObject {
   setupResolution(u) {
     // const rect = el.getBoundingClientRect();
     if (!this.texes.has("tex1")) return u;
+    // console.log(this.texes.get("tex1"));
 
     const texData = this.texes.get("tex1").source.data;
 
@@ -196,6 +197,8 @@ class CustomObject {
 
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
+
+    console.log(aspectRw, aspectRh);
 
     this.uniforms.uResolution.value.x *= aspectRw;
     this.uniforms.uResolution.value.y *= aspectRh;

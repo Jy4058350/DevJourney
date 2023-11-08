@@ -15,36 +15,36 @@ body {
   height: 100%;
 
   &_content {
-    font-size: 1rem;
+    // font-size: 1rem;
+    font-size: fluid-text(10px, 100px);
     position: absolute;
     // max-width: 200px;
     // width: 100%;
-    width: 10rem;
+    // width: 3em;
+    height: 3em;
     text-align: center;
     z-index: 100;
 
-    // top: auto;
     left: auto;
     transform: none;
-    // top: 0%;
-    // left: 0%;
     bottom: 0%;
-    // transform: translate(-50%, -50%);
-    // bottom: 0%;
-    // left: 20%;
-    // margin-bottom: 10%;
-    font-size: fluid-text(50px, 120px);
   }
 
   &_text {
     &-shader {
+      position: absolute;
       display: block;
       margin-left: 1em;
       pointer-events: none;
       // width: 100%;
+      // width: 20rem;
       // max-width: 10rem;
 
       aspect-ratio: 1/ 1;
+      font-size: fluid-text(10px, 100px);
+      width: 2em;
+      height: 2em;
+      bottom: 0%;
     }
   }
 
