@@ -200,11 +200,12 @@ class CustomObject {
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
 
-    console.log(group);
+    console.log(mesh);
 
-    if (group) {
-      group.scale.x *= aspectRw;
-      group.scale.y *= aspectRh;
+    if (mesh.type === "Group") {
+      console.log("group");
+      mesh.scale.x *= aspectRw;
+      mesh.scale.y *= aspectRh;
     }
 
     console.log(aspectRw, aspectRh);
