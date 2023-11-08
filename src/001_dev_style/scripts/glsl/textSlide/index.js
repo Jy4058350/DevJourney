@@ -46,8 +46,8 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         let tIdx = TextIndex(index);
-        console.log(index);
-        console.log(tIdx);
+        // console.log(index);
+        // console.log(tIdx);
         this.uniforms.uIndex.value = slideTextIndex(index);
         this.uniforms.tIndex.value = tIdx;
         this.uniforms.uProgress.value = 0.0;
@@ -100,18 +100,22 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
+      planeMat.uniforms.uResolution = this.uniforms.uResolution;
+      // console.log(planeMat.uniforms.uResolution);
 
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
     
+      console.log(plane);
       group.add(plane);
-
+      
       index++;
     });
-
+    
     this.slides = Array.from(group.children);
-
+    
+    console.log(group);
     return group;
   }
 
