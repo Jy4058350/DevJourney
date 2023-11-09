@@ -20,16 +20,11 @@ function getElById(selector, scope) {
 
 function styleSetProperty(elementId) {
   const headerHeight = this.getElById(elementId).offsetHeight;
-  console.log(headerHeight);
 
   document.documentElement.style.setProperty(
     "--header-height",
     `${headerHeight}px`
   );
-  console.log(
-    document.documentElement.style.getPropertyValue("--header-height")
-  );
 }
 
 export { iNode };
-
