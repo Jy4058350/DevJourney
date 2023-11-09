@@ -172,7 +172,7 @@ class CustomObject {
     const resolution = getResolution(this.rect, mrect);
 
     u.uResolution = { value: resolution };
-    console.log(this.uniforms.uResolution.value);
+    // console.log(this.uniforms.uResolution.value);
     return u;
   }
 
@@ -200,15 +200,15 @@ class CustomObject {
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
 
-    console.log(mesh);
+    // console.log(mesh);
 
     if (mesh.type === "Group") {
-      console.log("group");
+      // console.log("group");
       mesh.scale.x *= aspectRw;
       mesh.scale.y *= aspectRh;
     }
 
-    console.log(aspectRw, aspectRh);
+    // console.log(aspectRw, aspectRh);
 
     this.uniforms.uResolution.value.x *= aspectRw;
     this.uniforms.uResolution.value.y *= aspectRh;

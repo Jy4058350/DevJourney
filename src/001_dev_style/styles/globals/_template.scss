@@ -65,3 +65,17 @@
   margin: 0 auto;
   max-width: to-rem(1200px);
 }
+
+@mixin header-style {
+  color: var(--color-text);
+  background-color: transparent;
+}
+
+@mixin header__wrap-style {
+
+  
+}
+
+@mixin header__flexItem-style {
+
+}

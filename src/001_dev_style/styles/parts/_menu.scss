@@ -6,11 +6,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5em;
-  height: 5em;
+  width: 3em;
+  height: 0em; //flexにするために0にしている　11/9
   background-color: none;
   border: none;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   cursor: pointer;
   pointer-events: auto;
   background-color: transparent;

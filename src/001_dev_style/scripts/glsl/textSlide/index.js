@@ -107,7 +107,7 @@ class ExtendObject extends CustomObject {
       const plane = new Mesh(planeGeo, planeMat);
 
     
-      console.log(plane);
+      // console.log(plane);
       group.add(plane);
       
       index++;
@@ -115,7 +115,7 @@ class ExtendObject extends CustomObject {
     
     this.slides = Array.from(group.children);
     
-    console.log(group);
+    // console.log(group);
     return group;
   }
 
