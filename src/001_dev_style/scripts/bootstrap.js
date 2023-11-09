@@ -7,6 +7,8 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import "./component/scroll-animation";
 
+import { header } from "./component/header";
+
 window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
@@ -20,6 +22,9 @@ export async function init() {
   if (window.debug) {
     await gui.init();
   }
+
+  header.calcHeaderHeight();
+  // header.test();
 
   viewport.init(canvasRect);
 
