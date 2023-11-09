@@ -87,3 +87,39 @@ img {
 main {
   @extend .content-wide;
 }
+
+#header {
+  @include header-style;
+  // position: sticky;
+  position: relative;
+  top:0px;
+  left:0;
+  // z-index: 5;
+  width: 100%;
+
+
+}
+
+.header__wrap {
+@include header__wrap-style;
+
+}
+
+.header__flexItem {
+@include header__flexItem-style;
+}
+
+.Header__Icon,
+.Icon--nav {
+  width: 20px;
+  height: 15px;
+  position: absolute;
+}
+svg {
+  overflow: hidden;
+}
+
+.Icon {
+  display: inline-block;
+
+}
