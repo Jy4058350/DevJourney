@@ -18,7 +18,6 @@ html {
 
 body {
   @include body-style;
- 
 }
 
 #asides {
@@ -92,21 +91,21 @@ main {
   @include header-style;
   // position: sticky;
   position: relative;
-  top:0px;
-  left:0;
+  top: 0px;
+  left: 0;
   // z-index: 5;
   width: 100%;
-
-
 }
 
 .header__wrap {
-@include header__wrap-style;
-
+  @include header__wrap-style;
 }
 
 .header__flexItem {
-@include header__flexItem-style;
+  @include header__flexItem-style;
+  flex: 1 0 0;
+  align-items: center;
+  display: flex;
 }
 
 .Header__Icon,
@@ -119,7 +118,11 @@ svg {
   overflow: hidden;
 }
 
+button {
+  padding: 0;
+  // overflow: visible;
+}
+
 .Icon {
   display: inline-block;
-
 }

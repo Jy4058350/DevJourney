@@ -10,7 +10,7 @@ body {
 .fv {
   position: relative;
   height: 100vh;
-  aspect-ratio: 10/6;
+  aspect-ratio: 16/9;
   width: 100%;
   height: 100%;
   margin-top: 2rem;//微調整のため手打ち
@@ -72,6 +72,6 @@ body {
   }
 
   &_slider {
-    aspect-ratio: 10/6;
+    aspect-ratio: 16/9;
   }
 }
