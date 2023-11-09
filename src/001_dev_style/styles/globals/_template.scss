@@ -67,8 +67,8 @@
 }
 
 @mixin header-style {
-  // color: var(--color-text);
-  // background-color: transparent;
+  color: var(--color-text);
+  background-color: transparent;
 }
 
 @mixin header__wrap-style {

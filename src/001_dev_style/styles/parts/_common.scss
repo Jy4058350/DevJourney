@@ -87,25 +87,36 @@ main {
   @extend .content-wide;
 }
 
-#header {
+#Header {
   @include header-style;
-  // position: sticky;
-  position: relative;
+  // position: relative;
   top: 0px;
   left: 0;
-  // z-index: 5;
+  z-index: 5;
   width: 100%;
+  position: sticky;
+  display: block;
 }
 
-.header__wrap {
+.Header__Wrap {
   @include header__wrap-style;
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.header__flexItem {
+.Header__FlexItem {
+  display: flex;
+}
+
+.Header__FlexItem--fill {
   @include header__flexItem-style;
   flex: 1 0 0;
+  &:last-child {
+    justify-content: flex-end;
+  }
   align-items: center;
-  display: flex;
 }
 
 .Header__Icon,
