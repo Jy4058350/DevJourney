@@ -24,7 +24,6 @@ export async function init() {
   }
 
   header.calcHeaderHeight();
-  // header.test();
 
   viewport.init(canvasRect);
 
