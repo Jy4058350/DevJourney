@@ -10,10 +10,17 @@ let slideIndex = 0;
 let _size = 0;
 
 class ExtendObject extends CustomObject {
+  afterInit() {
+    this.pauseVideo();
+    setTimeout(() => {
+      this.playVideo();
+    }, 2500);
+  }
   fixGsap() {
     _size = this.texes.size;
     let index = countUp(this.uniforms.uIndex.value, _size);
-    console.log(this.texes);
+    const texesArray = Array.from(this.texes);
+    // console.log(texesArray[0]);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
