@@ -15,7 +15,8 @@ body {
   position: relative;
   // top: calc(var(--header-height) * -1);
   width: 100%;
-  height: auto;
+  // height: auto;
+  height: 100vh;
 
   &_main {
     position: absolute;
