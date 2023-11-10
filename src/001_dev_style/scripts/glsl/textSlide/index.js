@@ -14,6 +14,7 @@ import {
 } from "../../component/slideIndex";
 
 let slideIndex = 0;
+let _size = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -31,8 +32,10 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    _size = this.texes.size;
+    console.log(_size);
     // let index = countUp(slideIndex);
-    let index = countUp(this.uniforms.uIndex.value);
+    let index = countUp(this.uniforms.uIndex.value, _size);
     // console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
