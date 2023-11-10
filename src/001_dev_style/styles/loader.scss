@@ -1,18 +1,16 @@
 body {
-  // overflow: hidden;
+  overflow: hidden;
 }
 
 #gloabal-container {
   position: relative;
-  // overflow: hidden;
+  overflow: hidden;
   visibility: hidden;
   z-index: 0;
-
 }
 
 #page-container {
-  height: 100vh;
-  
+  height: 100%;
 }
 
 .loader {

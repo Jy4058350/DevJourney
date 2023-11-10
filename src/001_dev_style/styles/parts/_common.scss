@@ -85,6 +85,9 @@ img {
 
 main {
   @extend .content-wide;
+  overflow: hidden;
+  position: relative;
+  top: calc(var(--header-height) * -1);
 }
 
 #Header {
@@ -126,12 +129,12 @@ main {
   position: absolute;
 }
 svg {
-  // overflow: hidden;
+  overflow: hidden;
 }
 
 button {
   padding: 0;
-  // overflow: visible;
+  overflow: visible;
 }
 
 .Icon {
