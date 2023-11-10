@@ -1,10 +1,5 @@
 import gsap from "gsap";
-import {
-  Mesh,
-  Vector3,
-  VideoTexture,
-  Group,
-} from "three";
+import { Mesh, Vector3, VideoTexture, Group } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -42,7 +37,7 @@ class ExtendObject extends CustomObject {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 10.0 : 1.0,
+      duration: index % 2 === 0 ? 5.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         let tIdx = TextIndex(index);
@@ -89,7 +84,7 @@ class ExtendObject extends CustomObject {
 
   fixMesh() {
     const group = new Group();
-   
+
     let index = 0;
 
     this.texes.forEach((tex) => {
@@ -106,15 +101,14 @@ class ExtendObject extends CustomObject {
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
-    
       // console.log(plane);
       group.add(plane);
-      
+
       index++;
     });
-    
+
     this.slides = Array.from(group.children);
-    
+
     // console.log(group);
     return group;
   }
@@ -138,12 +132,9 @@ class ExtendObject extends CustomObject {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-   
-
     const uActiveIndex = this.uniforms.uActiveIndex.value;
     const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
     this.uniforms.uActiveIndex.value = index;
-   
   }
 
   playVideo(index) {
