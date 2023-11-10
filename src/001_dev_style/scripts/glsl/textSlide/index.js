@@ -42,7 +42,7 @@ class ExtendObject extends CustomObject {
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 5.0 : 1.0,
+      duration: index % 2 === 0 ? 10.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         let tIdx = TextIndex(index);

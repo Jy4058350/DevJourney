@@ -10,6 +10,7 @@ import {
 
 import { loader } from "../component/loader";
 import { getWorldPosition, getResolution } from "../helper/utils";
+import { setAspectRatio } from "../component/setaspectratio";
 
 class CustomObject {
   static async init({ el, type }) {
@@ -216,6 +217,8 @@ class CustomObject {
     // console.log(this.uniforms.uResolution.value);
 
     this.rect = nextRect;
+    // setAspectRatio();
+    // window.addEventListener("resize", setAspectRatio);
   }
 
   scroll(canvasRect) {
