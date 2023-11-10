@@ -16,11 +16,13 @@ function initScroller() {
 
   const pageContainer = document.querySelector("#page-container");
 
-  const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+  // const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+  const scrollBar = Scrollbar.init(gloabl-container, { delegateTo: document });
 
   scroll.scrollBar = scrollBar;
 
-  ScrollTrigger.scrollerProxy(pageContainer, {
+  // ScrollTrigger.scrollerProxy(pageContainer, {
+  ScrollTrigger.scrollerProxy(gloabl-container, {
     scrollTop(value) {
       if (arguments.length) {
         scrollBar.scrollTop = value; // setter

@@ -8,16 +8,16 @@ body {
   }
 }
 
-// $header-height: 65px;
+.slide {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
 .fv {
   aspect-ratio: 16/9;
   position: relative;
-  // top: calc(-#{$header-height} - #{$header-height} / 9);
-  // top: calc(-#{$header-height} );
-  // top: calc(-var(--header-height));
   top: calc(var(--header-height) * -1);
-  // top: var(--header-height);
-
   width: 100%;
   height: auto;
 
