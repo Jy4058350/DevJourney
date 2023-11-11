@@ -245,10 +245,10 @@ class CustomObject {
   }
 
   async afterInit() {
-    this.pauseVideo();
-    setTimeout(() => {
-      this.playVideo();
-    }, 5000);
+    // this.pauseVideo();
+    // setTimeout(() => {
+    //   this.playVideo();
+    // }, 5000);
   }
 
   async playVideo() {

@@ -18,17 +18,19 @@ class ExtendObject extends CustomObject {
   }
 
   playVideo() {
-    console.log("playVideo");
+    this.texes.forEach((tex) => {
+      console.log("playVideo");
+      if (tex.source.data instanceof HTMLVideoElement) {
+        tex.source.data.play();
+      }
+    });
   }
   pauseVideo() {
     // super.pauseVideo();
     this.texes.forEach((tex) => {
-      console.log(tex.source.data);
+      // console.log(tex.source.data);
       if (tex.source.data instanceof HTMLVideoElement) {
         tex.source.data.pause();
-        if(tex.source.data instanceof HTMLVideoElement) {
-          // console.log(tex.source.data);
-        }
       }
     });
   }
@@ -37,6 +39,7 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     // this.pauseVideo();
+    this.playVideo();
     // console.log(slideIndex);
     slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
