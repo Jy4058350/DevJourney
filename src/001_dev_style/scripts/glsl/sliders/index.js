@@ -18,24 +18,26 @@ class ExtendObject extends CustomObject {
     console.log("playVideo");
   }
   pauseVideo() {
-    console.log(index);
+    // console.log(index);
     // let a = this.texes.get("tex+1");
+
     let a = this.texes.get(`tex${index}`);
-    console.log(a);
+    // console.log(a);
   }
 
   goToNext(index) {}
 
   fixGsap() {
     this.pauseVideo();
+    console.log(index);
     index = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 5.0 : 1.0,
+      duration: index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.uIndex.value = index;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap(index);

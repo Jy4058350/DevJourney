@@ -3,8 +3,7 @@ let newIndex = 0;
 let textIndex = 0;
 
 function countUp(slideIndex, _size) {
-  // console.log(_size);
-  if (slideIndex >= _size) {
+  if (slideIndex >= 15) {
     slideIndex = 0;
     return slideIndex;
   }
