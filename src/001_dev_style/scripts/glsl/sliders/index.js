@@ -11,36 +11,45 @@ import {
 } from "../../component/slideIndex";
 
 let slideIndex = 0;
-let index = 0;
 
 class ExtendObject extends CustomObject {
+  before() {
+    this.pauseVideo();
+  }
+
   playVideo() {
     console.log("playVideo");
   }
   pauseVideo() {
-    // console.log(index);
-    // let a = this.texes.get("tex+1");
-
-    let a = this.texes.get(`tex${index}`);
-    // console.log(a);
+    // super.pauseVideo();
+    this.texes.forEach((tex) => {
+      console.log(tex.source.data);
+      if (tex.source.data instanceof HTMLVideoElement) {
+        tex.source.data.pause();
+        if(tex.source.data instanceof HTMLVideoElement) {
+          // console.log(tex.source.data);
+        }
+      }
+    });
   }
 
   goToNext(index) {}
 
   fixGsap() {
-    this.pauseVideo();
-    console.log(index);
-    index = countUp(this.uniforms.uIndex.value, this.texes.size);
+    // this.pauseVideo();
+    // console.log(slideIndex);
+    slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 2.0 : 1.0,
+      duration: slideIndex % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        this.uniforms.uIndex.value = index;
+        this.uniforms.uIndex.value = slideIndex;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
-        this.fixGsap(index);
+        this.fixGsap(slideIndex);
+        // console.log(slideIndex);
       },
     });
   }
