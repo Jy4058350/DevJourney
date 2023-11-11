@@ -33,10 +33,7 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     _size = this.texes.size;
-    console.log(_size);
-    // let index = countUp(slideIndex);
     let index = countUp(this.uniforms.uIndex.value, _size);
-    // console.log(index);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,

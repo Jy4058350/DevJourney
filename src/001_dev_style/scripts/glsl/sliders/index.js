@@ -5,11 +5,23 @@ import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
 import { countUp, slideTextIndex } from "../../component/slideIndex";
+import { VideoTexture } from "three";
 
 let slideIndex = 0;
 let _size = 0;
 
 class ExtendObject extends CustomObject {
+  async playVideo() {
+    const texesArray = Array.from(this.texes);
+    // console.log(texesArray);
+    texesArray.forEach((entry) => {
+      const [key, value] = entry;
+      if (value instanceof VideoTexture) {
+        console.log("play video");
+      }
+    });
+  }
+
   afterInit() {
     this.pauseVideo();
     setTimeout(() => {
@@ -19,9 +31,7 @@ class ExtendObject extends CustomObject {
   fixGsap() {
     _size = this.texes.size;
     let index = countUp(this.uniforms.uIndex.value, _size);
-    console.log(index);
-    const texesArray = Array.from(this.texes);
-    // console.log(texesArray[0]);
+
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
