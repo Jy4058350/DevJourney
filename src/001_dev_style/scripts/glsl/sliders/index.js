@@ -4,34 +4,31 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { countUp, slideTextIndex } from "../../component/slideIndex";
-import { VideoTexture } from "three";
+import {
+  countUp,
+  slideTextIndex,
+  updateSlideIndex,
+} from "../../component/slideIndex";
 
 let slideIndex = 0;
-let _size = 0;
+let index = 0;
 
 class ExtendObject extends CustomObject {
-  async playVideo() {
-    const texesArray = Array.from(this.texes);
-    // console.log(texesArray);
-    texesArray.forEach((entry) => {
-      const [key, value] = entry;
-      if (value instanceof VideoTexture) {
-        console.log("play video");
-      }
-    });
+  playVideo() {
+    console.log("playVideo");
+  }
+  pauseVideo() {
+    console.log(index);
+    // let a = this.texes.get("tex+1");
+    let a = this.texes.get(`tex${index}`);
+    console.log(a);
   }
 
-  afterInit() {
-    this.pauseVideo();
-    setTimeout(() => {
-      this.playVideo();
-    }, 2500);
-  }
+  goToNext(index) {}
+
   fixGsap() {
-    _size = this.texes.size;
-    let index = countUp(this.uniforms.uIndex.value, _size);
-
+    this.pauseVideo();
+    index = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
