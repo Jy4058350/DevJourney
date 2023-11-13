@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { TextureLoader, VideoTexture } from "three";
 import { iNode } from "../helper";
-import { on } from "events";
+// import { on } from "events";
 
 const $ = {};
 const loader = {
@@ -65,6 +65,7 @@ function loadDom() {
 
 function incrementTotal() {
   total++;
+  console.log(total);
 }
 
 function incrementProgress() {
@@ -72,6 +73,7 @@ function incrementProgress() {
   if (_progressAction) {
     _progressAction(loaded, total);
   }
+  console.log(loaded);
 }
 
 function addProgressAction(cb) {
@@ -93,7 +95,9 @@ async function loadVideo(url) {
   if (u === "mov") {
     u = "quicktime";
   }
-  if (!video.canPlayType(`video/${u}`)) return null;
+  if (!video.canPlayType(`video/${u}`)) {
+    return null;
+  }
   // console.log(!video.canPlayType(`video/${u}`));
 
   incrementTotal();
