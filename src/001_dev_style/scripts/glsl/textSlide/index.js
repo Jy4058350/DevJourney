@@ -1,10 +1,5 @@
 import gsap from "gsap";
-import {
-  Mesh,
-  Vector3,
-  VideoTexture,
-  Group,
-} from "three";
+import { Mesh, Vector3, VideoTexture, Group } from "three";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -18,7 +13,8 @@ import {
   TextIndex,
 } from "../../component/slideIndex";
 
-let slideIndex = 0;
+let _slideIndex = 0;
+let _size = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -36,23 +32,22 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    // let index = countUp(slideIndex);
-    let index = countUp(this.uniforms.uIndex.value);
-    // console.log(index);
+    _size = this.texes.size;
+    let _index = countUp(this.uniforms.uIndex.value, _size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 10.0 : 1.0,
+      duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        let tIdx = TextIndex(index);
-        // console.log(index);
+        let tIdx = TextIndex(_index);
+        // console.log(_index);
         // console.log(tIdx);
-        this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.uIndex.value = slideTextIndex(_index);
         this.uniforms.tIndex.value = tIdx;
         this.uniforms.uProgress.value = 0.0;
-        slideIndex++;
-        this.fixGsap(index);
+        _slideIndex++;
+        this.fixGsap(_index);
         this.goToNext(slideTextIndex(tIdx));
       },
     });
@@ -89,14 +84,14 @@ class ExtendObject extends CustomObject {
 
   fixMesh() {
     const group = new Group();
-   
-    let index = 0;
+
+    let _index = 0;
 
     this.texes.forEach((tex) => {
       const planeMat = this.material.clone();
       planeMat.uniforms.tex1 = { value: tex };
       planeMat.side = 2;
-      planeMat.uniforms.uSlideIndex.value = index;
+      planeMat.uniforms.uSlideIndex.value = _index;
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
@@ -106,15 +101,14 @@ class ExtendObject extends CustomObject {
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
 
-    
       // console.log(plane);
       group.add(plane);
-      
-      index++;
+
+      _index++;
     });
-    
+
     this.slides = Array.from(group.children);
-    
+
     // console.log(group);
     return group;
   }
@@ -127,35 +121,33 @@ class ExtendObject extends CustomObject {
     return fragmentShader;
   }
 
-  goToNext(slideIndex) {
+  goToNext(_slideIndex) {
     this.differenceRadius -=
-      ((slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
-    this.activeIndex = slideIndex;
-    this.playVideo(slideIndex);
+      ((_slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+    this.activeIndex = _slideIndex;
+    this.playVideo(_slideIndex);
   }
 
   render(tick) {
     super.render(tick);
     if (this.differenceRadius === 0) return;
 
-   
-
     const uActiveIndex = this.uniforms.uActiveIndex.value;
-    const index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
-    this.uniforms.uActiveIndex.value = index;
-   
+    const _index = lerp(uActiveIndex, this.activeIndex, 0.05, 0.005);
+    this.uniforms.uActiveIndex.value = _index;
   }
 
-  playVideo(index) {
-    const i = index % this.slides.length;
+  playVideo(_index) {
+    const i = _index % this.slides.length;
     const slide = this.slides.at(i);
 
     this.playingVideo?.pause?.();
+    // console.log(this.playingVideo);
     if (
       slide.material.uniforms.tex1.value.source.data instanceof HTMLVideoElement
     ) {
       this.playInterval = setInterval(() => {
-        if (this.uniforms.uActiveIndex.value === index) {
+        if (this.uniforms.uActiveIndex.value === _index) {
           this.playingVideo = slide.material.uniforms.tex1.value.source.data;
           this.playingVideo.play?.();
           clearInterval(this.playInterval);

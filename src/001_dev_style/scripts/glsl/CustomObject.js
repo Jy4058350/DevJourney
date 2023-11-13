@@ -253,6 +253,7 @@ class CustomObject {
 
   async playVideo() {
     let a = this.texes.get("tex1").source.data;
+    console.log(a);
     if (a instanceof HTMLVideoElement) {
       await a.play();
     }
@@ -261,6 +262,7 @@ class CustomObject {
   async pauseVideo() {
     // console.log(this.texes.get("tex1").source.data);
     let a = this.texes.get("tex1").source.data;
+    console.log(a);
     if (a instanceof HTMLVideoElement) {
       await a.pause();
     }

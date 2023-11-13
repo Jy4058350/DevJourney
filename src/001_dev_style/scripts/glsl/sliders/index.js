@@ -4,32 +4,61 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import {
-  countUp,
-  slideTextIndex,
-  updateSlideIndex,
-} from "../../component/slideIndex";
+import { countUp } from "../../component/slideIndex";
+import { VideoTexture } from "three";
 
 let slideIndex = 0;
+const videoNum = [];
 
 class ExtendObject extends CustomObject {
+  before(uniforms) {
+    if (videoNum instanceof HTMLVideoElement) {
+      console.log("play");
+    }
+    this.pauseVideo();
+    const texArray = Array.from(this.texes);
+    texArray.forEach((entry) => {
+      const [key, value] = entry;
+      videoNum.push(value);
+    });
+  }
+
+  playVideo() {
+    const slideIndex = this.uniforms.uIndex.value;
+
+    this.pauseVideo();
+    this.texes.forEach((tex) => {
+      if (tex.source.data instanceof HTMLVideoElement) {
+
+        const videoIndex = Math.floor(slideIndex - 1) / 2;
+        if (videoNum[videoIndex] instanceof VideoTexture) {
+          videoNum[videoIndex].source.data.play();
+        }
+      }
+    });
+  }
+  pauseVideo() {
+    this.texes.forEach((tex) => {
+      if (tex.source.data instanceof HTMLVideoElement) {
+        tex.source.data.pause();
+      }
+    });
+  }
+
   fixGsap() {
-    let index = countUp(this.uniforms.uIndex.value);
-    // console.log(index);
+    this.playVideo();
+    slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: index % 2 === 0 ? 10.0 : 1.0,
+      duration: slideIndex % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        // console.log(this.uniforms.uIndex.value);
-        // console.log(index);
-        // this.uniforms.uIndex.value = index;
-        // this.uniforms.uIndex.value = slideTextIndex(slideTextIndex(index));
-        this.uniforms.uIndex.value = slideTextIndex(index);
+        this.uniforms.uIndex.value = slideIndex;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
-        this.fixGsap(index);
+        this.fixGsap(slideIndex);
+        // console.log(slideIndex);
       },
     });
   }
