@@ -23,14 +23,12 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  playVideo(uIndex) {
+  playVideo() {
     const slideIndex = this.uniforms.uIndex.value;
-    // console.log(slideIndex);
 
     this.pauseVideo();
     this.texes.forEach((tex) => {
       if (tex.source.data instanceof HTMLVideoElement) {
-        // tex.source.data.play();
 
         const videoIndex = Math.floor(slideIndex - 1) / 2;
         if (videoNum[videoIndex] instanceof VideoTexture) {
@@ -48,7 +46,7 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    this.playVideo(slideIndex);
+    this.playVideo();
     slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
