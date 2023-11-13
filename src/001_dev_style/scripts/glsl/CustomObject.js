@@ -174,12 +174,12 @@ class CustomObject {
     }
     // console.log(mrect);
 
-    const resolution = getResolution(this.rect, mrect);
+    const resolution = getResolution(this.rect, mrect, this.uniforms);
     // console.log(resolution);
 
     u.uResolution = { value: resolution };
-    console.log(this.uniforms.uResolution.value);
-    console.log(resolution);
+    // console.log(this.uniforms.uResolution.value);
+    // console.log(resolution);
     return u;
   }
 
@@ -202,8 +202,8 @@ class CustomObject {
       nextRect.height / rect.height,
       1
     );
-    console.log(rect.width, rect.height);
-    console.log(nextRect.width, nextRect.height);
+    // console.log(rect.width, rect.height);
+    // console.log(nextRect.width, nextRect.height);
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
 
@@ -228,13 +228,6 @@ class CustomObject {
 
     // console.log(this.uniforms.resolution.value);
     // console.log(mesh);
-
-    // if (mesh.type === "Mesh") {
-    //   if (mesh.type === "Mesh") {
-    //     mesh.scale.x *= aspectRw;
-    //     mesh.scale.y *= aspectRh;
-    //   }
-    // }
 
     if (mesh.type === "Group") {
       // console.log("group");

@@ -21,6 +21,7 @@ uniform float uRaito;
 uniform float uProgress;
 uniform float uTick;
 uniform float uIndex;
+uniform float uTest;
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
 #pragma glslify: zoomUv2 = require(../shader-helper/zoomUv2);
@@ -50,7 +51,7 @@ void main() {
 
     float distance = distanceFromCenter(vUv, uResolution);
     //Common variables
-    vec2 u = coverUv(vUv, uResolution);
+    vec2 u = coverUv(vUv, uResolution, uTest);
     vec2 zoomedUv2 = zoomUv2(u, uResolution, uProgress, uTick, uRaito);
     vec2 zoomedUv3 = zoomUv3(u, uResolution, uProgress, uTick, uRaito);
     // vec2 center = vec2(0.5, 0.5);
