@@ -1,4 +1,4 @@
-import { Vector3,Vector4, Quaternion } from "three";
+import { Vector3, Vector4, Quaternion } from "three";
 import { viewport } from "./viewport";
 
 // 線形補間
@@ -14,11 +14,12 @@ function getWorldPosition(rect, canvasRect) {
   return { x, y };
 }
 
-function getResolution(rect, mrect) {
+function getResolution(rect, mrect, uniforms) {
   const resolution = new Vector4(rect.width, rect.height, 1, 1);
   if (!mrect) return resolution;
   const mAspect = mrect.height / mrect.width;
   const aspect = rect.height / rect.width;
+  console.log(mAspect, aspect);
 
   let xAspect, yAspect;
   if (aspect > mAspect) {
@@ -29,7 +30,12 @@ function getResolution(rect, mrect) {
     yAspect = aspect / mAspect;
   }
   resolution.z = xAspect;
+  // resolution.z = xAspect*uniforms.uTest.value;
   resolution.w = yAspect;
+  // resolution.w = yAspect*uniforms.uTest.value;
+  // console.log(uniforms.uTest.value);
+  console.log(resolution.x, resolution.y)
+  console.log(resolution.z, resolution.w)
 
   return resolution;
 }
@@ -57,10 +63,17 @@ function printMat(targetMatrix, col = 4, label = "") {
 }
 
 function pointTo(_mesh, originalDir, targetDir) {
-  
   // 回転軸の計算
-  const _originalDir = new Vector3(originalDir.x, originalDir.y, originalDir.z).normalize();
-  const _targetDir = new Vector3(targetDir.x, targetDir.y, targetDir.z).normalize();
+  const _originalDir = new Vector3(
+    originalDir.x,
+    originalDir.y,
+    originalDir.z
+  ).normalize();
+  const _targetDir = new Vector3(
+    targetDir.x,
+    targetDir.y,
+    targetDir.z
+  ).normalize();
   const dir = new Vector3().crossVectors(_originalDir, _targetDir).normalize();
 
   // 回転角の計算

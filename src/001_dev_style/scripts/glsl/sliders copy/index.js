@@ -29,6 +29,7 @@ class ExtendObject extends CustomObject {
     this.pauseVideo();
     this.texes.forEach((tex) => {
       if (tex.source.data instanceof HTMLVideoElement) {
+
         const videoIndex = Math.floor(slideIndex - 1) / 2;
         if (videoNum[videoIndex] instanceof VideoTexture) {
           videoNum[videoIndex].source.data.play();
@@ -70,7 +71,6 @@ class ExtendObject extends CustomObject {
     uniforms.radius1 = { value: 0.38 };
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
-    uniforms.uTest = { value: 1.0 };
 
     return uniforms;
   }
@@ -103,10 +103,6 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uRaito, "value", 0.1, 1, 0.1)
       .name("uRaito")
-      .listen();
-    toFolder
-      .add(this.uniforms.uTest, "value", 1.0, 2, 0.1)
-      .name("uTest")
       .listen();
 
     const datData = { next: !!this.uniforms.uProgress.value };

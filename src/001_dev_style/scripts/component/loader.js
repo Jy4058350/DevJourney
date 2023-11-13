@@ -65,7 +65,6 @@ function loadDom() {
 
 function incrementTotal() {
   total++;
-  console.log(total);
 }
 
 function incrementProgress() {
@@ -73,7 +72,6 @@ function incrementProgress() {
   if (_progressAction) {
     _progressAction(loaded, total);
   }
-  console.log(loaded);
 }
 
 function addProgressAction(cb) {

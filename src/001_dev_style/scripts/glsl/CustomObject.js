@@ -157,6 +157,8 @@ class CustomObject {
     // console.log(this.texes.get("tex1"));
 
     const texData = this.texes.get("tex1").source.data;
+    // console.log(texData.videoWidth, texData.videoHeight);
+    // console.log(this.rect.width, this.rect.height);
 
     let mrect = {};
     if (texData instanceof HTMLImageElement) {
@@ -170,10 +172,14 @@ class CustomObject {
         height: texData.videoHeight,
       };
     }
-    const resolution = getResolution(this.rect, mrect);
+    // console.log(mrect);
+
+    const resolution = getResolution(this.rect, mrect, this.uniforms);
+    // console.log(resolution);
 
     u.uResolution = { value: resolution };
     // console.log(this.uniforms.uResolution.value);
+    // console.log(resolution);
     return u;
   }
 
@@ -201,6 +207,26 @@ class CustomObject {
     const aspectRw = nextRect.width / rect.width;
     const aspectRh = nextRect.height / rect.height;
 
+    //resizing calcu aspect
+    const ResizetexData = this.texes.get("tex1").source.data;
+
+    let ResizeMrect = {};
+    if (ResizetexData instanceof HTMLImageElement) {
+      ResizeMrect = {
+        width: ResizetexData.naturalWidth,
+        height: ResizetexData.naturalHeight,
+      };
+    } else if (ResizetexData instanceof HTMLVideoElement) {
+      ResizeMrect = {
+        width: ResizetexData.videoWidth,
+        height: ResizetexData.videoHeight,
+      };
+    }
+    const ResizeResolution = getResolution(nextRect, ResizeMrect);
+    // console.log(ResizeResolution);
+    this.uniforms.resolution = { value: ResizeResolution };
+
+    // console.log(this.uniforms.resolution.value);
     // console.log(mesh);
 
     if (mesh.type === "Group") {
