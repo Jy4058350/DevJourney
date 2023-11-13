@@ -19,6 +19,7 @@ function getResolution(rect, mrect) {
   if (!mrect) return resolution;
   const mAspect = mrect.height / mrect.width;
   const aspect = rect.height / rect.width;
+  // console.log(mAspect, aspect);
 
   let xAspect, yAspect;
   if (aspect > mAspect) {
