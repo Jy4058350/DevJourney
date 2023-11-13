@@ -70,7 +70,7 @@ class ExtendObject extends CustomObject {
     uniforms.radius1 = { value: 0.38 };
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
-    uniforms.uTest = { value: 2.0 };
+    uniforms.uTest = { value: 0.5 };
 
     return uniforms;
   }

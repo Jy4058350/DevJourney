@@ -31,8 +31,10 @@ function getResolution(rect, mrect, uniforms) {
   }
   resolution.z = xAspect;
   // resolution.z = xAspect*uniforms.uTest.value;
-  resolution.w = yAspect;
+  // resolution.w = yAspect;
+  resolution.w = yAspect*uniforms.uTest.value;
   // console.log(uniforms.uTest.value);
+  console.log(resolution.z, resolution.w)
 
   return resolution;
 }
