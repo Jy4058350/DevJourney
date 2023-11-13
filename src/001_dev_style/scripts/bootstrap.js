@@ -31,7 +31,7 @@ export async function init() {
 
   loader.loadDom();
 
-  loader.addProgressAction(function _progressAction(total, loaded) {
+  loader.addProgressAction(function _progressAction(loaded, total) {
     const percent = Math.floor((loaded / total) * 100);
     loader.$.p.innerHTML = `${percent} %`;
     loader.$.b.style.width = `${percent}%`;
