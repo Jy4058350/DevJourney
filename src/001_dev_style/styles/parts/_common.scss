@@ -9,11 +9,7 @@
 }
 
 html {
-  // font-size: 100%;
-  // font-size: math.div($root-font-size, 1rem) * 1rem;
   font-size: math.div($root-font-size, 16px) * 100%;
-  // font-size: 300%;
-  // font-size: 50px;
 }
 
 body {
@@ -96,7 +92,7 @@ main {
   // position: relative;
   top: 0px;
   left: 0;
-  z-index: 5;
+  z-index: 100;
   width: 100%;
   position: sticky;
   display: block;
@@ -136,6 +132,10 @@ svg {
 button {
   padding: 0;
   overflow: visible;
+  &:active {
+    outline: none;
+    border: none;
+  }
 }
 
 .Icon {

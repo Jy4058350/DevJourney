@@ -19,7 +19,7 @@ function getResolution(rect, mrect, uniforms) {
   if (!mrect) return resolution;
   const mAspect = mrect.height / mrect.width;
   const aspect = rect.height / rect.width;
-  console.log(mAspect, aspect);
+  // console.log(mAspect, aspect);
 
   let xAspect, yAspect;
   if (aspect > mAspect) {
@@ -34,8 +34,8 @@ function getResolution(rect, mrect, uniforms) {
   resolution.w = yAspect;
   // resolution.w = yAspect*uniforms.uTest.value;
   // console.log(uniforms.uTest.value);
-  console.log(resolution.x, resolution.y)
-  console.log(resolution.z, resolution.w)
+  // console.log(resolution.x, resolution.y)
+  // console.log(resolution.z, resolution.w)
 
   return resolution;
 }

@@ -9,7 +9,7 @@ import "./component/scroll-animation";
 
 import { header } from "./component/header";
 
-window.debug = debugmode(1) ? 1 : 0;
+window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
