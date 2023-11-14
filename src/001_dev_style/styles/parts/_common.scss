@@ -61,17 +61,17 @@ li {
   @include html-style;
 }
 
-a {
-  @include a;
-}
+// a {
+//   @include a;
+// }
 
 img {
   @include img-style;
 }
 
-.Logo {
-  @include LogoStyle;
-}
+// .Logo {
+//   @include LogoStyle;
+// }
 
 .sm-visible {
   @include xlsize-style;
@@ -154,40 +154,40 @@ button {
   color: var(--color-white);
 }
 
-.Footer {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: var(--color-white);
-  // color: white;
+// .Footer {
+//   background-color: rgba(0, 0, 0, 0.7);
+//   color: var(--color-white);
+//   // color: white;
 
-  &__Wrap {
-    @extend .content-wide;
-    padding: 40px 15px 30px;
-    text-align: center;
-  }
+//   &__Wrap {
+//     @extend .content-wide;
+//     padding: 40px 15px 30px;
+//     text-align: center;
+//   }
 
-  &__Logo {
-    font-size: fluid-text(8px, 16px);
-    margin: 2em;
-  }
+//   &__Logo {
+//     font-size: fluid-text(8px, 16px);
+//     margin: 2em;
+//   }
 
-  &__Logo--Link {
-    display: inline-block;
-  }
-  &__Nav {
-    @extend .font-16-18;
-    margin-bottom: 2em;
-  }
+//   &__Logo--Link {
+//     display: inline-block;
+//   }
+//   &__Nav {
+//     @extend .font-16-18;
+//     margin-bottom: 2em;
+//   }
 
-  &__Ul {
-    display: flex;
-    flex-wrap: wrap;
+//   &__Ul {
+//     display: flex;
+//     flex-wrap: wrap;
 
-    @include mq("md") {
-      justify-content: center;
-    }
-  }
-  &__Li {
-    margin-right: 1em;
-    margin-bottom: 1em;
-  }
-}
+//     @include mq("md") {
+//       justify-content: center;
+//     }
+//   }
+//   &__Li {
+//     margin-right: 1em;
+//     margin-bottom: 1em;
+//   }
+// }
