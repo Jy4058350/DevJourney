@@ -69,6 +69,10 @@ img {
   @include img-style;
 }
 
+.Logo {
+  @include LogoStyle;
+}
+
 .sm-visible {
   @include xlsize-style;
 }
@@ -149,6 +153,7 @@ button {
 .test {
   color: var(--color-white);
 }
+
 .Footer {
   background-color: rgba(0, 0, 0, 0.7);
   color: var(--color-white);
@@ -163,11 +168,11 @@ button {
   &__Logo {
     font-size: fluid-text(8px, 16px);
     margin: 2em;
-    &--Link {
-      display: inline-block;
-    }
   }
 
+  &__Logo--Link {
+    display: inline-block;
+  }
   &__Nav {
     @extend .font-16-18;
     margin-bottom: 2em;
