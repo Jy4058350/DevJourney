@@ -1,5 +1,6 @@
 @use "../globals" as *;
 @use "sass:math";
+@use "font" as *;
 
 :root {
   --color-white: #{$color-white};
@@ -9,11 +10,7 @@
 }
 
 html {
-  // font-size: 100%;
-  // font-size: math.div($root-font-size, 1rem) * 1rem;
   font-size: math.div($root-font-size, 16px) * 100%;
-  // font-size: 300%;
-  // font-size: 50px;
 }
 
 body {
@@ -64,8 +61,16 @@ li {
   @include html-style;
 }
 
+a {
+  @include a;
+}
+
 img {
   @include img-style;
+}
+
+.Logo {
+  @include LogoStyle;
 }
 
 .sm-visible {
@@ -96,7 +101,7 @@ main {
   // position: relative;
   top: 0px;
   left: 0;
-  z-index: 5;
+  z-index: 100;
   width: 100%;
   position: sticky;
   display: block;
@@ -136,8 +141,53 @@ svg {
 button {
   padding: 0;
   overflow: visible;
+  &:active {
+    outline: none;
+    border: none;
+  }
 }
 
 .Icon {
   display: inline-block;
+}
+.test {
+  color: var(--color-white);
+}
+
+.Footer {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--color-white);
+  // color: white;
+
+  &__Wrap {
+    @extend .content-wide;
+    padding: 40px 15px 30px;
+    text-align: center;
+  }
+
+  &__Logo {
+    font-size: fluid-text(8px, 16px);
+    margin: 2em;
+  }
+
+  &__Logo--Link {
+    display: inline-block;
+  }
+  &__Nav {
+    @extend .font-16-18;
+    margin-bottom: 2em;
+  }
+
+  &__Ul {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include mq("md") {
+      justify-content: center;
+    }
+  }
+  &__Li {
+    margin-right: 1em;
+    margin-bottom: 1em;
+  }
 }

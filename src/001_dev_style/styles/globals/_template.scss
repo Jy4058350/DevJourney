@@ -42,6 +42,28 @@
   height: auto;
 }
 
+@mixin a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+@mixin LogoStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__Icon {
+      width: 1.4em;
+      margin-right: 1em;
+    }
+
+    &__Text {
+      width: 11em;
+    }
+}
+
+
+
 @mixin xlsize-style {
   @include mq("xl") {
     display: none;
