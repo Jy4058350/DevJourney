@@ -9,7 +9,8 @@ function calcHeaderHeight() {
   // console.log(headerHeight);
   const fvTop = iNode.getElById("fv");
   console.log(fvTop);
-  fvTop.style.setProperty("--header-height", `${headerHeight}px`)
+  // fvTop.style.setProperty("--header-height", `${headerHeight}px`)
+  fvTop.style.setProperty("--fv-top", `${headerHeight}px`)
   return headerHeight;
 }
 

@@ -41,14 +41,6 @@ function initScroller() {
   const el = document.querySelector("[data-webgl]");
 }
 
-// scrollController
-// const elementsToScroll = document.querySelectorAll("[data-scroll]");
-const elementsToScroll = document.querySelectorAll(".scroll");
-console.log(elementsToScroll);
-
-
-
-
 // disable scrollbar plugin description
 class DisablePlugin extends ScrollbarPlugin {
   static pluginName = "disablePlugin";
