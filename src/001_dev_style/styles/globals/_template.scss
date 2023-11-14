@@ -42,6 +42,11 @@
   height: auto;
 }
 
+@mixin a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
 @mixin xlsize-style {
   @include mq("xl") {
     display: none;
