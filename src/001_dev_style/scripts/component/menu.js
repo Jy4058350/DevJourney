@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { iNode } from "../helper/iNode.js";
+import { iNode } from "../helper";
 import { scroll } from "./scroll.js";
 
 const menu = {
