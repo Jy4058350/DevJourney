@@ -44,11 +44,26 @@ function init() {
   // console.log($.container);
 }
 
+// function _clingTo() {
+//   // $.container.classList.toggle("is-cling");
+//   $.header.classList.toggle("is-cling");
+//   scroll.disablePlugin();
+//   console.log("cling");
+// }
+
 function _clingTo() {
-  // $.container.classList.toggle("is-cling");
-  $.header.classList.toggle("is-cling");
-  scroll.disablePlugin();
-  console.log("cling");
+  ScrollTrigger.create({
+    trigger: $.header,
+    start: "top top",
+    end: "bottom+=1000px top",
+    // markers: true,
+    pin: true,
+    pinSpacing: false,
+    onUpdate: (self) => {
+      console.log(self.direction);
+      console.log(self.progress);
+    },
+  });
 }
 
 export default cling;
