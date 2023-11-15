@@ -40,8 +40,6 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#Header");
-  // console.log($.header);
-  // console.log($.container);
 }
 
 // function _clingTo() {
@@ -52,10 +50,15 @@ function init() {
 // }
 
 function _clingTo() {
+  const height = $.container.offsetHeight;
+  console.log(height);
   ScrollTrigger.create({
     trigger: $.header,
     start: "top top",
-    end: "bottom+=1000px top",
+    // end: "bottom+=1000px top",
+    end: "bottom+=539px top",
+    // end: "bottom+=${height}px top",
+    // end: "bottom ${bottomPage}px top",
     // markers: true,
     pin: true,
     pinSpacing: false,
