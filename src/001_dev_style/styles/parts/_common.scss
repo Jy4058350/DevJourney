@@ -59,10 +59,15 @@ p,
 ul,
 li {
   @include html-style;
+  @include noMarginLastChild;
 }
 
 a {
   @include a;
+}
+
+.Heading {
+  @include HeadingStyle;
 }
 
 img {
@@ -94,6 +99,25 @@ main {
   overflow: hidden;
   position: relative;
   // top: calc(var(--header-height) * -1);
+}
+
+#section-announcement {
+  background-color: var(--color-black);
+  color: var(--color-white);
+
+  .AnnouncementBar {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+    &__Wrap {
+      padding: 12px 15px;
+    }
+
+    &__Content {
+      color: inherit;
+    }
+  }
 }
 
 #Header {

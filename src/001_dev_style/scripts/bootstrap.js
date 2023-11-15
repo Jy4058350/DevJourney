@@ -5,6 +5,7 @@ import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
+import cling from "./component/cling";
 import "./component/scroll-animation";
 
 import { header } from "./component/header";
@@ -23,7 +24,7 @@ export async function init() {
     await gui.init();
   }
 
-  // header.calcHeaderHeight();
+  header.calcHeaderHeight();
 
   viewport.init(canvasRect);
 
@@ -42,6 +43,8 @@ export async function init() {
   await loader.init();
 
   menu.init();
+  cling.init();
+  cling._clingTo();
 
   await world.init(canvasRect, viewport);
 

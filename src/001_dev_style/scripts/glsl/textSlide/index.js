@@ -66,6 +66,7 @@ class ExtendObject extends CustomObject {
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
     uniforms.tIndex = { value: 0.0 };
+    uniforms.uTest = { value: 1.0 };
 
     return uniforms;
   }
