@@ -25,6 +25,7 @@ export async function init() {
   }
   elementPos.init();
   elementPos.calcHeaderHeight();
+  elementPos.calcFooterPos();
 
   viewport.init(canvasRect);
 

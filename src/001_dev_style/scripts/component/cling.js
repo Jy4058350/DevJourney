@@ -24,8 +24,8 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onUpdate: (self) => {
-      console.log(self.direction);
-      console.log(self.progress);
+      // console.log(self.direction);
+      // console.log(self.progress);
     },
   });
 }
