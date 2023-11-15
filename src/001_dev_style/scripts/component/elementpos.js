@@ -8,13 +8,12 @@ const elementPos = {
 const $ = {};
 
 function init() {
-  $.headerHeight = iNode.getElById("Header").offsetHeight;
+  $.headerHeight = iNode.getElById("header").offsetHeight;
   $.fvTop = iNode.getElById("fv");
+  // $. = iNode.getElById("element");
 }
 
 function calcHeaderHeight() {
-  // const fvTop = iNode.getElById("fv");
-  // fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
   $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
   return $.headerHeight;
 }

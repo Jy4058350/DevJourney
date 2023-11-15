@@ -11,7 +11,7 @@ const $ = {};
 
 function init() {
   $.container = iNode.qs("#global-container");
-  $.header = iNode.qs("#Header");
+  $.header = iNode.qs("#header");
 }
 
 function _clingTo() {
