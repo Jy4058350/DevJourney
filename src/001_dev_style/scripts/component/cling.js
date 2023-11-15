@@ -47,6 +47,7 @@ function init() {
 function _clingTo() {
   $.container.classList.toggle("is-cling");
   scroll.disablePlugin();
+  console.log("cling");
 }
 
 export default cling;

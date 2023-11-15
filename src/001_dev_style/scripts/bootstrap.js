@@ -44,6 +44,7 @@ export async function init() {
 
   menu.init();
   cling.init();
+  cling._clingTo();
 
   await world.init(canvasRect, viewport);
 
