@@ -40,12 +40,13 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#Header");
-  console.log($.header);
-  console.log($.container);
+  // console.log($.header);
+  // console.log($.container);
 }
 
 function _clingTo() {
-  $.container.classList.toggle("is-cling");
+  // $.container.classList.toggle("is-cling");
+  $.header.classList.toggle("is-cling");
   scroll.disablePlugin();
   console.log("cling");
 }
