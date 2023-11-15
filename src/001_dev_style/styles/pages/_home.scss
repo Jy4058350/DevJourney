@@ -12,6 +12,8 @@ body {
   position: relative;
   height: 100vh;
   // top: var(--fv-top);
+  top: calc(0px - var(--fv-top));
+  // top: calc(0px - 65px);
 
   &_main {
     font-size: fluid-text(10px, 100px);

@@ -24,7 +24,7 @@ export async function init() {
     await gui.init();
   }
 
-  // header.calcHeaderHeight();
+  header.calcHeaderHeight();
 
   viewport.init(canvasRect);
 
