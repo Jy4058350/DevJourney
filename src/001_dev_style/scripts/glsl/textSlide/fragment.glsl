@@ -3,6 +3,7 @@ uniform vec4 uResolution;
 uniform sampler2D tex1;
 uniform float uIndex;
 uniform float tIndex;
+uniform float uTest;
 
 varying float vDistanceAngle;
 
@@ -10,7 +11,7 @@ varying float vDistanceAngle;
 
 void main() {
 
-    vec2 uv = coverUv(vUv, uResolution);
+    vec2 uv = coverUv(vUv, uResolution,uTest);
 
     vec4 t1 = texture2D(tex1, uv);
 
