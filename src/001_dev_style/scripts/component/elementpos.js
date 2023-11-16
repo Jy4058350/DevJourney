@@ -47,7 +47,6 @@ function calcNextFooterPos() {
   const nextFooterRectTop = nextFooterRect.top;
   gap = nextFvMainRectBottom - nextFooterRectTop;
 
-  $.footerMarginTop = iNode.getElById("footer").offsetTop;
   $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
 }
 

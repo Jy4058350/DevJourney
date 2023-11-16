@@ -120,12 +120,16 @@ main {
   }
 }
 
-#Header {
+#header {
+  @include mq("lg") {
+    opacity: 0;
+  }
+  
   @include header-style;
   // position: relative;
   top: 0px;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   width: 100%;
   position: sticky;
   display: block;
