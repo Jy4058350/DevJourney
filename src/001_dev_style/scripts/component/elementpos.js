@@ -49,14 +49,24 @@ function calcFooterPos() {
 
 function calcNextFooterPos() {
   const nextFvMainRect = $.fvMain.getBoundingClientRect();
-  console.log(nextFvMainRect);
+  const nextFooterRect = $.footer.getBoundingClientRect();
+  const nextFvMainRectBottom = nextFvMainRect.bottom;
+  const nextFooterRectTop = nextFooterRect.top;
+  // const gap = nextFvMainRectBottom - nextFooterRectTop - $.headerHeight;
+  const gap = nextFvMainRectBottom - nextFooterRectTop;
+  console.log(nextFvMainRectBottom);
+  console.log(nextFooterRectTop);
+  console.log(gap);
+  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
 }
 
+let timerId = null;
 function resizingCalcFooterPos() {
   window.addEventListener("resize", () => {
-    // elementPos.calcHeaderHeight();
-    calcNextFooterPos();
-    
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      calcNextFooterPos();
+    }, 500);
   });
 }
 
