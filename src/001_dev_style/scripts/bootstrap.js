@@ -8,7 +8,7 @@ import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
 
-import { header } from "./component/header";
+import { elementPos } from "./component/elementpos";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -23,8 +23,10 @@ export async function init() {
   if (window.debug) {
     await gui.init();
   }
-
-  header.calcHeaderHeight();
+  elementPos.init();
+  elementPos.calcHeaderHeight();
+  elementPos.calcFooterPos();
+  elementPos.resizingCalcFooterPos();
 
   viewport.init(canvasRect);
 
