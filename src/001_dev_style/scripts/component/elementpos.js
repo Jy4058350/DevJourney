@@ -11,29 +11,21 @@ const $ = {};
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
-  // console.log($.headerHeight);
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
-  // console.log($.announcementHeight);
-  $.fvMain = iNode.getElById("fv-main");
-  // console.log($.fvMain);
-  $.footer = iNode.getElById("footer");
-  $.footerHeight = $.footer.offsetHeight;
-  // console.log($.footerHeight);
-  // console.log($.footer);
-  $.fvMainRect = $.fvMain.getBoundingClientRect();
-  // console.log($.fvMainRect);
-  $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
-
-  // console.log($.fvMainAbsoluteBottom);
-  $.footerRect = $.footer.getBoundingClientRect();
-  // console.log($.footerRect);
-  $.footerAbsoluteTop = $.footerRect.top;
-  // console.log($.footerAbsoluteTop);
-
-  $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
-  // console.log($.gap);
 
   $.fvTop = iNode.getElById("fv");
+  $.fvMain = iNode.getElById("fv-main");
+  $.footer = iNode.getElById("footer");
+
+  $.footerHeight = $.footer.offsetHeight;
+  $.fvMainRect = $.fvMain.getBoundingClientRect();
+  $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
+
+  $.footerRect = $.footer.getBoundingClientRect();
+  $.footerAbsoluteTop = $.footerRect.top;
+
+  $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
+
 }
 
 function calcHeaderHeight() {
