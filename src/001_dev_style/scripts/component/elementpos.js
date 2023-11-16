@@ -46,26 +46,17 @@ function calcFooterPos() {
   $.footer.style.setProperty("--footer-top", `${$.gap}px`);
   return $.footerAbsoluteTop;
 }
-let gap = null;
 function calcNextFooterPos() {
+  let gap = 0;
+  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
   const nextFvMainRect = $.fvMain.getBoundingClientRect();
   const nextFooterRect = $.footer.getBoundingClientRect();
   const nextFvMainRectBottom = nextFvMainRect.bottom;
   const nextFooterRectTop = nextFooterRect.top;
-  // const gap = nextFvMainRectBottom - nextFooterRectTop - $.headerHeight;
-  // const gap = nextFvMainRectBottom - nextFooterRectTop;
   gap = nextFvMainRectBottom - nextFooterRectTop;
 
-  console.log(nextFvMainRectBottom);
-  console.log(nextFooterRectTop);
-  console.log(nextFooterRect);
-  console.log(gap);
-
   $.footerMarginTop = iNode.getElById("footer").offsetTop;
-  console.log($.footerMarginTop);
   $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
-  // $.fvMainRect = nextFvMainRect;
-  // $.footerRect = nextFooterRect;
 }
 
 let timerId = null;
