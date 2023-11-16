@@ -26,11 +26,7 @@ export async function init() {
   elementPos.init();
   elementPos.calcHeaderHeight();
   elementPos.calcFooterPos();
-
-  window.addEventListener("resize", () => {
-    elementPos.calcHeaderHeight();
-    elementPos.calcFooterPos();
-  });
+  elementPos.resizingCalcFooterPos();
 
   viewport.init(canvasRect);
 

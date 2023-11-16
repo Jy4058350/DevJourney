@@ -4,33 +4,34 @@ const elementPos = {
   init,
   calcHeaderHeight,
   calcFooterPos,
+  resizingCalcFooterPos,
 };
 
 const $ = {};
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
-  console.log($.headerHeight);
+  // console.log($.headerHeight);
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
   // console.log($.announcementHeight);
   $.fvMain = iNode.getElById("fv-main");
-  console.log($.fvMain);
+  // console.log($.fvMain);
   $.footer = iNode.getElById("footer");
   $.footerHeight = $.footer.offsetHeight;
-  console.log($.footerHeight);
-  console.log($.footer);
+  // console.log($.footerHeight);
+  // console.log($.footer);
   $.fvMainRect = $.fvMain.getBoundingClientRect();
   console.log($.fvMainRect);
   $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
 
-  console.log($.fvMainAbsoluteBottom);
+  // console.log($.fvMainAbsoluteBottom);
   $.footerRect = $.footer.getBoundingClientRect();
-  console.log($.footerRect);
+  // console.log($.footerRect);
   $.footerAbsoluteTop = $.footerRect.top;
-  console.log($.footerAbsoluteTop);
+  // console.log($.footerAbsoluteTop);
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
-  console.log($.gap);
+  // console.log($.gap);
 
   $.fvTop = iNode.getElById("fv");
 }
@@ -41,10 +42,22 @@ function calcHeaderHeight() {
 }
 
 function calcFooterPos() {
-  console.log("resizing test");
   // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
   $.footer.style.setProperty("--footer-top", `${$.gap}px`);
   return $.footerAbsoluteTop;
+}
+
+function calcNextFooterPos() {
+  const nextFvMainRect = $.fvMain.getBoundingClientRect();
+  console.log(nextFvMainRect);
+}
+
+function resizingCalcFooterPos() {
+  window.addEventListener("resize", () => {
+    // elementPos.calcHeaderHeight();
+    calcNextFooterPos();
+    
+  });
 }
 
 export { elementPos };
