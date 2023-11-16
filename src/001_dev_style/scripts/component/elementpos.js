@@ -41,6 +41,7 @@ function calcHeaderHeight() {
 }
 
 function calcFooterPos() {
+  console.log("resizing test");
   // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
   $.footer.style.setProperty("--footer-top", `${$.gap}px`);
   return $.footerAbsoluteTop;

@@ -27,6 +27,11 @@ export async function init() {
   elementPos.calcHeaderHeight();
   elementPos.calcFooterPos();
 
+  window.addEventListener("resize", () => {
+    elementPos.calcHeaderHeight();
+    elementPos.calcFooterPos();
+  });
+
   viewport.init(canvasRect);
 
   scroll.initScroller();
