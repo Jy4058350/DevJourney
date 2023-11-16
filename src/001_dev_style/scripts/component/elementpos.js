@@ -57,7 +57,12 @@ function calcNextFooterPos() {
   console.log(nextFvMainRectBottom);
   console.log(nextFooterRectTop);
   console.log(gap);
+  $.footerMarginTop = iNode.getElById("footer").offsetTop;
+  console.log($.footerMarginTop);
   $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+  $.fvMainRect = nextFvMainRect;
+  $.footerRect = nextFooterRect;
+  $.footerMarginTop = gap;
 }
 
 let timerId = null;
