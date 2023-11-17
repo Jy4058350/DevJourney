@@ -17,9 +17,7 @@ function init() {
 
 function _clingTo() {
   const height = $.container.offsetHeight;
-  let headerHeight = $.header.offsetHeight;
-  headerHeight = 200;
-  console.log(headerHeight);
+
   ScrollTrigger.create({
     trigger: $.header,
     start: "top top",

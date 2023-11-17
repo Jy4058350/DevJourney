@@ -123,6 +123,11 @@ a {
 
 .Header__FlexItem {
   display: flex;
+  margin-bottom: 40px;
+}
+
+.Header__FlexItem--increaseSpace {
+  margin-bottom: 80px;
 }
 
 .Header__FlexItem--fill {
