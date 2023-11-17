@@ -3,64 +3,156 @@
 @use "font" as *;
 
 #header {
-    opacity: 1;
-  
-  
-    @include mq("lg") {
-      transition: opacity 4.5s;
-      opacity: 0;
+  opacity: 1;
+
+  // @include mq("lg") {
+  //   transition: opacity 4.5s;
+  //   opacity: 0;
+  // }
+
+  @include header-style;
+  // position: relative;
+  top: 0px;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  position: sticky;
+  display: block;
+}
+
+.Header__MainNav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 18px;
+  text-align: center;
+
+  margin-right: 45px;
+}
+
+.HorizontalList {
+  margin-right: 0;
+  margin-left: 0;
+
+  overflow: visible;
+
+  margin: -6px -8px;
+  list-style: none;
+
+  &--spacer {
+    margin-left: 21px;
+    margin-right: 21px;
+  }
+
+  &__Item {
+    margin-left: 21px;
+    margin-right: 21px;
+    margin: 6px 8px;
+  }
+}
+
+ul {
+  padding: 0;
+}
+
+.top-menu-item {
+  display: inline-block;
+
+  & a {
+    & .mm-title {
+      padding: 0 2px 0 4px;
+      white-space: nowrap;
     }
-  
-    @include header-style;
-    // position: relative;
-    top: 0px;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    position: sticky;
-    display: block;
   }
-  
-  .Header__Wrap {
-    @include header__wrap-style;
-    padding: 18px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+  & .mm-title {
+    vertical-align: middle;
+    display: inline;
   }
-  
-  .Header__FlexItem {
-    display: flex;
+}
+
+li {
+  text-align: -webkit-match-parent;
+}
+
+li.top-menu-item {
+  position: relateive;
+  z-index: 1000;
+
+  & a {
+    cursor: pointer;
+    position: relative;
+    border: 0;
+    min-width: auto;
   }
-  
-  .Header__FlexItem--fill {
-    @include header__flexItem-style;
-    flex: 1 0 0;
-    &:last-child {
-      justify-content: flex-end;
-    }
-    align-items: center;
-  }
-  
-  .Header__Icon,
-  .Icon--nav {
-    width: 20px;
-    height: 15px;
-    position: absolute;
-  }
-  svg {
-    overflow: hidden;
-  }
-  
-  button {
-    padding: 0;
+
+  & span {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    text-indent: initial;
+    border: 0;
     overflow: visible;
-    &:active {
-      outline: none;
-      border: none;
-    }
   }
-  
-  .Icon {
-    display: inline-block;
+}
+
+.u-h6 {
+  font-size: 13px;
+}
+
+.Heading {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-family: $heading-font-family;
+}
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.Header__Wrap {
+  @include header__wrap-style;
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Header__FlexItem {
+  display: flex;
+}
+
+.Header__FlexItem--fill {
+  @include header__flexItem-style;
+  flex: 1 0 0;
+  &:last-child {
+    justify-content: flex-end;
   }
+  align-items: center;
+}
+
+.Header__Icon,
+.Icon--nav {
+  width: 20px;
+  height: 15px;
+  position: absolute;
+}
+svg {
+  overflow: hidden;
+}
+
+button {
+  padding: 0;
+  overflow: visible;
+  &:active {
+    outline: none;
+    border: none;
+  }
+}
+
+.Icon {
+  display: inline-block;
+}

@@ -21,7 +21,7 @@ function _clingTo() {
     trigger: $.header,
     start: "top top",
     end: `bottom+=${height}px top`,
-    pin: true,
+    // pin: true,
     pinSpacing: false,
     onUpdate: (self) => {
       // console.log(self.direction);
