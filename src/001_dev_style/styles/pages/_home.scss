@@ -11,11 +11,7 @@ body {
   overflow: hidden;
   position: relative;
   height: 100vh;
-  // top: var(--fv-top);
   top: calc(0px - var(--fv-top));
-  // top: calc(0px - 65px);
-  // min-width: 1200px;
-  // min-height: 800px;
 
   &_main {
     font-size: fluid-text(10px, 100px);

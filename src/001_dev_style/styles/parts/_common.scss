@@ -7,6 +7,7 @@
   --color-black: #{$color-black};
   --color-gray: #{$color-gray};
   --border-color: #{$color-border};
+  // --header-height: 80px;
 }
 
 html {
@@ -120,12 +121,20 @@ main {
   }
 }
 
-#Header {
+#header {
+  opacity: 1;
+
+
+  @include mq("lg") {
+    transition: opacity 4.5s;
+    opacity: 0;
+  }
+
   @include header-style;
   // position: relative;
   top: 0px;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   width: 100%;
   position: sticky;
   display: block;

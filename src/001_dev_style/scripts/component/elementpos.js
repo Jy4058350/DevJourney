@@ -9,10 +9,18 @@ const elementPos = {
 
 const $ = {};
 
+
+
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
-  $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
+  document.documentElement.style.setProperty(
+    "--header-height",
+    $.headerHeight + "px"
+  );
 
+
+
+  $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
   $.fvTop = iNode.getElById("fv");
   $.fvMain = iNode.getElById("fv-main");
   $.footer = iNode.getElById("footer");
@@ -25,7 +33,6 @@ function init() {
   $.footerAbsoluteTop = $.footerRect.top;
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
-
 }
 
 function calcHeaderHeight() {
@@ -47,7 +54,6 @@ function calcNextFooterPos() {
   const nextFooterRectTop = nextFooterRect.top;
   gap = nextFvMainRectBottom - nextFooterRectTop;
 
-  $.footerMarginTop = iNode.getElById("footer").offsetTop;
   $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
 }
 
@@ -60,5 +66,7 @@ function resizingCalcFooterPos() {
     }, 500);
   });
 }
+
+
 
 export { elementPos };

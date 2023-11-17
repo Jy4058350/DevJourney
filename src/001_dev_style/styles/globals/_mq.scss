@@ -1,14 +1,15 @@
 @use "functions" as *;
+@use "variables" as *;
 
 $breakpoints: (
   // 480px以上(スマホの横向き)のモニタで適用
-  "sm": "screen and (min-width: #{to-em(480px, 16px)})",
+  "sm": "screen and (min-width: #{to-em(480px, $root-font-size)})",
   // 600px以上のタブレットやモニタで適用
-  "md": "screen and (min-width: #{to-em(600px, 16px)})",
+  "md": "screen and (min-width: #{to-em(600px, $root-font-size)})",
   // 960px以上のモニタで適用
-  "lg": "screen and (min-width: #{to-em(960px, 16px)})",
+  "lg": "screen and (min-width: #{to-em(960px, $root-font-size)})",
   // 1280px以上のモニタで適用
-  "xl": "screen and (min-width: #{to-em(1280px, 16px)})"
+  "xl": "screen and (min-width: #{to-em(1280px, $root-font-size)})"
 ) !default;
 
 @mixin mq($breakpoint: md) {
