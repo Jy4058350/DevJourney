@@ -7,7 +7,3 @@ gsap.set(":root", {
   "--color-main": "#f2f2f2",
   "--color-accent": "#ff0000",
 });
-
-gsap.set("#header", {
-  "--header-height": "42px",
-});
