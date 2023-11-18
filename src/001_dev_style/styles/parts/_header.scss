@@ -55,7 +55,6 @@
 .horizontal-top-menu {
   & li > a > .mm-angle-down {
     display: inline-block;
-    
   }
 }
 
@@ -113,13 +112,19 @@ li.top-menu-item {
   padding: 0 5px;
 
   &:before {
-      display: inline-block;
+    display: inline-block;
     content: "";
-    border: solid var(--color-text) ;
+    border: solid var(--color-text);
     border-width: 0 2px 2px 0;
     border-radius: 0 1px 1px 0;
     padding: 4px;
-    
+  }
+}
+
+.mm-angle-down.mm-arrow {
+  &:before {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
   }
 }
 
