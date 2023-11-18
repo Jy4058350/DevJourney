@@ -111,6 +111,16 @@ li.top-menu-item {
 
 .mm-arrow {
   padding: 0 5px;
+
+  &:before {
+      display: inline-block;
+    content: "";
+    border: solid var(--color-text) ;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 1px 1px 0;
+    padding: 4px;
+    
+  }
 }
 
 // ⭐️ 過去のコード　verified
