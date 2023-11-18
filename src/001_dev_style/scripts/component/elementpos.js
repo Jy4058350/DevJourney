@@ -5,11 +5,10 @@ const elementPos = {
   calcHeaderHeight,
   calcFooterPos,
   resizingCalcFooterPos,
+  headerIncreaseSpaceToggle,
 };
 
 const $ = {};
-
-
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
@@ -17,8 +16,6 @@ function init() {
     "--header-height",
     $.headerHeight + "px"
   );
-
-
 
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
   $.fvTop = iNode.getElById("fv");
@@ -65,6 +62,27 @@ function resizingCalcFooterPos() {
       calcNextFooterPos();
     }, 500);
   });
+}
+
+// function headerIncreaseSpaceToggle() {
+
+//   const increaseSpace = iNode.qs(".Header__FlexItem--logo");
+//   if (window.innerWidth > 960) {
+//     increaseSpace.classList.add(".Header__FlexItem--increaseSpace");
+//   } else {
+//     increaseSpace.classList.remove(".Header__FlexItem--increaseSpace");
+//   }
+// }
+
+function headerIncreaseSpaceToggle() {
+  window.addEventListener("resize", ()=> {
+    const increaseSpace = iNode.qs(".Header__FlexItem--logo");
+    if (window.innerWidth > 960) {
+      increaseSpace.classList.add("Header__FlexItem--increaseSpace");
+    } else {
+      increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
+    }
+  })
 }
 
 

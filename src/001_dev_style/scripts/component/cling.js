@@ -12,11 +12,12 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#header");
+  // console.log($.header.offsetHeight);
 }
 
 function _clingTo() {
   const height = $.container.offsetHeight;
-  // console.log(height);
+
   ScrollTrigger.create({
     trigger: $.header,
     start: "top top",
