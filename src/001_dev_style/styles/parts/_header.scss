@@ -22,7 +22,7 @@
 
 nav {
   display: none;
-  @include mq("lg") {
+  @include mq("xl") {
     display: block;
   }
 }
@@ -161,6 +161,7 @@ a {
 }
 
 .Header__FlexItem--increaseSpace {
+
   margin-bottom: 80px;
 }
 
@@ -192,14 +193,8 @@ button {
   }
 }
 
-// .Header__Logo {
-//   @include mq("lg") {
-//     display: none;
-//   }
-// }
-
 .Header__Entrance {
-  @include mq("lg") {
+  @include mq("xl") {
     opacity: 0;
   }
 }
