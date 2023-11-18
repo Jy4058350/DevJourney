@@ -4,11 +4,11 @@
 
 #header {
   opacity: 1;
-height: 200px;
-  // @include mq("lg") {
-  //   transition: opacity 4.5s;
-  //   opacity: 0;
-  // }
+
+  @include mq("lg") {
+    transition: opacity 4.5s;
+    opacity: 0;
+  }
 
   @include header-style;
   // position: relative;
@@ -48,7 +48,14 @@ height: 200px;
   &__Item {
     margin-left: 21px;
     margin-right: 21px;
-    margin: 6px 8px;
+    margin: 6px 18px;
+  }
+}
+
+.horizontal-top-menu {
+  & li > a > .mm-angle-down {
+    display: inline-block;
+    
   }
 }
 
@@ -102,6 +109,11 @@ li.top-menu-item {
   font-size: 13px;
 }
 
+.mm-arrow {
+  padding: 0 5px;
+}
+
+// ⭐️ 過去のコード　verified
 .Heading {
   text-transform: uppercase;
   letter-spacing: 0.2em;
