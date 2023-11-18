@@ -5,10 +5,10 @@
 #header {
   opacity: 1;
 
-//   @include mq("lg") {
-//     transition: opacity 4.5s;
-//     opacity: 0;
-//   }
+  //   @include mq("lg") {
+  //     transition: opacity 4.5s;
+  //     opacity: 0;
+  //   }
 
   @include header-style;
   // position: relative;
@@ -21,14 +21,13 @@
 }
 
 nav {
-    display: none;
-    @include mq("lg") {
-      display: block;
-    }
+  display: none;
+  @include mq("lg") {
+    display: block;
+  }
 }
 
 .Header__MainNav {
-
   position: absolute;
   bottom: 0;
   left: 0;
@@ -193,6 +192,14 @@ button {
   }
 }
 
-.Icon {
-  display: inline-block;
+// .Header__Logo {
+//   @include mq("lg") {
+//     display: none;
+//   }
+// }
+
+.Header__Entrance {
+  @include mq("lg") {
+    opacity: 0;
+  }
 }
