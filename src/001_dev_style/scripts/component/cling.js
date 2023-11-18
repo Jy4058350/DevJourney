@@ -12,7 +12,7 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#header");
-  console.log($.header.offsetHeight);
+  // console.log($.header.offsetHeight);
 }
 
 function _clingTo() {
