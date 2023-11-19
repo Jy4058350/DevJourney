@@ -12,6 +12,7 @@ const $ = {};
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
+  console.log($.headerHeight);
   document.documentElement.style.setProperty(
     "--header-height",
     $.headerHeight + "px"
@@ -34,6 +35,7 @@ function init() {
 
 function calcHeaderHeight() {
   $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
+  console.log($.headerHeight);
   return $.headerHeight;
 }
 
@@ -64,27 +66,20 @@ function resizingCalcFooterPos() {
   });
 }
 
-// function headerIncreaseSpaceToggle() {
-
-//   const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-//   if (window.innerWidth > 960) {
-//     increaseSpace.classList.add(".Header__FlexItem--increaseSpace");
-//   } else {
-//     increaseSpace.classList.remove(".Header__FlexItem--increaseSpace");
-//   }
-// }
-
 function headerIncreaseSpaceToggle() {
-  window.addEventListener("resize", ()=> {
+
+  window.addEventListener("resize", () => {
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
+
     if (window.innerWidth > 960) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
+     const nextheaderHeight = iNode.getElById("header").offsetHeight;
+     console.log(nextheaderHeight);
+     $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
     }
-  })
+  });
 }
-
-
 
 export { elementPos };
