@@ -5,11 +5,6 @@
 #header {
   opacity: 1;
 
-  //   @include mq("lg") {
-  //     transition: opacity 4.5s;
-  //     opacity: 0;
-  //   }
-
   @include header-style;
   // position: relative;
   top: 0px;
@@ -24,6 +19,16 @@ nav {
   display: none;
   @include mq("xl") {
     display: block;
+  }
+}
+
+.Header {
+//   box-shadow: 0 -1px var(--color-gray) inset;
+  box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
+
+  &--white {
+    background-color: var(--color-white);
+    color: var(--color-black);
   }
 }
 
@@ -157,11 +162,10 @@ a {
 
 .Header__FlexItem {
   display: flex;
-  margin-bottom: 40px;
+//   margin-bottom: 40px;
 }
 
 .Header__FlexItem--increaseSpace {
-
   margin-bottom: 80px;
 }
 

@@ -25,8 +25,12 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onUpdate: (self) => {
-      // console.log(self.direction);
-      // console.log(self.progress);
+      const header = iNode.qs("#header");
+      if (self.direction === 1) {
+        header.classList.add("Header--white");
+      } else {
+        header.classList.remove("Header--white");
+      }
     },
   });
 }
