@@ -85,7 +85,8 @@ function getWindowWidth(rootfontsize = 16) {
 function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".Header__MainNav");
+    // const headerNav = iNode.qs(".Header__MainNav");
+    const headerNav = iNode.qs(".HorizontalList");
     const headerHunber = iNode.qsa(".Header__FlexItem--fill");
     console.log(headerNav);
     const emValue = _toEm(1280, 16);
