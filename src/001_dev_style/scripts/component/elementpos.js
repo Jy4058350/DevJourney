@@ -94,13 +94,15 @@ function headerIncreaseSpaceToggle() {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
       $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
-      headerNav.classList.add("Header__MainNav--open");
+      // headerNav.classList.add("Header__MainNav--open");
+      headerNav.style.opacity = 1;
       headerHunber.forEach((item) => {
         item.classList.add("Header__Entrance--open");
       });
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
-      headerNav.classList.remove("Header__MainNav--open");
+      // headerNav.classList.remove("Header__MainNav--open");
+      headerNav.style.opacity = 0;
       headerHunber.forEach((item) => {
         item.classList.remove("Header__Entrance--open");
       });
