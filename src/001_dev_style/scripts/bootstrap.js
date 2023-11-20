@@ -28,6 +28,7 @@ export async function init() {
   elementPos.calcFooterPos();
   elementPos.resizingCalcFooterPos();
   elementPos.headerIncreaseSpaceToggle();
+  elementPos.testfn();
 
   viewport.init(canvasRect);
 
