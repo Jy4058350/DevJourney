@@ -97,16 +97,16 @@ function headerIncreaseSpaceToggle() {
       // headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
       headerHunber.forEach((item) => {
-        // item.classList.add("Header__Entrance--open");
-        item.style.opacity = 0;
+        item.classList.add("Header__Entrance--open");
+        // item.style.opacity = 0;
       });
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
       // headerNav.classList.remove("Header__MainNav--open");
       headerNav.style.opacity = 0;
       headerHunber.forEach((item) => {
-        // item.classList.remove("Header__Entrance--open");
-        item.style.opacity = 1;
+        item.classList.remove("Header__Entrance--open");
+        // item.style.opacity = 1;
       });
     }
   });
