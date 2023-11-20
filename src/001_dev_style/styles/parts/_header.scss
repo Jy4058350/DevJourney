@@ -249,3 +249,29 @@ button {
 .Logo__white {
   opacity: 1;
 }
+
+.Header__Icon {
+  display: inline-block;
+  line-height: 1;
+}
+
+.Icon--wrap {
+  position: relative;
+  background-color: transparent;
+}
+
+.Icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  pointer-events: none;
+  background: none;
+  fill: currentColor;
+  stroke-width: 1px;
+}
+
+.Icon--cart {
+  width: 17px;
+  height: 20px;
+}
