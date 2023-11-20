@@ -224,12 +224,25 @@ button {
   margin-bottom: 0;
 }
 
-.Header__Logo--Link {
+.Header__LogoLink {
   display: block;
+  text-align: center;
+}
+
+.Header__LogoImage {
+  max-width: 28px;
+  margin: 0 auto;
+}
+
+.Header__LogoImage--transparent {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .Logo__gray {
-  opacity: 1;
+  opacity: 0;
+  width:28px;
 }
 
 .Logo__white {
