@@ -66,16 +66,22 @@ function resizingCalcFooterPos() {
   });
 }
 
-function headerIncreaseSpaceToggle() {
+function toem($px, $rootfontsize) {
+  const test = Math.div($px, $rootfontsize);
+  console.log(test);
+  return test;
+}
 
+function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-
-    if (window.innerWidth > 960) {
+    toem(1280, 16);
+    // if (window.innerWidth > 1280) {
+    if (window.innerWidth > size) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
-     const nextheaderHeight = iNode.getElById("header").offsetHeight;
-     console.log(nextheaderHeight);
-     $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      const nextheaderHeight = iNode.getElById("header").offsetHeight;
+      console.log(nextheaderHeight);
+      $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
     }
