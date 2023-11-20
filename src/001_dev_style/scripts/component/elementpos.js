@@ -12,7 +12,7 @@ const $ = {};
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
-  console.log($.headerHeight);
+  // console.log($.headerHeight);
   document.documentElement.style.setProperty(
     "--header-height",
     $.headerHeight + "px"
@@ -35,7 +35,7 @@ function init() {
 
 function calcHeaderHeight() {
   $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
-  console.log($.headerHeight);
+  // console.log($.headerHeight);
   return $.headerHeight;
 }
 
@@ -66,24 +66,43 @@ function resizingCalcFooterPos() {
   });
 }
 
-function toem($px, $rootfontsize) {
-  const test = Math.div($px, $rootfontsize);
-  console.log(test);
-  return test;
+function _toEm(px, rootfontsize) {
+  const emValue = px / rootfontsize;
+  console.log(emValue);
+  console.log(window.innerWidth);
+  return emValue;
+}
+
+function getWindowWidth(rootfontsize = 16) {
+  return (
+    Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    ) / rootfontsize
+  );
 }
 
 function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-    toem(1280, 16);
-    // if (window.innerWidth > 1280) {
-    if (window.innerWidth > size) {
+    const headerNav = iNode.qs(".Header__MainNav");
+    const headerHunber = iNode.qsa(".Header__FlexItem--fill");
+    console.log(headerNav);
+    const emValue = _toEm(1280, 16);
+    if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      console.log(nextheaderHeight);
       $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      headerNav.classList.add("Header__MainNav--open");
+      headerHunber.forEach((item) => {
+        item.classList.add("Header__Entrance--open");
+      });
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
+      headerNav.classList.remove("Header__MainNav--open");
+      headerHunber.forEach((item) => {
+        item.classList.remove("Header__Entrance--open");
+      });
     }
   });
 }
