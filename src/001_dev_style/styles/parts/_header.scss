@@ -46,10 +46,10 @@ nav {
 
   margin-right: 45px;
   opacity: 0;
-//   @include mq("xl") {
-   
-//     opacity: 1;
-//   }
+  //   @include mq("xl") {
+
+  //     opacity: 1;
+  //   }
 }
 
 .HorizontalList {
@@ -171,13 +171,6 @@ a {
 
 .Header__FlexItem {
   display: flex;
-  //   margin-bottom: 40px;
-
-//   &--logo {
-//     @include mq("xl") {
-//      margin-bottom: 80px;
-//     }
-//   }
 }
 
 .Header__FlexItem--increaseSpace {
@@ -219,9 +212,22 @@ button {
 }
 
 .Header__Entrance--open {
-    opacity: 0;
+  opacity: 0;
 }
 
 .Header__EntranceLogo--open {
-     opacity: 0;
+  opacity: 0;
+}
+
+.Header__Logo {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.Logo__gray {
+  opacity: 1;
+}
+
+.Logo__white {
+  opacity: 1;
 }
