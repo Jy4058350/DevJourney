@@ -12,21 +12,12 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#header");
-
-
-  // $.LogoGray = iNode.qs(".Logo__gray") 
-  // console.log($.LogoGray);
-  // const computedStyle = getComputedStyle($.LogoGray);
-  // console.log(computedStyle.opacity);
+  $.logoGray = iNode.qs(".Logo__gray");
+  $.logoWhite = iNode.qs(".Logo__white");
 }
 
 function _clingTo() {
   const height = $.container.offsetHeight;
- $.LogoGray = iNode.qs(".Logo__gray") 
-  console.log($.LogoGray);
-  const computedStyle = getComputedStyle($.LogoGray);
-  console.log(computedStyle.opacity);
-
 
   ScrollTrigger.create({
     trigger: $.header,
@@ -38,9 +29,12 @@ function _clingTo() {
       const header = iNode.qs("#header");
       if (self.direction === 1) {
         header.classList.add("Header--white");
-        computedStyle.opacity = 1;
+        $.logoGray.style.opacity = 1;
+        $.logoWhite.style.opacity = 0;
       } else {
         header.classList.remove("Header--white");
+        $.logoGray.style.opacity = 0;
+        $.logoWhite.style.opacity = 1;
       }
     },
   });
