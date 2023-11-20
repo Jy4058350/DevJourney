@@ -12,7 +12,7 @@ const $ = {};
 
 function init() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
-  console.log($.headerHeight);
+  // console.log($.headerHeight);
   document.documentElement.style.setProperty(
     "--header-height",
     $.headerHeight + "px"
@@ -35,7 +35,7 @@ function init() {
 
 function calcHeaderHeight() {
   $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
-  console.log($.headerHeight);
+  // console.log($.headerHeight);
   return $.headerHeight;
 }
 
@@ -66,18 +66,52 @@ function resizingCalcFooterPos() {
   });
 }
 
-function headerIncreaseSpaceToggle() {
+function _toEm(px, rootfontsize) {
+  const emValue = px / rootfontsize;
+  console.log(emValue);
+  console.log(window.innerWidth);
+  return emValue;
+}
 
+function getWindowWidth(rootfontsize = 16) {
+  return (
+    Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    ) / rootfontsize
+  );
+}
+
+function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-
-    if (window.innerWidth > 960) {
+    // const headerNav = iNode.qs(".Header__MainNav");
+    const headerNav = iNode.qs(".HorizontalList");
+    const headerHunber = iNode.qsa(".Header__FlexItem--fill");
+    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
+    const headerLogo = iNode.qs(".Header__Logo1");
+    const headerMainNav = iNode.qs(".Header__MainNav");
+    // console.log(headerBtn);
+    const emValue = _toEm(1280, 16);
+    if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
-     const nextheaderHeight = iNode.getElById("header").offsetHeight;
-     console.log(nextheaderHeight);
-     $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      const nextheaderHeight = iNode.getElById("header").offsetHeight;
+      $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      // headerNav.classList.add("Header__MainNav--open");
+      headerNav.style.opacity = 1;
+
+      headerBtn.classList.add("Header__Entrance--open");
+      headerLogo.classList.add("Header__EntranceLogo--open");
+      console.log(headerMainNav);
+      headerMainNav.style.opacity = 1;
     } else {
       increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
+      // headerNav.classList.remove("Header__MainNav--open");
+      headerNav.style.opacity = 0;
+      headerBtn.classList.remove("Header__Entrance--open");
+      headerLogo.classList.remove("Header__EntranceLogo--open");
+      console.log(increaseSpace);
+      headerMainNav.style.opacity = 0;
     }
   });
 }

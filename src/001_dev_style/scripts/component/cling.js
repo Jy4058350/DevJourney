@@ -12,7 +12,8 @@ const $ = {};
 function init() {
   $.container = iNode.qs("#global-container");
   $.header = iNode.qs("#header");
-  // console.log($.header.offsetHeight);
+  $.logoGray = iNode.qs(".Logo__gray");
+  $.logoWhite = iNode.qs(".Logo__white");
 }
 
 function _clingTo() {
@@ -25,8 +26,16 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onUpdate: (self) => {
-      // console.log(self.direction);
-      // console.log(self.progress);
+      const header = iNode.qs("#header");
+      if (self.direction === 1) {
+        header.classList.add("Header--white");
+        $.logoGray.style.opacity = 1;
+        $.logoWhite.style.opacity = 0;
+      } else {
+        header.classList.remove("Header--white");
+        $.logoGray.style.opacity = 0;
+        $.logoWhite.style.opacity = 1;
+      }
     },
   });
 }

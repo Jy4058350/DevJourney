@@ -5,11 +5,6 @@
 #header {
   opacity: 1;
 
-  //   @include mq("lg") {
-  //     transition: opacity 4.5s;
-  //     opacity: 0;
-  //   }
-
   @include header-style;
   // position: relative;
   top: 0px;
@@ -20,10 +15,24 @@
   display: block;
 }
 
+.Header__MainNav--open {
+  opacity: 1;
+}
+
 nav {
-  display: none;
-  @include mq("xl") {
-    display: block;
+  //   display: none;
+  //   @include mq("xl") {
+  //     display: block;
+  //   }
+}
+
+.Header {
+  //   box-shadow: 0 -1px var(--color-gray) inset;
+  box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
+
+  &--white {
+    background-color: var(--color-white);
+    color: var(--color-black);
   }
 }
 
@@ -36,6 +45,11 @@ nav {
   text-align: center;
 
   margin-right: 45px;
+  opacity: 0;
+  //   @include mq("xl") {
+
+  //     opacity: 1;
+  //   }
 }
 
 .HorizontalList {
@@ -112,7 +126,7 @@ li.top-menu-item {
 }
 
 .u-h6 {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .mm-arrow {
@@ -157,11 +171,9 @@ a {
 
 .Header__FlexItem {
   display: flex;
-  margin-bottom: 40px;
 }
 
 .Header__FlexItem--increaseSpace {
-
   margin-bottom: 80px;
 }
 
@@ -194,7 +206,46 @@ button {
 }
 
 .Header__Entrance {
-  @include mq("xl") {
-    opacity: 0;
-  }
+  //   @include mq("xl") {
+  //     opacity: 0;
+  //   }
+}
+
+.Header__Entrance--open {
+  opacity: 0;
+}
+
+.Header__EntranceLogo--open {
+  opacity: 0;
+}
+
+.Header__Logo {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.Header__LogoLink {
+  display: block;
+  text-align: center;
+}
+
+.Header__LogoImage {
+  max-width: 28px;
+  margin: 0 auto;
+}
+
+.Header__LogoImage--transparent {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Logo__gray {
+  opacity: 0;
+  width: 28px;
+  height: 29px;
+}
+
+.Logo__white {
+  opacity: 1;
 }
