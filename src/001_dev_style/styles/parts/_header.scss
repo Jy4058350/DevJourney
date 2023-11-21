@@ -298,7 +298,6 @@ button {
   stroke-width: 1px;
 }
 
-
 .HorizontalCartList {
   margin: -5px -10px;
   list-style: none;
@@ -307,5 +306,9 @@ button {
 .HorizontalCartList--space {
   margin-right: -10px;
   margin-left: -10px;
-}
 
+  & .HorizontalCartList__Item {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
