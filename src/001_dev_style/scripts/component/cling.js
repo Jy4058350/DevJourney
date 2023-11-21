@@ -17,7 +17,7 @@ function init() {
   // $.btnColor = iNode.qs(".btn-menu_bar");
   $.btnBars = iNode.qsa(".btn-menu_bar");
   $.colorGray = getComputedStyle(document.documentElement).getPropertyValue('--color-gray');
-  console.log($.colorGray);
+  $.cart = iNode.qs(".Icon--Wrap--clickable");
 }
 
 function _clingTo() {
@@ -40,6 +40,7 @@ function _clingTo() {
           // btnBar.style.backgroundColor = $.colorGray;
           btnBar.style.backgroundColor = 'var(--color-gray)';
         });
+        $.cart.style.color = 'var(--color-gray)';
 
       } else {
         header.classList.remove("Header--white");
@@ -50,6 +51,7 @@ function _clingTo() {
         $.btnBars.forEach(btnBar => {
           btnBar.style.backgroundColor = 'var(--color-border)';
         });
+        $.cart.style.color = 'var(--color-border)';
       }
     },
   });
