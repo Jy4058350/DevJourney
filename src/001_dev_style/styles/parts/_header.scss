@@ -186,12 +186,12 @@ a {
   align-items: center;
 }
 
-.Header__Icon,
-.Icon--nav {
-  width: 20px;
-  height: 15px;
-  position: absolute;
-}
+// .Header__Icon,
+// .Icon--nav {
+//   width: 20px;
+//   height: 15px;
+//   position: absolute;
+// }
 
 .Icon--Wrap--clickable {
   &:before {
@@ -202,7 +202,6 @@ a {
     bottom: -8px;
     left: -12px;
     transform: translateZ(0);
-
   }
 }
 
@@ -268,6 +267,7 @@ button {
 .Header__Icon {
   display: inline-block;
   line-height: 1;
+  // display: block;
 
   & span {
     display: block;
@@ -279,7 +279,13 @@ button {
   }
 }
 
-.Icon--wrap {
+// span {
+//   &.hidden-tablet-and-up {
+//  display: block;
+//   }
+// }
+
+.Icon--Wrap--clickable {
   position: relative;
   background-color: transparent;
 }
