@@ -20,8 +20,10 @@ function init() {
     "--color-gray"
   );
   $.cart = iNode.qs(".Icon--Wrap--clickable");
-
   $.HeaderFlex = iNode.qs(".Header__FlexItem--logo");
+  $.btn = iNode.qs(".btn-menu");
+  $.HeaderIcon = iNode.qs(".Header__Icon");
+  $.headerMainNav = iNode.qs(".Header__MainNav");
   $.windowWidth = window.innerWidth;
   if ($.windowWidth > 1280) {
     _headerIncrease();
@@ -30,6 +32,9 @@ function init() {
 
 function _headerIncrease() {
   $.HeaderFlex.classList.add("Header__FlexItem--increaseSpace");
+  $.btn.style.display = "none";
+  $.HeaderIcon.style.display = "none";
+  $.headerMainNav.style.opacity = 1;
 }
 
 function _clingTo() {
@@ -47,9 +52,7 @@ function _clingTo() {
         header.classList.add("Header--white");
         $.logoGray.style.opacity = 1;
         $.logoWhite.style.opacity = 0;
-        // $.btnColor.style.backgroundColor = 'var(--color-gray)';
         $.btnBars.forEach((btnBar) => {
-          // btnBar.style.backgroundColor = $.colorGray;
           btnBar.style.backgroundColor = "var(--color-gray)";
         });
         $.cart.style.color = "var(--color-gray)";
@@ -57,8 +60,6 @@ function _clingTo() {
         header.classList.remove("Header--white");
         $.logoGray.style.opacity = 0;
         $.logoWhite.style.opacity = 1;
-        // $.btnColor.style.backgroundColor = 'var(--color-border)';
-        // $.btnColor.style.backgroundColor = 'var(--color-black)';
         $.btnBars.forEach((btnBar) => {
           btnBar.style.backgroundColor = "var(--color-border)";
         });
