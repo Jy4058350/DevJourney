@@ -186,8 +186,6 @@ a {
   align-items: center;
 }
 
-
-
 .Icon--Wrap--clickable {
   &:before {
     position: absolute;
@@ -276,8 +274,6 @@ button {
   & svg {
     filter: drop-shadow(0 1px rgba(0, 0, 0, 0.25));
   }
-  
-
 }
 
 // span {
@@ -302,7 +298,14 @@ button {
   stroke-width: 1px;
 }
 
-// .Icon--cart {
-//   width: 19px;
-//   height: 23px;
-// }
+
+.HorizontalCartList {
+  margin: -5px -10px;
+  list-style: none;
+}
+
+.HorizontalCartList--space {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
