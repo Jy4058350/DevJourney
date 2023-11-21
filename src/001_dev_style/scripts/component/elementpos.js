@@ -89,7 +89,8 @@ function headerIncreaseSpaceToggle() {
     const headerNav = iNode.qs(".HorizontalList");
     const headerHunber = iNode.qsa(".Header__FlexItem--fill");
     const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Logo1");
+    // const headerLogo = iNode.qs(".Header__Logo1");
+    const headerLogo = iNode.qs(".Header__Icon");
     const headerMainNav = iNode.qs(".Header__MainNav");
     // console.log(headerBtn);
     const emValue = _toEm(1280, 16);

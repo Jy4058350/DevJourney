@@ -6,6 +6,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 * {
   margin: 0;

@@ -186,14 +186,28 @@ a {
   align-items: center;
 }
 
-.Header__Icon,
-.Icon--nav {
-  width: 20px;
-  height: 15px;
-  position: absolute;
+// .Header__Icon,
+// .Icon--nav {
+//   width: 20px;
+//   height: 15px;
+//   position: absolute;
+// }
+
+.Icon--Wrap--clickable {
+  &:before {
+    position: absolute;
+    content: "";
+    top: -8px;
+    right: -12px;
+    bottom: -8px;
+    left: -12px;
+    transform: translateZ(0);
+  }
 }
+
 svg {
   overflow: hidden;
+  max-width: fit-content;
 }
 
 button {
@@ -249,3 +263,45 @@ button {
 .Logo__white {
   opacity: 1;
 }
+
+.Header__Icon {
+  display: inline-block;
+  line-height: 1;
+  // display: block;
+
+  & span {
+    display: block;
+  }
+
+  & .Icon--cart {
+    width: 19px;
+    height: 23px;
+  }
+}
+
+// span {
+//   &.hidden-tablet-and-up {
+//  display: block;
+//   }
+// }
+
+.Icon--Wrap--clickable {
+  position: relative;
+  background-color: transparent;
+}
+
+.Icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  pointer-events: none;
+  background: none;
+  fill: currentColor;
+  stroke-width: 1px;
+}
+
+// .Icon--cart {
+//   width: 19px;
+//   height: 23px;
+// }
