@@ -312,3 +312,15 @@ button {
     margin-left: 10px;
   }
 }
+
+
+.HorizontalCartList__Item {
+  display: inline-block;
+  margin: 5px 10px;
+}
+
+.Header--white {
+  & .Header__FlexItem {
+    margin-bottom: 50px;
+  }
+}
