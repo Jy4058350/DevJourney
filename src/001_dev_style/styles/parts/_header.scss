@@ -174,7 +174,9 @@ a {
 }
 
 .Header__FlexItem--increaseSpace {
-  margin-bottom: 80px;
+  @include mq("xl") {
+    margin-bottom: 80px;
+  }
 }
 
 .Header__FlexItem--fill {
@@ -298,6 +300,13 @@ button {
   stroke-width: 1px;
 }
 
+.Header__secondaryNav {
+  display: none;
+  @include mq("xl") {
+    display: block;
+  }
+}
+
 .HorizontalCartList {
   margin: -5px -10px;
   list-style: none;
@@ -312,7 +321,6 @@ button {
     margin-left: 10px;
   }
 }
-
 
 .HorizontalCartList__Item {
   display: inline-block;
