@@ -24,6 +24,7 @@ function init() {
   $.btn = iNode.qs(".btn-menu");
   $.HeaderIcon = iNode.qs(".Header__Icon");
   $.headerMainNav = iNode.qs(".Header__MainNav");
+  $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
   if ($.windowWidth > 1280) {
     _headerIncrease();
@@ -56,6 +57,8 @@ function _clingTo() {
           btnBar.style.backgroundColor = "var(--color-gray)";
         });
         $.cart.style.color = "var(--color-gray)";
+        $.headerMainNav.style.color = "var(--color-gray)";
+        $.secondNav.style.color = "var(--color-gray)";
       } else {
         header.classList.remove("Header--white");
         $.logoGray.style.opacity = 0;
@@ -64,6 +67,8 @@ function _clingTo() {
           btnBar.style.backgroundColor = "var(--color-border)";
         });
         $.cart.style.color = "var(--color-border)";
+        $.headerMainNav.style.color = "var(--color-border)";
+        $.secondNav.style.color = "var(--color-border)";
       }
     },
   });
