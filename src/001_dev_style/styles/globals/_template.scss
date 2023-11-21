@@ -47,6 +47,24 @@
   height: auto;
 }
 
+@mixin display {
+  // article,
+  // aside,
+  // details,
+  // figcaption,
+  // figure,
+  // footer,
+  // header,
+  // main,
+  // nav,
+  // section,
+  // summary {
+    display: block;
+    color: red;
+    margin: 0;
+  // }
+}
+
 @mixin a {
   text-decoration: none;
   color: var(--color-text);

@@ -8,6 +8,23 @@
   --color-gray: #{$color-gray};
   --color-border: #{$color-border};
 }
+// The following are the evolution stage
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+// Up to this point, the evolution stage
 
 html {
   font-size: math.div($root-font-size, 16px) * 100%;
@@ -119,7 +136,6 @@ main {
     }
   }
 }
-
 
 .test {
   color: var(--color-white);
