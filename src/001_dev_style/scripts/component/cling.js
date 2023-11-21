@@ -16,8 +16,8 @@ function init() {
   $.logoWhite = iNode.qs(".Logo__white");
   // $.btnColor = iNode.qs(".btn-menu_bar");
   $.btnBars = iNode.qsa(".btn-menu_bar");
-  const colorGray = getComputedStyle(document.documentElement).getPropertyValue('--color-gray');
-  console.log(colorGray);
+  $.colorGray = getComputedStyle(document.documentElement).getPropertyValue('--color-gray');
+  console.log($.colorGray);
 }
 
 function _clingTo() {
@@ -36,13 +36,20 @@ function _clingTo() {
         $.logoGray.style.opacity = 1;
         $.logoWhite.style.opacity = 0;
         // $.btnColor.style.backgroundColor = 'var(--color-gray)';
+        $.btnBars.forEach(btnBar => {
+          // btnBar.style.backgroundColor = $.colorGray;
+          btnBar.style.backgroundColor = 'var(--color-gray)';
+        });
 
       } else {
         header.classList.remove("Header--white");
         $.logoGray.style.opacity = 0;
         $.logoWhite.style.opacity = 1;
-        $.btnColor.style.backgroundColor = 'var(--color-border)';
+        // $.btnColor.style.backgroundColor = 'var(--color-border)';
         // $.btnColor.style.backgroundColor = 'var(--color-black)';
+        $.btnBars.forEach(btnBar => {
+          btnBar.style.backgroundColor = 'var(--color-border)';
+        });
       }
     },
   });
