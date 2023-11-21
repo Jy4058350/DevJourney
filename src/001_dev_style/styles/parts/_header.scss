@@ -257,6 +257,12 @@ button {
   & span {
     display: block;
   }
+
+  & .Icon--cart {
+  
+    width: 19px;
+    height: 23px;
+  }
 }
 
 .Icon--wrap {
@@ -275,7 +281,7 @@ button {
   stroke-width: 1px;
 }
 
-.Icon--cart {
-  width: 17px;
-  height: 20px;
-}
+// .Icon--cart {
+//   width: 19px;
+//   height: 23px;
+// }
