@@ -192,8 +192,23 @@ a {
   height: 15px;
   position: absolute;
 }
+
+.Icon--Wrap--clickable {
+  &:before {
+    position: absolute;
+    content: "";
+    top: -8px;
+    right: -12px;
+    bottom: -8px;
+    left: -12px;
+    transform: translateZ(0);
+
+  }
+}
+
 svg {
   overflow: hidden;
+  max-width: fit-content;
 }
 
 button {
@@ -259,7 +274,6 @@ button {
   }
 
   & .Icon--cart {
-  
     width: 19px;
     height: 23px;
   }
