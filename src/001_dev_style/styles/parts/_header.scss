@@ -253,6 +253,10 @@ button {
 .Header__Icon {
   display: inline-block;
   line-height: 1;
+
+  & span {
+    display: block;
+  }
 }
 
 .Icon--wrap {
