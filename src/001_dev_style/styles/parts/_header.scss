@@ -154,6 +154,7 @@ li.top-menu-item {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-family: $heading-font-family;
+  color: inherit;
 }
 
 a {
@@ -171,6 +172,7 @@ a {
 
 .Header__FlexItem {
   display: flex;
+  margin-bottom: 40px;
 }
 
 .Header__FlexItem--increaseSpace {
@@ -302,6 +304,7 @@ button {
 
 .Header__secondaryNav {
   display: none;
+
   @include mq("xl") {
     display: block;
   }
