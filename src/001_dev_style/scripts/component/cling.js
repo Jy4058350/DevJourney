@@ -14,6 +14,10 @@ function init() {
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");
+  $.btnColor = iNode.qs(".btn-menu_bar");
+  console.log($.btnColor.style.backgroundColor);
+  const computedStyle = window.getComputedStyle($.btnColor);
+  console.log(computedStyle.backgroundColor);
 }
 
 function _clingTo() {
@@ -31,6 +35,9 @@ function _clingTo() {
         header.classList.add("Header--white");
         $.logoGray.style.opacity = 1;
         $.logoWhite.style.opacity = 0;
+        console.log($.btnColor.style.backgroundColor);
+        // console.log($.btnColor.style);
+        console.log($.btnColor);
       } else {
         header.classList.remove("Header--white");
         $.logoGray.style.opacity = 0;
