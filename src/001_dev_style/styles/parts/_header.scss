@@ -186,12 +186,7 @@ a {
   align-items: center;
 }
 
-// .Header__Icon,
-// .Icon--nav {
-//   width: 20px;
-//   height: 15px;
-//   position: absolute;
-// }
+
 
 .Icon--Wrap--clickable {
   &:before {
@@ -277,6 +272,12 @@ button {
     width: 19px;
     height: 23px;
   }
+
+  & svg {
+    filter: drop-shadow(0 1px rgba(0, 0, 0, 0.25));
+  }
+  
+
 }
 
 // span {
