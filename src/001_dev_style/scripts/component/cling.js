@@ -35,13 +35,13 @@ function _clingTo() {
         header.classList.add("Header--white");
         $.logoGray.style.opacity = 1;
         $.logoWhite.style.opacity = 0;
-        console.log($.btnColor.style.backgroundColor);
-        // console.log($.btnColor.style);
-        console.log($.btnColor);
+        $.btnColor.style.backgroundColor = 'var(--color-gray)';
       } else {
         header.classList.remove("Header--white");
         $.logoGray.style.opacity = 0;
         $.logoWhite.style.opacity = 1;
+        // $.btnColor.style.backgroundColor = 'var(--color-border)';
+        $.btnColor.style.backgroundColor = 'var(--color-black)';
       }
     },
   });
