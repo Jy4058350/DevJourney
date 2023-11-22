@@ -11,12 +11,8 @@ const elementPos = {
 const $ = {};
 
 function init() {
-  $.headerHeight = iNode.getElById("header").offsetHeight;
-  // console.log($.headerHeight);
-  document.documentElement.style.setProperty(
-    "--header-height",
-    $.headerHeight + "px"
-  );
+  const headerHeight = getHeaderHeight();
+  iNode.setCssProp("--header-height", headerHeight);
 
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
   $.fvTop = iNode.getElById("fv");
@@ -31,6 +27,11 @@ function init() {
   $.footerAbsoluteTop = $.footerRect.top;
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
+}
+
+function getHeaderHeight() {
+  $.headerHeight = iNode.getElById("header").offsetHeight;
+  return $.headerHeight;
 }
 
 function calcHeaderHeight() {

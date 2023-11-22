@@ -2,7 +2,7 @@ const iNode = {
   qs,
   qsa,
   getElById,
-  styleSetProperty,
+  setCssProp,
 };
 
 function qs(selector, scope) {
@@ -18,13 +18,10 @@ function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
 }
 
-function styleSetProperty(elementId) {
-  const headerHeight = this.getElById(elementId).offsetHeight;
-
-  document.documentElement.style.setProperty(
-    "--header-height",
-    `${headerHeight}px`
-  );
+// function setCssProp(value) {
+function setCssProp(property, value) {
+  // document.documentElement.style.setProperty("--header-height", `${value}px`);
+  document.documentElement.style.setProperty(property, `${value}px`);
 }
 
 export { iNode };
