@@ -2,20 +2,24 @@ import { iNode } from "../helper";
 
 const elementPos = {
   init,
-  calcHeaderHeight,
+  raiseFv,
   calcFooterPos,
   resizingCalcFooterPos,
   headerIncreaseSpaceToggle,
 };
 
 const $ = {};
+_asyncCalcHeaderHeight().then(() => {
+  raiseFv();
+  console.log($.headerHeight);
+});
 
 function init() {
-  const headerHeight = getHeaderHeight();
-  iNode.setCssProp("--header-height", headerHeight);
+  $.headerHeight = _getHeaderHeight();
+  iNode.setCssProp("--header-height", $.headerHeight);
 
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
-  $.fvTop = iNode.getElById("fv");
+
   $.fvMain = iNode.getElById("fv-main");
   $.footer = iNode.getElById("footer");
 
@@ -29,16 +33,35 @@ function init() {
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
-function getHeaderHeight() {
+function _getHeaderHeight() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
+  console.log($.headerHeight);
   return $.headerHeight;
 }
 
-function calcHeaderHeight() {
-  $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
-  // console.log($.headerHeight);
-  return $.headerHeight;
+function _asyncCalcHeaderHeight() {
+  return new Promise((resolve) => {
+    _getHeaderHeight();
+    setTimeout(() => {
+      resolve();
+    }, 500);
+  });
 }
+
+function raiseFv() {
+  $.fv = iNode.getElById("fv");
+  iNode.setCssProp("--fv-top", $.headerHeight);
+}
+
+// function raiseFv() {
+//   return new Promise((resolve) => {
+//     $.fv = iNode.getElById("fv");
+//     iNode.setCssProp("--fv-top", $.headerHeight);
+//     setTimeout(() => {
+//       resolve();
+//     }, 500);
+//   });
+// }
 
 function calcFooterPos() {
   // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
@@ -99,7 +122,7 @@ function headerIncreaseSpaceToggle() {
     if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      $.fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
       // headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
 

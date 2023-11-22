@@ -24,7 +24,7 @@ export async function init() {
     await gui.init();
   }
   elementPos.init();
-  elementPos.calcHeaderHeight();
+  elementPos.raiseFv();
   elementPos.calcFooterPos();
   elementPos.resizingCalcFooterPos();
   elementPos.headerIncreaseSpaceToggle();

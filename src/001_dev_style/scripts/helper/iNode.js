@@ -18,9 +18,7 @@ function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
 }
 
-// function setCssProp(value) {
 function setCssProp(property, value) {
-  // document.documentElement.style.setProperty("--header-height", `${value}px`);
   document.documentElement.style.setProperty(property, `${value}px`);
 }
 
