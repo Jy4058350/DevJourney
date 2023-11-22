@@ -9,15 +9,14 @@ const elementPos = {
 };
 
 const $ = {};
-_asyncCalcHeaderHeight().then(() => {
-  raiseFv();
-  console.log($.headerHeight);
-});
+
 
 function init() {
   $.headerHeight = _getHeaderHeight();
+  console.log($.headerHeight);
   iNode.setCssProp("--header-height", $.headerHeight);
 
+  
   $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
 
   $.fvMain = iNode.getElById("fv-main");
@@ -52,6 +51,12 @@ function raiseFv() {
   $.fv = iNode.getElById("fv");
   iNode.setCssProp("--fv-top", $.headerHeight);
 }
+
+_asyncCalcHeaderHeight().then(() => {
+  raiseFv();
+  console.log($.headerHeight);
+});
+
 
 // function raiseFv() {
 //   return new Promise((resolve) => {

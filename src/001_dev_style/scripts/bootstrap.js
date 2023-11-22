@@ -23,6 +23,8 @@ export async function init() {
   if (window.debug) {
     await gui.init();
   }
+
+ 
   elementPos.init();
   elementPos.raiseFv();
   elementPos.calcFooterPos();
@@ -35,6 +37,8 @@ export async function init() {
 
   loader.loadDom();
 
+  
+
   loader.addProgressAction(function _progressAction(loaded, total) {
     const percent = Math.floor((loaded / total) * 100);
     loader.$.p.innerHTML = `${percent} %`;
@@ -45,9 +49,15 @@ export async function init() {
 
   await loader.init();
 
+  
+
   menu.init();
   cling.init();
   cling._clingTo();
+
+  const headerH = document.querySelector("#header").offsetHeight;
+  console.log(headerH);
+  
 
   await world.init(canvasRect, viewport);
 
@@ -58,4 +68,5 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
+  
 }
