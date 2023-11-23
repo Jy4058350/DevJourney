@@ -26,7 +26,7 @@ export async function init() {
 
  
   elementPos.init();
-  elementPos.raiseFv();
+  // elementPos.raiseFv();
   elementPos.calcFooterPos();
   elementPos.resizingCalcFooterPos();
   elementPos.headerIncreaseSpaceToggle();
@@ -55,8 +55,9 @@ export async function init() {
   cling.init();
   cling._clingTo();
 
-  const headerH = document.querySelector("#header").offsetHeight;
-  console.log(headerH);
+
+  elementPos.init();
+  elementPos.raiseFv();
   
 
   await world.init(canvasRect, viewport);

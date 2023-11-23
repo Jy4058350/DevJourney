@@ -10,21 +10,19 @@ const elementPos = {
 
 const $ = {};
 
-
 function init() {
-  $.headerHeight = _getHeaderHeight();
-  console.log($.headerHeight);
-  iNode.setCssProp("--header-height", $.headerHeight);
+  _getHeaderHeight();
+  _calcGap();
+}
 
-  
-  $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
-
+function _calcGap() {
   $.fvMain = iNode.getElById("fv-main");
+  $.fvMainRect = $.fvMain.getBoundingClientRect();
+  $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
+
   $.footer = iNode.getElById("footer");
 
   $.footerHeight = $.footer.offsetHeight;
-  $.fvMainRect = $.fvMain.getBoundingClientRect();
-  $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
 
   $.footerRect = $.footer.getBoundingClientRect();
   $.footerAbsoluteTop = $.footerRect.top;
@@ -34,6 +32,7 @@ function init() {
 
 function _getHeaderHeight() {
   $.headerHeight = iNode.getElById("header").offsetHeight;
+  iNode.setCssProp("--header-height", $.headerHeight);
   console.log($.headerHeight);
   return $.headerHeight;
 }
@@ -56,17 +55,6 @@ _asyncCalcHeaderHeight().then(() => {
   raiseFv();
   console.log($.headerHeight);
 });
-
-
-// function raiseFv() {
-//   return new Promise((resolve) => {
-//     $.fv = iNode.getElById("fv");
-//     iNode.setCssProp("--fv-top", $.headerHeight);
-//     setTimeout(() => {
-//       resolve();
-//     }, 500);
-//   });
-// }
 
 function calcFooterPos() {
   // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
