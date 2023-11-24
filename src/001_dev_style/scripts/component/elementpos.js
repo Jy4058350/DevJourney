@@ -2,6 +2,7 @@ import { iNode } from "../helper";
 
 const elementPos = {
   init,
+  resizeHeaderPos,
   resizingFooterPos,
   headerIncreaseSpaceToggle,
   executeSequence,
@@ -50,31 +51,47 @@ async function executeSequence() {
   try {
     const headerHeight = await _getHeaderHeight();
     await raiseFv(headerHeight);
-    await calcGapFooterPos();
+    await _calcGapFooterPos();
   } catch (err) {
     console.log("error", err);
   }
+  // console.log("End sequence");
 }
 
-function calcGapFooterPos() {
+function _calcGapFooterPos() {
   return new Promise((resolve) => {
     const nextFvMainRect = $.fvMain.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
+    console.log(nextFvMainRect.bottom);
+    console.log(nextFooterRect.top);
     const gap = nextFvMainRect.bottom - nextFooterRect.top;
-
-    $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+    console.log(gap);
+    iNode.setCssProp("--footer-top", `${gap}`, $.footer);
     resolve();
   });
 }
 
-let timerId = null;
+let timerHeaderId = null;
+let timerIdFooter = null;
+
+function resizeHeaderPos() {
+  window.addEventListener("resize", () => {
+    // console.log("Resize event triggered");
+    iNode.setCssProp("--header-height", 0);
+    clearTimeout(timerHeaderId);
+    timerHeaderId = setTimeout(async () => {
+      // _getHeaderHeight();
+      await executeSequence();
+    }, 100);
+  });
+}
 
 function resizingFooterPos() {
+  iNode.setCssProp("--footer-top", 0, $.footer);
   window.addEventListener("resize", () => {
-    iNode.setCssProp("--footer-margin-top", 0, $.footer);
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {
-      calcGapFooterPos();
+    clearTimeout(timerIdFooter);
+    timerIdFooter = setTimeout(() => {
+      _calcGapFooterPos();
     }, 100);
   });
 }
@@ -97,6 +114,7 @@ function getWindowWidth(rootfontsize = 16) {
 
 function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
+    const fv = iNode.getElById("fv");
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
     // const headerNav = iNode.qs(".Header__MainNav");
     const headerNav = iNode.qs(".HorizontalList");
@@ -111,8 +129,9 @@ function headerIncreaseSpaceToggle() {
     if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      $.fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
-      // headerNav.classList.add("Header__MainNav--open");
+      console.log($.fv);
+      fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
 
       headerBtn.classList.add("Header__Entrance--open");
