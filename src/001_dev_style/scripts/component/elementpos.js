@@ -17,33 +17,42 @@ function init() {
 
 function _calcGap() {
   $.fvMain = iNode.getElById("fv-main");
+  $.footer = iNode.getElById("footer");
+
   $.fvMainRect = $.fvMain.getBoundingClientRect();
   $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
 
-  $.footer = iNode.getElById("footer");
-
-  $.footerHeight = $.footer.offsetHeight;
-
   $.footerRect = $.footer.getBoundingClientRect();
   $.footerAbsoluteTop = $.footerRect.top;
+
+  $.footerHeight = $.footer.offsetHeight;
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
 function _getHeaderHeight() {
-  $.headerHeight = iNode.getElById("header").offsetHeight;
+  const headerEl = iNode.getElById("header");
+  $.headerHeight = headerEl.offsetHeight;
   iNode.setCssProp("--header-height", $.headerHeight);
   console.log($.headerHeight);
   return $.headerHeight;
 }
 
 function _asyncCalcHeaderHeight() {
-  return new Promise((resolve) => {
-    _getHeaderHeight();
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
+ return new Promise((resolve) => {
+  _getHeaderHeight().then((headerHeight) => {
+    $.headerHeight = headerHeight;
+    resolve();
+  })
+ })
+ 
+ 
+  // return new Promise((resolve) => {
+  //   _getHeaderHeight();
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 500);
+  // });
 }
 
 function raiseFv() {
