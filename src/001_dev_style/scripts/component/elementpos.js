@@ -2,74 +2,105 @@ import { iNode } from "../helper";
 
 const elementPos = {
   init,
-  calcHeaderHeight,
-  calcFooterPos,
-  resizingCalcFooterPos,
+  resizeHeaderPos,
+  resizingFooterPos,
   headerIncreaseSpaceToggle,
+  executeSequence,
 };
 
 const $ = {};
 
 function init() {
-  $.headerHeight = iNode.getElById("header").offsetHeight;
-  // console.log($.headerHeight);
-  document.documentElement.style.setProperty(
-    "--header-height",
-    $.headerHeight + "px"
-  );
+  _getHeaderHeight();
+  _calcGap();
+}
 
-  $.announcementHeight = iNode.getElById("section-announcement").offsetHeight;
-  $.fvTop = iNode.getElById("fv");
+function _calcGap() {
   $.fvMain = iNode.getElById("fv-main");
   $.footer = iNode.getElById("footer");
 
-  $.footerHeight = $.footer.offsetHeight;
   $.fvMainRect = $.fvMain.getBoundingClientRect();
   $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
 
   $.footerRect = $.footer.getBoundingClientRect();
   $.footerAbsoluteTop = $.footerRect.top;
 
+  $.footerHeight = $.footer.offsetHeight;
+
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
-function calcHeaderHeight() {
-  $.fvTop.style.setProperty("--fv-top", `${$.headerHeight}px`);
-  // console.log($.headerHeight);
-  return $.headerHeight;
+function _getHeaderHeight() {
+  return new Promise((resolve) => {
+    const headerEl = iNode.getElById("header");
+    const headerHeight = headerEl.offsetHeight;
+    iNode.setCssProp("--header-height", headerHeight);
+    resolve(headerHeight);
+  });
 }
 
-function calcFooterPos() {
-  // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
-  $.footer.style.setProperty("--footer-top", `${$.gap}px`);
-  return $.footerAbsoluteTop;
-}
-function calcNextFooterPos() {
-  let gap = 0;
-  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
-  const nextFvMainRect = $.fvMain.getBoundingClientRect();
-  const nextFooterRect = $.footer.getBoundingClientRect();
-  const nextFvMainRectBottom = nextFvMainRect.bottom;
-  const nextFooterRectTop = nextFooterRect.top;
-  gap = nextFvMainRectBottom - nextFooterRectTop;
-
-  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+function raiseFv(headerHeight) {
+  return new Promise((resolve) => {
+    const fv = iNode.getElById("fv");
+    iNode.setCssProp("--fv-top", headerHeight);
+    resolve();
+  });
 }
 
-let timerId = null;
-function resizingCalcFooterPos() {
+async function executeSequence() {
+  try {
+    const headerHeight = await _getHeaderHeight();
+    await raiseFv(headerHeight);
+    await _calcGapFooterPos();
+  } catch (err) {
+    console.log("error", err);
+  }
+  // console.log("End sequence");
+}
+
+function _calcGapFooterPos() {
+  return new Promise((resolve) => {
+    iNode.setCssProp("--footer-top", 0, $.footer);
+    const nextFvMainRect = $.fvMain.getBoundingClientRect();
+    const nextFooterRect = $.footer.getBoundingClientRect();
+    console.log(nextFvMainRect.bottom);
+    console.log(nextFooterRect.top);
+    const gap = nextFvMainRect.bottom - nextFooterRect.top;
+    console.log(gap);
+    iNode.setCssProp("--footer-top", `${gap}`, $.footer);
+    resolve();
+  });
+}
+
+let timerHeaderId = null;
+let timerIdFooter = null;
+
+function resizeHeaderPos() {
   window.addEventListener("resize", () => {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {
-      calcNextFooterPos();
-    }, 500);
+    // console.log("Resize event triggered");
+    iNode.setCssProp("--header-height", 0);
+    clearTimeout(timerHeaderId);
+    timerHeaderId = setTimeout(async () => {
+      // _getHeaderHeight();
+      await executeSequence();
+    }, 100);
+  });
+}
+
+function resizingFooterPos() {
+  iNode.setCssProp("--footer-top", 0, $.footer);
+  window.addEventListener("resize", () => {
+    clearTimeout(timerIdFooter);
+    timerIdFooter = setTimeout(() => {
+      // _calcGapFooterPos();
+    }, 100);
   });
 }
 
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
-  console.log(emValue);
-  console.log(window.innerWidth);
+  // console.log(emValue);
+  // console.log(window.innerWidth);
   return emValue;
 }
 
@@ -84,6 +115,7 @@ function getWindowWidth(rootfontsize = 16) {
 
 function headerIncreaseSpaceToggle() {
   window.addEventListener("resize", () => {
+    const fv = iNode.getElById("fv");
     const increaseSpace = iNode.qs(".Header__FlexItem--logo");
     // const headerNav = iNode.qs(".Header__MainNav");
     const headerNav = iNode.qs(".HorizontalList");
@@ -98,14 +130,15 @@ function headerIncreaseSpaceToggle() {
     if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      $.fvTop.style.setProperty("--fv-top", `${nextheaderHeight}px`);
-      // headerNav.classList.add("Header__MainNav--open");
+      console.log(fv);
+      fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
 
       headerBtn.classList.add("Header__Entrance--open");
       headerBtn.style.display = "none";
       headerLogo.classList.add("Header__EntranceLogo--open");
-      console.log(headerMainNav);
+      // console.log(headerMainNav);
       headerMainNav.style.opacity = 1;
       secondNav.style.opacity = 1;
     } else {
@@ -115,7 +148,7 @@ function headerIncreaseSpaceToggle() {
       headerBtn.classList.remove("Header__Entrance--open");
       headerBtn.style.display = "block";
       headerLogo.classList.remove("Header__EntranceLogo--open");
-      console.log(increaseSpace);
+      // console.log(increaseSpace);
       headerMainNav.style.opacity = 0;
       secondNav.style.opacity = 0;
     }

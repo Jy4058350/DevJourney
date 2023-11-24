@@ -23,10 +23,10 @@ export async function init() {
   if (window.debug) {
     await gui.init();
   }
+
   elementPos.init();
-  elementPos.calcHeaderHeight();
-  elementPos.calcFooterPos();
-  elementPos.resizingCalcFooterPos();
+  elementPos.resizeHeaderPos();
+  elementPos.resizingFooterPos();
   elementPos.headerIncreaseSpaceToggle();
 
   viewport.init(canvasRect);
@@ -48,6 +48,10 @@ export async function init() {
   menu.init();
   cling.init();
   cling._clingTo();
+
+  elementPos.executeSequence();
+
+
 
   await world.init(canvasRect, viewport);
 

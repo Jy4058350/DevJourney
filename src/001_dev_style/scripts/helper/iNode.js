@@ -2,7 +2,7 @@ const iNode = {
   qs,
   qsa,
   getElById,
-  styleSetProperty,
+  setCssProp,
 };
 
 function qs(selector, scope) {
@@ -18,13 +18,14 @@ function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
 }
 
-function styleSetProperty(elementId) {
-  const headerHeight = this.getElById(elementId).offsetHeight;
-
-  document.documentElement.style.setProperty(
-    "--header-height",
-    `${headerHeight}px`
-  );
+// function setCssProp(property, value) {
+function setCssProp(property, value, element) {
+  // document.documentElement.style.setProperty(property, `${value}px`);
+  if (!element) {
+    document.documentElement.style.setProperty(property, `${value}px`);
+  } else {
+    element.style.setProperty(property, `${value}px`);
+  }
 }
 
 export { iNode };
