@@ -2,10 +2,9 @@ import { iNode } from "../helper";
 
 const elementPos = {
   init,
-  raiseFv,
-  calcFooterPos,
   resizingCalcFooterPos,
   headerIncreaseSpaceToggle,
+  executeSequence,
 };
 
 const $ = {};
@@ -31,57 +30,76 @@ function _calcGap() {
 }
 
 function _getHeaderHeight() {
-  const headerEl = iNode.getElById("header");
-  const headerHeight = headerEl.offsetHeight;
-  console.log(headerHeight);
   return new Promise((resolve) => {
+    const headerEl = iNode.getElById("header");
+    const headerHeight = headerEl.offsetHeight;
     iNode.setCssProp("--header-height", headerHeight);
-    console.log($.headerHeight);
-    // return $.headerHeight;
+    // console.log("1", headerHeight);
     resolve(headerHeight);
   });
 }
 
 function raiseFv(headerHeight) {
-  const fv = iNode.getElById("fv");
-  iNode.setCssProp("--fv-top", headerHeight);
-  console.log("2", headerHeight);
-}
-
-_getHeaderHeight()
-  .then((headerHeight) => {
-    console.log("0", headerHeight);
-    raiseFv(headerHeight);
-    console.log("1", headerHeight);
-  })
-  .catch((err) => {
-    console.log(err);
+  return new Promise((resolve) => {
+    const fv = iNode.getElById("fv");
+    iNode.setCssProp("--fv-top", headerHeight);
+    // console.log("2", headerHeight);
+    resolve();
   });
-
-function calcFooterPos() {
-  // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
-  $.footer.style.setProperty("--footer-top", `${$.gap}px`);
-  return $.footerAbsoluteTop;
 }
-function calcNextFooterPos() {
-  let gap = 0;
-  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
-  const nextFvMainRect = $.fvMain.getBoundingClientRect();
-  const nextFooterRect = $.footer.getBoundingClientRect();
-  const nextFvMainRectBottom = nextFvMainRect.bottom;
-  const nextFooterRectTop = nextFooterRect.top;
-  gap = nextFvMainRectBottom - nextFooterRectTop;
 
-  $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+async function executeSequence() {
+  // console.log("Start sequence");
+  try {
+    const headerHeight = await _getHeaderHeight();
+    await raiseFv(headerHeight);
+    await calcGapFooterPos();
+    // console.log("Both function executed");
+  } catch (err) {
+    console.log("error", err);
+  }
+  // console.log("End sequence");
+}
+
+function calcGapFooterPos() {
+  return new Promise((resolve) => {
+    const nextFvMainRect = $.fvMain.getBoundingClientRect();
+    const nextFooterRect = $.footer.getBoundingClientRect();
+    const gap = nextFvMainRect.bottom - nextFooterRect.top;
+
+    $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+    console.log(gap);
+    resolve();
+  });
+}
+
+function _calcFooterPos() {
+  iNode.setCssProp("--footer-top", `${$.gap}px`, $.footer);
+  return $.footerAbsoluteTop;
 }
 
 let timerId = null;
+
 function resizingCalcFooterPos() {
+  let gap = 0;
+
   window.addEventListener("resize", () => {
     clearTimeout(timerId);
     timerId = setTimeout(() => {
-      calcNextFooterPos();
-    }, 500);
+      // _calcFooterPos();
+      const fvMain = iNode.getElById("fv-main");
+      const footer = iNode.getElById("footer");
+
+      const fvMainRect = fvMain.getBoundingClientRect();
+      const footerRect = footer.getBoundingClientRect();
+      console.log(fvMainRect.bottom);
+      console.log(footerRect.top);
+      gap = fvMainRect.bottom - footerRect.top;
+      console.log(gap);
+
+      // $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
+      console.log("resizing");
+    }, 100);
   });
 }
 

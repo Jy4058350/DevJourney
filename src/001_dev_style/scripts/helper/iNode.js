@@ -18,8 +18,14 @@ function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
 }
 
-function setCssProp(property, value) {
-  document.documentElement.style.setProperty(property, `${value}px`);
+// function setCssProp(property, value) {
+function setCssProp(property, value, element) {
+  // document.documentElement.style.setProperty(property, `${value}px`);
+  if (!element) {
+    document.documentElement.style.setProperty(property, `${value}px`);
+  } else {
+    element.style.setProperty(property, `${value}px`);
+  }
 }
 
 export { iNode };

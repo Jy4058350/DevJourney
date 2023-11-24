@@ -24,10 +24,7 @@ export async function init() {
     await gui.init();
   }
 
- 
   elementPos.init();
-  // elementPos.raiseFv();
-  elementPos.calcFooterPos();
   elementPos.resizingCalcFooterPos();
   elementPos.headerIncreaseSpaceToggle();
 
@@ -36,8 +33,6 @@ export async function init() {
   scroll.initScroller();
 
   loader.loadDom();
-
-  
 
   loader.addProgressAction(function _progressAction(loaded, total) {
     const percent = Math.floor((loaded / total) * 100);
@@ -49,16 +44,13 @@ export async function init() {
 
   await loader.init();
 
-  
-
   menu.init();
   cling.init();
   cling._clingTo();
 
+  elementPos.executeSequence();
 
-  elementPos.init();
-  elementPos.raiseFv();
-  
+
 
   await world.init(canvasRect, viewport);
 
@@ -69,5 +61,4 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
-  
 }
