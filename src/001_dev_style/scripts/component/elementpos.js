@@ -73,32 +73,15 @@ function calcGapFooterPos() {
   });
 }
 
-function _calcFooterPos() {
-  iNode.setCssProp("--footer-top", `${$.gap}px`, $.footer);
-  return $.footerAbsoluteTop;
-}
-
 let timerId = null;
 
 function resizingCalcFooterPos() {
-  let gap = 0;
-
   window.addEventListener("resize", () => {
+    // $.footer.style.setProperty("--footer-margin-top", `${0}px`);
+    iNode.setCssProp("--footer-margin-top", 0, $.footer);
     clearTimeout(timerId);
     timerId = setTimeout(() => {
-      // _calcFooterPos();
-      const fvMain = iNode.getElById("fv-main");
-      const footer = iNode.getElById("footer");
-
-      const fvMainRect = fvMain.getBoundingClientRect();
-      const footerRect = footer.getBoundingClientRect();
-      console.log(fvMainRect.bottom);
-      console.log(footerRect.top);
-      gap = fvMainRect.bottom - footerRect.top;
-      console.log(gap);
-
-      // $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
-      console.log("resizing");
+      calcGapFooterPos();
     }, 100);
   });
 }
