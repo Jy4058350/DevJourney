@@ -60,6 +60,7 @@ async function executeSequence() {
 
 function _calcGapFooterPos() {
   return new Promise((resolve) => {
+    iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fvMain.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
     console.log(nextFvMainRect.bottom);
@@ -91,7 +92,7 @@ function resizingFooterPos() {
   window.addEventListener("resize", () => {
     clearTimeout(timerIdFooter);
     timerIdFooter = setTimeout(() => {
-      _calcGapFooterPos();
+      // _calcGapFooterPos();
     }, 100);
   });
 }
