@@ -114,7 +114,6 @@ function getWindowWidth(rootfontsize = 16) {
 }
 
 function wideRangeGoblin() {
-  // window.addEventListener("resize", () => {
   window.addEventListener("resize", handleResize);
   handleResize();
 
