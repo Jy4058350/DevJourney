@@ -2,7 +2,7 @@ import { iNode } from "../helper";
 
 const elementPos = {
   init,
-  resizingCalcFooterPos,
+  resizingFooterPos,
   headerIncreaseSpaceToggle,
   executeSequence,
 };
@@ -34,7 +34,6 @@ function _getHeaderHeight() {
     const headerEl = iNode.getElById("header");
     const headerHeight = headerEl.offsetHeight;
     iNode.setCssProp("--header-height", headerHeight);
-    // console.log("1", headerHeight);
     resolve(headerHeight);
   });
 }
@@ -43,22 +42,18 @@ function raiseFv(headerHeight) {
   return new Promise((resolve) => {
     const fv = iNode.getElById("fv");
     iNode.setCssProp("--fv-top", headerHeight);
-    // console.log("2", headerHeight);
     resolve();
   });
 }
 
 async function executeSequence() {
-  // console.log("Start sequence");
   try {
     const headerHeight = await _getHeaderHeight();
     await raiseFv(headerHeight);
     await calcGapFooterPos();
-    // console.log("Both function executed");
   } catch (err) {
     console.log("error", err);
   }
-  // console.log("End sequence");
 }
 
 function calcGapFooterPos() {
@@ -68,16 +63,14 @@ function calcGapFooterPos() {
     const gap = nextFvMainRect.bottom - nextFooterRect.top;
 
     $.footer.style.setProperty("--footer-margin-top", `${gap}px`);
-    console.log(gap);
     resolve();
   });
 }
 
 let timerId = null;
 
-function resizingCalcFooterPos() {
+function resizingFooterPos() {
   window.addEventListener("resize", () => {
-    // $.footer.style.setProperty("--footer-margin-top", `${0}px`);
     iNode.setCssProp("--footer-margin-top", 0, $.footer);
     clearTimeout(timerId);
     timerId = setTimeout(() => {
