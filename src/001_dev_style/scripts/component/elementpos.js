@@ -125,9 +125,10 @@ function wideRangeGoblin() {
     const emValue = _toEm(1280, 16);
 
     const isWideScreen = getWindowWidth() > emValue;
+    goblin.classList.toggle("Header__FlexItem--increaseSpace", isWideScreen);
 
     if (isWideScreen) {
-      goblin.classList.add("Header__FlexItem--increaseSpace");
+      // goblin.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
       iNode.setCssProp("--fv-top", nextheaderHeight, fv);
       headerNav.classList.add("Header__MainNav--open");
@@ -138,7 +139,7 @@ function wideRangeGoblin() {
       headerMainNav.style.opacity = 1;
       secondNav.style.opacity = 1;
     } else {
-      goblin.classList.remove("Header__FlexItem--increaseSpace");
+      // goblin.classList.remove("Header__FlexItem--increaseSpace");
       headerNav.style.opacity = 0;
       headerBtn.classList.remove("Header__Entrance--open");
       headerBtn.style.display = "block";
