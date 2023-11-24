@@ -4,7 +4,7 @@ const elementPos = {
   init,
   resizeHeaderPos,
   resizingFooterPos,
-  headerIncreaseSpaceToggle,
+  wideRangeGoblin,
   executeSequence,
 };
 
@@ -113,42 +113,36 @@ function getWindowWidth(rootfontsize = 16) {
   );
 }
 
-function headerIncreaseSpaceToggle() {
+function wideRangeGoblin() {
   window.addEventListener("resize", () => {
     const fv = iNode.getElById("fv");
-    const increaseSpace = iNode.qs(".Header__FlexItem--logo");
-    // const headerNav = iNode.qs(".Header__MainNav");
+    const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
-    const headerHunber = iNode.qsa(".Header__FlexItem--fill");
     const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    // const headerLogo = iNode.qs(".Header__Logo1");
     const headerLogo = iNode.qs(".Header__Icon");
     const headerMainNav = iNode.qs(".Header__MainNav");
     const secondNav = iNode.qs(".Header__secondaryNav");
-    // console.log(headerBtn);
     const emValue = _toEm(1280, 16);
-    if (getWindowWidth() > emValue) {
-      increaseSpace.classList.add("Header__FlexItem--increaseSpace");
+
+    const isWideScreen = getWindowWidth() > emValue;
+
+    if (isWideScreen) {
+      goblin.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      console.log(fv);
-      fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
+      iNode.setCssProp("--fv-top", nextheaderHeight, fv);
       headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
-
       headerBtn.classList.add("Header__Entrance--open");
       headerBtn.style.display = "none";
       headerLogo.classList.add("Header__EntranceLogo--open");
-      // console.log(headerMainNav);
       headerMainNav.style.opacity = 1;
       secondNav.style.opacity = 1;
     } else {
-      increaseSpace.classList.remove("Header__FlexItem--increaseSpace");
-      // headerNav.classList.remove("Header__MainNav--open");
+      goblin.classList.remove("Header__FlexItem--increaseSpace");
       headerNav.style.opacity = 0;
       headerBtn.classList.remove("Header__Entrance--open");
       headerBtn.style.display = "block";
       headerLogo.classList.remove("Header__EntranceLogo--open");
-      // console.log(increaseSpace);
       headerMainNav.style.opacity = 0;
       secondNav.style.opacity = 0;
     }
