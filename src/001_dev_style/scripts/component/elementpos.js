@@ -31,38 +31,36 @@ function _calcGap() {
 }
 
 function _getHeaderHeight() {
-  const headerEl = iNode.getElById("header");
-  $.headerHeight = headerEl.offsetHeight;
-  iNode.setCssProp("--header-height", $.headerHeight);
-  console.log($.headerHeight);
-  return $.headerHeight;
+  return new Promise((resolve) => {
+    const headerEl = iNode.getElById("header");
+    $.headerHeight = headerEl.offsetHeight;
+    iNode.setCssProp("--header-height", $.headerHeight);
+    // console.log($.headerHeight);
+    // return $.headerHeight;
+    resolve($.headerHeight);
+  });
 }
 
 function _asyncCalcHeaderHeight() {
- return new Promise((resolve) => {
-  _getHeaderHeight().then((headerHeight) => {
-    $.headerHeight = headerHeight;
-    resolve();
-  })
- })
- 
- 
-  // return new Promise((resolve) => {
-  //   _getHeaderHeight();
-  //   setTimeout(() => {
-  //     resolve();
-  //   }, 500);
-  // });
+  return new Promise((resolve) => {
+    _getHeaderHeight().then((headerHeight) => {
+      $.headerHeight = headerHeight;
+      resolve();
+    });
+  });
 }
 
 function raiseFv() {
   $.fv = iNode.getElById("fv");
   iNode.setCssProp("--fv-top", $.headerHeight);
+  console.log($.headerHeight);
 }
 
 _asyncCalcHeaderHeight().then(() => {
   raiseFv();
   console.log($.headerHeight);
+}).catch((err) => {
+  console.log(err);
 });
 
 function calcFooterPos() {
@@ -94,8 +92,8 @@ function resizingCalcFooterPos() {
 
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
-  console.log(emValue);
-  console.log(window.innerWidth);
+  // console.log(emValue);
+  // console.log(window.innerWidth);
   return emValue;
 }
 
@@ -131,7 +129,7 @@ function headerIncreaseSpaceToggle() {
       headerBtn.classList.add("Header__Entrance--open");
       headerBtn.style.display = "none";
       headerLogo.classList.add("Header__EntranceLogo--open");
-      console.log(headerMainNav);
+      // console.log(headerMainNav);
       headerMainNav.style.opacity = 1;
       secondNav.style.opacity = 1;
     } else {
@@ -141,7 +139,7 @@ function headerIncreaseSpaceToggle() {
       headerBtn.classList.remove("Header__Entrance--open");
       headerBtn.style.display = "block";
       headerLogo.classList.remove("Header__EntranceLogo--open");
-      console.log(increaseSpace);
+      // console.log(increaseSpace);
       headerMainNav.style.opacity = 0;
       secondNav.style.opacity = 0;
     }
