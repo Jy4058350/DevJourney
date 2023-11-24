@@ -31,37 +31,32 @@ function _calcGap() {
 }
 
 function _getHeaderHeight() {
+  const headerEl = iNode.getElById("header");
+  const headerHeight = headerEl.offsetHeight;
+  console.log(headerHeight);
   return new Promise((resolve) => {
-    const headerEl = iNode.getElById("header");
-    $.headerHeight = headerEl.offsetHeight;
-    iNode.setCssProp("--header-height", $.headerHeight);
-    // console.log($.headerHeight);
+    iNode.setCssProp("--header-height", headerHeight);
+    console.log($.headerHeight);
     // return $.headerHeight;
-    resolve($.headerHeight);
+    resolve(headerHeight);
   });
 }
 
-function _asyncCalcHeaderHeight() {
-  return new Promise((resolve) => {
-    _getHeaderHeight().then((headerHeight) => {
-      $.headerHeight = headerHeight;
-      resolve();
-    });
+function raiseFv(headerHeight) {
+  const fv = iNode.getElById("fv");
+  iNode.setCssProp("--fv-top", headerHeight);
+  console.log("2", headerHeight);
+}
+
+_getHeaderHeight()
+  .then((headerHeight) => {
+    console.log("0", headerHeight);
+    raiseFv(headerHeight);
+    console.log("1", headerHeight);
+  })
+  .catch((err) => {
+    console.log(err);
   });
-}
-
-function raiseFv() {
-  $.fv = iNode.getElById("fv");
-  iNode.setCssProp("--fv-top", $.headerHeight);
-  console.log($.headerHeight);
-}
-
-_asyncCalcHeaderHeight().then(() => {
-  raiseFv();
-  console.log($.headerHeight);
-}).catch((err) => {
-  console.log(err);
-});
 
 function calcFooterPos() {
   // $.footer.style.setProperty("--footer-top", `${$.footerHeight}px`);
