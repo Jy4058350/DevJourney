@@ -76,15 +76,19 @@ let timerHeaderId = null;
 let timerIdFooter = null;
 
 function resizeHeaderPos() {
-  window.addEventListener("resize", () => {
-    // console.log("Resize event triggered");
-    iNode.setCssProp("--header-height", 0);
-    clearTimeout(timerHeaderId);
-    timerHeaderId = setTimeout(async () => {
-      // _getHeaderHeight();
-      await executeSequence();
-    }, 100);
-  });
+  // window.addEventListener("resize", () => {
+  window.addEventListener("resize", executeResizeHeaderPos);
+  executeResizeHeaderPos();
+}
+
+function executeResizeHeaderPos() {
+  // console.log("Resize event triggered");
+  iNode.setCssProp("--header-height", 0);
+  clearTimeout(timerHeaderId);
+  timerHeaderId = setTimeout(async () => {
+    // _getHeaderHeight();
+    await executeSequence();
+  }, 100);
 }
 
 function resizingFooterPos() {
