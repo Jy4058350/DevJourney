@@ -130,7 +130,7 @@ function headerIncreaseSpaceToggle() {
     if (getWindowWidth() > emValue) {
       increaseSpace.classList.add("Header__FlexItem--increaseSpace");
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      console.log($.fv);
+      console.log(fv);
       fv.style.setProperty("--fv-top", `${nextheaderHeight}px`);
       headerNav.classList.add("Header__MainNav--open");
       headerNav.style.opacity = 1;
