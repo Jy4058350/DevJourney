@@ -16,7 +16,14 @@ function initScroller() {
 
   const pageContainer = document.querySelector("#page-container");
 
-  const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+  const options = {
+    delegateTo: document,
+
+
+  };
+
+  // const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+  const scrollBar = Scrollbar.init(pageContainer, options);
 
   scroll.scrollBar = scrollBar;
 
