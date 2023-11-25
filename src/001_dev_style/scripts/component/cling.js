@@ -58,12 +58,13 @@ function _clingTo() {
     pinSpacing: false,
     onUpdate: (self) => {
       const header = iNode.qs("#header");
+      const currentScrollPosition = window.scrollY;
+      // if (window.scrollY <= originalScrollPosition) {
+      //   self.direction = 1;
+      // }
 
-      if (window.scrollY <= originalScrollPosition) {
-        self.direction = 1;
-      }
-
-      if (self.direction === 1) {
+      // if (self.direction === 1) {
+      if (currentScrollPosition > originalScrollPosition) {
         // console.log(window.scrollY);
         iNode.toggleClass(header, "Header--white", true);
         iNode.setStyles($.logoGray, { opacity: 1 });
@@ -86,6 +87,7 @@ function _clingTo() {
         iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
         iNode.setStyles($.secondNav, { color: "var(--color-border)" });
       }
+      originalScrollPosition = currentScrollPosition;
     },
     onEnter: () => {
       console.log("Entering viewport (scrolling down)");
