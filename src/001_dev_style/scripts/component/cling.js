@@ -75,18 +75,23 @@ function _clingTo() {
         iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
         iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
       } else {
-      
-      // if (self.direction === 0) {
-      iNode.toggleClass(header, "Header--white", false);
-      iNode.setStyles($.logoGray, { opacity: 0 });
-      iNode.setStyles($.logoWhite, { opacity: 1 });
-      $.btnBars.forEach((btnBar) => {
-        iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
-      });
-      iNode.setStyles($.cart, { color: "var(--color-border)" });
-      iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
-      iNode.setStyles($.secondNav, { color: "var(--color-border)" });
+        // if (self.direction === 0) {
+        iNode.toggleClass(header, "Header--white", false);
+        iNode.setStyles($.logoGray, { opacity: 0 });
+        iNode.setStyles($.logoWhite, { opacity: 1 });
+        $.btnBars.forEach((btnBar) => {
+          iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
+        });
+        iNode.setStyles($.cart, { color: "var(--color-border)" });
+        iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
+        iNode.setStyles($.secondNav, { color: "var(--color-border)" });
       }
+    },
+    onEnter: () => {
+      console.log("Entering viewport (scrolling down)");
+    },
+    onEnterBack: () => {
+      console.log("Entering viewport (scrolling up)");
     },
   });
 }
