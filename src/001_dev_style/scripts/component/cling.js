@@ -54,12 +54,12 @@ function _clingTo() {
     onUpdate: (self) => {
       const header = iNode.qs("#header");
 
-      // if(window.scrollY <= originalScrollPosition) {
-      //   self.direction = 1;
-      // }
+      if (window.scrollY <= originalScrollPosition) {
+        self.direction = 1;
+      }
 
       if (self.direction === 1) {
-        console.log(window.scrollY);
+        // console.log(window.scrollY);
         iNode.toggleClass(header, "Header--white", true);
         iNode.setStyles($.logoGray, { opacity: 1 });
         iNode.setStyles($.logoWhite, { opacity: 0 });
