@@ -50,9 +50,12 @@ function _clingTo() {
     onUpdate: (self) => {
       const header = iNode.qs("#header");
       if (self.direction === 1) {
-        header.classList.add("Header--white");
-        $.logoGray.style.opacity = 1;
-        $.logoWhite.style.opacity = 0;
+        // header.classList.add("Header--white");
+        iNode.toggleClass(header, "Header--white", true);
+        // $.logoGray.style.opacity = 1;
+        // $.logoWhite.style.opacity = 0;
+        iNode.setStyles($.logoGray, { opacity: 1 });
+        iNode.setStyles($.logoWhite, { opacity: 0 });
         $.btnBars.forEach((btnBar) => {
           btnBar.style.backgroundColor = "var(--color-gray)";
         });
