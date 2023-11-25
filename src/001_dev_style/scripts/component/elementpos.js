@@ -123,6 +123,8 @@ function wideRangeGoblin() {
   handleResize();
 
   async function handleResize() {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     const fv = iNode.getElById("fv");
     const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
@@ -139,19 +141,19 @@ function wideRangeGoblin() {
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
       iNode.setCssProp("--fv-top", nextheaderHeight, fv);
       headerNav.classList.add("Header__MainNav--open");
-      headerNav.style.opacity = 1;
-      headerBtn.classList.add("Header__Entrance--open");
-      headerBtn.style.display = "none";
       headerLogo.classList.add("Header__EntranceLogo--open");
-      headerMainNav.style.opacity = 1;
-      secondNav.style.opacity = 1;
+      headerBtn.classList.add("Header__Entrance--open");
+      iNode.setStyles(headerNav, { opacity: 1 });
+      iNode.setStyles(headerBtn, { display: "none" });
+      iNode.setStyles(headerMainNav, { opacity: 1 });
+      iNode.setStyles(secondNav, { opacity: 1 });
     } else {
-      headerNav.style.opacity = 0;
       headerBtn.classList.remove("Header__Entrance--open");
-      headerBtn.style.display = "block";
       headerLogo.classList.remove("Header__EntranceLogo--open");
-      headerMainNav.style.opacity = 0;
-      secondNav.style.opacity = 0;
+      iNode.setStyles(headerNav, { opacity: 0 });
+      iNode.setStyles(headerBtn, { display: "block" });
+      iNode.setStyles(headerMainNav, { opacity: 0 });
+      iNode.setStyles(secondNav, { opacity: 0 });
     }
   }
 }
