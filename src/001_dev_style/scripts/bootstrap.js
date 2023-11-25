@@ -51,8 +51,6 @@ export async function init() {
 
   elementPos.executeSequence();
 
-
-
   await world.init(canvasRect, viewport);
 
   mouse.init();

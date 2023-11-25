@@ -115,7 +115,7 @@ function wideRangeGoblin() {
   window.addEventListener("resize", async () => {
     clearTimeout(timerIdWideRangeGoblin);
     timerIdWideRangeGoblin = setTimeout(async () => {
-      console.log("resize");
+      // console.log("resize");
       await handleResize();
       await executeSequence();
     }, 100);
