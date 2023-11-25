@@ -26,8 +26,8 @@ function initScroller() {
 
   const scrollBar = Scrollbar.init(pageContainer, options);
 
-  scrollBar.addListener(({ ofset }) => {
-    const boundedOffset = Math.max(0, Math.min(ofset.y, 100));
+  scrollBar.addListener(({ offset }) => {
+    const boundedOffset = Math.max(0, Math.min(offset.y, 100));
     scrollBar.setPositon(boundedOffset);
   });
 
