@@ -29,11 +29,6 @@ function init() {
   if ($.windowWidth > 1280) {
     _headerIncrease();
   }
-
-  // window.addEventListener("scroll", () => {
-  //   debugger;
-  //   console.log("scroll");
-  // });
 }
 
 function _headerIncrease() {
@@ -43,14 +38,8 @@ function _headerIncrease() {
   $.headerMainNav.style.opacity = 1;
 }
 
-let originalScrollPosition = window.scrollY;
-
 function _clingTo() {
   const height = $.container.offsetHeight;
-  // console.log(window.scrollY);
-  // console.log(originalScrollPosition);
-
-  let isScrollingDown = false;
 
   ScrollTrigger.create({
     trigger: $.header,
@@ -60,48 +49,9 @@ function _clingTo() {
     pinSpacing: false,
     onUpdate: (self) => {
       const header = iNode.qs("#header");
-      const currentScrollPosition = window.scrollY;
-      // if (window.scrollY <= originalScrollPosition) {
-      //   self.direction = 1;
-      // }
-
-      // if (self.direction === 1) {
-      if (currentScrollPosition > originalScrollPosition) {
-        if (!isScrollingDown) {
-          isScrollingDown = true;
-          console.log("Entering viewport (scrolling down");
-        }
-        // // console.log(window.scrollY);
-        // iNode.toggleClass(header, "Header--white", true);
-        // iNode.setStyles($.logoGray, { opacity: 1 });
-        // iNode.setStyles($.logoWhite, { opacity: 0 });
-        // $.btnBars.forEach((btnBar) => {
-        //   iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
-        // });
-        // iNode.setStyles($.cart, { color: "var(--color-gray)" });
-        // iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
-        // iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
-      } else {
-        if (isScrollingDown) {
-          isScrollingDown = false;
-          console.log("Entering viewport (scrolling up");
-        }
-        // if (self.direction === 0) {
-        // iNode.toggleClass(header, "Header--white", false);
-        // iNode.setStyles($.logoGray, { opacity: 0 });
-        // iNode.setStyles($.logoWhite, { opacity: 1 });
-        // $.btnBars.forEach((btnBar) => {
-        //   iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
-        // });
-        // iNode.setStyles($.cart, { color: "var(--color-border)" });
-        // iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
-        // iNode.setStyles($.secondNav, { color: "var(--color-border)" });
-      }
-      originalScrollPosition = currentScrollPosition;
     },
     onEnter: () => {
       console.log("Entering viewport (scrolling down)");
-      // console.log(window.scrollY);
       iNode.toggleClass(header, "Header--white", true);
       iNode.setStyles($.logoGray, { opacity: 1 });
       iNode.setStyles($.logoWhite, { opacity: 0 });
