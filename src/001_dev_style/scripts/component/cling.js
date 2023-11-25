@@ -49,27 +49,30 @@ function _clingTo() {
     pinSpacing: false,
     onUpdate: (self) => {
       const header = iNode.qs("#header");
-      if (self.direction === 1) {
-        header.classList.add("Header--white");
-        $.logoGray.style.opacity = 1;
-        $.logoWhite.style.opacity = 0;
-        $.btnBars.forEach((btnBar) => {
-          btnBar.style.backgroundColor = "var(--color-gray)";
-        });
-        $.cart.style.color = "var(--color-gray)";
-        $.headerMainNav.style.color = "var(--color-gray)";
-        $.secondNav.style.color = "var(--color-gray)";
-      } else {
-        header.classList.remove("Header--white");
-        $.logoGray.style.opacity = 0;
-        $.logoWhite.style.opacity = 1;
-        $.btnBars.forEach((btnBar) => {
-          btnBar.style.backgroundColor = "var(--color-border)";
-        });
-        $.cart.style.color = "var(--color-border)";
-        $.headerMainNav.style.color = "var(--color-border)";
-        $.secondNav.style.color = "var(--color-border)";
-      }
+    },
+    onEnter: () => {
+      console.log("Entering viewport (scrolling down)");
+      iNode.toggleClass(header, "Header--white", true);
+      iNode.setStyles($.logoGray, { opacity: 1 });
+      iNode.setStyles($.logoWhite, { opacity: 0 });
+      $.btnBars.forEach((btnBar) => {
+        iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
+      });
+      iNode.setStyles($.cart, { color: "var(--color-gray)" });
+      iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
+      iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
+    },
+    onLeaveBack: () => {
+      console.log("Entering viewport (scrolling up)");
+      iNode.toggleClass(header, "Header--white", false);
+      iNode.setStyles($.logoGray, { opacity: 0 });
+      iNode.setStyles($.logoWhite, { opacity: 1 });
+      $.btnBars.forEach((btnBar) => {
+        iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
+      });
+      iNode.setStyles($.cart, { color: "var(--color-border)" });
+      iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
+      iNode.setStyles($.secondNav, { color: "var(--color-border)" });
     },
   });
 }

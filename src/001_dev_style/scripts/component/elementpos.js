@@ -115,7 +115,7 @@ function wideRangeGoblin() {
   window.addEventListener("resize", async () => {
     clearTimeout(timerIdWideRangeGoblin);
     timerIdWideRangeGoblin = setTimeout(async () => {
-      console.log("resize");
+      // console.log("resize");
       await handleResize();
       await executeSequence();
     }, 100);
@@ -147,6 +147,7 @@ function wideRangeGoblin() {
       iNode.setStyles(headerBtn, { display: "none" });
       iNode.setStyles(headerMainNav, { opacity: 1 });
       iNode.setStyles(secondNav, { opacity: 1 });
+      iNode.setStyles(headerLogo, { display: "none" });
     } else {
       iNode.toggleClass(headerNav, "Header__MainNav--open", false);
       iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
@@ -154,6 +155,7 @@ function wideRangeGoblin() {
       iNode.setStyles(headerBtn, { display: "block" });
       iNode.setStyles(headerMainNav, { opacity: 0 });
       iNode.setStyles(secondNav, { opacity: 0 });
+      iNode.setStyles(headerLogo, { display: "block" });
     }
   }
 }
