@@ -3,7 +3,8 @@ const iNode = {
   qsa,
   getElById,
   setCssProp,
-  setStyles
+  setStyles,
+  toggleClass,
 };
 
 function qs(selector, scope) {
@@ -29,6 +30,10 @@ function setCssProp(property, value, element) {
 
 function setStyles(element, styles) {
   Object.assign(element.style, styles);
+}
+
+function toggleClass(element, className, condition) {
+  element.classList.toggle(className, condition);
 }
 
 export { iNode };

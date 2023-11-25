@@ -135,21 +135,21 @@ function wideRangeGoblin() {
     const emValue = _toEm(1280, 16);
 
     const isWideScreen = getWindowWidth() > emValue;
-    goblin.classList.toggle("Header__FlexItem--increaseSpace", isWideScreen);
+    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
 
     if (isWideScreen) {
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
+      iNode.toggleClass(headerNav, "Header__MainNav--open", true);
+      iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
+      iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
       iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-      headerNav.classList.add("Header__MainNav--open");
-      headerLogo.classList.add("Header__EntranceLogo--open");
-      headerBtn.classList.add("Header__Entrance--open");
       iNode.setStyles(headerNav, { opacity: 1 });
       iNode.setStyles(headerBtn, { display: "none" });
       iNode.setStyles(headerMainNav, { opacity: 1 });
       iNode.setStyles(secondNav, { opacity: 1 });
     } else {
-      headerBtn.classList.remove("Header__Entrance--open");
-      headerLogo.classList.remove("Header__EntranceLogo--open");
+      iNode.toggleClass(headerNav, "Header__MainNav--open", false);
+      iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
       iNode.setStyles(headerNav, { opacity: 0 });
       iNode.setStyles(headerBtn, { display: "block" });
       iNode.setStyles(headerMainNav, { opacity: 0 });
