@@ -27,7 +27,7 @@ export async function init() {
   elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
-  elementPos.headerIncreaseSpaceToggle();
+  elementPos.wideRangeGoblin();
 
   viewport.init(canvasRect);
 

@@ -3,6 +3,8 @@ const iNode = {
   qsa,
   getElById,
   setCssProp,
+  setStyles,
+  toggleClass,
 };
 
 function qs(selector, scope) {
@@ -18,14 +20,20 @@ function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
 }
 
-// function setCssProp(property, value) {
 function setCssProp(property, value, element) {
-  // document.documentElement.style.setProperty(property, `${value}px`);
   if (!element) {
     document.documentElement.style.setProperty(property, `${value}px`);
   } else {
     element.style.setProperty(property, `${value}px`);
   }
+}
+
+function setStyles(element, styles) {
+  Object.assign(element.style, styles);
+}
+
+function toggleClass(element, className, condition) {
+  element.classList.toggle(className, condition);
 }
 
 export { iNode };
