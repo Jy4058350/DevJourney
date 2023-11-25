@@ -50,6 +50,8 @@ function _clingTo() {
   // console.log(window.scrollY);
   // console.log(originalScrollPosition);
 
+  let isScrollingDown = false;
+
   ScrollTrigger.create({
     trigger: $.header,
     start: "top top",
@@ -65,35 +67,62 @@ function _clingTo() {
 
       // if (self.direction === 1) {
       if (currentScrollPosition > originalScrollPosition) {
-        // console.log(window.scrollY);
-        iNode.toggleClass(header, "Header--white", true);
-        iNode.setStyles($.logoGray, { opacity: 1 });
-        iNode.setStyles($.logoWhite, { opacity: 0 });
-        $.btnBars.forEach((btnBar) => {
-          iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
-        });
-        iNode.setStyles($.cart, { color: "var(--color-gray)" });
-        iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
-        iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
+        if (!isScrollingDown) {
+          isScrollingDown = true;
+          console.log("Entering viewport (scrolling down");
+        }
+        // // console.log(window.scrollY);
+        // iNode.toggleClass(header, "Header--white", true);
+        // iNode.setStyles($.logoGray, { opacity: 1 });
+        // iNode.setStyles($.logoWhite, { opacity: 0 });
+        // $.btnBars.forEach((btnBar) => {
+        //   iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
+        // });
+        // iNode.setStyles($.cart, { color: "var(--color-gray)" });
+        // iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
+        // iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
       } else {
+        if (isScrollingDown) {
+          isScrollingDown = false;
+          console.log("Entering viewport (scrolling up");
+        }
         // if (self.direction === 0) {
-        iNode.toggleClass(header, "Header--white", false);
-        iNode.setStyles($.logoGray, { opacity: 0 });
-        iNode.setStyles($.logoWhite, { opacity: 1 });
-        $.btnBars.forEach((btnBar) => {
-          iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
-        });
-        iNode.setStyles($.cart, { color: "var(--color-border)" });
-        iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
-        iNode.setStyles($.secondNav, { color: "var(--color-border)" });
+        // iNode.toggleClass(header, "Header--white", false);
+        // iNode.setStyles($.logoGray, { opacity: 0 });
+        // iNode.setStyles($.logoWhite, { opacity: 1 });
+        // $.btnBars.forEach((btnBar) => {
+        //   iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
+        // });
+        // iNode.setStyles($.cart, { color: "var(--color-border)" });
+        // iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
+        // iNode.setStyles($.secondNav, { color: "var(--color-border)" });
       }
       originalScrollPosition = currentScrollPosition;
     },
     onEnter: () => {
       console.log("Entering viewport (scrolling down)");
+      // console.log(window.scrollY);
+      iNode.toggleClass(header, "Header--white", true);
+      iNode.setStyles($.logoGray, { opacity: 1 });
+      iNode.setStyles($.logoWhite, { opacity: 0 });
+      $.btnBars.forEach((btnBar) => {
+        iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
+      });
+      iNode.setStyles($.cart, { color: "var(--color-gray)" });
+      iNode.setStyles($.headerMainNav, { color: "var(--color-gray)" });
+      iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
     },
-    onEnterBack: () => {
+    onLeaveBack: () => {
       console.log("Entering viewport (scrolling up)");
+      iNode.toggleClass(header, "Header--white", false);
+      iNode.setStyles($.logoGray, { opacity: 0 });
+      iNode.setStyles($.logoWhite, { opacity: 1 });
+      $.btnBars.forEach((btnBar) => {
+        iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
+      });
+      iNode.setStyles($.cart, { color: "var(--color-border)" });
+      iNode.setStyles($.headerMainNav, { color: "var(--color-border)" });
+      iNode.setStyles($.secondNav, { color: "var(--color-border)" });
     },
   });
 }
