@@ -63,48 +63,41 @@ function _calcGapFooterPos() {
     iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fvMain.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
-    console.log(nextFvMainRect.bottom);
-    console.log(nextFooterRect.top);
+    // console.log(nextFvMainRect.bottom);
+    // console.log(nextFooterRect.top);
     const gap = nextFvMainRect.bottom - nextFooterRect.top;
-    console.log(gap);
+    // console.log(gap);
     iNode.setCssProp("--footer-top", `${gap}`, $.footer);
     resolve();
   });
 }
 
 let timerHeaderId = null;
-let timerIdFooter = null;
 
 function resizeHeaderPos() {
-  // window.addEventListener("resize", () => {
   window.addEventListener("resize", executeResizeHeaderPos);
   executeResizeHeaderPos();
 }
 
 function executeResizeHeaderPos() {
-  // console.log("Resize event triggered");
   iNode.setCssProp("--header-height", 0);
   clearTimeout(timerHeaderId);
   timerHeaderId = setTimeout(async () => {
-    // _getHeaderHeight();
     await executeSequence();
   }, 100);
 }
+let timerIdFooter = null;
 
 function resizingFooterPos() {
   iNode.setCssProp("--footer-top", 0, $.footer);
   window.addEventListener("resize", () => {
     clearTimeout(timerIdFooter);
-    timerIdFooter = setTimeout(() => {
-      // _calcGapFooterPos();
-    }, 100);
+    timerIdFooter = setTimeout(() => {}, 100);
   });
 }
 
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
-  // console.log(emValue);
-  // console.log(window.innerWidth);
   return emValue;
 }
 
@@ -117,11 +110,19 @@ function getWindowWidth(rootfontsize = 16) {
   );
 }
 
+let timerIdWideRangeGoblin = null;
 function wideRangeGoblin() {
-  window.addEventListener("resize", handleResize);
+  window.addEventListener("resize", async () => {
+    clearTimeout(timerIdWideRangeGoblin);
+    timerIdWideRangeGoblin = setTimeout(async () => {
+      console.log("resize");
+      await handleResize();
+      await executeSequence();
+    }, 100);
+  });
   handleResize();
 
-  function handleResize() {
+  async function handleResize() {
     const fv = iNode.getElById("fv");
     const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
