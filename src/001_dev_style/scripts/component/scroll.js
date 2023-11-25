@@ -17,13 +17,19 @@ function initScroller() {
   const pageContainer = document.querySelector("#page-container");
 
   const options = {
-    delegateTo: document,
-
-
+    damping: 0.1,
+    // delegateTo: document,
+    renderByPixels: true,
+    alwaysShowTracks: false,
+    continuousScrolling: true,
   };
 
-  // const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
   const scrollBar = Scrollbar.init(pageContainer, options);
+
+  scrollBar.addListener(({ ofset }) => {
+    const boundedOffset = Math.max(0, Math.min(ofset.y, 100));
+    scrollBar.setPositon(boundedOffset);
+  });
 
   scroll.scrollBar = scrollBar;
 
