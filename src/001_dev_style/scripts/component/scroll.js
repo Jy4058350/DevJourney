@@ -28,7 +28,7 @@ function initScroller() {
 
   scrollBar.addListener(({ offset }) => {
     const boundedOffset = Math.max(0, Math.min(offset.y, 100));
-    scrollBar.setPositon(boundedOffset);
+    scrollBar.setPosition(boundedOffset);
   });
 
   scroll.scrollBar = scrollBar;
