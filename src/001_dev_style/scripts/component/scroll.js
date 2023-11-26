@@ -22,6 +22,10 @@ function initScroller() {
     renderByPixels: true,
     alwaysShowTracks: false,
     continuousScrolling: true,
+    overFlowBehavior: {
+      // x: "hidden",
+      y: "scroll",
+    },
   };
 
   const scrollBar = Scrollbar.init(pageContainer, options);
