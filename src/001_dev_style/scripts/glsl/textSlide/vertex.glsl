@@ -17,7 +17,7 @@ void main() {
     float distanceAngle = mod(distanceFrequency, 2.0 * PI);
     vDistanceAngle = distanceAngle;
 
-    pos.x -= 100.0 * sin(distanceFrequency);
+    pos.y += 100.0 * sin(distanceFrequency);
     // pos.y += 100.0 * sin(distanceFrequency);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);

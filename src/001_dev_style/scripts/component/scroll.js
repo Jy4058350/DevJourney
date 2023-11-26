@@ -16,7 +16,24 @@ function initScroller() {
 
   const pageContainer = document.querySelector("#page-container");
 
-  const scrollBar = Scrollbar.init(pageContainer, { delegateTo: document });
+  const options = {
+    damping: 0.1,
+    // delegateTo: document,
+    renderByPixels: true,
+    alwaysShowTracks: false,
+    continuousScrolling: true,
+    overFlowBehavior: {
+      // x: "hidden",
+      y: "scroll",
+    },
+  };
+
+  const scrollBar = Scrollbar.init(pageContainer, options);
+
+  scrollBar.addListener(({ offset }) => {
+    const boundedOffset = Math.max(0, Math.min(offset.y, 100));
+    scrollBar.setPosition(boundedOffset);
+  });
 
   scroll.scrollBar = scrollBar;
 
