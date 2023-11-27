@@ -2,7 +2,7 @@ varying vec2 vUv;
 uniform vec4 uResolution;
 uniform sampler2D tex1;
 uniform float uIndex;
-uniform float tIndex;
+uniform float evenIdx;
 uniform float uTest;
 
 varying float vDistanceAngle;

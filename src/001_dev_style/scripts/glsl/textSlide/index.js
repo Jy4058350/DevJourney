@@ -43,15 +43,15 @@ class ExtendObject extends CustomObject {
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        const tIdx = calculateEvenNumber(_index);
+        const evenIdx = calculateEvenNumber(_index);
         // console.log(_index);
-        // console.log(tIdx);
+        // console.log(evenIdx);
         this.uniforms.uIndex.value = slideTextIndex(_index);
-        this.uniforms.tIndex.value = tIdx;
-        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.evenIdx.value = evenIdx;
+        // this.uniforms.uProgress.value = 0.0;
         _slideIndex++;
         this.fixGsap(_index);
-        this.goToNext(slideTextIndex(tIdx));
+        this.goToNext(slideTextIndex(evenIdx));
         if (isLastIndex) {
           console.log("last index");
         }
@@ -71,7 +71,7 @@ class ExtendObject extends CustomObject {
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
-    uniforms.tIndex = { value: 0.0 };
+    uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
 
     return uniforms;
