@@ -10,7 +10,7 @@ import {
   countUp,
   slideTextIndex,
   // updateSlideIndex,
-  TextIndex,
+  calculateEvenNumber,
 } from "../../component/slideIndex";
 
 let _slideIndex = 0;
@@ -34,13 +34,16 @@ class ExtendObject extends CustomObject {
   fixGsap() {
     _size = this.texes.size;
     let _index = countUp(this.uniforms.uIndex.value, _size);
+
+    const isLastIndex = _index === _size - 1;
+
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        let tIdx = TextIndex(_index);
+        const tIdx = calculateEvenNumber(_index);
         // console.log(_index);
         // console.log(tIdx);
         this.uniforms.uIndex.value = slideTextIndex(_index);
@@ -49,6 +52,9 @@ class ExtendObject extends CustomObject {
         _slideIndex++;
         this.fixGsap(_index);
         this.goToNext(slideTextIndex(tIdx));
+        if (isLastIndex) {
+          console.log("last index");
+        }
       },
     });
   }

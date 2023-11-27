@@ -22,7 +22,8 @@ function updateSlideIndex() {
   newIndex = 0;
 }
 
-function TextIndex(slideIndex) {
+// function TextIndex(slideIndex) {
+function calculateEvenNumber(slideIndex) {
   slideIndex++;
   // if (slideIndex === 0) {
   if (slideIndex === 0 || slideIndex >= 16) {
@@ -39,4 +40,4 @@ function TextIndex(slideIndex) {
   }
 }
 
-export { countUp, slideTextIndex, updateSlideIndex, TextIndex };
+export { countUp, slideTextIndex, updateSlideIndex, calculateEvenNumber };
