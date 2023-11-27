@@ -4,6 +4,7 @@ uniform sampler2D tex1;
 uniform float uIndex;
 uniform float evenIdx;
 uniform float uTest;
+uniform float uResetAlpha;
 
 varying float vDistanceAngle;
 
@@ -19,8 +20,10 @@ void main() {
 
     // gl_FragColor = t1;
 
-    float testAlfa = 0.0;
+    // float testAlfa = 0.0;
+    float testAlfa = uResetAlpha;
 
+    // float alpha = smoothstep(0.9, 1.0, cos(vDistanceAngle)) * testAlfa;
     float alpha = smoothstep(0.9, 1.0, cos(vDistanceAngle)) * testAlfa;
 
     gl_FragColor = t1;

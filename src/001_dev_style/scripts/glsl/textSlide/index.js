@@ -33,6 +33,8 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     _size = this.texes.size;
+
+    // console.log(this.uniforms.uResetAlpha.value);
     let _index = countUp(this.uniforms.uIndex.value, _size);
 
     const isLastIndex = _index === _size - 1;
@@ -48,8 +50,10 @@ class ExtendObject extends CustomObject {
         this.uniforms.evenIdx.value = evenIdx;
         _slideIndex++;
         this.fixGsap(_index);
-        this.goToNext(slideTextIndex(evenIdx));
         console.log("slideIndex", _slideIndex);
+
+        this.goToNext(slideTextIndex(evenIdx));
+        // console.log("slideIndex", _slideIndex);
         if (isLastIndex) {
           console.log("last index");
         }
@@ -71,6 +75,7 @@ class ExtendObject extends CustomObject {
     uniforms.uIndex = { value: 0.0 };
     uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
+    uniforms.uResetAlpha = { value: 1.0 };
 
     return uniforms;
   }
