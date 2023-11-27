@@ -10,7 +10,7 @@ import {
   countUp,
   slideTextIndex,
   // updateSlideIndex,
-  TextIndex,
+  calculateEvenNumber,
 } from "../../component/slideIndex";
 
 let _slideIndex = 0;
@@ -33,22 +33,30 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     _size = this.texes.size;
+
+    // console.log(this.uniforms.uResetAlpha.value);
     let _index = countUp(this.uniforms.uIndex.value, _size);
+
+    const isLastIndex = _index === _size - 1;
+
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        let tIdx = TextIndex(_index);
-        // console.log(_index);
-        // console.log(tIdx);
+        const evenIdx = calculateEvenNumber(_index);
         this.uniforms.uIndex.value = slideTextIndex(_index);
-        this.uniforms.tIndex.value = tIdx;
-        this.uniforms.uProgress.value = 0.0;
+        this.uniforms.evenIdx.value = evenIdx;
         _slideIndex++;
         this.fixGsap(_index);
-        this.goToNext(slideTextIndex(tIdx));
+        console.log("slideIndex", _slideIndex);
+
+        this.goToNext(slideTextIndex(evenIdx));
+        // console.log("slideIndex", _slideIndex);
+        if (isLastIndex) {
+          console.log("last index");
+        }
       },
     });
   }
@@ -65,8 +73,9 @@ class ExtendObject extends CustomObject {
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
-    uniforms.tIndex = { value: 0.0 };
+    uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
+    uniforms.uResetAlpha = { value: 1.0 };
 
     return uniforms;
   }
