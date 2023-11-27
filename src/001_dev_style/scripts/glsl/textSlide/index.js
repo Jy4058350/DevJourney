@@ -44,14 +44,12 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
-        // console.log(_index);
-        // console.log(evenIdx);
         this.uniforms.uIndex.value = slideTextIndex(_index);
         this.uniforms.evenIdx.value = evenIdx;
-        // this.uniforms.uProgress.value = 0.0;
         _slideIndex++;
         this.fixGsap(_index);
         this.goToNext(slideTextIndex(evenIdx));
+        console.log("slideIndex", _slideIndex);
         if (isLastIndex) {
           console.log("last index");
         }
