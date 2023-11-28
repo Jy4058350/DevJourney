@@ -50,12 +50,11 @@ class ExtendObject extends CustomObject {
         this.uniforms.evenIdx.value = evenIdx;
         _slideIndex++;
         this.fixGsap(_index);
-        console.log("slideIndex", _slideIndex);
 
         this.goToNext(slideTextIndex(evenIdx));
         // console.log("slideIndex", _slideIndex);
         if (isLastIndex) {
-          console.log("last index");
+          // console.log("last index");
         }
       },
     });

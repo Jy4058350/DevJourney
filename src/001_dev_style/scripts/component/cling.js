@@ -51,7 +51,6 @@ function _clingTo() {
       const header = iNode.qs("#header");
     },
     onEnter: () => {
-      console.log("Entering viewport (scrolling down)");
       iNode.toggleClass(header, "Header--white", true);
       iNode.setStyles($.logoGray, { opacity: 1 });
       iNode.setStyles($.logoWhite, { opacity: 0 });
@@ -63,7 +62,6 @@ function _clingTo() {
       iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
     },
     onLeaveBack: () => {
-      console.log("Entering viewport (scrolling up)");
       iNode.toggleClass(header, "Header--white", false);
       iNode.setStyles($.logoGray, { opacity: 0 });
       iNode.setStyles($.logoWhite, { opacity: 1 });
