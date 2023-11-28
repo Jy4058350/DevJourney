@@ -228,30 +228,40 @@
               <div
                 class="Header__FlexItem Header__FlexItem--fill Header__Entrance"
               >
-              <nav class="Header__secondaryNav">
-                <ul class="HorizontalCartList HorizontalCartList--space">
-                  <li class="HorizontalCartList__Item">
-                    <a href="" class="Heading">ACCOUNT</a>
-                  </li>
-                  <li class="HorizontalCartList__Item">
-                    <a href="" class="Heading">SEARCH</a>
-                  </li>
-                  <li class="HorizontalCartList__Item">
-                    <a href="" class="Heading" aria-label="カートを開く">
-                      "CART("
-                    <span class="Header__CartCount">0</span>
-                    ")"
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+                <nav class="Header__secondaryNav">
+                  <ul class="HorizontalCartList HorizontalCartList--space">
+                    <li class="HorizontalCartList__Item">
+                      <a href="" class="Heading">ACCOUNT</a>
+                    </li>
+                    <li class="HorizontalCartList__Item">
+                      <a href="" class="Heading" data-action="toggle-search"
+                        >SEARCH</a
+                      >
+                    </li>
+                    <li class="HorizontalCartList__Item">
+                      <a
+                        href=""
+                        class="Heading"
+                        data-action="open-drawer"
+                        data-drawer-id="slider-cart"
+                        aria-label="カートを開く"
+                      >
+                        <span class="Header__CartCount">0</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
                 <a
                   href=""
                   class="Header__Icon Icon--Wrap Icon--Wrap--clickable"
                   aria-label="カートを開く"
                 >
                   <span class="hidden-tablet-and-up">
-                    <svg class="Icon Icon--cart" role="presentation" viewBox="0 0 19 23">
+                    <svg
+                      class="Icon Icon--cart"
+                      role="presentation"
+                      viewBox="0 0 19 23"
+                    >
                       <path
                         d="M0 22.985V5.995L2 6v.03l17-.014v16.968H0zm17-15H2v13h15v-13zm-5-2.882c0-2.04-.493-3.203-2.5-3.203-2 0-2.5 1.164-2.5 3.203v.912H5V4.647C5 1.19 7.274 0 9.5 0 11.517 0 14 1.354 14 4.647v1.368h-2v-.912z"
                         fill="currentColor"

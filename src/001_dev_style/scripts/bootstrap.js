@@ -3,6 +3,7 @@ import { viewport } from "./helper/viewport";
 import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
+import { theme } from "./component/theme";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
@@ -44,6 +45,7 @@ export async function init() {
   viewport.bindResizeEvents();
 
   await loader.init();
+  theme.init();
 
   menu.init();
   cling.init();
