@@ -24,6 +24,21 @@ summary {
   display: block;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+button,
+input [type="submit"] {
+  @include btn_input-style_type-submit;
+}
+
 // Up to this point, the evolution stage
 
 html {
@@ -241,6 +256,47 @@ main {
 
     & .News-btn {
       display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    & .News-btn-mail {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--color-white);
+    }
+
+    & .News-btn-mail-input {
+      width: 190px;
+      height: 40px;
+      padding: 14px 0 14px 12px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+
+    & .News-btn-mail-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-left: 1px solid var(--color-white);
+
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        content: "";
+        border-top: solid 1px var(--color-white);
+        border-right: solid 1px var(--color-white);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
     }
   }
+}
+
+input {
+  line-height: normal;
+  border-radius: 0;
 }

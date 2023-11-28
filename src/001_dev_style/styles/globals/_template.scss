@@ -110,3 +110,13 @@
 
 @mixin header__flexItem-style {
 }
+
+
+@mixin btn_input-style_type-submit {
+padding: 0;
+overflow: visible;
+background: none;
+border:none;
+border-radius: 0;
+webkit-appearance: none;
+}
