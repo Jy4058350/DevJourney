@@ -161,14 +161,25 @@ main {
         display: flex;
         padding-top: 10px;
       }
+
+      & .logo-link {
+        width: 21px;
+        height: 21px;
+
+        & a {
+          display: block;
+          color: inherit;
+        }
+        &.logo-link {
+          margin-left: 16px;
+        }
+      }
     }
   }
 
   &__Logo {
     font-size: fluid-text(8px, 16px);
     margin: 2em;
-   
-    
   }
 
   &__Logo--Link {
