@@ -149,13 +149,26 @@ main {
 
   &__Content {
     @extend .content-wide;
+    display: flex;
+    flex-wrap: wrap;
     padding: 40px 15px 30px;
-    text-align: center;
+    // text-align: center;
+
+    &__sns {
+      margin-right: 150px;
+
+      & .logo-sns {
+        display: flex;
+        padding-top: 10px;
+      }
+    }
   }
 
   &__Logo {
     font-size: fluid-text(8px, 16px);
     margin: 2em;
+   
+    
   }
 
   &__Logo--Link {
