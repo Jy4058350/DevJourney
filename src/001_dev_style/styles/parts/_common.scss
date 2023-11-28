@@ -147,7 +147,7 @@ main {
   color: var(--color-white);
   top: var(--footer-top);
 
-  &__Wrap {
+  &__Content {
     @extend .content-wide;
     padding: 40px 15px 30px;
     text-align: center;
