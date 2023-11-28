@@ -159,7 +159,7 @@ main {
 
       & .logo-sns {
         display: flex;
-        padding-top: 10px;
+        padding-top: 30px;
       }
 
       & .logo-link {
@@ -170,36 +170,36 @@ main {
           display: block;
           color: inherit;
         }
-        &.logo-link {
-          margin-left: 16px;
-        }
+      }
+
+      & .logo-link + .logo-link {
+        margin-left: 20px;
       }
     }
   }
 
   &__Logo {
     font-size: fluid-text(8px, 16px);
-    margin: 2em;
   }
 
   &__Logo--Link {
     display: inline-block;
   }
-  &__Nav {
-    @extend .font-16-18;
-    margin-bottom: 2em;
-  }
+  // &__Link {
+  //   @extend .font-16-18;
+  //   margin-bottom: 2em;
+  // }
 
-  &__Ul {
-    display: flex;
-    flex-wrap: wrap;
+  // &__Ul {
+  //   display: flex;
+  //   flex-wrap: wrap;
 
-    @include mq("md") {
-      justify-content: center;
-    }
-  }
-  &__Li {
-    margin-right: 1em;
-    margin-bottom: 1em;
-  }
+  //   @include mq("md") {
+  //     justify-content: center;
+  //   }
+  // }
+  // &__Li {
+  //   margin-right: 1em;
+  //   margin-bottom: 1em;
+  // }
 }
