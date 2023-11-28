@@ -128,7 +128,7 @@ main {
     text-align: center;
 
     &__Wrap {
-      padding: 12px 15px;
+      padding: 11px 14px;
     }
 
     &__Content {
@@ -151,15 +151,15 @@ main {
     @extend .content-wide;
     display: flex;
     flex-wrap: wrap;
-    padding: 40px 15px 30px;
+    padding: 39px 14px 29px;
     // text-align: center;
 
     &__sns {
-      margin-right: 150px;
+      margin-right: 149px;
 
       & .logo-sns {
         display: flex;
-        padding-top: 30px;
+        padding-top: 29px;
       }
 
       & .logo-link {
@@ -197,7 +197,7 @@ main {
   flex-grow: 1;
 
   @include mq("xl") {
-    margin-top: 40px;
+    margin-top: 39px;
   }
 
   &__links {
@@ -205,7 +205,7 @@ main {
     flex-grow: 1;
 
     & .Link-title-text {
-      margin-bottom: 25px;
+      margin-bottom: 24px;
       font-size: 14px;
       font-weight: 700;
     }
@@ -214,6 +214,14 @@ main {
       & a {
         font-size: 13px;
       }
+    }
+
+    & .Link-list-link + .Link-list-link {
+      margin-top: 15px;
+    }
+
+    & .Link + .Link {
+      padding-left: 64px;
     }
   }
 }
