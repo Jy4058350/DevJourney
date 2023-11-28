@@ -15,9 +15,7 @@ function init() {
       if (key.startsWith("drawer")) {
         const action = data[key];
         console.log(action);
-        // el.textContent = `${drawerValue}cart(`;
-        // el.insertAdjacentHTML("beforeend", "cart(");
-        // el.insertAdjacentHTML("afterend", ")");
+
         if (cartCountEl) {
           cartCountEl.insertAdjacentHTML("beforebegin", "cart(");
           cartCountEl.insertAdjacentHTML("afterend", ")");
