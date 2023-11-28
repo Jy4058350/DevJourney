@@ -185,9 +185,35 @@ main {
   &__Logo--Link {
     display: inline-block;
   }
+
+  & li {
+    line-height: initial;
+    list-style: none;
+  }
 }
 
 .Footer__Content__right {
   display: flex;
   flex-grow: 1;
+
+  @include mq("xl") {
+    margin-top: 40px;
+  }
+
+  &__links {
+    display: flex;
+    flex-grow: 1;
+
+    & .Link-title-text {
+      margin-bottom: 25px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    & .Link-list-link {
+      & a {
+        font-size: 13px;
+      }
+    }
+  }
 }
