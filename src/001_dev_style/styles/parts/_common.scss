@@ -47,14 +47,12 @@ input [type="submit"] {
 
 html {
   font-size: math.div($root-font-size, 16px) * 100%;
-  overflow: hidden;
+  height: 100%;
 }
 
 body {
   // @include body-style;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
 }
 
 #asides {

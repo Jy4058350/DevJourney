@@ -13,6 +13,28 @@ const $ = {};
 function init() {
   _getHeaderHeight();
   _calcGap();
+  _getFvMainHeight();
+  _getFooterHeight();
+  _getBodyHeight();
+}
+
+function _getBodyHeight() {
+  $.body = iNode.getElById("body");
+  console.log($.body);
+  const bodyHeight = $.body.offsetHeight;
+  console.log(bodyHeight);
+}
+
+function _getFvMainHeight() {
+  $.fvMainHeight = $.fvMain.offsetHeight;
+  console.log($.fvMain);
+  console.log($.fvMainHeight);
+}
+
+function _getFooterHeight() {
+  $.footerHeight = $.footer.offsetHeight;
+  console.log($.footer);
+  console.log($.footerHeight);
 }
 
 function _calcGap() {
