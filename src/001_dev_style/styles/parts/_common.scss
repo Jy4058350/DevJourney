@@ -183,11 +183,10 @@ main {
       & .logo-sns {
         display: flex;
         padding-top: 29px;
-      }
 
-      @include mq("lg") {
-        & .logo-sns {
-          padding: 0;
+        @include mq_max("lg") {
+          padding-top: 0;
+          padding-left: 24px;
         }
       }
 
