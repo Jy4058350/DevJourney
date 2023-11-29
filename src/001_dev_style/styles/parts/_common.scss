@@ -185,6 +185,12 @@ main {
         padding-top: 29px;
       }
 
+      @include mq("lg") {
+        & .logo-sns {
+          padding: 0;
+        }
+      }
+
       & .logo-link {
         width: 21px;
         height: 21px;
