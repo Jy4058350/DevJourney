@@ -47,11 +47,21 @@
   height: auto;
 }
 
-
-
 @mixin a {
   text-decoration: none;
-  color: var(--color-text);
+  // color: var(--color-text);
+  color: inherit;
+  background-color: transparent;
+  a:-webkit-any(link) {
+    text-decoration: none;
+    cursor: pointer;
+    color: webkit-link;
+  }
+}
+
+@mixin input-style {
+  line-height: normal;
+  border-radius: 0;
 }
 
 @mixin noMarginLastChild {
@@ -66,12 +76,12 @@
   align-items: center;
 
   &__Icon {
-    width: 1.4em;
+    width: 3em;
     margin-right: 1em;
   }
 
   &__Text {
-    width: 11em;
+    width: 20em;
   }
 }
 
@@ -109,4 +119,13 @@
 }
 
 @mixin header__flexItem-style {
+}
+
+@mixin btn_input-style_type-submit {
+  padding: 0;
+  overflow: visible;
+  background: none;
+  border: none;
+  border-radius: 0;
+  webkit-appearance: none;
 }

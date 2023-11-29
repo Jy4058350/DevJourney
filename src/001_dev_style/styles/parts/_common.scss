@@ -24,6 +24,25 @@ summary {
   display: block;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+input {
+  @include input-style;
+}
+
+button,
+input [type="submit"] {
+  @include btn_input-style_type-submit;
+}
+
 // Up to this point, the evolution stage
 
 html {
@@ -83,6 +102,10 @@ a {
   @include a;
 }
 
+::placeholder {
+  color: var(--color-white);
+}
+
 .Heading {
   @include HeadingStyle;
 }
@@ -128,7 +151,7 @@ main {
     text-align: center;
 
     &__Wrap {
-      padding: 12px 15px;
+      padding: 11px 14px;
     }
 
     &__Content {
@@ -147,35 +170,172 @@ main {
   color: var(--color-white);
   top: var(--footer-top);
 
-  &__Wrap {
+  &__Content {
     @extend .content-wide;
-    padding: 40px 15px 30px;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 39px 14px 29px;
+    // text-align: center;
+
+    &__sns {
+      margin-right: 149px;
+
+      & .logo-sns {
+        display: flex;
+        padding-top: 29px;
+      }
+
+      & .logo-link {
+        width: 21px;
+        height: 21px;
+
+        & a {
+          display: block;
+          color: inherit;
+        }
+      }
+
+      & .logo-link + .logo-link {
+        margin-left: 20px;
+      }
+    }
   }
 
   &__Logo {
     font-size: fluid-text(8px, 16px);
-    margin: 2em;
   }
 
   &__Logo--Link {
     display: inline-block;
   }
-  &__Nav {
-    @extend .font-16-18;
-    margin-bottom: 2em;
+
+  & li {
+    line-height: initial;
+    list-style: none;
+  }
+}
+
+.Footer__Content__right {
+  display: flex;
+  flex-grow: 1;
+
+  @include mq("xl") {
+    margin-top: 39px;
   }
 
-  &__Ul {
+  &__links {
     display: flex;
-    flex-wrap: wrap;
+    flex-grow: 1;
 
-    @include mq("md") {
-      justify-content: center;
+    & .Link-title-text {
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    & .Link-list-link {
+      & a {
+        font-size: 13px;
+      }
+    }
+
+    & .Link-list-link + .Link-list-link {
+      margin-top: 15px;
+    }
+
+    & .Link + .Link {
+      padding-left: 64px;
     }
   }
-  &__Li {
-    margin-right: 1em;
-    margin-bottom: 1em;
+
+  &__news {
+    max-width: 400px;
+
+    & .News-Title {
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    & .News-Text {
+      font-size: 13px;
+      line-height: 19px;
+    }
+
+    & .News-btn {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    & .News-btn-mail {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--color-white);
+    }
+
+    & .News-btn-mail-input {
+      width: 190px;
+      height: 40px;
+      padding: 14px 0 14px 12px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+
+    & .News-btn-mail-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-left: 1px solid var(--color-white);
+
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        content: "";
+        border-top: solid 1px var(--color-white);
+        border-right: solid 1px var(--color-white);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+
+    & .News-btn-line-wrap {
+      width: 150px;
+      max-height: 42px;
+      border: 1px solid var(--color-white);
+    }
+
+    & .News-btn-line {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-white);
+    }
+
+    & .News-btn-text {
+      padding-left: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 40px;
+      color: var(--color-black);
+      text-align: center;
+    }
+  }
+}
+
+.Footer__CopyRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px 64px;
+  border-top: solid 1px rgb(222 229 236 / 20%);
+
+  &__text {
+    margin: 0 auto 0 0;
+    font-size: 11px;
   }
 }
