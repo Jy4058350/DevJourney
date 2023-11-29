@@ -297,10 +297,37 @@ main {
         transform: translate(-50%, -50%) rotate(45deg);
       }
     }
+
+    & .News-btn-line-wrap {
+      width: 150px;
+      max-height: 42px;
+      border: 1px solid var(--color-white);
+    }
+
+    & .News-btn-line {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-white);
+    }
+
+    & .News-btn-text {
+      padding-left: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 40px;
+    }
   }
 }
 
 input {
   line-height: normal;
   border-radius: 0;
+}
+
+a:-webkit-any(link) {
+  text-decoration: none;
+  cursor: pointer;
+  color: webkit-link;
 }
