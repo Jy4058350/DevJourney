@@ -34,6 +34,10 @@ textarea {
   color: inherit;
 }
 
+input {
+  @include input-style;
+}
+
 button,
 input [type="submit"] {
   @include btn_input-style_type-submit;
@@ -317,17 +321,21 @@ main {
       font-size: 12px;
       font-weight: 600;
       line-height: 40px;
+      color: var(--color-black);
+      text-align: center;
     }
   }
 }
 
-input {
-  line-height: normal;
-  border-radius: 0;
-}
+.Footer__CopyRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px 64px;
+  border-top: solid 1px rgb(222 229 236 / 20%);
 
-a:-webkit-any(link) {
-  text-decoration: none;
-  cursor: pointer;
-  color: webkit-link;
+  &__text {
+    margin: 0 auto 0 0;
+    font-size: 11px;
+  }
 }

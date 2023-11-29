@@ -52,6 +52,16 @@
   // color: var(--color-text);
   color: inherit;
   background-color: transparent;
+  a:-webkit-any(link) {
+    text-decoration: none;
+    cursor: pointer;
+    color: webkit-link;
+  }
+}
+
+@mixin input-style {
+  line-height: normal;
+  border-radius: 0;
 }
 
 @mixin noMarginLastChild {
@@ -111,12 +121,11 @@
 @mixin header__flexItem-style {
 }
 
-
 @mixin btn_input-style_type-submit {
-padding: 0;
-overflow: visible;
-background: none;
-border:none;
-border-radius: 0;
-webkit-appearance: none;
+  padding: 0;
+  overflow: visible;
+  background: none;
+  border: none;
+  border-radius: 0;
+  webkit-appearance: none;
 }
