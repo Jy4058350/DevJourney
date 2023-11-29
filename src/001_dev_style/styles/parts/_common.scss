@@ -47,11 +47,14 @@ input [type="submit"] {
 
 html {
   font-size: math.div($root-font-size, 16px) * 100%;
+  overflow: hidden;
 }
 
 body {
   // @include body-style;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 #asides {
@@ -175,14 +178,30 @@ main {
     display: flex;
     flex-wrap: wrap;
     padding: 39px 14px 29px;
-    // text-align: center;
+
+    @include mq_max("lg") {
+      flex-direction: column;
+      padding: 48px 24px 40px;
+    }
 
     &__sns {
       margin-right: 149px;
 
+      @include mq_max("lg") {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 0;
+      }
+
       & .logo-sns {
         display: flex;
         padding-top: 29px;
+
+        @include mq_max("lg") {
+          padding-top: 0;
+          padding-left: 24px;
+        }
       }
 
       & .logo-link {
@@ -207,6 +226,11 @@ main {
 
   &__Logo--Link {
     display: inline-block;
+
+    @include mq_max("lg") {
+      display: inline-block;
+      width: auto;
+    }
   }
 
   & li {
@@ -223,35 +247,91 @@ main {
     margin-top: 39px;
   }
 
+  @include mq_max("lg") {
+    flex-direction: column-reverse;
+    margin-top: 0;
+  }
+
+  @include mq_max("xl") {
+    margin-top: 32px;
+  }
+
   &__links {
     display: flex;
     flex-grow: 1;
+
+    @include mq_max("lg") {
+      flex-direction: column;
+      margin-top: 40px;
+    }
+
+    & .Link-title {
+      @include mq_max("lg") {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
 
     & .Link-title-text {
       margin-bottom: 24px;
       font-size: 14px;
       font-weight: 700;
+
+      @include mq_max("lg") {
+        padding-right: 8px;
+        margin-bottom: 0;
+      }
+    }
+
+    & .Link-list {
+      @include mq_max("lg") {
+        box-sizing: border-box;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
     }
 
     & .Link-list-link {
+      @include mq_max("lg") {
+        margin-top: 16px;
+      }
       & a {
         font-size: 13px;
       }
     }
 
     & .Link-list-link + .Link-list-link {
+      @include mq_max("lg") {
+        margin-top: 16px;
+      }
       margin-top: 15px;
     }
 
     & .Link + .Link {
+      @include mq_max("lg") {
+        padding-left: 0;
+        margin-top: 24px;
+      }
       padding-left: 64px;
     }
   }
 
   &__news {
     max-width: 400px;
+    @include mq_max("lg") {
+      margin-top: 32px;
+    }
+    @include mq_max("xl") {
+      margin-top: 40px;
+    }
 
     & .News-Title {
+      @include mq_max("lg") {
+        margin-bottom: 8px;
+      }
       margin-bottom: 24px;
       font-size: 14px;
       font-weight: 700;
@@ -260,21 +340,34 @@ main {
     & .News-Text {
       font-size: 13px;
       line-height: 19px;
+      margin-bottom: 10px;
     }
 
     & .News-btn {
+      @include mq_max("lg") {
+        flex-direction: column;
+      }
       display: flex;
       justify-content: space-between;
       margin-top: 16px;
     }
 
     & .News-btn-mail {
+      @include mq_max("lg") {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--color-white);
+      }
       display: flex;
       align-items: center;
       border: 1px solid var(--color-white);
     }
 
     & .News-btn-mail-input {
+      @include mq_max("lg") {
+        width: 100%;
+      }
+
       width: 190px;
       height: 40px;
       padding: 14px 0 14px 12px;
@@ -303,6 +396,9 @@ main {
     }
 
     & .News-btn-line-wrap {
+      @include mq_max("lg") {
+        margin-top: 16px;
+      }
       width: 150px;
       max-height: 42px;
       border: 1px solid var(--color-white);
@@ -325,9 +421,18 @@ main {
       text-align: center;
     }
   }
+  & .News-btn-alert {
+    @include mq_max("lg") {
+      max-width: 100%;
+    }
+  }
 }
 
 .Footer__CopyRight {
+  @include mq_max("lg") {
+    padding: 24px;
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -17,3 +17,16 @@ $breakpoints: (
     @content;
   }
 }
+
+$breakpoints_max: (
+  "sm": "screen and (max-width: #{to-em(480px, $root-font-size)})",
+  "md": "screen and (max-width: #{to-em(600px, $root-font-size)})",
+  "lg": "screen and (max-width: #{to-em(960px, $root-font-size)})",
+  "xl": "screen and (max-width: #{to-em(1280px, $root-font-size)})",
+) !default;
+
+@mixin mq-max($breakpoint_max: md) {
+  @media #{map-get($breakpoints_max, $breakpoint_max)} {
+    @content;
+  }
+}
