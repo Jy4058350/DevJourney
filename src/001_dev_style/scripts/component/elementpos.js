@@ -6,6 +6,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
+  _getScrollContainerHeight,
 };
 
 const $ = {};
@@ -13,6 +14,46 @@ const $ = {};
 function init() {
   _getHeaderHeight();
   _calcGap();
+  _getFvMainHeight();
+  _getFooterHeight();
+  _totalHeight();
+  _getHtmlHeight();
+  _getScrollContainerHeight();
+}
+
+function _getHtmlHeight() {
+  const html = document.documentElement;
+  const t = $.totalHeight;
+  html.style.height = `${$.totalHeight}px`;
+}
+
+function _getScrollContainerHeight() {
+  const tage = iNode.qs(".scroll-content");
+
+  console.log("tage", tage);
+
+  if (!tage) {
+    console.error("tage is not found");
+    return;
+  }
+}
+
+function _totalHeight() {
+  $.totalHeight = $.fvMainHeight + $.footerHeight;
+
+  console.log("totalHeight", $.totalHeight);
+}
+
+function _getFvMainHeight() {
+  $.fvMainHeight = $.fvMain.offsetHeight;
+  console.log($.fvMain);
+  console.log($.fvMainHeight);
+}
+
+function _getFooterHeight() {
+  $.footerHeight = $.footer.offsetHeight;
+  console.log($.footer);
+  console.log($.footerHeight);
 }
 
 function _calcGap() {
