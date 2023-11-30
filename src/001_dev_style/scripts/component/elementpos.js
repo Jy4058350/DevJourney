@@ -15,19 +15,36 @@ function init() {
   _calcGap();
   _getFvMainHeight();
   _getFooterHeight();
+  _totalHeight();
   _getHtmlHeight();
-  // _totalHeight();
 }
 
 function _getHtmlHeight() {
-  $.html = document.documentElement;
-  console.log($.html);
-  $.fullHeight = document.documentElement.scrollHeight;
-  console.log($.fullHeight);
-  console.log("fullHeight", $.fullHeight);
-  console.log($.html.style.height);
+  // $.html = document.documentElement;
+  const html = document.documentElement;
+  const t = $.totalHeight;
+  console.log(t);
+  html.style.height = `${$.totalHeight}px`;
+  // console.log(html);
+  console.log(html.style.height);
+
+  // $.fullHeight = document.documentElement.scrollHeight;
+  // console.log($.fullHeight);
+  // console.log("fullHeight", $.fullHeight);
+  // console.log($.html.style.height);
   // $.html.style.height = `${$.totalHeight}px`;
   // console.log($.html.style.height);
+
+  // const computedStyle = getComputedStyle($.html);
+  // const compHeight = computedStyle.getPropertyValue("height");
+
+  // console.log(compHeight);
+  // const htmlHeight = $.html.clientHeight;
+  // console.log("htmlHeight", htmlHeight);
+  // const h = $.html.style.height;
+  // console.log(h);
+  const h = document.body.scrollHeight;
+  console.log(h);
 }
 
 function _totalHeight() {
