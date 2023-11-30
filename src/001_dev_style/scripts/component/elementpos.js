@@ -14,9 +14,9 @@ const $ = {};
 function init() {
   _getHeaderHeight();
   _calcGap();
+  _totalHeight();
   _getFvMainHeight();
   _getFooterHeight();
-  _totalHeight();
   _getHtmlHeight();
   _getScrollContainerHeight();
 }
