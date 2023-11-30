@@ -45,15 +45,27 @@ function _totalHeight() {
 }
 
 function _getFvMainHeight() {
-  $.fvMainHeight = $.fvMain.offsetHeight;
-  console.log($.fvMain);
-  console.log($.fvMainHeight);
+  return new Promise((resolve, reject) => {
+    if (!$.fvMain) {
+      reject("fvMain is not found");
+    }
+    $.fvMainHeight = $.fvMain.offsetHeight;
+    console.log($.fvMain);
+    console.log($.fvMainHeight);
+    resolve($.fvMainHeight);
+  });
 }
 
 function _getFooterHeight() {
-  $.footerHeight = $.footer.offsetHeight;
-  console.log($.footer);
-  console.log($.footerHeight);
+  return new Promise((resolve, reject) => {
+    if (!$.footer) {
+      reject("footer is not found");
+      $.footerHeight = $.footer.offsetHeight;
+      console.log($.footer);
+      console.log($.footerHeight);
+      resolve($.footerHeight);
+    }
+  });
 }
 
 function _calcGap() {
