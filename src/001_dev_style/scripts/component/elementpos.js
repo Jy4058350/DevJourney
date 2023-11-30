@@ -15,14 +15,26 @@ function init() {
   _calcGap();
   _getFvMainHeight();
   _getFooterHeight();
-  _getBodyHeight();
+  _getHtmlHeight();
+  // _totalHeight();
 }
 
-function _getBodyHeight() {
-  $.body = iNode.getElById("body");
-  console.log($.body);
-  const bodyHeight = $.body.offsetHeight;
-  console.log(bodyHeight);
+function _getHtmlHeight() {
+  $.html = document.documentElement;
+  console.log($.html);
+  $.fullHeight = document.documentElement.scrollHeight;
+  console.log($.fullHeight);
+  console.log("fullHeight", $.fullHeight);
+  console.log($.html.style.height);
+  // $.html.style.height = `${$.totalHeight}px`;
+  // console.log($.html.style.height);
+}
+
+function _totalHeight() {
+  $.totalHeight = $.fvMainHeight + $.footerHeight;
+
+  console.log("totalHeight", $.totalHeight);
+  console.log("fullHeight", $.fullHeight);
 }
 
 function _getFvMainHeight() {
