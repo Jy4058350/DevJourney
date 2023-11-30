@@ -38,10 +38,14 @@ function _getScrollContainerHeight() {
   }
 }
 
-function _totalHeight() {
-  $.totalHeight = $.fvMainHeight + $.footerHeight;
-
-  console.log("totalHeight", $.totalHeight);
+async function _totalHeight() {
+  try {
+    await Promise.all([_getFvMainHeight(), _getFooterHeight()]);
+    $.totalHeight = $.fvMainHeight + $.footerHeight;
+    console.log("totalHeight", $.totalHeight);
+  } catch (error) {
+    console.log("Error", error);
+  }
 }
 
 function _getFvMainHeight() {
@@ -60,11 +64,11 @@ function _getFooterHeight() {
   return new Promise((resolve, reject) => {
     if (!$.footer) {
       reject("footer is not found");
-      $.footerHeight = $.footer.offsetHeight;
-      console.log($.footer);
-      console.log($.footerHeight);
-      resolve($.footerHeight);
     }
+    $.footerHeight = $.footer.offsetHeight;
+    console.log($.footer);
+    console.log($.footerHeight);
+    resolve($.footerHeight);
   });
 }
 
