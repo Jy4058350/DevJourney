@@ -6,7 +6,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
-  _getScrollContainerHeight,
+  _getScrollContentHeight,
 };
 
 const $ = {};
@@ -15,10 +15,8 @@ function init() {
   _getHeaderHeight();
   _calcGap();
   _totalHeight();
-  // _getFvMainHeight();
-  // _getFooterHeight();
   _getHtmlHeight();
-  _getScrollContainerHeight();
+  _getScrollContentHeight();
 }
 
 function _getHtmlHeight() {
@@ -27,22 +25,30 @@ function _getHtmlHeight() {
   html.style.height = `${$.totalHeight}px`;
 }
 
-function _getScrollContainerHeight() {
-  const tage = iNode.qs(".scroll-content");
+function _getScrollContentHeight() {
+  const scrollContent = iNode.qs(".scroll-content");
+  return new Promise((resolve, reject) => {
+    if (!scrollContent) {
+      reject("scrollContent is not found");
+    }
 
-  console.log("tage", tage);
-
-  if (!tage) {
-    console.error("tage is not found");
-    return;
-  }
+    const scrollContentHeight = scrollContent.offsetHeight;
+    console.log("scrollContentHeight", scrollContentHeight);
+    resolve(scrollContentHeight);
+  });
 }
 
 async function _totalHeight() {
   try {
-    await Promise.all([_getFvMainHeight(), _getFooterHeight()]);
+    await Promise.all([
+      _getFvMainHeight(),
+      _getFooterHeight(),
+      _getScrollContentHeight(),
+    ]);
     $.totalHeight = $.fvMainHeight + $.footerHeight;
     console.log("totalHeight", $.totalHeight);
+    scrollContentHeight = `${$.totalHeight}px`;
+    console.log("scrollContentHeight", scrollContentHeight);
   } catch (error) {
     console.log("Error", error);
   }

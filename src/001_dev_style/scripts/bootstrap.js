@@ -62,5 +62,5 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
-  elementPos._getScrollContainerHeight();
+  elementPos._getScrollContentHeight();
 }
