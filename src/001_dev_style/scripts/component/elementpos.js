@@ -6,6 +6,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
+  _getScrollContainerHeight,
 };
 
 const $ = {};
@@ -17,41 +18,30 @@ function init() {
   _getFooterHeight();
   _totalHeight();
   _getHtmlHeight();
+  _getScrollContainerHeight();
 }
 
 function _getHtmlHeight() {
-  // $.html = document.documentElement;
   const html = document.documentElement;
   const t = $.totalHeight;
-  console.log(t);
   html.style.height = `${$.totalHeight}px`;
-  // console.log(html);
-  console.log(html.style.height);
+}
 
-  // $.fullHeight = document.documentElement.scrollHeight;
-  // console.log($.fullHeight);
-  // console.log("fullHeight", $.fullHeight);
-  // console.log($.html.style.height);
-  // $.html.style.height = `${$.totalHeight}px`;
-  // console.log($.html.style.height);
+function _getScrollContainerHeight() {
+  const tage = iNode.qs(".scroll-content");
 
-  // const computedStyle = getComputedStyle($.html);
-  // const compHeight = computedStyle.getPropertyValue("height");
+  console.log("tage", tage);
 
-  // console.log(compHeight);
-  // const htmlHeight = $.html.clientHeight;
-  // console.log("htmlHeight", htmlHeight);
-  // const h = $.html.style.height;
-  // console.log(h);
-  const h = document.body.scrollHeight;
-  console.log(h);
+  if (!tage) {
+    console.error("tage is not found");
+    return;
+  }
 }
 
 function _totalHeight() {
   $.totalHeight = $.fvMainHeight + $.footerHeight;
 
   console.log("totalHeight", $.totalHeight);
-  console.log("fullHeight", $.fullHeight);
 }
 
 function _getFvMainHeight() {
