@@ -6,7 +6,8 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
-  _getScrollContainerHeight,
+  _totalHeight,
+  _getScrollContentHeight,
 };
 
 const $ = {};
@@ -14,11 +15,9 @@ const $ = {};
 function init() {
   _getHeaderHeight();
   _calcGap();
-  _getFvMainHeight();
-  _getFooterHeight();
   _totalHeight();
   _getHtmlHeight();
-  _getScrollContainerHeight();
+  // _getScrollContentHeight();
 }
 
 function _getHtmlHeight() {
@@ -27,33 +26,68 @@ function _getHtmlHeight() {
   html.style.height = `${$.totalHeight}px`;
 }
 
-function _getScrollContainerHeight() {
-  const tage = iNode.qs(".scroll-content");
+// let scrollContentHeight = 0;
+function _getScrollContentHeight() {
+  const scrollContent = iNode.qs(".scroll-content");
+  // console.log("scrollContent", scrollContent);
+  // console.log("scrollContent", scrollContent);
+  return new Promise((resolve, reject) => {
+    if (!scrollContent) {
+      reject("scrollContent is not found");
+    }
 
-  console.log("tage", tage);
+    const scrollContentHeight = scrollContent.offsetHeight;
+    // scrollContentHeight = scrollContent.offsetHeight;
+    console.log("scrollContentHeight", scrollContentHeight);
+    resolve(scrollContentHeight);
+  });
+}
 
-  if (!tage) {
-    console.error("tage is not found");
-    return;
+async function _totalHeight() {
+  try {
+    $.fvMainHeight = await _getFvMainHeight();
+    $.footerHeight = await _getFooterHeight();
+
+    const scrollContent = iNode.qs(".scroll-content");
+
+    $.totalHeight = $.fvMainHeight + $.footerHeight;
+    scrollContent.style.height = `${$.totalHeight}px`;
+
+    // $.scrollContentHeight = await _getScrollContentHeight();
+
+    // scrollContentHeight = await _getScrollContentHeight();
+    console.log("totalHeight", $.totalHeight);
+
+    // $.scrollContentHeight = `${$.totalHeight}px`;
+    $.scrollContentHeight = `${$.totalHeight}`;
+    console.log("scrollContentHeight", $.scrollContentHeight);
+  } catch (error) {
+    console.log("Error", error);
   }
 }
 
-function _totalHeight() {
-  $.totalHeight = $.fvMainHeight + $.footerHeight;
-
-  console.log("totalHeight", $.totalHeight);
-}
-
 function _getFvMainHeight() {
-  $.fvMainHeight = $.fvMain.offsetHeight;
-  console.log($.fvMain);
-  console.log($.fvMainHeight);
+  return new Promise((resolve, reject) => {
+    if (!$.fvMain) {
+      reject("fvMain is not found");
+    }
+    $.fvMainHeight = $.fvMain.offsetHeight;
+    console.log($.fvMain);
+    console.log($.fvMainHeight);
+    resolve($.fvMainHeight);
+  });
 }
 
 function _getFooterHeight() {
-  $.footerHeight = $.footer.offsetHeight;
-  console.log($.footer);
-  console.log($.footerHeight);
+  return new Promise((resolve, reject) => {
+    if (!$.footer) {
+      reject("footer is not found");
+    }
+    $.footerHeight = $.footer.offsetHeight;
+    console.log($.footer);
+    console.log($.footerHeight);
+    resolve($.footerHeight);
+  });
 }
 
 function _calcGap() {
