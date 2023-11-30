@@ -15,8 +15,8 @@ function init() {
   _getHeaderHeight();
   _calcGap();
   _totalHeight();
-  _getFvMainHeight();
-  _getFooterHeight();
+  // _getFvMainHeight();
+  // _getFooterHeight();
   _getHtmlHeight();
   _getScrollContainerHeight();
 }
