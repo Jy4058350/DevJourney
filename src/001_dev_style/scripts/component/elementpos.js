@@ -27,6 +27,7 @@ function _getHtmlHeight() {
 
 function _getScrollContentHeight() {
   const scrollContent = iNode.qs(".scroll-content");
+  console.log("scrollContent", scrollContent);
   return new Promise((resolve, reject) => {
     if (!scrollContent) {
       reject("scrollContent is not found");
@@ -40,13 +41,11 @@ function _getScrollContentHeight() {
 
 async function _totalHeight() {
   try {
-    await Promise.all([
-      _getFvMainHeight(),
-      _getFooterHeight(),
-      _getScrollContentHeight(),
-    ]);
-    $.totalHeight = $.fvMainHeight + $.footerHeight;
-    console.log("totalHeight", $.totalHeight);
+    ($.fvMainHeight = await _getFvMainHeight()),
+      ($.footerHeight = await _getFooterHeight()),
+      (scrollContentHeight = await _getScrollContentHeight()),
+    
+    // ($.totalHeight = $.fvMainHeight + $.footerHeight);
     scrollContentHeight = `${$.totalHeight}px`;
     console.log("scrollContentHeight", scrollContentHeight);
   } catch (error) {
