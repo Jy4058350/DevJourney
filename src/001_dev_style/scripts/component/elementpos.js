@@ -6,6 +6,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
+  _totalHeight,
   _getScrollContentHeight,
 };
 
@@ -16,7 +17,7 @@ function init() {
   _calcGap();
   _totalHeight();
   _getHtmlHeight();
-  _getScrollContentHeight();
+  // _getScrollContentHeight();
 }
 
 function _getHtmlHeight() {
@@ -25,15 +26,18 @@ function _getHtmlHeight() {
   html.style.height = `${$.totalHeight}px`;
 }
 
+// let scrollContentHeight = 0;
 function _getScrollContentHeight() {
   const scrollContent = iNode.qs(".scroll-content");
-  console.log("scrollContent", scrollContent);
+  // console.log("scrollContent", scrollContent);
+  // console.log("scrollContent", scrollContent);
   return new Promise((resolve, reject) => {
     if (!scrollContent) {
       reject("scrollContent is not found");
     }
 
     const scrollContentHeight = scrollContent.offsetHeight;
+    // scrollContentHeight = scrollContent.offsetHeight;
     console.log("scrollContentHeight", scrollContentHeight);
     resolve(scrollContentHeight);
   });
@@ -41,13 +45,22 @@ function _getScrollContentHeight() {
 
 async function _totalHeight() {
   try {
-    ($.fvMainHeight = await _getFvMainHeight()),
-      ($.footerHeight = await _getFooterHeight()),
-      (scrollContentHeight = await _getScrollContentHeight()),
-    
-    // ($.totalHeight = $.fvMainHeight + $.footerHeight);
-    scrollContentHeight = `${$.totalHeight}px`;
-    console.log("scrollContentHeight", scrollContentHeight);
+    $.fvMainHeight = await _getFvMainHeight();
+    $.footerHeight = await _getFooterHeight();
+
+    const scrollContent = iNode.qs(".scroll-content");
+
+    $.totalHeight = $.fvMainHeight + $.footerHeight;
+    scrollContent.style.height = `${$.totalHeight}px`;
+
+    // $.scrollContentHeight = await _getScrollContentHeight();
+
+    // scrollContentHeight = await _getScrollContentHeight();
+    console.log("totalHeight", $.totalHeight);
+
+    // $.scrollContentHeight = `${$.totalHeight}px`;
+    $.scrollContentHeight = `${$.totalHeight}`;
+    console.log("scrollContentHeight", $.scrollContentHeight);
   } catch (error) {
     console.log("Error", error);
   }
