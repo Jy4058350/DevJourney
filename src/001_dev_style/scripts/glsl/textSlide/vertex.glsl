@@ -14,10 +14,10 @@ void main() {
 
     // float distanceFrequency = 2.0 * PI / uSlideTotal * (uActiveIndex + uSlideIndex);
     float distanceFrequency = 2.0 * PI / uSlideTotal * (uActiveIndex + uSlideIndex);//It becomes variable here.
-    float distanceAngle = mod(distanceFrequency, 2.0 * PI);
+    float distanceAngle = (mod(distanceFrequency, 2.0 * PI));
     vDistanceAngle = distanceAngle;
 
-    pos.y += 100.0 * sin(distanceFrequency);
+    pos.y += 100.0 * (sin(distanceFrequency));
     // pos.y += 100.0 * sin(distanceFrequency);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);

@@ -56,11 +56,11 @@ async function _totalHeight() {
     // $.scrollContentHeight = await _getScrollContentHeight();
 
     // scrollContentHeight = await _getScrollContentHeight();
-    console.log("totalHeight", $.totalHeight);
+    // console.log("totalHeight", $.totalHeight);
 
     // $.scrollContentHeight = `${$.totalHeight}px`;
     $.scrollContentHeight = `${$.totalHeight}`;
-    console.log("scrollContentHeight", $.scrollContentHeight);
+    // console.log("scrollContentHeight", $.scrollContentHeight);
   } catch (error) {
     console.log("Error", error);
   }
@@ -72,8 +72,8 @@ function _getFvMainHeight() {
       reject("fvMain is not found");
     }
     $.fvMainHeight = $.fvMain.offsetHeight;
-    console.log($.fvMain);
-    console.log($.fvMainHeight);
+    // console.log($.fvMain);
+    // console.log($.fvMainHeight);
     resolve($.fvMainHeight);
   });
 }
@@ -84,8 +84,8 @@ function _getFooterHeight() {
       reject("footer is not found");
     }
     $.footerHeight = $.footer.offsetHeight;
-    console.log($.footer);
-    console.log($.footerHeight);
+    // console.log($.footer);
+    // console.log($.footerHeight);
     resolve($.footerHeight);
   });
 }
@@ -210,7 +210,11 @@ function wideRangeGoblin() {
     const emValue = _toEm(1280, 16);
 
     const isWideScreen = getWindowWidth() > emValue;
-    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
+    // await iNode.toggleClass(
+    //   goblin,
+    //   "Header__FlexItem--increaseSpace",
+    //   isWideScreen
+    // );
 
     if (isWideScreen) {
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
@@ -218,19 +222,24 @@ function wideRangeGoblin() {
       iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
       iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
       iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-      iNode.setStyles(headerNav, { opacity: 1 });
-      iNode.setStyles(headerBtn, { display: "none" });
-      iNode.setStyles(headerMainNav, { opacity: 1 });
-      iNode.setStyles(secondNav, { opacity: 1 });
-      iNode.setStyles(headerLogo, { display: "none" });
+      await iNode.setStyles(headerNav, { opacity: 1 });
+      await iNode.setStyles(headerBtn, { display: "none" });
+      await iNode.setStyles(headerMainNav, { opacity: 1 });
+      await iNode.setStyles(secondNav, { opacity: 1 });
+      await iNode.setStyles(headerLogo, { display: "none" });
+      await iNode.toggleClass(
+        goblin,
+        "Header__FlexItem--increaseSpace",
+        isWideScreen
+      );
     } else {
       iNode.toggleClass(headerNav, "Header__MainNav--open", false);
       iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-      iNode.setStyles(headerNav, { opacity: 0 });
-      iNode.setStyles(headerBtn, { display: "block" });
-      iNode.setStyles(headerMainNav, { opacity: 0 });
-      iNode.setStyles(secondNav, { opacity: 0 });
-      iNode.setStyles(headerLogo, { display: "block" });
+      await iNode.setStyles(headerNav, { opacity: 0 });
+      await iNode.setStyles(headerBtn, { display: "block" });
+      await iNode.setStyles(headerMainNav, { opacity: 0 });
+      await iNode.setStyles(secondNav, { opacity: 0 });
+      await iNode.setStyles(headerLogo, { display: "block" });
     }
   }
 }

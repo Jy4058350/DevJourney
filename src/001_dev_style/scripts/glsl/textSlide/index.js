@@ -36,25 +36,28 @@ class ExtendObject extends CustomObject {
 
     // console.log(this.uniforms.uResetAlpha.value);
     let _index = countUp(this.uniforms.uIndex.value, _size);
+    // console.log("index", _index);
+    // console.log("this.uniforms.uindex.value", this.uniforms.uIndex.value);
 
     const isLastIndex = _index === _size - 1;
 
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
-      duration: _index % 2 === 0 ? 2.0 : 1.0,
+      duration: _index % 2 === 0 ? 4.0 : 2.0,
       ease: "ease",
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
         this.uniforms.uIndex.value = slideTextIndex(_index);
+        console.log("this.uniforms.uIndex.value", this.uniforms.uIndex.value);
         this.uniforms.evenIdx.value = evenIdx;
-        _slideIndex++;
+        // console.log("evenIdx", evenIdx);
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
-        // console.log("slideIndex", _slideIndex);
+        // this.goToNext(slideTextIndex(evenIdx + 1));
         if (isLastIndex) {
-          // console.log("last index");
+          console.log("last index");
         }
       },
     });
@@ -132,8 +135,12 @@ class ExtendObject extends CustomObject {
 
   goToNext(_slideIndex) {
     this.differenceRadius -=
-      ((_slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+      // ((_slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+      (-1 * (_slideIndex - this.activeIndex) * 2 * Math.PI) /
+      this.slides.length;
+    console.log("this.differenceRadius", this.differenceRadius);
     this.activeIndex = _slideIndex;
+    // console.log("this.activeIndex", this.activeIndex);
     this.playVideo(_slideIndex);
   }
 

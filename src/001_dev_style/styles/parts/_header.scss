@@ -27,7 +27,6 @@ nav {
 }
 
 .Header {
-  //   box-shadow: 0 -1px var(--color-gray) inset;
   box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
 
   &--white {
@@ -164,6 +163,7 @@ a {
 }
 
 .Header__Wrap {
+  // box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
   @include header__wrap-style;
   padding: 18px 30px;
   display: flex;
