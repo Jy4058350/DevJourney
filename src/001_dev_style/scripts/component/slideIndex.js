@@ -4,7 +4,7 @@ let textIndex = 0;
 
 // function countUp(slideIndex, _size) {
 function countUp(slideIndex, _size) {
-  if (slideIndex >= 8) {
+  if (slideIndex >= _size - 1) {
     slideIndex = 0;
     // console.log(uResetAlpha);
 
@@ -57,4 +57,4 @@ export {
   updateSlideIndex,
   calculateEvenNumber,
   // resetCount,
-}
+};
