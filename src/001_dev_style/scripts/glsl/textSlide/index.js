@@ -31,39 +31,39 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  // fixGsap() {
-  //   _size = this.texes.size;
+  fixGsap() {
+    _size = this.texes.size;
 
-  //   // console.log(this.uniforms.uResetAlpha.value);
-  //   let _index = countUp(this.uniforms.uIndex.value, _size);
-  //   // console.log("index", _index);
-  //   // console.log("this.uniforms.uindex.value", this.uniforms.uIndex.value);
+    // console.log(this.uniforms.uResetAlpha.value);
+    let _index = countUp(this.uniforms.uIndex.value, _size);
+    // console.log("index", _index);
+    // console.log("this.uniforms.uindex.value", this.uniforms.uIndex.value);
 
-  //   const isLastIndex = _index === _size - 1;
+    const isLastIndex = _index === _size - 1;
 
-  //   const tl = new gsap.timeline();
-  //   tl.to(this.uniforms.uProgress, {
-  //     // tl.to(this.uniforms.uIndex, {
-  //     value: 1.0,
-  //     duration: _index % 2 === 0 ? 4.0 : 2.0,
-  //     ease: "ease",
-  //     onComplete: () => {
-  //       const evenIdx = calculateEvenNumber(_index);
-  //       this.uniforms.uIndex.value = slideTextIndex(_index);
-  //       console.log("this.uniforms.uIndex.value", this.uniforms.uIndex.value);
-  //       this.uniforms.evenIdx.value = evenIdx;
-  //       // console.log("evenIdx", evenIdx);
-        
-  //       this.fixGsap(_index);
+    const tl = new gsap.timeline();
+    tl.to(this.uniforms.uProgress, {
+      // tl.to(this.uniforms.uIndex, {
+      value: 1.0,
+      duration: _index % 2 === 0 ? 2.0 : 1.0,
+      ease: "ease",
+      onComplete: () => {
+        const evenIdx = calculateEvenNumber(_index);
+        this.uniforms.uIndex.value = slideTextIndex(_index);
+        console.log("textSlide.uniforms.uIndex.value", this.uniforms.uIndex.value);
+        this.uniforms.evenIdx.value = evenIdx;
+        // console.log("evenIdx", evenIdx);
 
-  //       this.goToNext(slideTextIndex(evenIdx));
-  //       // this.goToNext(slideTextIndex(evenIdx + 1));
-  //       if (isLastIndex) {
-  //         console.log("last index");
-  //       }
-  //     },
-  //   });
-  // }
+        this.fixGsap(_index);
+
+        this.goToNext(slideTextIndex(evenIdx));
+        // this.goToNext(slideTextIndex(evenIdx + 1));
+        if (isLastIndex) {
+          console.log("last index");
+        }
+      },
+    });
+  }
 
   afterInit() {
     this.goToNext(this.activeIndex);
@@ -99,7 +99,7 @@ class ExtendObject extends CustomObject {
   fixMesh() {
     const group = new Group();
 
-    let _index = -5;
+    let _index = 0;
 
     this.texes.forEach((tex) => {
       const planeMat = this.material.clone();
@@ -118,7 +118,7 @@ class ExtendObject extends CustomObject {
       // console.log(plane);
       group.add(plane);
 
-      _index++;
+      _index--;
     });
 
     this.slides = Array.from(group.children);
