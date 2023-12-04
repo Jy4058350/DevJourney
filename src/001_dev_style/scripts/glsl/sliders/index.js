@@ -4,11 +4,10 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { countUp } from "../../component/slideIndex";
+import { countUpSlide } from "../../component/slideIndex";
 import { VideoTexture } from "three";
 
 let slideIndex = 0;
-let _size = 0;
 const videoNum = [];
 
 class ExtendObject extends CustomObject {
@@ -46,31 +45,20 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    _size = this.texes.size;
+    const _size = this.texes.size;
     const isLastIndex = slideIndex === _size - 1;
     this.playVideo();
-    // slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
-    slideIndex = countUp(this.uniforms.uIndex.value, _size);
+    slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: slideIndex % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
-        console.log(
-          "imgSlide.uniforms.uIndex.value",
-          this.uniforms.uIndex.value
-        );
         this.uniforms.uIndex.value = slideIndex;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
-        // this.fixGsap(slideIndex);
         this.fixGsap();
-        if (isLastIndex) {
-          console.log("slider last index");
-          tl.pause();
-        }
-        // console.log(slideIndex);
       },
     });
   }
