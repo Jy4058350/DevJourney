@@ -48,7 +48,7 @@ class ExtendObject extends CustomObject {
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
-
+        console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
         // console.log("Current Index", _index, "isLastIndex", isLastIndex);
         // console.log("Timeline Object", tl);
         if (isLastIndex) {
@@ -180,7 +180,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 5, 1)
+      .add(this.uniforms.uIndex, "value", 0, 8, 1)
       .name("uIndex")
       .listen();
     toFolder
@@ -190,7 +190,7 @@ class ExtendObject extends CustomObject {
     // const idx = { value: 0 };
     // let idx = this.uniforms.uIndex;
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 5, 1)
+      .add(this.uniforms.uIndex, "value", 0, 8, 1)
       .name("go to next")
       .onChange(() => {
         // this.goToNext(idx.value);
