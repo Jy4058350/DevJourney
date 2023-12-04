@@ -34,8 +34,8 @@ class ExtendObject extends CustomObject {
     let _index = countUp(this.uniforms.uIndex.value, _size);
     const isLastIndex = _index === _size - 1;
 
-    // const tl = new gsap.timeline();
-    const tl = gsap.timeline();
+    const tl = new gsap.timeline();
+    // const tl = gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
@@ -49,7 +49,7 @@ class ExtendObject extends CustomObject {
 
         this.goToNext(slideTextIndex(evenIdx));
         console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
-        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
+        console.log("Current Index", _index, "isLastIndex", isLastIndex);
         // console.log("Timeline Object", tl);
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
@@ -179,10 +179,17 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
+    const _size = this.texes.size;
+    const updateUIndex = () => {
+      let _index = countUp(this.uniforms.uIndex.value, _size);
+      this.uniforms.uIndex.value = _index;
+    };
+
     toFolder
       .add(this.uniforms.uIndex, "value", 0, 8, 1)
       .name("uIndex")
-      .listen();
+      .listen()
+      .onChange(updateUIndex);
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
