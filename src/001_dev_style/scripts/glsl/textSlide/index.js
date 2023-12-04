@@ -10,10 +10,12 @@ import {
   countUp,
   slideTextIndex,
   calculateEvenNumber,
+  updateSlideIndex,
 } from "../../component/slideIndex";
 
 let _size = 0;
 let _index = 0;
+let value = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -78,7 +80,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
-    uniforms.uIndex = { value: 5.0 };
+    uniforms.uIndex = { value: 0.0 };
     uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
@@ -112,10 +114,6 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
       planeMat.uniforms.uResolution = this.uniforms.uResolution;
-      console.log(
-        planeMat.uniforms.uSlideIndex.value,
-        "planeMat.uniforms.uSlideIndex.value"
-      );
 
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
@@ -185,23 +183,18 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
-    // console.log(this.slides);
-    this.slides.forEach((slide, index) => {
-      const folder = toFolder.addFolder(`Slide ${index}`);
-      console.log(folder);
-      folder
-        .add(slide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
-        .name("uSlideIndex")
-        .listen();
-    });
-    toFolder;
-
-    // .add(firstSlide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
-    // .add(this.uniforms.uIndex, "value", 0, 7, 1)
-    // .add(this.slides, "value", 0, 7, 1)
-    // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
-    // .name("uSlideIndex")
-    // .listen();
+    const updateSlideIndex = (index) => {
+      this.uniforms.uIndex.value = index;
+      // this.goToNext(index);
+      this.goToNextSlide(index);
+    };
+    toFolder
+      .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      .name("Index")
+      .listen()
+      .onChange((index) => {
+        updateSlideIndex(index);
+      });
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
