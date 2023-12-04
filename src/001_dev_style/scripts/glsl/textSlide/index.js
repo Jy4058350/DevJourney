@@ -147,7 +147,7 @@ class ExtendObject extends CustomObject {
 
   goToNextSlide(uIndex) {
     uIndex++;
-    this.fixGsap(uIndex);
+    // this.fixGsap(uIndex);
   }
 
   render(tick) {
@@ -193,8 +193,6 @@ class ExtendObject extends CustomObject {
       .add(this.uniforms.uIndex, "value", 0, 8, 1)
       .name("go to next")
       .onChange(() => {
-        // this.goToNext(idx.value);
-        // this.goToNext(this.uniforms.uIndex.value);
         this.goToNextSlide(this.uniforms.uIndex.value);
       });
 
