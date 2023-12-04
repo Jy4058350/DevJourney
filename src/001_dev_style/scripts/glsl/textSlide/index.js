@@ -9,11 +9,9 @@ import { pointTo, lerp } from "../../helper/utils";
 import {
   countUp,
   slideTextIndex,
-  // updateSlideIndex,
   calculateEvenNumber,
 } from "../../component/slideIndex";
 
-let _slideIndex = 0;
 let _size = 0;
 
 class ExtendObject extends CustomObject {
@@ -51,12 +49,15 @@ class ExtendObject extends CustomObject {
 
         this.goToNext(slideTextIndex(evenIdx));
 
-        console.log("Current Index", _index, "isLastIndex", isLastIndex);
-        console.log("Timeline Object", tl);
+        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
+        // console.log("Timeline Object", tl);
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
-          tl.kill();
-          // gsap.killAll();
+          // tl.kill();
+          // gsap.pauseAll();
+          gsap.globalTimeline.getChildren().forEach((timeline) => {
+            timeline.kill();
+          });
           tl.progress(1);
         }
       },
