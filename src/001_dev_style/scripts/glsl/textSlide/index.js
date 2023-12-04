@@ -182,9 +182,10 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
+    console.log(this.slides);
     toFolder
-      // .add(this.uniforms.uIndex, "value", 0, 7, 1)
-      .add(this.slides, "value", 0, 7, 1)
+      .add(this.uniforms.uIndex, "value", 0, 7, 1)
+      // .add(this.slides, "value", 0, 7, 1)
       // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
       .name("uIndex")
       .listen();
