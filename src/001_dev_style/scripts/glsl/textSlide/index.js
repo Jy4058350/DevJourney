@@ -33,14 +33,12 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     _size = this.texes.size;
-
     let _index = countUp(this.uniforms.uIndex.value, _size);
-
     const isLastIndex = _index === _size - 1;
 
-    const tl = new gsap.timeline();
+    // const tl = new gsap.timeline();
+    const tl = gsap.timeline();
     tl.to(this.uniforms.uProgress, {
-      // tl.to(this.uniforms.uIndex, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
@@ -52,8 +50,14 @@ class ExtendObject extends CustomObject {
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
+
+        console.log("Current Index", _index, "isLastIndex", isLastIndex);
+        console.log("Timeline Object", tl);
         if (isLastIndex) {
-          console.log("last index");
+          console.log("Stopping slides at the last index");
+          tl.kill();
+          // gsap.killAll();
+          tl.progress(1);
         }
       },
     });
