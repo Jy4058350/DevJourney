@@ -112,7 +112,10 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
       planeMat.uniforms.uResolution = this.uniforms.uResolution;
-      // console.log(planeMat.uniforms.uResolution);
+      console.log(
+        planeMat.uniforms.uSlideIndex.value,
+        "planeMat.uniforms.uSlideIndex.value"
+      );
 
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
@@ -182,16 +185,23 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
-    console.log(this.slides);
-    const firstSlide = this.slides[0];
-    console.log(firstSlide);
-    toFolder
-    .add(firstSlide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
-      // .add(this.uniforms.uIndex, "value", 0, 7, 1)
-      // .add(this.slides, "value", 0, 7, 1)
-      // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
-      .name("uSlideIndex")
-      .listen();
+    // console.log(this.slides);
+    this.slides.forEach((slide, index) => {
+      const folder = toFolder.addFolder(`Slide ${index}`);
+      console.log(folder);
+      folder
+        .add(slide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
+        .name("uSlideIndex")
+        .listen();
+    });
+    toFolder;
+
+    // .add(firstSlide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
+    // .add(this.uniforms.uIndex, "value", 0, 7, 1)
+    // .add(this.slides, "value", 0, 7, 1)
+    // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
+    // .name("uSlideIndex")
+    // .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
