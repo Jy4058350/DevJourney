@@ -125,7 +125,7 @@ class ExtendObject extends CustomObject {
 
     this.slides = Array.from(group.children);
 
-    console.log(this.slides);
+    // console.log(this.slides);
     return group;
   }
 
@@ -183,11 +183,14 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     console.log(this.slides);
+    const firstSlide = this.slides[0];
+    console.log(firstSlide);
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 7, 1)
+    .add(firstSlide.material.uniforms.uSlideIndex, "value", 0, 7, 1)
+      // .add(this.uniforms.uIndex, "value", 0, 7, 1)
       // .add(this.slides, "value", 0, 7, 1)
       // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
-      .name("uIndex")
+      .name("uSlideIndex")
       .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
