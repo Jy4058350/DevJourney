@@ -10,7 +10,7 @@ import {
   countUp,
   slideTextIndex,
   calculateEvenNumber,
-  updateSlideIndex,
+  // updateSlideIndex,
 } from "../../component/slideIndex";
 
 let _size = 0;
@@ -33,20 +33,19 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value")
     _size = this.texes.size * 2;
+    console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
+    console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
-
+    
     const tl = new gsap.timeline();
-    // const tl = gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
-        // this.uniforms.uIndex.value = slideTextIndex(_index);
         this.uniforms.uIndex.value = _index;
         this.uniforms.evenIdx.value = evenIdx;
 
@@ -55,13 +54,11 @@ class ExtendObject extends CustomObject {
         this.goToNext(slideTextIndex(evenIdx));
         console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
         console.log("Current Index", _index, "isLastIndex", isLastIndex);
-        // console.log("Timeline Object", tl);
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
-          // tl.kill();
-          // gsap.pauseAll();
           gsap.globalTimeline.getChildren().forEach((timeline) => {
-            timeline.kill();
+            // timeline.kill();
+            timeline.pause();
           });
           tl.progress(1);
         }
@@ -189,7 +186,7 @@ class ExtendObject extends CustomObject {
       // this.goToNextSlide(index);
     };
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 16, 1)
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
       .name("Index")
       .listen()
       .onChange((index) => {
@@ -201,7 +198,7 @@ class ExtendObject extends CustomObject {
       .listen();
     toFolder
       // .add(this.uniforms.uIndex, "value", 0, 8, 1)
-      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 16, 1)
+      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 15, 1)
       .name("go to next")
       .onChange(() => {
         this.goToNextSlide(this.uniforms.uIndex.value);
