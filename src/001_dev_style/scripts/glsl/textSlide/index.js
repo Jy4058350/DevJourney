@@ -34,7 +34,7 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value")
-    _size = this.texes.size;
+    _size = this.texes.size * 2;
     _index = countUp(this.uniforms.uIndex.value, _size);
     const isLastIndex = _index === _size - 1;
 
@@ -185,11 +185,11 @@ class ExtendObject extends CustomObject {
   debug(toFolder) {
     const updateSlideIndex = (index) => {
       this.uniforms.uIndex.value = index;
-      // this.goToNext(index);
-      this.goToNextSlide(index);
+      this.goToNext(index);
+      // this.goToNextSlide(index);
     };
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      .add(this.uniforms.uIndex, "value", 0, 16, 1)
       .name("Index")
       .listen()
       .onChange((index) => {
@@ -201,7 +201,7 @@ class ExtendObject extends CustomObject {
       .listen();
     toFolder
       // .add(this.uniforms.uIndex, "value", 0, 8, 1)
-      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 8, 1)
+      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 16, 1)
       .name("go to next")
       .onChange(() => {
         this.goToNextSlide(this.uniforms.uIndex.value);
