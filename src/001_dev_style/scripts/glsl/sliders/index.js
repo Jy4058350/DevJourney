@@ -4,7 +4,7 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
-import { countUp } from "../../component/slideIndex";
+import { countUpSlide } from "../../component/slideIndex";
 import { VideoTexture } from "three";
 
 let slideIndex = 0;
@@ -45,8 +45,10 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    const _size = this.texes.size;
+    const isLastIndex = slideIndex === _size - 1;
     this.playVideo();
-    slideIndex = countUp(this.uniforms.uIndex.value, this.texes.size);
+    slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
@@ -56,8 +58,7 @@ class ExtendObject extends CustomObject {
         this.uniforms.uIndex.value = slideIndex;
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
-        this.fixGsap(slideIndex);
-        // console.log(slideIndex);
+        this.fixGsap();
       },
     });
   }

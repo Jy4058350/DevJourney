@@ -34,13 +34,13 @@ class ExtendObject extends CustomObject {
   fixGsap() {
     _size = this.texes.size;
 
-    // console.log(this.uniforms.uResetAlpha.value);
     let _index = countUp(this.uniforms.uIndex.value, _size);
 
     const isLastIndex = _index === _size - 1;
 
     const tl = new gsap.timeline();
     tl.to(this.uniforms.uProgress, {
+      // tl.to(this.uniforms.uIndex, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
@@ -48,13 +48,12 @@ class ExtendObject extends CustomObject {
         const evenIdx = calculateEvenNumber(_index);
         this.uniforms.uIndex.value = slideTextIndex(_index);
         this.uniforms.evenIdx.value = evenIdx;
-        _slideIndex++;
+
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
-        // console.log("slideIndex", _slideIndex);
         if (isLastIndex) {
-          // console.log("last index");
+          console.log("last index");
         }
       },
     });
@@ -113,7 +112,7 @@ class ExtendObject extends CustomObject {
       // console.log(plane);
       group.add(plane);
 
-      _index++;
+      _index--;
     });
 
     this.slides = Array.from(group.children);
@@ -132,9 +131,18 @@ class ExtendObject extends CustomObject {
 
   goToNext(_slideIndex) {
     this.differenceRadius -=
-      ((_slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+      // ((_slideIndex - this.activeIndex) * 2 * Math.PI) / this.slides.length;
+      (-1 * (_slideIndex - this.activeIndex) * 2 * Math.PI) /
+      this.slides.length;
+    // console.log("this.differenceRadius", this.differenceRadius);
     this.activeIndex = _slideIndex;
+    // console.log("this.activeIndex", this.activeIndex);
     this.playVideo(_slideIndex);
+  }
+
+  goToNextSlide(uIndex) {
+    uIndex++;
+    this.fixGsap(uIndex);
   }
 
   render(tick) {
@@ -167,7 +175,7 @@ class ExtendObject extends CustomObject {
 
   debug(toFolder) {
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .add(this.uniforms.uIndex, "value", 0, 5, 1)
       .name("uIndex")
       .listen();
     toFolder
@@ -177,11 +185,12 @@ class ExtendObject extends CustomObject {
     // const idx = { value: 0 };
     // let idx = this.uniforms.uIndex;
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .add(this.uniforms.uIndex, "value", 0, 5, 1)
       .name("go to next")
       .onChange(() => {
         // this.goToNext(idx.value);
-        this.goToNext(this.uniforms.uIndex.value);
+        // this.goToNext(this.uniforms.uIndex.value);
+        this.goToNextSlide(this.uniforms.uIndex.value);
       });
 
     const datData = { next: !!this.uniforms.uProgress.value };

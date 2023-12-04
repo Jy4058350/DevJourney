@@ -26,9 +26,9 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
-  if ($.windowWidth > 1280) {
-    _headerIncrease();
-  }
+  // if ($.windowWidth > 1280) {
+  //   _headerIncrease();
+  // }
 }
 
 function _headerIncrease() {

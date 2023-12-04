@@ -49,28 +49,39 @@ body {
     font-size: fluid-text(10px, 100px);
     position: absolute;
     // position: relative;
-    // height: 3em;
     text-align: center;
-    z-index: 100;
 
+    z-index: 100;
+    cursor: pointer;
     left: auto;
     transform: none;
     bottom: 65px;
-  }
+    margin-left: 1em;
+    // width: 5em;
+    // height: 2.5em;
 
-  &_text {
-    &-shader {
-      // position: absolute;
+    & .fv_text-shader {
       display: block;
-      margin-left: 1em;
       pointer-events: none;
 
       aspect-ratio: 1/ 1;
       font-size: fluid-text(10px, 100px);
-      width: 2em;
-      height: 2em;
+      text-align: center;
+      width: 3em;
+      height: 3em;
     }
   }
+
+  // &_text {
+  //   &-shader {
+  //     display: block;
+  //     pointer-events: none;
+
+  //     aspect-ratio: 1/ 1;
+  //     font-size: fluid-text(10px, 100px);
+  //     text-align: center;
+  //   }
+  // }
 }
 
 .aspect-ratio-container {
