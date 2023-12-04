@@ -13,6 +13,7 @@ import {
 } from "../../component/slideIndex";
 
 let _size = 0;
+let _index = 0;
 
 class ExtendObject extends CustomObject {
   before() {
@@ -30,8 +31,9 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value")
     _size = this.texes.size;
-    let _index = countUp(this.uniforms.uIndex.value, _size);
+    _index = countUp(this.uniforms.uIndex.value, _size);
     const isLastIndex = _index === _size - 1;
 
     const tl = new gsap.timeline();
@@ -42,7 +44,8 @@ class ExtendObject extends CustomObject {
       ease: "ease",
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
-        this.uniforms.uIndex.value = slideTextIndex(_index);
+        // this.uniforms.uIndex.value = slideTextIndex(_index);
+        this.uniforms.uIndex.value = _index;
         this.uniforms.evenIdx.value = evenIdx;
 
         this.fixGsap(_index);
@@ -75,7 +78,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
     uniforms.scale = { value: this.scale };
-    uniforms.uIndex = { value: 0.0 };
+    uniforms.uIndex = { value: 5.0 };
     uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
@@ -122,7 +125,7 @@ class ExtendObject extends CustomObject {
 
     this.slides = Array.from(group.children);
 
-    // console.log(group);
+    console.log(this.slides);
     return group;
   }
 
@@ -146,7 +149,7 @@ class ExtendObject extends CustomObject {
   }
 
   goToNextSlide(uIndex) {
-    uIndex++;
+    return uIndex++;
     // this.fixGsap(uIndex);
   }
 
@@ -179,25 +182,19 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
-    const _size = this.texes.size;
-    const updateUIndex = () => {
-      let _index = countUp(this.uniforms.uIndex.value, _size);
-      this.uniforms.uIndex.value = _index;
-    };
-
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      // .add(this.uniforms.uIndex, "value", 0, 7, 1)
+      .add(this.slides, "value", 0, 7, 1)
+      // .add(planeMat.uniforms.uSlideIndex.value, "value", 0, 7, 1)
       .name("uIndex")
-      .listen()
-      .onChange(updateUIndex);
+      .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
-    // const idx = { value: 0 };
-    // let idx = this.uniforms.uIndex;
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      // .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 8, 1)
       .name("go to next")
       .onChange(() => {
         this.goToNextSlide(this.uniforms.uIndex.value);
