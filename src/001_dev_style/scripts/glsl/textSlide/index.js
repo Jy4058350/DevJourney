@@ -19,7 +19,25 @@ let _index = 0;
 let value = 0;
 
 class ExtendObject extends CustomObject {
+
+
+  setupTimeline() {
+    console.log("setupTimeline");
+    document.addEventListener("mousemove", this.resumeTimeline.bind(this));
+  }
+
+  pauseTimeline() {
+      this.timeline.pause();
+    }
+  
+    resumeTimeline() {
+      console.log("resumeTimeline");
+      console.log(this.timeline);
+      this.timeline.resume();
+    }
+
   before() {
+    // this.timeline = gsap.timeline();
     // console.log(this.texes);
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0, 1, 0);
@@ -35,16 +53,17 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+     this.timeline = gsap.timeline();
     _size = this.texes.size * 2;
     // console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
-    console.log(_index, "_index");
+    // console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
     const pauseIndex = _index === _size - 13;
 
     // const tl = new gsap.timeline();
-    const tl = gsap.timeline();
-    tl.to(this.uniforms.uProgress, {
+    // const tl = gsap.timeline();
+    this.timeline.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
@@ -57,25 +76,36 @@ class ExtendObject extends CustomObject {
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
-        console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
-        console.log("Current Index", _index, "isLastIndex", isLastIndex);
+        // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
+        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             // timeline.kill();
-            timeline.pause();
+            this.timeline.pause();
           });
-          tl.progress(1);
+          this.timeline.progress(1);
         }
         if (pauseIndex) {
           console.log("pauseIndex", pauseIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
-            timeline.pause();
+            // this.timeline.pause();
+            this.timeline.pause();
           });
         }
       },
     });
   }
+
+  // pauseTimeline() {
+  //   this.timeline.pause();
+  // }
+
+  // resumeTimeline() {
+  //   console.log("resumeTimeline");
+  //   console.log(this.timeline);
+  //   this.timeline.resume();
+  // }
 
   afterInit() {
     this.goToNext(this.activeIndex);
