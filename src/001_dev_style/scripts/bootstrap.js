@@ -8,10 +8,9 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
+import gsap from "gsap";
 
 import { elementPos } from "./component/elementpos";
-
-import ExtendObject from "./glsl/sliders";
 
 window.debug = debugmode(1) ? 1 : 0;
 
@@ -65,12 +64,23 @@ export async function init() {
 
   gui.open();
 
+  // document.addEventListener("mousemove", function (event) {
+  //   gsap.globalTimeline.getChildren().forEach((timeline) => {
+  //     timeline.play();
+  //     console.log("gsap.play");
+  //   });
+  // });
 
-  // const extendObject = new ExtendObject();
-  const extendObject = await ExtendObject.init({
-    el: document.querySelector(".fv_text-shader"),
-    type: "fv_text-shader",
+  document.addEventListener("mousemove", function (event) {
+    const timelines = gsap.globalTimeline.getChildren();
+
+    if (timelines.length > 0) {
+      timelines.forEach((timeline) => {
+        timeline.play();
+        console.log("gsap.play");
+      });
+    } else {
+      console.log("No Gsap timeline found");
+    }
   });
-  // const extendObject = new CustomObject();
-  extendObject.fixGsap();
 }

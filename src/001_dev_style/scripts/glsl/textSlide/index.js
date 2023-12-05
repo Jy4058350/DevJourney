@@ -35,13 +35,12 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    console.log("Running fixGsap in BootStrap.js");
     _size = this.texes.size * 2;
     // console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
     console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
-    const pauseIndex = _index === _size - 10;
+    const pauseIndex = _index === _size - 13;
 
     // const tl = new gsap.timeline();
     const tl = gsap.timeline();
@@ -75,12 +74,6 @@ class ExtendObject extends CustomObject {
           });
         }
       },
-      // onCompleteParams: ["{self}"],
-      // // onPause: () => {
-      // onPause: (tl) => {
-      //   console.log("Timeline paused!");
-      //   tl.play();
-      // },
     });
   }
 
