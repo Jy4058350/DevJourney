@@ -119,6 +119,7 @@ async function loadVideo(url) {
 }
 
 async function texMap(el) {
+  if (!el) return null;
   const texes = new Map();
   const data = el.dataset;
   let m = null;

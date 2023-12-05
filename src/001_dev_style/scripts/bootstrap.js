@@ -8,9 +8,11 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
-import gsap from "gsap";
+import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
+import ExtendObject from "./glsl/textSlide";
+import { CustomObject } from "./glsl/CustomObject";
 
 window.debug = debugmode(1) ? 1 : 0;
 
@@ -21,6 +23,7 @@ function debugmode(d) {
 export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
+  // console.log(canvasRect);
 
   if (window.debug) {
     await gui.init();
@@ -44,6 +47,9 @@ export async function init() {
   });
 
   viewport.bindResizeEvents();
+
+  // const customObject = await CustomObject.init({ el:iNode.qs('.fv_content'), type: "text" });
+  // theme.init();
 
   await loader.init();
   theme.init();
@@ -71,16 +77,10 @@ export async function init() {
   //   });
   // });
 
-  document.addEventListener("mousemove", function (event) {
-    const timelines = gsap.globalTimeline.getChildren();
+  // const customObject = new CustomObject();
 
-    if (timelines.length > 0) {
-      timelines.forEach((timeline) => {
-        timeline.play();
-        console.log("gsap.play");
-      });
-    } else {
-      console.log("No Gsap timeline found");
-    }
-  });
+
+  // const extendObject = new ExtendObject(customObject);
+  // console.log(extendObject);
+  // await extendObject.init();
 }
