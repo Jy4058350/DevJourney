@@ -8,6 +8,7 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
+import { CustomObject } from "./glsl/CustomObject";
 
 import { elementPos } from "./component/elementpos";
 
@@ -62,4 +63,8 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
+
+  document.addEventListener("mousemove", function(event) {
+    CustomObject.fixGsap();
+  })
 }
