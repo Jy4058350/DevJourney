@@ -8,8 +8,11 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
+import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
+import ExtendObject from "./glsl/textSlide";
+import { CustomObject } from "./glsl/CustomObject";
 
 window.debug = debugmode(1) ? 1 : 0;
 
@@ -20,6 +23,7 @@ function debugmode(d) {
 export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
+  // console.log(canvasRect);
 
   if (window.debug) {
     await gui.init();
@@ -44,6 +48,9 @@ export async function init() {
 
   viewport.bindResizeEvents();
 
+  // const customObject = await CustomObject.init({ el:iNode.qs('.fv_content'), type: "text" });
+  // theme.init();
+
   await loader.init();
   theme.init();
 
@@ -62,4 +69,18 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
+
+  // document.addEventListener("mousemove", function (event) {
+  //   gsap.globalTimeline.getChildren().forEach((timeline) => {
+  //     timeline.play();
+  //     console.log("gsap.play");
+  //   });
+  // });
+
+  // const customObject = new CustomObject();
+
+
+  // const extendObject = new ExtendObject(customObject);
+  // console.log(extendObject);
+  // await extendObject.init();
 }

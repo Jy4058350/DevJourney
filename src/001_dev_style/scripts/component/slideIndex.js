@@ -3,27 +3,31 @@ let newIndex = 0;
 let textIndex = 0;
 
 function countUp(slideIndex, _size) {
-  if (slideIndex >= _size - 1) {
-    slideIndex = 0;
+  // if ((slideIndex = 0)) {
+  //   slideIndex = 0;
+  // }
 
+  if (slideIndex >= _size - 1) {
+    // if (slideIndex >= _size) {
+    slideIndex = 0;
     return slideIndex;
+  } else {
+    slideIndex++;
   }
 
-  slideIndex++;
-
-  updateSlideIndex();
+  // updateSlideIndex();
   return slideIndex;
 }
 function countUpSlide(slideIndex, _size) {
   if (slideIndex >= _size * 2 - 1) {
     slideIndex = 0;
 
-    return slideIndex;
+    // return slideIndex;
+  } else {
+    slideIndex++;
   }
 
-  slideIndex++;
-
-  updateSlideIndex();
+  // updateSlideIndex();
   return slideIndex;
 }
 
@@ -31,10 +35,10 @@ function slideTextIndex(slideIndex) {
   return slideIndex;
 }
 
-function updateSlideIndex() {
-  slideIndex = newIndex;
-  newIndex = 0;
-}
+// function updateSlideIndex() {
+//   slideIndex = newIndex;
+//   newIndex = 0;
+// }
 
 // function TextIndex(slideIndex) {
 function calculateEvenNumber(slideIndex) {
@@ -64,7 +68,7 @@ function calculateEvenNumber(slideIndex) {
 export {
   countUp,
   slideTextIndex,
-  updateSlideIndex,
+  // updateSlideIndex,
   calculateEvenNumber,
   // resetCount,
   countUpSlide,

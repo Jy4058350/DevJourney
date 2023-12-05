@@ -1,4 +1,5 @@
-import gsap from "gsap";
+import gsap from "gsap/all";
+
 import { Mesh, Vector3, VideoTexture, Group } from "three";
 
 import vertexShader from "./vertex.glsl";
@@ -9,15 +10,17 @@ import { pointTo, lerp } from "../../helper/utils";
 import {
   countUp,
   slideTextIndex,
-  // updateSlideIndex,
   calculateEvenNumber,
+  // updateSlideIndex,
 } from "../../component/slideIndex";
 
-let _slideIndex = 0;
 let _size = 0;
+let _index = 0;
+let value = 0;
 
 class ExtendObject extends CustomObject {
   before() {
+    // console.log(this.texes);
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0, 1, 0);
     this.differenceRadius = 0;
@@ -32,28 +35,43 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    _size = this.texes.size;
-
-    let _index = countUp(this.uniforms.uIndex.value, _size);
-
+    _size = this.texes.size * 2;
+    // console.log(this.texes);
+    _index = countUp(this.uniforms.uIndex.value, _size);
+    console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
+    const pauseIndex = _index === _size - 13;
 
-    const tl = new gsap.timeline();
+    // const tl = new gsap.timeline();
+    const tl = gsap.timeline();
     tl.to(this.uniforms.uProgress, {
-      // tl.to(this.uniforms.uIndex, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
+      // pause: true,
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
-        this.uniforms.uIndex.value = slideTextIndex(_index);
+        this.uniforms.uIndex.value = _index;
         this.uniforms.evenIdx.value = evenIdx;
 
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
+        console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
+        console.log("Current Index", _index, "isLastIndex", isLastIndex);
         if (isLastIndex) {
-          console.log("last index");
+          console.log("Stopping slides at the last index");
+          gsap.globalTimeline.getChildren().forEach((timeline) => {
+            // timeline.kill();
+            timeline.pause();
+          });
+          tl.progress(1);
+        }
+        if (pauseIndex) {
+          console.log("pauseIndex", pauseIndex);
+          gsap.globalTimeline.getChildren().forEach((timeline) => {
+            timeline.pause();
+          });
         }
       },
     });
@@ -104,7 +122,6 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
       planeMat.uniforms.uResolution = this.uniforms.uResolution;
-      // console.log(planeMat.uniforms.uResolution);
 
       const planeGeo = this.geometry.clone();
       const plane = new Mesh(planeGeo, planeMat);
@@ -117,7 +134,7 @@ class ExtendObject extends CustomObject {
 
     this.slides = Array.from(group.children);
 
-    // console.log(group);
+    // console.log(this.slides);
     return group;
   }
 
@@ -141,8 +158,8 @@ class ExtendObject extends CustomObject {
   }
 
   goToNextSlide(uIndex) {
-    uIndex++;
-    this.fixGsap(uIndex);
+    return uIndex++;
+    // this.fixGsap(uIndex);
   }
 
   render(tick) {
@@ -174,22 +191,27 @@ class ExtendObject extends CustomObject {
   }
 
   debug(toFolder) {
+    const updateSlideIndex = (index) => {
+      this.uniforms.uIndex.value = index;
+      this.goToNext(index);
+      // this.goToNextSlide(index);
+    };
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 5, 1)
-      .name("uIndex")
-      .listen();
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .name("Index")
+      .listen()
+      .onChange((index) => {
+        updateSlideIndex(index);
+      });
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
       .listen();
-    // const idx = { value: 0 };
-    // let idx = this.uniforms.uIndex;
     toFolder
-      .add(this.uniforms.uIndex, "value", 0, 5, 1)
+      // .add(this.uniforms.uIndex, "value", 0, 8, 1)
+      .add({ goToNext: this.uniforms.uIndex.value }, "goToNext", 0, 15, 1)
       .name("go to next")
       .onChange(() => {
-        // this.goToNext(idx.value);
-        // this.goToNext(this.uniforms.uIndex.value);
         this.goToNextSlide(this.uniforms.uIndex.value);
       });
 

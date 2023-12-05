@@ -14,15 +14,28 @@ import { setAspectRatio } from "../component/setaspectratio";
 
 class CustomObject {
   static async init({ el, type }) {
+    console.log(el);
     const texes = await loader.texMap(el);
+    // console.log(texes);
 
     const i = new this({ texes, el, type });
+    console.log(i);
     return i;
   }
+
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
+    console.log(el);
+    if (!el) {
+      console.log("el is null");
+      return;
+    }
     this.rect = el.getBoundingClientRect();
+    if (!this.rect) {
+      console.log("rect is null");
+      return;
+    }
 
     if (!this.rect.width || !this.rect.height) {
       if (window.debug === 1) {
