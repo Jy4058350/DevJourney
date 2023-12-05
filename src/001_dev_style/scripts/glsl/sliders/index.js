@@ -12,7 +12,7 @@ const videoNum = [];
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
-    console.log("setupTimeline");
+    // console.log("setupTimeline");
     document.addEventListener("mousemove", this.resumeTimeline.bind(this));
   }
 
@@ -62,9 +62,11 @@ class ExtendObject extends CustomObject {
   fixGsap() {
     this.timeline = gsap.timeline();
     const _size = this.texes.size * 2;
-    console.log(_size, "_size");
+    // console.log(_size, "_size");
     const isLastIndex = slideIndex === _size - 1;
+    // console.log(isLastIndex, "isLastIndex");
     const pauseIndex = slideIndex === _size - 13;
+    // console.log(pauseIndex, "pauseIndex");
     this.playVideo();
     slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
     const tl = new gsap.timeline();
@@ -81,17 +83,18 @@ class ExtendObject extends CustomObject {
 
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
-          gsap.globalTimeline.getChildren().forEach((timeline) => {
-            // this.timeline.pause();
-          });
-          this.timeline.progress(1);
-        }
-        if (pauseIndex) {
-          console.log("pauseSlide", pauseIndex);
+          console.log("pauseSlide", isLastIndex)
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             this.timeline.pause();
           });
+          // this.timeline.progress(1);
         }
+        // if (pauseIndex) {
+        //   console.log("pauseSlide", pauseIndex);
+        //   gsap.globalTimeline.getChildren().forEach((timeline) => {
+        //     this.timeline.pause();
+        //   });
+        // }
       },
     });
   }
