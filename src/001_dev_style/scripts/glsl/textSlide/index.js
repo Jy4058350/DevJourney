@@ -79,7 +79,7 @@ class ExtendObject extends CustomObject {
         // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
         // console.log("Current Index", _index, "isLastIndex", isLastIndex);
         if (isLastIndex) {
-          console.log("Stopping slides at the last index");
+          // console.log("Stopping text at the last index");
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             // timeline.kill();
             this.timeline.pause();
@@ -87,7 +87,7 @@ class ExtendObject extends CustomObject {
           this.timeline.progress(1);
         }
         if (pauseIndex) {
-          console.log("pauseIndex", pauseIndex);
+          console.log("pausetext", pauseIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             // this.timeline.pause();
             this.timeline.pause();
