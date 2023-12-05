@@ -55,16 +55,20 @@ class ExtendObject extends CustomObject {
 
   before() {
     // this.timeline = gsap.timeline();
-    // console.log(this.texes);
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0, 1, 0);
     this.differenceRadius = 0;
     this.activeIndex = 0;
     this.scale = 1;
 
+    console.log(this.texes);
+
     this.texes.forEach((tex) => {
+      const texData = tex.source.data;
       if (tex.source.data instanceof HTMLVideoElement) {
         tex.source.data.pause?.();
+      } else if (Array.isArray(texData) && texData.length > 0) {
+        console.log("a", texData[0]);
       }
     });
   }

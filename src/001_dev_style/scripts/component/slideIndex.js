@@ -3,14 +3,14 @@ let newIndex = 0;
 let textIndex = 0;
 
 function countUp(slideIndex, _size) {
-  console.log("before", slideIndex)
+  // console.log("before", slideIndex)
   if (slideIndex >= _size - 1) {
     slideIndex = 0;
     // return slideIndex;
   } else {
     slideIndex++;
   }
-  console.log("after", slideIndex)
+  // console.log("after", slideIndex)
   return slideIndex;
 }
 function countUpSlide(slideIndex, _size) {
