@@ -15,6 +15,7 @@ import { setAspectRatio } from "../component/setaspectratio";
 class CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
+    // console.log(texes);
 
     const i = new this({ texes, el, type });
     return i;

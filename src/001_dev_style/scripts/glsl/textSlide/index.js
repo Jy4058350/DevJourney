@@ -20,6 +20,7 @@ let value = 0;
 
 class ExtendObject extends CustomObject {
   before() {
+    // console.log(this.texes);
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0, 1, 0);
     this.differenceRadius = 0;
@@ -34,8 +35,9 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    console.log("Running fixGsap in BootStrap.js");
     _size = this.texes.size * 2;
-    console.log(this.texes);
+    // console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
     console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;

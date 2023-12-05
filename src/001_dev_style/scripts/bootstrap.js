@@ -8,9 +8,10 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
-import { CustomObject } from "./glsl/CustomObject";
 
 import { elementPos } from "./component/elementpos";
+
+import ExtendObject from "./glsl/sliders";
 
 window.debug = debugmode(1) ? 1 : 0;
 
@@ -64,7 +65,12 @@ export async function init() {
 
   gui.open();
 
-  document.addEventListener("mousemove", function(event) {
-    CustomObject.fixGsap();
-  })
+
+  // const extendObject = new ExtendObject();
+  const extendObject = await ExtendObject.init({
+    el: document.querySelector(".fv_text-shader"),
+    type: "fv_text-shader",
+  });
+  // const extendObject = new CustomObject();
+  extendObject.fixGsap();
 }
