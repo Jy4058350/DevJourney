@@ -1,4 +1,5 @@
-import gsap from "gsap";
+import gsap from "gsap/all";
+
 import { Mesh, Vector3, VideoTexture, Group } from "three";
 
 import vertexShader from "./vertex.glsl";
@@ -38,12 +39,15 @@ class ExtendObject extends CustomObject {
     _index = countUp(this.uniforms.uIndex.value, _size);
     console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
-    
-    const tl = new gsap.timeline();
+    const pauseIndex = _index === _size - 10;
+
+    // const tl = new gsap.timeline();
+    const tl = gsap.timeline();
     tl.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
+      // pause: true,
       onComplete: () => {
         const evenIdx = calculateEvenNumber(_index);
         this.uniforms.uIndex.value = _index;
@@ -62,7 +66,19 @@ class ExtendObject extends CustomObject {
           });
           tl.progress(1);
         }
+        if (pauseIndex) {
+          console.log("pauseIndex", pauseIndex);
+          gsap.globalTimeline.getChildren().forEach((timeline) => {
+            timeline.pause();
+          });
+        }
       },
+      // onCompleteParams: ["{self}"],
+      // // onPause: () => {
+      // onPause: (tl) => {
+      //   console.log("Timeline paused!");
+      //   tl.play();
+      // },
     });
   }
 
