@@ -28,8 +28,10 @@ class CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
+
     this.timeline = gsap.timeline();
     this.setupTimeline();
+
     // console.log(el);
     if (!el) {
       console.log("el is null");

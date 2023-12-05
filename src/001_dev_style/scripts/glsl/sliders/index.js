@@ -13,7 +13,24 @@ const videoNum = [];
 class ExtendObject extends CustomObject {
   setupTimeline() {
     // console.log("setupTimeline");
-    document.addEventListener("mousemove", this.resumeTimeline.bind(this));
+    // document.addEventListener("mousemove", this.handleMousemove.bind(this));
+    document.addEventListener("click", this.handleClick.bind(this));
+  }
+
+  handleMousemove(event) {
+    const mouseX = event.clientX / window.innerWidth;
+    if (mouseX > 0.5) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
+  }
+  handleClick() {
+    if (this.timeline.paused()) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
   }
 
   pauseTimeline() {
@@ -21,9 +38,11 @@ class ExtendObject extends CustomObject {
   }
 
   resumeTimeline() {
-    console.log("resumeTimeline");
-    console.log(this.timeline);
-    this.timeline.resume();
+    // console.log("resumeTimeline");
+    // console.log(this.timeline);
+    if (!this.timeline.isActive()) {
+      this.timeline.resume();
+    }
   }
 
   before(uniforms) {
@@ -83,18 +102,12 @@ class ExtendObject extends CustomObject {
 
         if (isLastIndex) {
           console.log("Stopping slides at the last index");
-          console.log("pauseSlide", isLastIndex)
+          console.log("pauseSlide", isLastIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             this.timeline.pause();
+            // this.fixGsap();
           });
-          // this.timeline.progress(1);
         }
-        // if (pauseIndex) {
-        //   console.log("pauseSlide", pauseIndex);
-        //   gsap.globalTimeline.getChildren().forEach((timeline) => {
-        //     this.timeline.pause();
-        //   });
-        // }
       },
     });
   }
