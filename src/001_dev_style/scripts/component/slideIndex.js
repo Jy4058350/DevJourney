@@ -3,31 +3,22 @@ let newIndex = 0;
 let textIndex = 0;
 
 function countUp(slideIndex, _size) {
-  // if ((slideIndex = 0)) {
-  //   slideIndex = 0;
-  // }
-
+  // console.log("before", slideIndex)
   if (slideIndex >= _size - 1) {
-    // if (slideIndex >= _size) {
     slideIndex = 0;
-    return slideIndex;
-  } else {
-    slideIndex++;
-  }
-
-  // updateSlideIndex();
-  return slideIndex;
-}
-function countUpSlide(slideIndex, _size) {
-  if (slideIndex >= _size * 2 - 1) {
-    slideIndex = 0;
-
     // return slideIndex;
   } else {
     slideIndex++;
   }
-
-  // updateSlideIndex();
+  // console.log("after", slideIndex)
+  return slideIndex;
+}
+function countUpSlide(slideIndex, _size) {
+  if (slideIndex >= _size - 1) {
+    slideIndex = 0;
+  } else {
+    slideIndex++;
+  }
   return slideIndex;
 }
 

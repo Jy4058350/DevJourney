@@ -19,32 +19,71 @@ let _index = 0;
 let value = 0;
 
 class ExtendObject extends CustomObject {
+  setupTimeline() {
+    // console.log("setupTimeline");
+    // document.addEventListener("mousemove", this.handleMousemove.bind(this));
+    document.addEventListener("click", this.handleClick.bind(this));
+  }
+
+  handleMousemove(event) {
+    const mouseX = event.clientX / window.innerWidth;
+    if (mouseX > 0.5) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
+  }
+  handleClick() {
+    if (this.timeline.paused()) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
+  }
+
+  pauseTimeline() {
+    this.timeline.pause();
+  }
+
+  resumeTimeline() {
+    // console.log("resumeTimeline");
+    // console.log(this.timeline);
+    if (!this.timeline.isActive()) {
+      this.timeline.resume();
+    }
+  }
+
   before() {
-    // console.log(this.texes);
+    // this.timeline = gsap.timeline();
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0, 1, 0);
     this.differenceRadius = 0;
     this.activeIndex = 0;
     this.scale = 1;
 
+    console.log(this.texes);
+
     this.texes.forEach((tex) => {
+      const texData = tex.source.data;
       if (tex.source.data instanceof HTMLVideoElement) {
         tex.source.data.pause?.();
+      } else if (Array.isArray(texData) && texData.length > 0) {
+        console.log("a", texData[0]);
       }
     });
   }
 
   fixGsap() {
+    this.timeline = gsap.timeline();
     _size = this.texes.size * 2;
     // console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
-    console.log(_index, "_index");
+    // console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
+    // console.log(isLastIndex, "isLastIndex");
     const pauseIndex = _index === _size - 13;
-
-    // const tl = new gsap.timeline();
-    const tl = gsap.timeline();
-    tl.to(this.uniforms.uProgress, {
+    // console.log(pauseIndex, "pauseIndex");
+    this.timeline.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
@@ -57,25 +96,32 @@ class ExtendObject extends CustomObject {
         this.fixGsap(_index);
 
         this.goToNext(slideTextIndex(evenIdx));
-        console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
-        console.log("Current Index", _index, "isLastIndex", isLastIndex);
+        // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
+        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
         if (isLastIndex) {
-          console.log("Stopping slides at the last index");
+          console.log("Stopping text at the last index");
+          console.log("pauseSlide", isLastIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
-            // timeline.kill();
-            timeline.pause();
-          });
-          tl.progress(1);
-        }
-        if (pauseIndex) {
-          console.log("pauseIndex", pauseIndex);
-          gsap.globalTimeline.getChildren().forEach((timeline) => {
-            timeline.pause();
+            this.timeline.pause();
+            // this.fixGsap();
+            this.uniforms.uIndex.value = 0;
+            this.uniforms.evenIdx.value = 0;
+            this.goToNext(0);
           });
         }
       },
     });
   }
+
+  // pauseTimeline() {
+  //   this.timeline.pause();
+  // }
+
+  // resumeTimeline() {
+  //   console.log("resumeTimeline");
+  //   console.log(this.timeline);
+  //   this.timeline.resume();
+  // }
 
   afterInit() {
     this.goToNext(this.activeIndex);

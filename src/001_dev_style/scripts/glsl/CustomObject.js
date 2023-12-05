@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 import {
   PlaneGeometry,
   ShaderMaterial,
@@ -14,19 +16,23 @@ import { setAspectRatio } from "../component/setaspectratio";
 
 class CustomObject {
   static async init({ el, type }) {
-    console.log(el);
+    // console.log(el);
     const texes = await loader.texMap(el);
     // console.log(texes);
 
     const i = new this({ texes, el, type });
-    console.log(i);
+    // console.log(i);
     return i;
   }
 
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
-    console.log(el);
+
+    this.timeline = gsap.timeline();
+    this.setupTimeline();
+
+    // console.log(el);
     if (!el) {
       console.log("el is null");
       return;
@@ -79,6 +85,8 @@ class CustomObject {
       this.mesh.position.y = y;
     }
   }
+
+  setupTimeline() {}
 
   convertMapToArray(texes) {
     // for(let [key, value] of texes) {

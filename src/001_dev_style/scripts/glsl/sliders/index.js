@@ -11,6 +11,40 @@ let slideIndex = 0;
 const videoNum = [];
 
 class ExtendObject extends CustomObject {
+  setupTimeline() {
+    // console.log("setupTimeline");
+    // document.addEventListener("mousemove", this.handleMousemove.bind(this));
+    document.addEventListener("click", this.handleClick.bind(this));
+  }
+
+  handleMousemove(event) {
+    const mouseX = event.clientX / window.innerWidth;
+    if (mouseX > 0.5) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
+  }
+  handleClick() {
+    if (this.timeline.paused()) {
+      this.resumeTimeline();
+    } else {
+      this.pauseTimeline();
+    }
+  }
+
+  pauseTimeline() {
+    this.timeline.pause();
+  }
+
+  resumeTimeline() {
+    // console.log("resumeTimeline");
+    // console.log(this.timeline);
+    if (!this.timeline.isActive()) {
+      this.timeline.resume();
+    }
+  }
+
   before(uniforms) {
     if (videoNum instanceof HTMLVideoElement) {
       console.log("play");
@@ -45,12 +79,18 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    const _size = this.texes.size;
+    this.timeline = gsap.timeline();
+    const _size = this.texes.size * 2;
+    // console.log(_size, "_size");
     const isLastIndex = slideIndex === _size - 1;
+    // console.log(isLastIndex, "isLastIndex");
+    const pauseIndex = slideIndex === _size - 13;
+    // console.log(pauseIndex, "pauseIndex");
     this.playVideo();
     slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
     const tl = new gsap.timeline();
-    tl.to(this.uniforms.uProgress, {
+
+    this.timeline.to(this.uniforms.uProgress, {
       value: 1.0,
       duration: slideIndex % 2 === 0 ? 2.0 : 1.0,
       ease: "ease",
@@ -59,6 +99,15 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 0.0;
         slideIndex++;
         this.fixGsap();
+
+        if (isLastIndex) {
+          console.log("Stopping slides at the last index");
+          console.log("pauseSlide", isLastIndex);
+          gsap.globalTimeline.getChildren().forEach((timeline) => {
+            this.timeline.pause();
+            // this.fixGsap();
+          });
+        }
       },
     });
   }
