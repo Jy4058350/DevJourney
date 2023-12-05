@@ -61,7 +61,6 @@ class ExtendObject extends CustomObject {
     this.activeIndex = 0;
     this.scale = 1;
 
-    console.log(this.texes);
 
     this.texes.forEach((tex) => {
       const texData = tex.source.data;
@@ -75,8 +74,8 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     this.timeline = gsap.timeline();
+    console.log(this.texes);
     _size = this.texes.size * 2;
-    // console.log(this.texes);
     _index = countUp(this.uniforms.uIndex.value, _size);
     // console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
@@ -99,8 +98,8 @@ class ExtendObject extends CustomObject {
         // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
         // console.log("Current Index", _index, "isLastIndex", isLastIndex);
         if (isLastIndex) {
-          console.log("Stopping text at the last index");
-          console.log("pauseSlide", isLastIndex);
+          // console.log("Stopping text at the last index");
+          // console.log("pauseSlide", isLastIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             this.timeline.pause();
             // this.fixGsap();
