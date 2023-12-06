@@ -14,9 +14,7 @@ import {
   // updateSlideIndex,
 } from "../../component/slideIndex";
 
-let _size = 0;
 let _index = 0;
-let value = 0;
 const textureArray = [];
 
 class ExtendObject extends CustomObject {
@@ -79,33 +77,37 @@ class ExtendObject extends CustomObject {
     // console.log(texArray);
     const _size = texArray.length * 2;
 
-    const num = countUp(this.uniforms.uIndex.value, _size);
-    // console.log(num);
-    console.log(this.uniforms.uIndex.value);
+    const intervalId = setInterval(() => {
+      _index = countUp(_index, _size);
+      console.log(_index, "index");
+
+      if (_index >= _size - 1) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
 
     for (let i = 0; i < texArray.length; i++) {
       // console.log(i, texArray[i]);
       textureArray.push(texArray[i]);
     }
-    console.log(textureArray[num]);
+    console.log(textureArray[_index]);
 
     this.timeline = gsap.timeline();
     const isLastIndex = (index) => index === _size - 1;
 
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
-      duration: num % 2 === 0 ? 2.0 : 1.0,
+      duration: _index % 2 === 0 ? 2.0 : 1.0,
       ease: "none",
       onComplete: () => {
-        this.goToNextSlide(this.uniforms.uIndex.value);
-        this.activeIndex = num;
+        this.uniforms.uActiveIndex.value = _index;
         this.uniforms.uProgress.value = 0;
         this.uniforms.uIndex.value = this.goToNextSlide(
           this.uniforms.uIndex.value
         );
         this.fixGsap();
 
-        if (isLastIndex(num)) {
+        if (isLastIndex(_index)) {
           gsap.globalTimeline.getChildren().forEach((tween) => {
             this.timeline.pause();
             console.log("pause");

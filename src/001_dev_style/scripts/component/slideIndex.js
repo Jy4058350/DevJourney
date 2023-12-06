@@ -1,6 +1,6 @@
-let slideIndex = 0;
-let newIndex = 0;
-let textIndex = 0;
+// let slideIndex = 0;
+// let newIndex = 0;
+// let index = 0;
 
 function countUp(index, size) {
   console.log(index, "before index");
