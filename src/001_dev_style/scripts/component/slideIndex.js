@@ -2,17 +2,11 @@ let slideIndex = 0;
 let newIndex = 0;
 let textIndex = 0;
 
-function countUp(slideIndex, _size) {
-  // console.log("before", slideIndex)
-  if (slideIndex >= _size - 1) {
-    slideIndex = 0;
-    // return slideIndex;
-  } else {
-    slideIndex++;
-  }
-  // console.log("after", slideIndex)
-  return slideIndex;
+function countUp(index, size) {
+  index = (index + 1) % size;
+  return index;
 }
+
 function countUpSlide(slideIndex, _size) {
   if (slideIndex >= _size - 1) {
     slideIndex = 0;
@@ -32,22 +26,24 @@ function slideTextIndex(slideIndex) {
 // }
 
 // function TextIndex(slideIndex) {
-function calculateEvenNumber(slideIndex) {
-  let textIndex = 0;
-  slideIndex++;
-  // if (slideIndex === 0) {
-  if (slideIndex === 0 || slideIndex >= 16) {
-    textIndex = 0;
-    return textIndex;
+function calculateEvenNumber(index) {
+  // let evenIdx = 0;
+  //  console.log(index, "index")
+  // if (index === 0) {
+  if (index === 0 || index >= 16) {
+    index = 0;
+    return index;
   }
-  if (slideIndex % 2 === 1) {
-    textIndex++;
-    return textIndex;
+  if (index % 2 === 1) {
+    index++;
+    return index;
   }
 
-  if (slideIndex % 2 === 0) {
-    return textIndex;
+  if (index % 2 === 0) {
+    return index;
   }
+
+  // evenIdx++;
 }
 
 // function resetCount(slideIndex) {

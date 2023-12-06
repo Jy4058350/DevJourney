@@ -17,6 +17,7 @@ import {
 let _size = 0;
 let _index = 0;
 let value = 0;
+const textureArray = [];
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -61,7 +62,6 @@ class ExtendObject extends CustomObject {
     this.activeIndex = 0;
     this.scale = 1;
 
-
     this.texes.forEach((tex) => {
       const texData = tex.source.data;
       if (tex.source.data instanceof HTMLVideoElement) {
@@ -75,58 +75,15 @@ class ExtendObject extends CustomObject {
   fixGsap() {
     this.timeline = gsap.timeline();
     // console.log(this.texes);
-    const texArray = Array.from(this.texes.values());
+    const texArray = [...this.texes.values()];
     // console.log(texArray);
-    const texArray1 = [...this.texes.values()];
-    console.log(texArray1);
 
-
-    _size = this.texes.size * 2;
-    _index = countUp(this.uniforms.uIndex.value, _size);
-    // console.log(_index, "_index");
-    const isLastIndex = _index === _size - 1;
-    // console.log(isLastIndex, "isLastIndex");
-    const pauseIndex = _index === _size - 13;
-    // console.log(pauseIndex, "pauseIndex");
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: _index % 2 === 0 ? 2.0 : 1.0,
-      ease: "ease",
-      // pause: true,
-      onComplete: () => {
-        const evenIdx = calculateEvenNumber(_index);
-        this.uniforms.uIndex.value = _index;
-        this.uniforms.evenIdx.value = evenIdx;
-
-        this.fixGsap(_index);
-
-        this.goToNext(slideTextIndex(evenIdx));
-        // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
-        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
-        if (isLastIndex) {
-          // console.log("Stopping text at the last index");
-          // console.log("pauseSlide", isLastIndex);
-          gsap.globalTimeline.getChildren().forEach((timeline) => {
-            this.timeline.pause();
-            // this.fixGsap();
-            this.uniforms.uIndex.value = 0;
-            this.uniforms.evenIdx.value = 0;
-            this.goToNext(0);
-          });
-        }
-      },
-    });
+    for (let i = 0; i < texArray.length; i++) {
+      // console.log(i, texArray[i]);
+      textureArray.push(texArray[i]);
+    }
+    console.log(textureArray[2]);
   }
-
-  // pauseTimeline() {
-  //   this.timeline.pause();
-  // }
-
-  // resumeTimeline() {
-  //   console.log("resumeTimeline");
-  //   console.log(this.timeline);
-  //   this.timeline.resume();
-  // }
 
   afterInit() {
     this.goToNext(this.activeIndex);
