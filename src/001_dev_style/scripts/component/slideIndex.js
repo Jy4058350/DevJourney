@@ -3,7 +3,9 @@ let newIndex = 0;
 let textIndex = 0;
 
 function countUp(index, size) {
+  console.log(index, "before index");
   index = (index + 1) % size;
+  console.log(index, "after index");
   return index;
 }
 

@@ -77,12 +77,42 @@ class ExtendObject extends CustomObject {
     // console.log(this.texes);
     const texArray = [...this.texes.values()];
     // console.log(texArray);
+    const _size = texArray.length * 2;
+
+    const num = countUp(this.uniforms.uIndex.value, _size);
+    // console.log(num);
+    console.log(this.uniforms.uIndex.value);
 
     for (let i = 0; i < texArray.length; i++) {
       // console.log(i, texArray[i]);
       textureArray.push(texArray[i]);
     }
-    console.log(textureArray[2]);
+    console.log(textureArray[num]);
+
+    this.timeline = gsap.timeline();
+    const isLastIndex = (index) => index === _size - 1;
+
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: num % 2 === 0 ? 2.0 : 1.0,
+      ease: "none",
+      onComplete: () => {
+        this.goToNextSlide(this.uniforms.uIndex.value);
+        this.activeIndex = num;
+        this.uniforms.uProgress.value = 0;
+        this.uniforms.uIndex.value = this.goToNextSlide(
+          this.uniforms.uIndex.value
+        );
+        this.fixGsap();
+
+        if (isLastIndex(num)) {
+          gsap.globalTimeline.getChildren().forEach((tween) => {
+            this.timeline.pause();
+            console.log("pause");
+          });
+        }
+      },
+    });
   }
 
   afterInit() {
@@ -95,6 +125,7 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideIndex = { value: 0 };
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
+    // uniforms.uActiveIndex = { value: 0.0 };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
     uniforms.evenIdx = { value: 0.0 };
@@ -166,7 +197,10 @@ class ExtendObject extends CustomObject {
   }
 
   goToNextSlide(uIndex) {
-    return uIndex++;
+    console.log("before", uIndex);
+    uIndex++;
+    console.log("after", uIndex);
+    return uIndex;
     // this.fixGsap(uIndex);
   }
 
@@ -211,6 +245,14 @@ class ExtendObject extends CustomObject {
       .onChange((index) => {
         updateSlideIndex(index);
       });
+    toFolder
+      .add(this.uniforms.uActiveIndex, "value", 0, 15, 1)
+      .name("uActiveIndex")
+      .listen()
+      .onChange((index) => {
+        updateSlideIndex(index);
+      });
+
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
