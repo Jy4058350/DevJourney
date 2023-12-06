@@ -3,9 +3,9 @@
 // let index = 0;
 
 function countUp(index, size) {
-  console.log(index, "before index");
+  // console.log(index, "before index");
   index = (index + 1) % size;
-  console.log(index, "after index");
+  // console.log(index, "after index");
   return index;
 }
 

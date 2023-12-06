@@ -71,29 +71,23 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    this.timeline = gsap.timeline();
-    // console.log(this.texes);
     const texArray = [...this.texes.values()];
     // console.log(texArray);
     const _size = texArray.length * 2;
 
-    const intervalId = setInterval(() => {
+    const update = () => {
       _index = countUp(_index, _size);
       console.log(_index, "index");
 
       if (_index >= _size - 1) {
-        clearInterval(intervalId);
+        requestAnimationFrame(update);
       }
-    }, 1000);
+    };
 
-    for (let i = 0; i < texArray.length; i++) {
-      // console.log(i, texArray[i]);
-      textureArray.push(texArray[i]);
-    }
-    console.log(textureArray[_index]);
+    update();
 
     this.timeline = gsap.timeline();
-    const isLastIndex = (index) => index === _size - 1;
+    const isLastIndex = (_index) => _index === _size - 1;
 
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
