@@ -88,7 +88,8 @@ class ExtendObject extends CustomObject {
     // console.log(pauseIndex, "pauseIndex");
     this.playVideo();
     slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
-    const tl = new gsap.timeline();
+    // console.log(slideIndex, "slideIndex");
+    // const tl = new gsap.timeline();
 
     this.timeline.to(this.uniforms.uProgress, {
       value: 1.0,
@@ -101,8 +102,8 @@ class ExtendObject extends CustomObject {
         this.fixGsap();
 
         if (isLastIndex) {
-          console.log("Stopping slides at the last index");
-          console.log("pauseSlide", isLastIndex);
+          // console.log("Stopping slides at the last index");
+          // console.log("pauseSlide", isLastIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             this.timeline.pause();
             // this.fixGsap();

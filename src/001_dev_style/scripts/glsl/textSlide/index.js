@@ -10,13 +10,10 @@ import { pointTo, lerp } from "../../helper/utils";
 import {
   countUp,
   slideTextIndex,
-  calculateEvenNumber,
-  // updateSlideIndex,
+  getMappedNumber,
 } from "../../component/slideIndex";
 
-let _size = 0;
-let _index = 0;
-let value = 0;
+const textureArray = [];
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -61,8 +58,6 @@ class ExtendObject extends CustomObject {
     this.activeIndex = 0;
     this.scale = 1;
 
-    console.log(this.texes);
-
     this.texes.forEach((tex) => {
       const texData = tex.source.data;
       if (tex.source.data instanceof HTMLVideoElement) {
@@ -74,54 +69,36 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    let _index = 0;
+    const texArray = [...this.texes.values()];
+    // console.log(texArray);
+    const _size = texArray.length * 2;
+
     this.timeline = gsap.timeline();
-    _size = this.texes.size * 2;
-    // console.log(this.texes);
-    _index = countUp(this.uniforms.uIndex.value, _size);
-    // console.log(_index, "_index");
     const isLastIndex = _index === _size - 1;
-    // console.log(isLastIndex, "isLastIndex");
-    const pauseIndex = _index === _size - 13;
-    // console.log(pauseIndex, "pauseIndex");
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: _index % 2 === 0 ? 2.0 : 1.0,
-      ease: "ease",
-      // pause: true,
-      onComplete: () => {
-        const evenIdx = calculateEvenNumber(_index);
-        this.uniforms.uIndex.value = _index;
-        this.uniforms.evenIdx.value = evenIdx;
 
-        this.fixGsap(_index);
+    for (let i = 0; i < _size; i++) {
+      let _index = i;
+      this.timeline.to(this.uniforms.uProgress, {
+        value: 1,
+        duration: _index % 2 === 0 ? 1.0 : 2.0,
+        ease: "ease",
+        onComplete: () => {
+          this.uniforms.uIndex.value = this.goToNextSlide(_index);
+          const mappedNumber = getMappedNumber(_index);
+          this.uniforms.uActiveIndex.value = mappedNumber;
+          console.log(mappedNumber, "evenIdx");
+          this.uniforms.uProgress.value = 0;
 
-        this.goToNext(slideTextIndex(evenIdx));
-        // console.log(this.uniforms.uIndex.value, "this.uniforms.uIndex.value");
-        // console.log("Current Index", _index, "isLastIndex", isLastIndex);
-        if (isLastIndex) {
-          console.log("Stopping text at the last index");
-          console.log("pauseSlide", isLastIndex);
-          gsap.globalTimeline.getChildren().forEach((timeline) => {
-            this.timeline.pause();
-            // this.fixGsap();
-            this.uniforms.uIndex.value = 0;
-            this.uniforms.evenIdx.value = 0;
-            this.goToNext(0);
-          });
-        }
-      },
-    });
+          if (isLastIndex) {
+            gsap.globalTimeline.getChildren().forEach((tween) => {
+              this.timeline.pause();
+            });
+          }
+        },
+      });
+    }
   }
-
-  // pauseTimeline() {
-  //   this.timeline.pause();
-  // }
-
-  // resumeTimeline() {
-  //   console.log("resumeTimeline");
-  //   console.log(this.timeline);
-  //   this.timeline.resume();
-  // }
 
   afterInit() {
     this.goToNext(this.activeIndex);
@@ -133,9 +110,10 @@ class ExtendObject extends CustomObject {
     uniforms.uSlideIndex = { value: 0 };
     uniforms.uSlideTotal = { value: this.texes.size };
     uniforms.uActiveIndex = { value: this.activeIndex };
+    // uniforms.uActiveIndex = { value: 0.0 };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
-    uniforms.evenIdx = { value: 0.0 };
+    // uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
 
@@ -204,7 +182,10 @@ class ExtendObject extends CustomObject {
   }
 
   goToNextSlide(uIndex) {
-    return uIndex++;
+    // console.log("before", uIndex);
+    uIndex++;
+    // console.log("after", uIndex);
+    return uIndex;
     // this.fixGsap(uIndex);
   }
 
@@ -249,6 +230,14 @@ class ExtendObject extends CustomObject {
       .onChange((index) => {
         updateSlideIndex(index);
       });
+    toFolder
+      .add(this.uniforms.uActiveIndex, "value", 0, 15, 1)
+      .name("uActiveIndex")
+      .listen()
+      .onChange((index) => {
+        updateSlideIndex(index);
+      });
+
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
