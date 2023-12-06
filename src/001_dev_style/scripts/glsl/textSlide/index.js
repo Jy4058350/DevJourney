@@ -84,12 +84,17 @@ class ExtendObject extends CustomObject {
         duration: _index % 2 === 0 ? 1.0 : 2.0,
         ease: "ease",
         onComplete: () => {
-
           this.uniforms.uIndex.value = this.goToNextSlide(_index);
           const mappedNumber = getMappedNumber(_index);
           this.uniforms.uActiveIndex.value = mappedNumber;
           console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
+
+          if (isLastIndex) {
+            gsap.globalTimeline.getChildren().forEach((tween) => {
+              this.timeline.pause();
+            });
+          }
         },
       });
     }
