@@ -101,8 +101,8 @@ class ExtendObject extends CustomObject {
         this.fixGsap();
 
         if (isLastIndex) {
-          console.log("Stopping slides at the last index");
-          console.log("pauseSlide", isLastIndex);
+          // console.log("Stopping slides at the last index");
+          // console.log("pauseSlide", isLastIndex);
           gsap.globalTimeline.getChildren().forEach((timeline) => {
             this.timeline.pause();
             // this.fixGsap();

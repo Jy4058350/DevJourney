@@ -74,7 +74,13 @@ class ExtendObject extends CustomObject {
 
   fixGsap() {
     this.timeline = gsap.timeline();
-    console.log(this.texes);
+    // console.log(this.texes);
+    const texArray = Array.from(this.texes.values());
+    // console.log(texArray);
+    const texArray1 = [...this.texes.values()];
+    console.log(texArray1);
+
+
     _size = this.texes.size * 2;
     _index = countUp(this.uniforms.uIndex.value, _size);
     // console.log(_index, "_index");

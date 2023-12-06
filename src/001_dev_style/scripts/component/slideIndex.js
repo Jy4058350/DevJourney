@@ -33,6 +33,7 @@ function slideTextIndex(slideIndex) {
 
 // function TextIndex(slideIndex) {
 function calculateEvenNumber(slideIndex) {
+  let textIndex = 0;
   slideIndex++;
   // if (slideIndex === 0) {
   if (slideIndex === 0 || slideIndex >= 16) {
