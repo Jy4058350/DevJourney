@@ -28,24 +28,10 @@ function slideTextIndex(slideIndex) {
 // }
 
 // function TextIndex(slideIndex) {
-function calculateEvenNumber(index) {
-  // let evenIdx = 0;
-  //  console.log(index, "index")
-  // if (index === 0) {
-  if (index === 0 || index >= 16) {
-    index = 0;
-    return index;
-  }
-  if (index % 2 === 1) {
-    index++;
-    return index;
-  }
-
-  if (index % 2 === 0) {
-    return index;
-  }
-
-  // evenIdx++;
+function getMappedNumber(index) {
+  index = Math.max(0, index);
+  const mappedIndex = Math.floor(index / 2) + (index % 2);
+  return mappedIndex;
 }
 
 // function resetCount(slideIndex) {
@@ -55,11 +41,4 @@ function calculateEvenNumber(index) {
 //   return slideIndex;
 // }
 
-export {
-  countUp,
-  slideTextIndex,
-  // updateSlideIndex,
-  calculateEvenNumber,
-  // resetCount,
-  countUpSlide,
-};
+export { countUp, slideTextIndex, getMappedNumber, countUpSlide };

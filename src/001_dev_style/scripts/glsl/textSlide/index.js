@@ -10,11 +10,9 @@ import { pointTo, lerp } from "../../helper/utils";
 import {
   countUp,
   slideTextIndex,
-  calculateEvenNumber,
-  // updateSlideIndex,
+  getMappedNumber,
 } from "../../component/slideIndex";
 
-let _index = 0;
 const textureArray = [];
 
 class ExtendObject extends CustomObject {
@@ -71,44 +69,30 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    let _index = 0;
     const texArray = [...this.texes.values()];
     // console.log(texArray);
     const _size = texArray.length * 2;
 
-    const update = () => {
-      _index = countUp(_index, _size);
-      console.log(_index, "index");
-
-      if (_index >= _size - 1) {
-        requestAnimationFrame(update);
-      }
-    };
-
-    update();
-
     this.timeline = gsap.timeline();
-    const isLastIndex = (_index) => _index === _size - 1;
+    const isLastIndex = _index === _size - 1;
 
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1,
-      duration: _index % 2 === 0 ? 2.0 : 1.0,
-      ease: "none",
-      onComplete: () => {
-        this.uniforms.uActiveIndex.value = _index;
-        this.uniforms.uProgress.value = 0;
-        this.uniforms.uIndex.value = this.goToNextSlide(
-          this.uniforms.uIndex.value
-        );
-        this.fixGsap();
+    for (let i = 0; i < _size; i++) {
+      let _index = i;
+      this.timeline.to(this.uniforms.uProgress, {
+        value: 1,
+        duration: _index % 2 === 0 ? 1.0 : 2.0,
+        ease: "ease",
+        onComplete: () => {
 
-        if (isLastIndex(_index)) {
-          gsap.globalTimeline.getChildren().forEach((tween) => {
-            this.timeline.pause();
-            console.log("pause");
-          });
-        }
-      },
-    });
+          this.uniforms.uIndex.value = this.goToNextSlide(_index);
+          const mappedNumber = getMappedNumber(_index);
+          this.uniforms.uActiveIndex.value = mappedNumber;
+          console.log(mappedNumber, "evenIdx");
+          this.uniforms.uProgress.value = 0;
+        },
+      });
+    }
   }
 
   afterInit() {
@@ -124,7 +108,7 @@ class ExtendObject extends CustomObject {
     // uniforms.uActiveIndex = { value: 0.0 };
     uniforms.scale = { value: this.scale };
     uniforms.uIndex = { value: 0.0 };
-    uniforms.evenIdx = { value: 0.0 };
+    // uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
 
@@ -193,9 +177,9 @@ class ExtendObject extends CustomObject {
   }
 
   goToNextSlide(uIndex) {
-    console.log("before", uIndex);
+    // console.log("before", uIndex);
     uIndex++;
-    console.log("after", uIndex);
+    // console.log("after", uIndex);
     return uIndex;
     // this.fixGsap(uIndex);
   }
