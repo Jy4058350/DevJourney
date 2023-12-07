@@ -87,7 +87,7 @@ class ExtendObject extends CustomObject {
           this.uniforms.uIndex.value = this.goToNextSlide(_index);
           const mappedNumber = getMappedNumber(_index);
           this.uniforms.uActiveIndex.value = mappedNumber;
-          console.log(mappedNumber, "evenIdx");
+          // console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
 
           if (isLastIndex) {
