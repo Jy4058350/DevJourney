@@ -74,7 +74,12 @@ class ExtendObject extends CustomObject {
     // console.log(texArray);
     const _size = texArray.length * 2;
 
-    this.timeline = gsap.timeline();
+    this.timeline = gsap.timeline({
+      repeat: -1,
+      onComplete: () => {
+        this.timeline.restart();
+      },
+    });
     const isLastIndex = _index === _size - 1;
 
     for (let i = 0; i < _size; i++) {
