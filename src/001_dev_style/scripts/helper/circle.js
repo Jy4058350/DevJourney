@@ -4,11 +4,14 @@ const circle = {
 
 function createCircle() {
   const circle = document.createElement("div");
-  console.log(circle);
   circle.classList.add("circle");
-  console.log(circle);
   circleContainer.appendChild(circle);
   console.log("add circle");
+  
+  circle.addEventListener("click", function() {
+      Slider.seek(index-1);
+      console.log("click");
+  })
 }
 
 export { circle };
