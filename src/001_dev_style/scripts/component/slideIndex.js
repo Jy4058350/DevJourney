@@ -29,16 +29,10 @@ function slideTextIndex(slideIndex) {
 
 // function TextIndex(slideIndex) {
 function getMappedNumber(index) {
-  index = Math.max(0, index);
+  index = Math.max(0, index);// 0以上の整数にする
   const mappedIndex = Math.floor(index / 2) + (index % 2);
   return mappedIndex;
 }
 
-// function resetCount(slideIndex) {
-//   if (slideIndex >= 15) {
-//     slideIndex = 0;
-//   }
-//   return slideIndex;
-// }
 
 export { countUp, slideTextIndex, getMappedNumber, countUpSlide };
