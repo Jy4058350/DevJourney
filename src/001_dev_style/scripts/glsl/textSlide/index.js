@@ -74,7 +74,12 @@ class ExtendObject extends CustomObject {
     // console.log(texArray);
     const _size = texArray.length * 2;
 
-    this.timeline = gsap.timeline();
+    this.timeline = gsap.timeline({
+      repeat: -1,
+      onComplete: () => {
+        this.timeline.restart();
+      },
+    });
     const isLastIndex = _index === _size - 1;
 
     for (let i = 0; i < _size; i++) {
@@ -87,7 +92,7 @@ class ExtendObject extends CustomObject {
           this.uniforms.uIndex.value = this.goToNextSlide(_index);
           const mappedNumber = getMappedNumber(_index);
           this.uniforms.uActiveIndex.value = mappedNumber;
-          console.log(mappedNumber, "evenIdx");
+          // console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
 
           if (isLastIndex) {

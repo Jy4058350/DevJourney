@@ -79,38 +79,37 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
-    this.timeline = gsap.timeline();
-    const _size = this.texes.size * 2;
-    // console.log(_size, "_size");
-    const isLastIndex = slideIndex === _size - 1;
-    // console.log(isLastIndex, "isLastIndex");
-    const pauseIndex = slideIndex === _size - 13;
-    // console.log(pauseIndex, "pauseIndex");
-    this.playVideo();
-    slideIndex = countUpSlide(this.uniforms.uIndex.value, _size);
-    // console.log(slideIndex, "slideIndex");
-    // const tl = new gsap.timeline();
+    let _index = 0;
+    const texArray = [...this.texes.values()];
+    const _size = texArray.length * 2;
+    console.log(_size);
 
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1.0,
-      duration: slideIndex % 2 === 0 ? 2.0 : 1.0,
-      ease: "ease",
+    this.timeline = gsap.timeline({
+      repeat: -1,
       onComplete: () => {
-        this.uniforms.uIndex.value = slideIndex;
-        this.uniforms.uProgress.value = 0.0;
-        slideIndex++;
-        this.fixGsap();
-
-        if (isLastIndex) {
-          // console.log("Stopping slides at the last index");
-          // console.log("pauseSlide", isLastIndex);
-          gsap.globalTimeline.getChildren().forEach((timeline) => {
-            this.timeline.pause();
-            // this.fixGsap();
-          });
-        }
-      },
+        this.timeline.restart();
+      }
     });
+    const isLastIndex = _index === _size - 1;
+
+    for (let i = 0; i < _size; i++) {
+      let _index = i;
+      this.timeline.to(this.uniforms.uProgress, {
+        value: 1,
+        duration: _index % 2 === 0 ? 1.0 : 2.0,
+        ease: "ease",
+        onComplete: () => {
+          this.uniforms.uIndex.value = this.goToNextSlide(_index);
+          this.uniforms.uProgress.value = 0;
+
+          if (isLastIndex) {
+            gsap.globalTimeline.getChildren().forEach((timeline) => {
+              this.timeline.pause();
+            });
+          }
+        },
+      });
+    }
   }
 
   fixUniforms() {
@@ -132,6 +131,14 @@ class ExtendObject extends CustomObject {
 
   fixFragment() {
     return fragmentShader;
+  }
+
+  goToNextSlide(uIndex) {
+    // console.log("before", uIndex);
+    uIndex++;
+    // console.log("after", uIndex);
+    return uIndex;
+    // this.fixGsap(uIndex);
   }
 
   debug(toFolder) {
