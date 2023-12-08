@@ -85,7 +85,7 @@ class ExtendObject extends CustomObject {
     $.circles.forEach((circle, index) => {
       circle.addEventListener("click", () => {
         console.log("click", index + 1);
-        this.updateCircleColors(index);
+        this.updateCircleColors(index + 1);
       });
     });
   }
