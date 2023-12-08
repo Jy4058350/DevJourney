@@ -28,9 +28,11 @@ class CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
+   
 
     this.timeline = gsap.timeline();
     this.setupTimeline();
+    this._test();
 
     // console.log(el);
     if (!el) {
@@ -85,6 +87,8 @@ class CustomObject {
       this.mesh.position.y = y;
     }
   }
+
+  _test() {}
 
   setupTimeline() {}
 

@@ -6,9 +6,10 @@ import fragmentShader from "./fragment.glsl";
 import { CustomObject } from "../CustomObject";
 import { countUpSlide } from "../../component/slideIndex";
 import { VideoTexture } from "three";
+import { iNode } from "../../helper/iNode";
 
-let slideIndex = 0;
 const videoNum = [];
+const $ = {};
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -78,17 +79,35 @@ class ExtendObject extends CustomObject {
     });
   }
 
+  _test(_index) {
+    console.log(_index);
+    $.circles = iNode.qsa(".circle");
+    $.circles.forEach((circle, index) => {
+      circle.addEventListener("click", function () {
+        console.log("click", index + 1);
+        this.updateCircleColors(index);
+      });
+    });
+  }
+
+  updateCircleColors(activeIndex) {
+    $.circles.forEach((circle, index) => {
+      circle.style.backgroundColor =
+        index + 1 === activeIndex ? "blue" : "gray";
+    });
+  }
+
   fixGsap() {
     let _index = 0;
     const texArray = [...this.texes.values()];
     const _size = texArray.length * 2;
-    console.log(_size);
+    // console.log(_size);
 
     this.timeline = gsap.timeline({
       repeat: -1,
       onComplete: () => {
         this.timeline.restart();
-      }
+      },
     });
     const isLastIndex = _index === _size - 1;
 
@@ -121,7 +140,6 @@ class ExtendObject extends CustomObject {
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
     uniforms.uTest = { value: 1.0 };
-
     return uniforms;
   }
 
