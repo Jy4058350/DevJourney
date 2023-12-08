@@ -24,6 +24,14 @@ function createCircle() {
   circle.addEventListener("click", function () {
     Slider.seek(index - 1);
     console.log("click");
+    updateCircleColors();
+  });
+}
+
+function updateCircleColors() {
+  const circles = iNode.qsa(".circle");
+  circles.forEach((circle, index) => {
+    circle.style.backgroundColor = index + 1 === activeIndex ? "blue" : "gray";
   });
 }
 
