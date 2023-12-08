@@ -83,7 +83,7 @@ class ExtendObject extends CustomObject {
     console.log(_index);
     $.circles = iNode.qsa(".circle");
     $.circles.forEach((circle, index) => {
-      circle.addEventListener("click", function () {
+      circle.addEventListener("click", () => {
         console.log("click", index + 1);
         this.updateCircleColors(index);
       });
