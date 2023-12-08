@@ -87,7 +87,10 @@ class ExtendObject extends CustomObject {
         console.log("click", index + 1);
         this.updateCircleColors(index + 1);
 
-        this.timeline.seek(index);
+        // this.timeline.seek(index);
+        const progress = (index + 1) / 16;
+        this.timeline.progress(progress);
+        this.timeline.pause();
       });
     });
   }
