@@ -10,25 +10,28 @@ document.addEventListener("DOMContentLoaded", function () {
   const circleContainer = iNode.getElById("circleContainer");
 
   for (let i = 0; i < 16; i++) {
-    // slider.to(`.slide:nth-child(${i + 1})`, { x: `-${i * 100}%`, duration: 1 });
-    createCircle(i + 1);
+    slider.to(`.fv_holder`, {
+      x: `-${i * 100}%`,
+      duration: 1,
+    });
+    createCircle(i + 1, slider);
   }
 });
 
-function createCircle() {
+function createCircle(index, slider) {
   const circle = document.createElement("div");
   circle.classList.add("circle");
   circleContainer.appendChild(circle);
   console.log("add circle");
 
   circle.addEventListener("click", function () {
-    Slider.seek(index - 1);
+    slider.seek(index - 1);
     console.log("click");
-    updateCircleColors();
+    updateCircleColors(index);
   });
 }
 
-function updateCircleColors() {
+function updateCircleColors(activeIndex) {
   const circles = iNode.qsa(".circle");
   circles.forEach((circle, index) => {
     circle.style.backgroundColor = index + 1 === activeIndex ? "blue" : "gray";

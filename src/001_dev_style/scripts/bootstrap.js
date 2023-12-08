@@ -8,7 +8,7 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
-import { circle } from "./helper/circle";
+// import { circle } from "./helper/circle";
 
 import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
@@ -70,5 +70,5 @@ export async function init() {
 
   gui.open();
 
-  circle.createCircle();
+  // circle.createCircle();
 }
