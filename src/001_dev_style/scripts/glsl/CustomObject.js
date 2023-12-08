@@ -31,7 +31,7 @@ class CustomObject {
    
 
     this.timeline = gsap.timeline();
-    this.setupTimeline();
+    // this.setupTimeline();
     this._test();
 
     // console.log(el);
@@ -90,7 +90,7 @@ class CustomObject {
 
   _test() {}
 
-  setupTimeline() {}
+  // setupTimeline() {}
 
   convertMapToArray(texes) {
     // for(let [key, value] of texes) {

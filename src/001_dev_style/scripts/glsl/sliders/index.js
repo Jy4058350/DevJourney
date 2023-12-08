@@ -86,6 +86,8 @@ class ExtendObject extends CustomObject {
       circle.addEventListener("click", () => {
         console.log("click", index + 1);
         this.updateCircleColors(index + 1);
+
+        this.timeline.seek(index);
       });
     });
   }
