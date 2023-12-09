@@ -10,6 +10,7 @@ import { iNode } from "../../helper/iNode";
 
 const videoNum = [];
 const $ = {};
+let circleClickedCondition = false;
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -79,18 +80,23 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  _test(_index) {
-    console.log(_index);
+  // _test(_index) {
+  _test() {
+    // console.log(_index);
     $.circles = iNode.qsa(".circle");
     $.circles.forEach((circle, index) => {
       circle.addEventListener("click", () => {
         console.log("click", index + 1);
+        this.uniforms.uProgress.value = 1;
         this.updateCircleColors(index + 1);
+        console.log(this.uniforms.uProgress.value);
 
         // this.timeline.seek(index);
         const progress = (index + 1) / 16;
+        console.log(progress);
         this.timeline.progress(progress);
-        this.timeline.pause();
+        // this.timeline.pause();
+        circleClickedCondition = true;
       });
     });
   }
@@ -130,6 +136,10 @@ class ExtendObject extends CustomObject {
             gsap.globalTimeline.getChildren().forEach((timeline) => {
               this.timeline.pause();
             });
+          }
+          if (circleClickedCondition) {
+            console.log("circleClickedCondition", circleClickedCondition);
+            this.timeline.pause();
           }
         },
       });
