@@ -28,9 +28,11 @@ class CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
+   
 
     this.timeline = gsap.timeline();
-    this.setupTimeline();
+    // this.setupTimeline();
+    this._test();
 
     // console.log(el);
     if (!el) {
@@ -86,7 +88,9 @@ class CustomObject {
     }
   }
 
-  setupTimeline() {}
+  _test() {}
+
+  // setupTimeline() {}
 
   convertMapToArray(texes) {
     // for(let [key, value] of texes) {

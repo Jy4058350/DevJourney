@@ -8,7 +8,7 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import "./component/scroll-animation";
-import { iNode } from "./helper";
+// import { circle } from "./helper/circle";
 
 import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
@@ -70,17 +70,5 @@ export async function init() {
 
   gui.open();
 
-  // document.addEventListener("mousemove", function (event) {
-  //   gsap.globalTimeline.getChildren().forEach((timeline) => {
-  //     timeline.play();
-  //     console.log("gsap.play");
-  //   });
-  // });
-
-  // const customObject = new CustomObject();
-
-
-  // const extendObject = new ExtendObject(customObject);
-  // console.log(extendObject);
-  // await extendObject.init();
+  // circle.createCircle();
 }
