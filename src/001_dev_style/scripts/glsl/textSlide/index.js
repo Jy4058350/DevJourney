@@ -12,8 +12,11 @@ import {
   slideTextIndex,
   getMappedNumber,
 } from "../../component/slideIndex";
+import { iNode } from "../../helper/iNode";
 
 const textureArray = [];
+const $ = {};
+let activeIndex = 0;
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -68,6 +71,41 @@ class ExtendObject extends CustomObject {
     });
   }
 
+  _test() {
+    const texArray = [...this.texes.values()];
+    const _size = texArray.length * 2;
+    $.circles = iNode.qsa(".circle");
+    $.circles.forEach((circle, index) => {
+      circle.addEventListener("click", () => {
+        activeIndex = index;
+        this.updateCircleColors(activeIndex);
+
+        console.log("click", index);
+        this.uniforms.uProgress.value = 1;
+
+        const progress = (index + 1) / _size;
+        console.log(progress);
+        this.timeline.progress(progress);
+
+        // this.uniforms.uIndex.value = Math.floor(progress * _size);
+        // this.uniforms.uActiveIndex.value = Math.floor(progress * (_size - 1));
+
+        const mindex = Math.floor(progress * (_size-1));
+        this.uniforms.uIndex.value = this.goToNextSlide(mindex);
+        const mappedNumber = getMappedNumber(mindex);
+        this.uniforms.uActiveIndex.value = mappedNumber;
+
+        this.timeline.pause();
+      });
+    });
+  }
+
+  updateCircleColors(activeIndex) {
+    $.circles.forEach((circle, index) => {
+      circle.style.backgroundColor = index === activeIndex ? "white" : "gray";
+    });
+  }
+
   fixGsap() {
     let _index = 0;
     const texArray = [...this.texes.values()];
@@ -76,9 +114,13 @@ class ExtendObject extends CustomObject {
 
     this.timeline = gsap.timeline({
       repeat: -1,
-      onComplete: () => {
-        this.timeline.restart();
-      },
+      // onUpdate: () => {
+      //   this.updateCircleColors(_index);
+      //   this.timeline.restart();
+      // },
+      // onComplete: () => {
+      //   this.timeline.restart();
+      // },
     });
     const isLastIndex = _index === _size - 1;
 
