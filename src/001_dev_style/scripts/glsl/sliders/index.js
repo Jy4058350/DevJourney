@@ -11,7 +11,7 @@ import { iNode } from "../../helper/iNode";
 const videoNum = [];
 const $ = {};
 let activeSlideIndex = 0;
-const totalSlides = 16;
+// const totalSlides = 16;
 let circleClickedCondition = false;
 
 class ExtendObject extends CustomObject {
@@ -82,9 +82,9 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  // _test(_index) {
   _test() {
-    // console.log(_index);
+    const texArray = [...this.texes.values()];
+    const _size = texArray.length * 2;
     $.circles = iNode.qsa(".circle");
     $.circles.forEach((circle, index) => {
       circle.addEventListener("click", () => {
@@ -95,17 +95,16 @@ class ExtendObject extends CustomObject {
         this.uniforms.uProgress.value = 1;
         console.log(this.uniforms.uProgress.value);
 
-        // const progress = (index + 1) / totalSlides;
-        // console.log(progress);
-        // this.timeline.progress(progress);
-        // // this.timeline.pause();
-        this.fixGsap(index);
+        const progress = (index + 1) / _size;
+        console.log(progress);
+        this.timeline.progress(progress);
+        // this.timeline.pause();
+        // this.fixGsap(index);
       });
     });
   }
 
   updateCircleColors(activeIndex) {
-    // updateCircleColors() {
     $.circles.forEach((circle, index) => {
       circle.style.backgroundColor = index === activeIndex ? "blue" : "gray";
     });
@@ -115,45 +114,43 @@ class ExtendObject extends CustomObject {
     let _index = 0;
     const texArray = [...this.texes.values()];
     const _size = texArray.length * 2;
-    // console.log(_size);
 
     this.timeline = gsap.timeline({
       repeat: -1,
+      onUpdate: () => {
+        console.log("Timeline is updating");
+        console.log("Progerss", this.timeline.progress());
+      },
       onComplete: () => {
+        console.log("onComplete called");
+        this.updateCircleColors(_index);
         this.timeline.restart();
       },
     });
     const isLastIndex = _index === _size - 1;
 
-    // for (let i = 0; i < _size; i++) {
-    for (let i = 0; i < totalSlides; i++) {
-      // let _index = i;
+    for (let i = 0; i < _size; i++) {
+      let _index = i;
       this.timeline.to(this.uniforms.uProgress, {
         value: 1,
         // duration: _index % 2 === 0 ? 1.0 : 2.0,
         duration: i % 2 === 0 ? 1.0 : 2.0,
         ease: "ease",
         onComplete: () => {
-          // this.uniforms.uIndex.value = this.goToNextSlide(_index);
+          console.log("Slide transition completed");
           this.uniforms.uIndex.value = this.goToNextSlide(i);
           this.uniforms.uProgress.value = 0;
 
-          // if (isLastIndex) {
-          //   gsap.globalTimeline.getChildren().forEach((timeline) => {
-          //     this.timeline.pause();
-          //   });
-          // }
-
-          if (i === totalSlides - 1) {
+          if (isLastIndex) {
             gsap.globalTimeline.getChildren().forEach((timeline) => {
               this.timeline.pause();
             });
           }
 
-          if (circleClickedCondition) {
-            console.log("circleClickedCondition", circleClickedCondition);
-            this.timeline.pause();
-          }
+          // if (circleClickedCondition) {
+          //   console.log("circleClickedCondition", circleClickedCondition);
+          //   this.timeline.pause();
+          // }
         },
       });
     }
