@@ -89,27 +89,25 @@ class ExtendObject extends CustomObject {
     $.circles.forEach((circle, index) => {
       circle.addEventListener("click", () => {
         activeSlideIndex = index;
-        this.updateCircleColors();
+        this.updateCircleColors(index);
 
         console.log("click", index + 1);
         this.uniforms.uProgress.value = 1;
-        this.updateCircleColors(index + 1);
         console.log(this.uniforms.uProgress.value);
 
-        const progress = (index + 1) / totalSlides;
-        console.log(progress);
-        this.timeline.progress(progress);
-        // this.timeline.pause();
+        // const progress = (index + 1) / totalSlides;
+        // console.log(progress);
+        // this.timeline.progress(progress);
+        // // this.timeline.pause();
+        this.fixGsap(index);
       });
     });
   }
 
   updateCircleColors(activeIndex) {
+    // updateCircleColors() {
     $.circles.forEach((circle, index) => {
-      circle.style.backgroundColor =
-        // index + 1 === activeIndex ? "blue" : "gray";
-        index === activeIndex ? "blue" : "gray";
-        console.log(index);
+      circle.style.backgroundColor = index === activeIndex ? "blue" : "gray";
     });
   }
 
@@ -140,11 +138,11 @@ class ExtendObject extends CustomObject {
           this.uniforms.uIndex.value = this.goToNextSlide(i);
           this.uniforms.uProgress.value = 0;
 
-          if (isLastIndex) {
-            gsap.globalTimeline.getChildren().forEach((timeline) => {
-              this.timeline.pause();
-            });
-          }
+          // if (isLastIndex) {
+          //   gsap.globalTimeline.getChildren().forEach((timeline) => {
+          //     this.timeline.pause();
+          //   });
+          // }
 
           if (i === totalSlides - 1) {
             gsap.globalTimeline.getChildren().forEach((timeline) => {
