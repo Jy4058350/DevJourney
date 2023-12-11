@@ -137,7 +137,7 @@ class ExtendObject extends CustomObject {
           // console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
 
-          if (_index % 2 === 0) {
+          if (_index % 2 === 1) {
             this.uniforms.uProgress2.value = 0;
           }
 
@@ -197,6 +197,7 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
+      planeMat.uniforms.uProgress2 = this.uniforms.uProgress2;
       planeMat.uniforms.uResolution = this.uniforms.uResolution;
 
       const planeGeo = this.geometry.clone();
