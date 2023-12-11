@@ -126,7 +126,7 @@ class ExtendObject extends CustomObject {
 
     for (let i = 0; i < _size; i++) {
       let _index = i;
-      this.timeline.to(this.uniforms.uProgress, {
+      this.timeline.to([this.uniforms.uProgress, this.uniforms.uProgress2], {
         value: 1,
         duration: _index % 2 === 0 ? 1.0 : 2.0,
         ease: "ease",
@@ -136,6 +136,10 @@ class ExtendObject extends CustomObject {
           this.uniforms.uActiveIndex.value = mappedNumber;
           // console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
+
+          if (_index % 2 === 0) {
+            this.uniforms.uProgress2.value = 0;
+          }
 
           if (isLastIndex) {
             gsap.globalTimeline.getChildren().forEach((tween) => {
@@ -163,6 +167,7 @@ class ExtendObject extends CustomObject {
     // uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
+    uniforms.uProgress2 = { value: 0.0 };
 
     return uniforms;
   }
@@ -288,6 +293,10 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress2, "value", 0, 1, 0.01)
+      .name("uProgress2")
       .listen();
     toFolder
       // .add(this.uniforms.uIndex, "value", 0, 8, 1)

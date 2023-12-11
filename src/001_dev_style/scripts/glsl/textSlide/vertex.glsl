@@ -8,6 +8,7 @@ uniform float uTick;
 varying float vDistanceAngle;
 
 uniform float uProgress;
+uniform float uProgress2;
 
 void main() {
     vUv = uv;
@@ -15,7 +16,7 @@ void main() {
     vec3 pos = position;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-    mvPosition.y += uProgress * 40.0 - 2.0;
+    mvPosition.y += uProgress2 * 40.0 - 2.0;
 
     // float distanceFrequency = 2.0 * PI / uSlideTotal * (uActiveIndex + uSlideIndex);
     float distanceFrequency = 2.0 * PI / uSlideTotal * (uActiveIndex + uSlideIndex);//It becomes variable here.
