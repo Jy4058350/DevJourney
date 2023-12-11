@@ -97,7 +97,7 @@ class ExtendObject extends CustomObject {
         const progress = (index + 1) / _size;
         // console.log(progress);
         this.timeline.progress(progress);
-       
+
         this.uniforms.uIndex.value = Math.floor(progress * _size);
         this.timeline.pause();
       });
@@ -106,7 +106,8 @@ class ExtendObject extends CustomObject {
 
   updateCircleColors(activeIndex) {
     $.circles.forEach((circle, index) => {
-      circle.style.backgroundColor = index === activeIndex ? "white" : "gray";
+      circle.style.backgroundColor =
+        index === activeIndex ? "white" : "black";
     });
   }
 

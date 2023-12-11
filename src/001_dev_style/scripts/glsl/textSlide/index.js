@@ -90,7 +90,7 @@ class ExtendObject extends CustomObject {
         // this.uniforms.uIndex.value = Math.floor(progress * _size);
         // this.uniforms.uActiveIndex.value = Math.floor(progress * (_size - 1));
 
-        const mindex = Math.floor(progress * (_size-1));
+        const mindex = Math.floor(progress * (_size - 1));
         this.uniforms.uIndex.value = this.goToNextSlide(mindex);
         const mappedNumber = getMappedNumber(mindex);
         this.uniforms.uActiveIndex.value = mappedNumber;
