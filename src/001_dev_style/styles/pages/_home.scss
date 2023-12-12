@@ -51,8 +51,6 @@ body {
     // position: relative;
     text-align: center;
 
-    transition: transform 0.5s ease-in-out;
-
     z-index: 100;
     cursor: pointer;
     left: auto;
@@ -66,8 +64,6 @@ body {
     & .fv_text-shader {
       display: block;
       pointer-events: none;
-
-      transform: translateY(-5px);
 
       aspect-ratio: 1/ 1;
       font-size: fluid-text(10px, 100px);
