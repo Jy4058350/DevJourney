@@ -8,6 +8,7 @@ const elementPos = {
   executeSequence,
   _totalHeight,
   _getScrollContentHeight,
+  // handleResize,
 };
 
 const $ = {};
@@ -218,6 +219,7 @@ function wideRangeGoblin() {
 
     if (isWideScreen) {
       const nextheaderHeight = iNode.getElById("header").offsetHeight;
+      console.log("nextheaderHeight", nextheaderHeight);
       iNode.toggleClass(headerNav, "Header__MainNav--open", true);
       iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
       iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);

@@ -107,7 +107,7 @@ class ExtendObject extends CustomObject {
   updateCircleColors(activeIndex) {
     $.circles.forEach((circle, index) => {
       circle.style.backgroundColor =
-        index === activeIndex ? "white" : "black";
+        index === activeIndex ? "white" : "transparent";
     });
   }
 
@@ -137,7 +137,7 @@ class ExtendObject extends CustomObject {
       this.timeline.to(this.uniforms.uProgress, {
         value: 1,
         // duration: _index % 2 === 0 ? 1.0 : 2.0,
-        duration: i % 2 === 0 ? 1.0 : 2.0,
+        duration: i % 2 === 0 ? 2.0 : 5.0,
         ease: "ease",
         onComplete: () => {
           // console.log("Slide transition completed");

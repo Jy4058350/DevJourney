@@ -13,12 +13,9 @@
     font-size: fluid-text(10px, 100px);
 
     z-index: 100;
-    cursor: pointer;
 
     & .SectionHeader {
-      //   opacity: 0;
       height: 100%;
-      //   transform: matrix(1, 0, 0, 1, 0, 0);
     }
 
     & .fv_text-shader {
@@ -108,7 +105,7 @@
   margin: 0 10px;
   cursor: pointer;
   background-color: black;
-  border: 1px solid white;
+  border: 2px solid white;
 }
 
 .slide {
