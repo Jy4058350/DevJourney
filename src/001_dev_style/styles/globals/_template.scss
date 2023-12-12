@@ -129,3 +129,11 @@
   border-radius: 0;
   webkit-appearance: none;
 }
+
+
+@mixin bottomLeft-style {
+  top: auto;
+  bottom: 70px;
+  left: 0;
+  transform: none;
+}

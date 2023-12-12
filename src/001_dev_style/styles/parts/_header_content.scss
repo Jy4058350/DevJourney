@@ -1,0 +1,125 @@
+@use "../globals" as *;
+@use "../parts/font" as *;
+
+.Slideshow {
+  &__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    padding: 0 24px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    font-size: fluid-text(10px, 100px);
+
+    z-index: 100;
+    cursor: pointer;
+
+    & .SectionHeader {
+      //   opacity: 0;
+      height: 100%;
+      //   transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+
+    & .fv_text-shader {
+      //   display: block;
+      pointer-events: none;
+
+      aspect-ratio: 1/ 1;
+      font-size: fluid-text(10px, 100px);
+      text-align: center;
+      width: 3em;
+      height: 3em;
+    }
+
+    &--bottomLeft {
+      @include bottomLeft-style;
+      text-align: left;
+    }
+  }
+}
+
+.SectionHeader__ButtonWrap {
+  //   position: absolute;
+  display: flex;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  // bottom: 15%;
+}
+
+// .fv .ButtonGroup {
+//   justify-content: flex-start;
+// }
+
+.ButtonGroup--spacingSmall {
+  margin: -8px;
+}
+
+.ButtonGroup {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  & .ButtonGroup__Item {
+    margin: 8px;
+  }
+}
+
+.Button {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 14px 28px;
+  font-family: var(--heading-font-family);
+
+  color: var(--color-black);
+
+  &::before {
+    background-color: var(--color-white);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    transform: scale(1);
+    transform-origin: left center;
+  }
+}
+
+.circle-container {
+  // position: absolute;
+  //   display: block;
+  width: 220px;
+  height: 40px;
+  //   bottom: 7%;
+  left: 20%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  z-index: 10;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 10px;
+  cursor: pointer;
+  background-color: black;
+  border: 1px solid white;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+  background-color: lightgray;
+}
