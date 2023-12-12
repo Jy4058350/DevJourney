@@ -40,12 +40,7 @@
 }
 
 .SectionHeader__ButtonWrap {
-  //   position: absolute;
-  display: flex;
-  display: block;
-  width: 100%;
-  margin-top: 20px;
-  // bottom: 15%;
+  margin-top: 10px;
 }
 
 // .fv .ButtonGroup {
@@ -57,7 +52,6 @@
 }
 
 .ButtonGroup {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -73,6 +67,7 @@
   display: inline-block;
   padding: 14px 28px;
   font-family: var(--heading-font-family);
+  font-size: 14px;
 
   color: var(--color-black);
 
@@ -94,16 +89,14 @@
   }
 }
 
-.circle-container {
-  // position: absolute;
-  //   display: block;
-  width: 220px;
-  height: 40px;
-  //   bottom: 7%;
-  left: 20%;
-  transform: translateX(-50%);
+.circleContainer {
+  position: relative;
+  justify-content: flex-start;
+  margin: 20px 0;
+  text-align: center;
   display: flex;
   flex-wrap: wrap;
+
   color: white;
   z-index: 10;
 }
