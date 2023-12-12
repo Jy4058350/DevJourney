@@ -26,6 +26,6 @@ void main() {
     pos.y -= 100.0 * (sin(distanceFrequency));
     // pos.y += 100.0 * sin(distanceFrequency);
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
+    // gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
     gl_Position = projectionMatrix * mvPosition;
 }
