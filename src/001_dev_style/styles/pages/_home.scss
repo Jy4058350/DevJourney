@@ -45,33 +45,33 @@ body {
     object-fit: cover;
   }
 
-  &_content {
-    font-size: fluid-text(10px, 100px);
-    position: absolute;
-    // position: relative;
-    text-align: center;
+  // &_content {
+  //   font-size: fluid-text(10px, 100px);
+  //   position: absolute;
+  //   // position: relative;
+  //   text-align: center;
 
-    z-index: 100;
-    cursor: pointer;
-    left: auto;
-    transform: none;
-    // bottom: 65px;
-    bottom: 15%;
-    margin-left: 1em;
-    // width: 5em;
-    // height: 2.5em;
+  //   z-index: 100;
+  //   cursor: pointer;
+  //   left: auto;
+  //   transform: none;
+  //   // bottom: 65px;
+  //   bottom: 15%;
+  //   margin-left: 1em;
+  //   // width: 5em;
+  //   // height: 2.5em;
 
-    & .fv_text-shader {
-      display: block;
-      pointer-events: none;
+  //   & .fv_text-shader {
+  //     display: block;
+  //     pointer-events: none;
 
-      aspect-ratio: 1/ 1;
-      font-size: fluid-text(10px, 100px);
-      text-align: center;
-      width: 3em;
-      height: 3em;
-    }
-  }
+  //     aspect-ratio: 1/ 1;
+  //     font-size: fluid-text(10px, 100px);
+  //     text-align: center;
+  //     width: 3em;
+  //     height: 3em;
+  //   }
+  // }
 
   // &_text {
   //   &-shader {
