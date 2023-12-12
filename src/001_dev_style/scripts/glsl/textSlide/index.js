@@ -12,8 +12,11 @@ import {
   slideTextIndex,
   getMappedNumber,
 } from "../../component/slideIndex";
+import { iNode } from "../../helper/iNode";
 
 const textureArray = [];
+const $ = {};
+let activeIndex = 0;
 
 class ExtendObject extends CustomObject {
   setupTimeline() {
@@ -68,6 +71,41 @@ class ExtendObject extends CustomObject {
     });
   }
 
+  _test() {
+    const texArray = [...this.texes.values()];
+    const _size = texArray.length * 2;
+    $.circles = iNode.qsa(".circle");
+    $.circles.forEach((circle, index) => {
+      circle.addEventListener("click", () => {
+        activeIndex = index;
+        this.updateCircleColors(activeIndex);
+
+        console.log("click", index);
+        this.uniforms.uProgress.value = 1;
+
+        const progress = (index + 1) / _size;
+        console.log(progress);
+        this.timeline.progress(progress);
+
+        // this.uniforms.uIndex.value = Math.floor(progress * _size);
+        // this.uniforms.uActiveIndex.value = Math.floor(progress * (_size - 1));
+
+        const mindex = Math.floor(progress * (_size - 1));
+        this.uniforms.uIndex.value = this.goToNextSlide(mindex);
+        const mappedNumber = getMappedNumber(mindex);
+        this.uniforms.uActiveIndex.value = mappedNumber;
+
+        this.timeline.pause();
+      });
+    });
+  }
+
+  updateCircleColors(activeIndex) {
+    $.circles.forEach((circle, index) => {
+      circle.style.backgroundColor = index === activeIndex ? "white" : "gray";
+    });
+  }
+
   fixGsap() {
     let _index = 0;
     const texArray = [...this.texes.values()];
@@ -76,15 +114,19 @@ class ExtendObject extends CustomObject {
 
     this.timeline = gsap.timeline({
       repeat: -1,
-      onComplete: () => {
-        this.timeline.restart();
-      },
+      // onUpdate: () => {
+      //   this.updateCircleColors(_index);
+      //   this.timeline.restart();
+      // },
+      // onComplete: () => {
+      //   this.timeline.restart();
+      // },
     });
     const isLastIndex = _index === _size - 1;
 
     for (let i = 0; i < _size; i++) {
       let _index = i;
-      this.timeline.to(this.uniforms.uProgress, {
+      this.timeline.to([this.uniforms.uProgress, this.uniforms.uProgress2], {
         value: 1,
         duration: _index % 2 === 0 ? 1.0 : 2.0,
         ease: "ease",
@@ -94,6 +136,10 @@ class ExtendObject extends CustomObject {
           this.uniforms.uActiveIndex.value = mappedNumber;
           // console.log(mappedNumber, "evenIdx");
           this.uniforms.uProgress.value = 0;
+
+          if (_index % 2 === 1) {
+            this.uniforms.uProgress2.value = 0;
+          }
 
           if (isLastIndex) {
             gsap.globalTimeline.getChildren().forEach((tween) => {
@@ -121,6 +167,7 @@ class ExtendObject extends CustomObject {
     // uniforms.evenIdx = { value: 0.0 };
     uniforms.uTest = { value: 1.0 };
     uniforms.uResetAlpha = { value: 1.0 };
+    uniforms.uProgress2 = { value: 0.0 };
 
     return uniforms;
   }
@@ -150,6 +197,7 @@ class ExtendObject extends CustomObject {
       planeMat.uniforms.uActiveIndex = this.uniforms.uActiveIndex;
       planeMat.uniforms.uTick = this.uniforms.uTick;
       planeMat.uniforms.uProgress = this.uniforms.uProgress;
+      planeMat.uniforms.uProgress2 = this.uniforms.uProgress2;
       planeMat.uniforms.uResolution = this.uniforms.uResolution;
 
       const planeGeo = this.geometry.clone();
@@ -246,6 +294,10 @@ class ExtendObject extends CustomObject {
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
       .name("uProgress")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress2, "value", 0, 1, 0.01)
+      .name("uProgress2")
       .listen();
     toFolder
       // .add(this.uniforms.uIndex, "value", 0, 8, 1)

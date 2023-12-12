@@ -10,6 +10,8 @@ import { iNode } from "../../helper/iNode";
 
 const videoNum = [];
 const $ = {};
+let activeIndex = 0;
+// const totalSlides = 16;
 let circleClickedCondition = false;
 
 class ExtendObject extends CustomObject {
@@ -80,23 +82,24 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  // _test(_index) {
   _test() {
-    // console.log(_index);
+    const texArray = [...this.texes.values()];
+    const _size = texArray.length * 2;
     $.circles = iNode.qsa(".circle");
     $.circles.forEach((circle, index) => {
       circle.addEventListener("click", () => {
-        console.log("click", index + 1);
-        this.uniforms.uProgress.value = 1;
-        this.updateCircleColors(index + 1);
-        console.log(this.uniforms.uProgress.value);
+        activeIndex = index;
+        this.updateCircleColors(activeIndex);
 
-        // this.timeline.seek(index);
-        const progress = (index + 1) / 16;
-        console.log(progress);
+        // console.log("click", index);
+        this.uniforms.uProgress.value = 1;
+
+        const progress = (index + 1) / _size;
+        // console.log(progress);
         this.timeline.progress(progress);
-        // this.timeline.pause();
-        circleClickedCondition = true;
+
+        this.uniforms.uIndex.value = Math.floor(progress * _size);
+        this.timeline.pause();
       });
     });
   }
@@ -104,7 +107,7 @@ class ExtendObject extends CustomObject {
   updateCircleColors(activeIndex) {
     $.circles.forEach((circle, index) => {
       circle.style.backgroundColor =
-        index + 1 === activeIndex ? "blue" : "gray";
+        index === activeIndex ? "white" : "black";
     });
   }
 
@@ -112,12 +115,19 @@ class ExtendObject extends CustomObject {
     let _index = 0;
     const texArray = [...this.texes.values()];
     const _size = texArray.length * 2;
-    // console.log(_size);
 
     this.timeline = gsap.timeline({
       repeat: -1,
-      onComplete: () => {
-        this.timeline.restart();
+      onUpdate: () => {
+        // console.log("Timeline reached completion");
+        // console.log("Timeline is updating");
+        // console.log("Progerss", this.timeline.progress());
+        const isComplete = this.timeline.progress() === 1;
+        if (isComplete) {
+          // console.log("Timeline reached completion");
+          this.updateCircleColors(_index);
+          this.timeline.restart();
+        }
       },
     });
     const isLastIndex = _index === _size - 1;
@@ -126,21 +136,25 @@ class ExtendObject extends CustomObject {
       let _index = i;
       this.timeline.to(this.uniforms.uProgress, {
         value: 1,
-        duration: _index % 2 === 0 ? 1.0 : 2.0,
+        // duration: _index % 2 === 0 ? 1.0 : 2.0,
+        duration: i % 2 === 0 ? 1.0 : 2.0,
         ease: "ease",
         onComplete: () => {
-          this.uniforms.uIndex.value = this.goToNextSlide(_index);
+          // console.log("Slide transition completed");
+          this.uniforms.uIndex.value = this.goToNextSlide(i);
           this.uniforms.uProgress.value = 0;
+          this.updateCircleColors(_index);
 
           if (isLastIndex) {
             gsap.globalTimeline.getChildren().forEach((timeline) => {
               this.timeline.pause();
             });
           }
-          if (circleClickedCondition) {
-            console.log("circleClickedCondition", circleClickedCondition);
-            this.timeline.pause();
-          }
+
+          // if (circleClickedCondition) {
+          //   console.log("circleClickedCondition", circleClickedCondition);
+          //   this.timeline.pause();
+          // }
         },
       });
     }
