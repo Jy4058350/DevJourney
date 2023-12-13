@@ -14,11 +14,20 @@
 }
 
 .home-panel {
+  position: relative;
+
+  &:hover .home-panel-heading::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
   &:first-child {
     grid-column: 1/3;
   }
 
-  position: relative;
+  @include mq_max("lg") {
+    width: calc((100% - 28px) / 3);
+  }
 
   & .home-panel-image {
     width: 100%;
@@ -36,12 +45,13 @@
     line-height: 100%;
     color: var(--color-white);
     letter-spacing: 0.05em;
+    text-transform: uppercase;
 
     @include mq_max("lg") {
       font-size: 28px;
     }
 
-    &:after {
+    &::after {
       position: absolute;
       bottom: -8px;
       left: 0;
@@ -51,6 +61,13 @@
       content: "";
       background-color: var(--color-white);
       border-radius: 1px;
+      transition: transform 0.3s ease-in-out;
+      transform: scaleX(0);
+      transform-origin: right center;
     }
+    // &:hover::after {
+    //   transform: scaleX(1);
+    //   transform-origin: left;
+    // }
   }
 }
