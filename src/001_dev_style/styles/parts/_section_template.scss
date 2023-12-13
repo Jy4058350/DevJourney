@@ -1,0 +1,24 @@
+@use "../globals/" as *;
+
+.home-panels {
+  display: grid;
+  gap: 1px 1px;
+  margin: 1px 0;
+
+  @include mq_max("lg") {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 16px;
+    margin: 16px 14px;
+  }
+}
+
+.home-panel {
+  position: relative;
+
+  & .home-panel-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+  }
+}
