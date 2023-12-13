@@ -8,7 +8,7 @@ const elementPos = {
   executeSequence,
   _totalHeight,
   _getScrollContentHeight,
-  // handleResize,
+  handleResize,
 };
 
 const $ = {};
@@ -49,22 +49,36 @@ async function _totalHeight() {
     $.fvMainHeight = await _getFvMainHeight();
     $.footerHeight = await _getFooterHeight();
 
-    const scrollContent = iNode.qs(".scroll-content");
-
     $.totalHeight = $.fvMainHeight + $.footerHeight;
-    scrollContent.style.height = `${$.totalHeight}px`;
-
-    // $.scrollContentHeight = await _getScrollContentHeight();
-
-    // scrollContentHeight = await _getScrollContentHeight();
     // console.log("totalHeight", $.totalHeight);
 
-    // $.scrollContentHeight = `${$.totalHeight}px`;
-    $.scrollContentHeight = `${$.totalHeight}`;
+    // const pageHeight = _getPageContainerlHeight();
+    // console.log("pageHeight", pageHeight);
+
+    // $.scrollContentHeight = `${$.totalHeight}`;
     // console.log("scrollContentHeight", $.scrollContentHeight);
   } catch (error) {
     console.log("Error", error);
   }
+}
+
+async function _getPageContainerlHeight() {
+  $.page = iNode.getElById("page-container");
+  return new Promise(async (resolve, reject) => {
+    if (!$.page) {
+      reject("page is not found");
+    }
+    const headerHeight = await _getHeaderHeight();
+    console.log("headerHeight", headerHeight);
+    const pageHeight = $.page.offsetHeight + headerHeight;
+    console.log("pageHeight", pageHeight);
+
+    $.page.style.height = `${pageHeight}px`;
+
+    console.log("pageHeight", pageHeight);
+
+    resolve($.pageHeight);
+  });
 }
 
 function _getFvMainHeight() {
@@ -198,51 +212,98 @@ function wideRangeGoblin() {
   });
   handleResize();
 
-  async function handleResize() {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+  // async function handleResize() {
+  //   await new Promise((resolve) => setTimeout(resolve, 100));
 
-    const fv = iNode.getElById("fv");
-    const goblin = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".HorizontalList");
-    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Icon");
-    const headerMainNav = iNode.qs(".Header__MainNav");
-    const secondNav = iNode.qs(".Header__secondaryNav");
-    const emValue = _toEm(1280, 16);
+  //   const fv = iNode.getElById("fv");
+  //   const goblin = iNode.qs(".Header__FlexItem--logo");
+  //   const headerNav = iNode.qs(".HorizontalList");
+  //   const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
+  //   const headerLogo = iNode.qs(".Header__Icon");
+  //   const headerMainNav = iNode.qs(".Header__MainNav");
+  //   const secondNav = iNode.qs(".Header__secondaryNav");
+  //   const emValue = _toEm(1280, 16);
 
-    const isWideScreen = getWindowWidth() > emValue;
-    // await iNode.toggleClass(
-    //   goblin,
-    //   "Header__FlexItem--increaseSpace",
-    //   isWideScreen
-    // );
+  //   const isWideScreen = getWindowWidth() > emValue;
+  //   // await iNode.toggleClass(
+  //   //   goblin,
+  //   //   "Header__FlexItem--increaseSpace",
+  //   //   isWideScreen
+  //   // );
 
-    if (isWideScreen) {
-      const nextheaderHeight = iNode.getElById("header").offsetHeight;
-      console.log("nextheaderHeight", nextheaderHeight);
-      iNode.toggleClass(headerNav, "Header__MainNav--open", true);
-      iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
-      iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
-      iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-      await iNode.setStyles(headerNav, { opacity: 1 });
-      await iNode.setStyles(headerBtn, { display: "none" });
-      await iNode.setStyles(headerMainNav, { opacity: 1 });
-      await iNode.setStyles(secondNav, { opacity: 1 });
-      await iNode.setStyles(headerLogo, { display: "none" });
-      await iNode.toggleClass(
-        goblin,
-        "Header__FlexItem--increaseSpace",
-        isWideScreen
-      );
-    } else {
-      iNode.toggleClass(headerNav, "Header__MainNav--open", false);
-      iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-      await iNode.setStyles(headerNav, { opacity: 0 });
-      await iNode.setStyles(headerBtn, { display: "block" });
-      await iNode.setStyles(headerMainNav, { opacity: 0 });
-      await iNode.setStyles(secondNav, { opacity: 0 });
-      await iNode.setStyles(headerLogo, { display: "block" });
-    }
+  //   if (isWideScreen) {
+  //     const nextheaderHeight = iNode.getElById("header").offsetHeight;
+  //     console.log("nextheaderHeight", nextheaderHeight);
+  //     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
+  //     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
+  //     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
+  //     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
+  //     await iNode.setStyles(headerNav, { opacity: 1 });
+  //     await iNode.setStyles(headerBtn, { display: "none" });
+  //     await iNode.setStyles(headerMainNav, { opacity: 1 });
+  //     await iNode.setStyles(secondNav, { opacity: 1 });
+  //     await iNode.setStyles(headerLogo, { display: "none" });
+  //     await iNode.toggleClass(
+  //       goblin,
+  //       "Header__FlexItem--increaseSpace",
+  //       isWideScreen
+  //     );
+  //   } else {
+  //     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
+  //     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
+  //     await iNode.setStyles(headerNav, { opacity: 0 });
+  //     await iNode.setStyles(headerBtn, { display: "block" });
+  //     await iNode.setStyles(headerMainNav, { opacity: 0 });
+  //     await iNode.setStyles(secondNav, { opacity: 0 });
+  //     await iNode.setStyles(headerLogo, { display: "block" });
+  //   }
+  // }
+}
+
+async function handleResize() {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const fv = iNode.getElById("fv");
+  const goblin = iNode.qs(".Header__FlexItem--logo");
+  const headerNav = iNode.qs(".HorizontalList");
+  const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
+  const headerLogo = iNode.qs(".Header__Icon");
+  const headerMainNav = iNode.qs(".Header__MainNav");
+  const secondNav = iNode.qs(".Header__secondaryNav");
+  const emValue = _toEm(1280, 16);
+
+  const isWideScreen = getWindowWidth() > emValue;
+  // await iNode.toggleClass(
+  //   goblin,
+  //   "Header__FlexItem--increaseSpace",
+  //   isWideScreen
+  // );
+
+  if (isWideScreen) {
+    const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    // console.log("nextheaderHeight", nextheaderHeight);
+    iNode.toggleClass(headerNav, "Header__MainNav--open", true);
+    iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
+    iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
+    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
+    await iNode.setStyles(headerNav, { opacity: 1 });
+    await iNode.setStyles(headerBtn, { display: "none" });
+    await iNode.setStyles(headerMainNav, { opacity: 1 });
+    await iNode.setStyles(secondNav, { opacity: 1 });
+    await iNode.setStyles(headerLogo, { display: "none" });
+    await iNode.toggleClass(
+      goblin,
+      "Header__FlexItem--increaseSpace",
+      isWideScreen
+    );
+  } else {
+    iNode.toggleClass(headerNav, "Header__MainNav--open", false);
+    iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
+    await iNode.setStyles(headerNav, { opacity: 0 });
+    await iNode.setStyles(headerBtn, { display: "block" });
+    await iNode.setStyles(headerMainNav, { opacity: 0 });
+    await iNode.setStyles(secondNav, { opacity: 0 });
+    await iNode.setStyles(headerLogo, { display: "block" });
   }
 }
 
