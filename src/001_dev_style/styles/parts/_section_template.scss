@@ -14,6 +14,10 @@
 }
 
 .home-panel {
+  &:first-child {
+    grid-column: 1/3;
+  }
+
   position: relative;
 
   & .home-panel-image {
@@ -37,19 +41,16 @@
       font-size: 28px;
     }
 
-    &::after {
-        position: absolute;
-        bottom: -8px;
-        left : 0;
-        display: block;
-        width: 100%;
-        height: 2px;
-        content: "";
-        background-color: var(--color-white);
-        border-radius: 1px;
-        
-
-
+    &:after {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 2px;
+      content: "";
+      background-color: var(--color-white);
+      border-radius: 1px;
     }
   }
 }
