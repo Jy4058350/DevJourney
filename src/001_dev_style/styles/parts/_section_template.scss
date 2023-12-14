@@ -1,22 +1,21 @@
 @use "../globals/" as *;
 
 .home-panels {
-  font-size: 14px;
-  display: grid;
-  gap: 1px 1px;
-  margin: 1px 0;
+  //   display: grid;
+  //   gap: 1px 1px;
+  //   margin: 1px 0;
 
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   gap: 16px 14px;
-  //   margin: 16px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 14px;
+  margin: 16px 14px;
 
-  @include mq("md") {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 14px;
-    margin: 16px 14px;
-  }
+  //   @include mq("md") {
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //     gap: 16px 14px;
+  //     margin: 16px 14px;
+  //   }
 }
 
 .home-panel {
@@ -31,13 +30,13 @@
     grid-column: 1/3;
   }
 
-  @include mq_max("lg") {
+  @include mq("md") {
     width: calc((100% - 28px) / 3);
   }
 
   & .home-panel-image {
     width: 100%;
-    aspect-ratio: 4/5;
+    aspect-ratio: 5/3;
     object-fit: cover;
   }
 
