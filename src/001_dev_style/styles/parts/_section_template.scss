@@ -1,21 +1,21 @@
 @use "../globals/" as *;
 
 .home-panels {
-    display: grid;
-    gap: 1px 1px;
-    margin: 1px 0;
+  display: grid;
+  gap: 1px 1px;
+  margin: 1px 0;
 
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 16px 14px;
-//   margin: 16px 14px;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   gap: 16px 14px;
+  //   margin: 16px 14px;
 
-    @include mq("md") {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 14px;
-      margin: 16px 14px;
-    }
+  @include mq("md") {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 14px;
+    margin: 16px 14px;
+  }
 }
 
 .home-panel {
@@ -69,6 +69,24 @@
       transition: transform 0.3s ease-in-out;
       transform: scaleX(0);
       transform-origin: right center;
+    }
+  }
+}
+
+.home-panel-full-width {
+  position: relative;
+
+  @include mq("md") {
+    width: 100%;
+  }
+
+  & .home-panel-image {
+    width: 100%;
+    aspect-ratio: 5/3;
+    object-fit: cover;
+
+    @include mq("md") {
+      aspect-ratio: 16/7;
     }
   }
 }
