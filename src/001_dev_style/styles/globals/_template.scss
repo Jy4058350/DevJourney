@@ -42,9 +42,11 @@
 }
 
 @mixin img-style {
-  vertical-align: bottom;
+  // vertical-align: bottom;
+  vertical-align: top;
   max-width: 100%;
   height: auto;
+  border-style: none;
 }
 
 @mixin a {
@@ -129,7 +131,6 @@
   border-radius: 0;
   webkit-appearance: none;
 }
-
 
 @mixin bottomLeft-style {
   top: auto;

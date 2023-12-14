@@ -1,6 +1,8 @@
 @use "functions" as *;
 @use "variables" as *;
 
+$root-font-size: 16px;
+
 $breakpoints: (
   // 480px以上(スマホの横向き)のモニタで適用
   "sm": "screen and (min-width: #{to-em(480px, $root-font-size)})",
