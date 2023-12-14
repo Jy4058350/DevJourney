@@ -1,21 +1,21 @@
 @use "../globals/" as *;
 
 .home-panels {
-  //   display: grid;
-  //   gap: 1px 1px;
-  //   margin: 1px 0;
+    display: grid;
+    gap: 1px 1px;
+    margin: 1px 0;
 
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 14px;
-  margin: 16px 14px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 16px 14px;
+//   margin: 16px 14px;
 
-  //   @include mq("md") {
-  //     display: flex;
-  //     flex-wrap: wrap;
-  //     gap: 16px 14px;
-  //     margin: 16px 14px;
-  //   }
+    @include mq("md") {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 14px;
+      margin: 16px 14px;
+    }
 }
 
 .home-panel {
@@ -52,7 +52,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
 
-    @include mq_max("lg") {
+    @include mq("md") {
       font-size: 28px;
     }
 
