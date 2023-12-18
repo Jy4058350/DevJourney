@@ -34,7 +34,7 @@ export async function init() {
   elementPos.resizingFooterPos();
   elementPos.wideRangeGoblin();
   await elementPos.handleResize();
-  await elementPos._totalHeight();  
+  await elementPos._totalHeight();
 
   viewport.init(canvasRect);
 
@@ -71,6 +71,4 @@ export async function init() {
   loader.loadingAnimation();
 
   gui.open();
-
-  // circle.createCircle();
 }
