@@ -59,6 +59,12 @@
     cursor: pointer;
     color: webkit-link;
   }
+  &:hover {
+    outline: 0;
+  }
+  &:active {
+    outline: 0;
+  }
 }
 
 @mixin input-style {
@@ -121,6 +127,23 @@
 }
 
 @mixin header__flexItem-style {
+}
+
+@mixin Button-style {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 14px 28px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+  --webkit-tap-highlight-color: color;
 }
 
 @mixin btn_input-style_type-submit {

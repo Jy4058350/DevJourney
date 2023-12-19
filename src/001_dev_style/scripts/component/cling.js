@@ -40,6 +40,7 @@ function _headerIncrease() {
 
 function _clingTo() {
   const height = $.container.offsetHeight;
+  console.log(height);
 
   ScrollTrigger.create({
     trigger: $.header,
