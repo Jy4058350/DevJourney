@@ -8,4 +8,5 @@ gsap.set(":root", {
   // "--color-main": "#f2f2f2",
   "--color-main": "#202223",
   "--color-accent": "#ff0000",
+  "--color-light": "#545454",
 });
