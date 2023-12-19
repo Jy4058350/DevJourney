@@ -258,3 +258,38 @@
     transform: rotate(-45deg);
   }
 }
+
+.home-news-control-button-sp {
+  @include mq("md") {
+    display: none;
+  }
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 12px;
+}
+
+.home-news-control-button {
+  &.Sp {
+    display: flex;
+
+    &.Previous {
+      opacity: 0.6;
+    }
+
+    &.Next {
+      opacity: 1;
+      -webkit-appearance: button;
+      cursor: pointer;
+    }
+
+    //button cursor: default after js implementation
+
+    & span {
+      padding: 0 4px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 100%;
+      color: var(--color-main);
+    }
+  }
+}
