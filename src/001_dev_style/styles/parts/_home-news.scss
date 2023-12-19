@@ -147,17 +147,19 @@
         position: relative;
         display: block;
         width: 100%;
+        height: 100%;
         padding-top: 56.25%;
+        object-fit: cover;
       }
       &__Image {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 100%;
-        height: 100%;
+        max-width: 100%;
+        height: auto;
+
         max-height: 100%;
         transform: translate(-50%, -50%);
-        object-fit: cover;
       }
     }
   }
@@ -166,7 +168,7 @@
 .Button {
   &--secondary {
     // border: 1px solid rgba(var(--color-main), 1.0) ;
-    
+
     &:before {
       background-color: var(--color-gray);
       transform: scaleX(0);
