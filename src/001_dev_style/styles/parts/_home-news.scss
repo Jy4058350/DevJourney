@@ -82,7 +82,7 @@
       padding: 24px 16px;
 
       @include mq("md") {
-        flex: 2;
+        flex: 5;
         order: 2;
         padding: 0 16px 0 48px;
       }
