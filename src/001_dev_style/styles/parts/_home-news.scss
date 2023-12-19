@@ -101,6 +101,9 @@
         text-transform: uppercase;
       }
       &-description {
+        @include mq("md") {
+          font-size: 14px;
+        }
         display: -webkit-box;
         margin-bottom: 16px;
         overflow: hidden;
@@ -112,6 +115,10 @@
         -webkit-box-orient: vertical;
       }
       &-btn {
+        @include mq("md") {
+          width: 190px;
+        }
+
         width: 120px;
         padding: 12px 0;
         font-size: 14px;
@@ -122,12 +129,8 @@
         background-color: var(--color-white);
         border-color: var(--color-main) !important;
 
-        @include mq("md") {
-          width: 190px;
-        }
-
         &:before {
-          // background-color: var(--color-main);// difference point black
+          background-color: var(--color-main); // difference point black
         }
 
         &:hover {
@@ -162,7 +165,8 @@
 
 .Button {
   &--secondary {
-    border: 1px solid rgba(var(--color-main), 0.2);
+    // border: 1px solid rgba(var(--color-main), 1.0) ;
+    
     &:before {
       background-color: var(--color-gray);
       transform: scaleX(0);
