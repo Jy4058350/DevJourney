@@ -10,11 +10,10 @@ const cling = {
 const $ = {};
 
 function init() {
-  $.container = iNode.qs("#global-container");
+  $.globalContainer = iNode.qs("#global-container");
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");
-  // $.btnColor = iNode.qs(".btn-menu_bar");
   $.btnBars = iNode.qsa(".btn-menu_bar");
   $.colorGray = getComputedStyle(document.documentElement).getPropertyValue(
     "--color-gray"
@@ -26,20 +25,11 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
-  // if ($.windowWidth > 1280) {
-  //   _headerIncrease();
-  // }
-}
-
-function _headerIncrease() {
-  $.HeaderFlex.classList.add("Header__FlexItem--increaseSpace");
-  $.btn.style.display = "none";
-  $.HeaderIcon.style.display = "none";
-  $.headerMainNav.style.opacity = 1;
 }
 
 function _clingTo() {
-  const height = $.container.offsetHeight;
+  //this calc is not correct
+  const height = $.globalContainer.offsetHeight;
   console.log(height);
 
   ScrollTrigger.create({
