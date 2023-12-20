@@ -10,7 +10,10 @@ body {
 .fv {
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  // height: 100vh;
+  min-width: 1200px;
+  min-height: 800px;
+
   top: calc(0px - var(--fv-top));
 
   &_main {
