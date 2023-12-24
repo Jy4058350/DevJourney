@@ -10,7 +10,7 @@ const cling = {
 const $ = {};
 
 function init() {
-  $.globalContainer = iNode.qs("#global-container");
+  $.globalContainer = iNode.qs("#globalContainer");
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");

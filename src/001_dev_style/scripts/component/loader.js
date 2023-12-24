@@ -60,7 +60,7 @@ function loadDom() {
   $.p = iNode.qs(".percent");
   $.b = iNode.qs(".progress-bar");
   $.l = iNode.qs("#loader");
-  $.g = iNode.qs("#global-container");
+  $.g = iNode.qs("#globalContainer");
 }
 
 function incrementTotal() {

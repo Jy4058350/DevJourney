@@ -13,7 +13,7 @@ function init() {
 }
 
 function bindEvents() {
-  const gl = document.querySelector("#page-container");
+  const gl = document.querySelector("#pageContainer");
   gl.addEventListener("pointermove", (event) => {
     update(event);
   });

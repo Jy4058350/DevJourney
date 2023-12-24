@@ -50,20 +50,14 @@ async function _totalHeight() {
     $.footerHeight = await _getFooterHeight();
 
     $.totalHeight = $.fvMainHeight + $.footerHeight;
-    // console.log("totalHeight", $.totalHeight);
-
-    // const pageHeight = _getPageContainerlHeight();
-    // console.log("pageHeight", pageHeight);
-
-    // $.scrollContentHeight = `${$.totalHeight}`;
-    // console.log("scrollContentHeight", $.scrollContentHeight);
+    console.log("totalHeight", $.totalHeight);
   } catch (error) {
     console.log("Error", error);
   }
 }
 
 async function _getPageContainerlHeight() {
-  $.page = iNode.getElById("page-container");
+  $.page = iNode.getElById("pageContainer");
   return new Promise(async (resolve, reject) => {
     if (!$.page) {
       reject("page is not found");
