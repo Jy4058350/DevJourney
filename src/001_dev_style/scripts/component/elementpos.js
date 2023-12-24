@@ -195,7 +195,6 @@ function getWindowWidth(rootfontsize = 16) {
   );
 }
 
-// unexpected behavior code?
 let timerIdWideRangeGoblin = null;
 function wideRangeGoblin() {
   window.addEventListener("resize", debounce(resizeHandler, 100));
@@ -203,20 +202,12 @@ function wideRangeGoblin() {
 }
 
 function resizeHandler() {
-  handleResize();
-  executeSequence();
+  clearTimeout(timerIdWideRangeGoblin);
+  timerIdWideRangeGoblin = setTimeout(() => {
+    handleResize();
+    executeSequence();
+  }, 100);
 }
-// function wideRangeGoblin() {
-//   window.addEventListener("resize", async () => {
-//     clearTimeout(timerIdWideRangeGoblin);
-//     timerIdWideRangeGoblin = setTimeout(async () => {
-//       // console.log("resize");
-//       await handleResize();
-//       await executeSequence();
-//     }, 100);
-//   });
-//   handleResize();
-// }
 
 async function handleResize() {
   await new Promise((resolve) => setTimeout(resolve, 100));
