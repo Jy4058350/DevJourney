@@ -203,9 +203,9 @@ function wideRangeGoblin() {
 
 function resizeHandler() {
   clearTimeout(timerIdWideRangeGoblin);
-  timerIdWideRangeGoblin = setTimeout(() => {
-    handleResize();
-    executeSequence();
+  timerIdWideRangeGoblin = setTimeout(async () => {
+    await handleResize();
+    await executeSequence();
   }, 100);
 }
 
