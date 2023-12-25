@@ -30,7 +30,7 @@ function init() {
 function _clingTo() {
   //this calc is not correct
   // const height = $.globalContainer.offsetHeight;
-  const height = 1000;
+  const height = 3000;
   console.log(height);
 
   
