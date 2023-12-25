@@ -197,7 +197,7 @@ class CustomObject {
         height: texData.videoHeight,
       };
     }
-    // console.log(mrect);
+    console.log(mrect);
 
     const resolution = getResolution(this.rect, mrect, this.uniforms);
     // console.log(resolution);

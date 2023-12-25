@@ -14,8 +14,11 @@ body {
 .fv {
   overflow: hidden;
   position: relative;
-  min-width: 1200px;
-  min-height: 800px;
+  // this line is the key to the whole thing
+  // min-width: 1200px;
+  // min-height: 800px;
+  height: 100vh;
+  width: 100vw;
 
   top: calc(0px - var(--fv-top));
 
