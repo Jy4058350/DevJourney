@@ -11,6 +11,8 @@ const $ = {};
 
 function init() {
   $.globalContainer = iNode.qs("#globalContainer");
+  $.fv = iNode.qs(".fv");
+  console.log($.fv);
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");
@@ -27,10 +29,14 @@ function init() {
   $.windowWidth = window.innerWidth;
 }
 
+function _scrollTriggerEnd() {
+
+}
+
 function _clingTo() {
   //this calc is not correct
-  // const height = $.globalContainer.offsetHeight;
-  const height = 3000;
+  const height = $.globalContainer.offsetHeight;
+  // const height = 3000;
   console.log(height);
 
   
