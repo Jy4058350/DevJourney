@@ -20,6 +20,7 @@ function init() {
   _totalHeight();
   _getHtmlHeight();
   // _getScrollContentHeight();
+  // _setRotationViewportHeight();
 }
 
 function _getHtmlHeight() {
@@ -51,7 +52,7 @@ async function _totalHeight() {
     $.footerHeight = await _getFooterHeight();
 
     $.totalHeight = $.fvMainHeight + $.footerHeight;
-    console.log("totalHeight", $.totalHeight);
+    // console.log("totalHeight", $.totalHeight);
   } catch (error) {
     console.log("Error", error);
   }
@@ -132,6 +133,24 @@ function raiseFv(headerHeight) {
   });
 }
 
+async function _setRotationViewportHeight() {
+  $.rotationViewport = iNode.qs(".rotation-viewport");
+  console.log($.rotationViewport);
+  const homeNewsHeight = await _getHomeNewsHeight();
+  console.log(homeNewsHeight);
+
+  $.rotationViewport.style.height = `${homeNewsHeight}px`;
+  console.log($.rotationViewport.style.height);
+}
+
+async function _getHomeNewsHeight() {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
+  console.log($.homeNewsArticeThumbnail);
+  const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
+  return thumbnailHeight;
+}
+
 async function executeSequence() {
   try {
     const headerHeight = await _getHeaderHeight();
@@ -206,6 +225,7 @@ function resizeHandler() {
   timerIdWideRangeGoblin = setTimeout(async () => {
     await handleResize();
     await executeSequence();
+    await _setRotationViewportHeight();
   }, 100);
 }
 

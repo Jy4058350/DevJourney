@@ -30,22 +30,16 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
-  $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
-  console.log($.homeNewsArticeThumbnail);
+  // $.rotationViewport = iNode.qs(".rotation-viewport");
+  // console.log($.rotationViewport);
+  // $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
+  // console.log($.homeNewsArticeThumbnail);
 
   $.scrollTriggerEnd = _scrollTriggerEnd();
-  _setRotationViewportHeight();
+  // _setRotationViewportHeight();
 }
 
-function _setRotationViewportHeight() {
-  const homeNewsHeight = _getHomeNewsHeight();
-  console.log(homeNewsHeight);
-}
 
-function _getHomeNewsHeight() {
-  const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
-  return thumbnailHeight;
-}
 
 function _scrollTriggerEnd() {
   const fvHeight = $.fv.offsetHeight;
