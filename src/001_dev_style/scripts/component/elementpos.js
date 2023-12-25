@@ -57,24 +57,24 @@ async function _totalHeight() {
   }
 }
 
-async function _getPageContainerlHeight() {
-  $.page = iNode.getElById("pageContainer");
-  return new Promise(async (resolve, reject) => {
-    if (!$.page) {
-      reject("page is not found");
-    }
-    const headerHeight = await _getHeaderHeight();
-    console.log("headerHeight", headerHeight);
-    const pageHeight = $.page.offsetHeight + headerHeight;
-    console.log("pageHeight", pageHeight);
+// async function _getPageContainerlHeight() {
+//   $.page = iNode.getElById("pageContainer");
+//   return new Promise(async (resolve, reject) => {
+//     if (!$.page) {
+//       reject("page is not found");
+//     }
+//     const headerHeight = await _getHeaderHeight();
+//     console.log("headerHeight", headerHeight);
+//     const pageHeight = $.page.offsetHeight + headerHeight;
+//     console.log("pageHeight", pageHeight);
 
-    $.page.style.height = `${pageHeight}px`;
+//     $.page.style.height = `${pageHeight}px`;
 
-    console.log("pageHeight", pageHeight);
+//     console.log("pageHeight", pageHeight);
 
-    resolve($.pageHeight);
-  });
-}
+//     resolve($.pageHeight);
+//   });
+// }
 
 function _getFvMainHeight() {
   return new Promise((resolve, reject) => {
