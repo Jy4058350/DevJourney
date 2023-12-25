@@ -11,13 +11,9 @@ const cling = {
 const $ = {};
 
 function init() {
-  // $.globalContainer = iNode.qs("#globalContainer");
   $.fv = iNode.qs(".fv");
-  console.log($.fv);
   $.sectionTemplate = iNode.qs(".section--home-panels");
-  console.log($.sectionTemplate);
   $.homeNews = iNode.qs(".home-news");
-  console.log($.homeNews);
   $.footer = iNode.qs(".Footer");
 
   $.header = iNode.qs("#header");
@@ -34,8 +30,21 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
+  $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
+  console.log($.homeNewsArticeThumbnail);
+
   $.scrollTriggerEnd = _scrollTriggerEnd();
-  console.log($.scrollTriggerEnd);
+  _setRotationViewportHeight();
+}
+
+function _setRotationViewportHeight() {
+  const homeNewsHeight = _getHomeNewsHeight();
+  console.log(homeNewsHeight);
+}
+
+function _getHomeNewsHeight() {
+  const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
+  return thumbnailHeight;
 }
 
 function _scrollTriggerEnd() {
@@ -43,18 +52,13 @@ function _scrollTriggerEnd() {
   const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
   const homeNewsHeight = $.homeNews.offsetHeight;
   const footerHeight = $.footer.offsetHeight;
-
-  const scrollTriggerEnd = fvHeight + sectionTemplateHeight + homeNewsHeight+ footerHeight;
-  // console.log(scrollTriggerEnd);
+  const scrollTriggerEnd =
+    fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
   return scrollTriggerEnd;
 }
 
 function _clingTo() {
-  //this calc is not correct
-  // const height = $.globalContainer.offsetHeight;
   const height = $.scrollTriggerEnd;
-  // const height = 3000;
-  console.log(height);
 
   ScrollTrigger.create({
     trigger: $.header,
