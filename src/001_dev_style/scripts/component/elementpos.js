@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { iNode } from "../helper";
 
 const elementPos = {
@@ -50,36 +51,30 @@ async function _totalHeight() {
     $.footerHeight = await _getFooterHeight();
 
     $.totalHeight = $.fvMainHeight + $.footerHeight;
-    // console.log("totalHeight", $.totalHeight);
-
-    // const pageHeight = _getPageContainerlHeight();
-    // console.log("pageHeight", pageHeight);
-
-    // $.scrollContentHeight = `${$.totalHeight}`;
-    // console.log("scrollContentHeight", $.scrollContentHeight);
+    console.log("totalHeight", $.totalHeight);
   } catch (error) {
     console.log("Error", error);
   }
 }
 
-async function _getPageContainerlHeight() {
-  $.page = iNode.getElById("page-container");
-  return new Promise(async (resolve, reject) => {
-    if (!$.page) {
-      reject("page is not found");
-    }
-    const headerHeight = await _getHeaderHeight();
-    console.log("headerHeight", headerHeight);
-    const pageHeight = $.page.offsetHeight + headerHeight;
-    console.log("pageHeight", pageHeight);
+// async function _getPageContainerlHeight() {
+//   $.page = iNode.getElById("pageContainer");
+//   return new Promise(async (resolve, reject) => {
+//     if (!$.page) {
+//       reject("page is not found");
+//     }
+//     const headerHeight = await _getHeaderHeight();
+//     console.log("headerHeight", headerHeight);
+//     const pageHeight = $.page.offsetHeight + headerHeight;
+//     console.log("pageHeight", pageHeight);
 
-    $.page.style.height = `${pageHeight}px`;
+//     $.page.style.height = `${pageHeight}px`;
 
-    console.log("pageHeight", pageHeight);
+//     console.log("pageHeight", pageHeight);
 
-    resolve($.pageHeight);
-  });
-}
+//     resolve($.pageHeight);
+//   });
+// }
 
 function _getFvMainHeight() {
   return new Promise((resolve, reject) => {
@@ -202,62 +197,16 @@ function getWindowWidth(rootfontsize = 16) {
 
 let timerIdWideRangeGoblin = null;
 function wideRangeGoblin() {
-  window.addEventListener("resize", async () => {
-    clearTimeout(timerIdWideRangeGoblin);
-    timerIdWideRangeGoblin = setTimeout(async () => {
-      // console.log("resize");
-      await handleResize();
-      await executeSequence();
-    }, 100);
-  });
-  handleResize();
+  window.addEventListener("resize", debounce(resizeHandler, 100));
+  handleResize(); //initial call
+}
 
-  // async function handleResize() {
-  //   await new Promise((resolve) => setTimeout(resolve, 100));
-
-  //   const fv = iNode.getElById("fv");
-  //   const goblin = iNode.qs(".Header__FlexItem--logo");
-  //   const headerNav = iNode.qs(".HorizontalList");
-  //   const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-  //   const headerLogo = iNode.qs(".Header__Icon");
-  //   const headerMainNav = iNode.qs(".Header__MainNav");
-  //   const secondNav = iNode.qs(".Header__secondaryNav");
-  //   const emValue = _toEm(1280, 16);
-
-  //   const isWideScreen = getWindowWidth() > emValue;
-  //   // await iNode.toggleClass(
-  //   //   goblin,
-  //   //   "Header__FlexItem--increaseSpace",
-  //   //   isWideScreen
-  //   // );
-
-  //   if (isWideScreen) {
-  //     const nextheaderHeight = iNode.getElById("header").offsetHeight;
-  //     console.log("nextheaderHeight", nextheaderHeight);
-  //     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
-  //     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
-  //     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
-  //     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-  //     await iNode.setStyles(headerNav, { opacity: 1 });
-  //     await iNode.setStyles(headerBtn, { display: "none" });
-  //     await iNode.setStyles(headerMainNav, { opacity: 1 });
-  //     await iNode.setStyles(secondNav, { opacity: 1 });
-  //     await iNode.setStyles(headerLogo, { display: "none" });
-  //     await iNode.toggleClass(
-  //       goblin,
-  //       "Header__FlexItem--increaseSpace",
-  //       isWideScreen
-  //     );
-  //   } else {
-  //     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
-  //     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-  //     await iNode.setStyles(headerNav, { opacity: 0 });
-  //     await iNode.setStyles(headerBtn, { display: "block" });
-  //     await iNode.setStyles(headerMainNav, { opacity: 0 });
-  //     await iNode.setStyles(secondNav, { opacity: 0 });
-  //     await iNode.setStyles(headerLogo, { display: "block" });
-  //   }
-  // }
+function resizeHandler() {
+  clearTimeout(timerIdWideRangeGoblin);
+  timerIdWideRangeGoblin = setTimeout(async () => {
+    await handleResize();
+    await executeSequence();
+  }, 100);
 }
 
 async function handleResize() {
