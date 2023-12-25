@@ -1,6 +1,7 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { iNode } from "../helper";
+import _ from "lodash";
 
 const cling = {
   init,
@@ -10,7 +11,11 @@ const cling = {
 const $ = {};
 
 function init() {
-  $.globalContainer = iNode.qs("#globalContainer");
+  $.fv = iNode.qs(".fv");
+  $.sectionTemplate = iNode.qs(".section--home-panels");
+  $.homeNews = iNode.qs(".home-news");
+  $.footer = iNode.qs(".Footer");
+
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");
@@ -25,12 +30,29 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
+  // $.rotationViewport = iNode.qs(".rotation-viewport");
+  // console.log($.rotationViewport);
+  // $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
+  // console.log($.homeNewsArticeThumbnail);
+
+  $.scrollTriggerEnd = _scrollTriggerEnd();
+  // _setRotationViewportHeight();
+}
+
+
+
+function _scrollTriggerEnd() {
+  const fvHeight = $.fv.offsetHeight;
+  const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
+  const homeNewsHeight = $.homeNews.offsetHeight;
+  const footerHeight = $.footer.offsetHeight;
+  const scrollTriggerEnd =
+    fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
+  return scrollTriggerEnd;
 }
 
 function _clingTo() {
-  //this calc is not correct
-  const height = $.globalContainer.offsetHeight;
-  console.log(height);
+  const height = $.scrollTriggerEnd;
 
   ScrollTrigger.create({
     trigger: $.header,
