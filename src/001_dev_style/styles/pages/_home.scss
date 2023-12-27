@@ -7,18 +7,18 @@ body {
   }
 }
 
-#main {
-  width: 100%;
-}
+// #main {
+//   width: 100%;
+// }
 
 .fv {
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
-  // this line is the key to the whole thing
-  // min-width: 1200px;
-  // min-height: 800px;
+  // // this line is the key to the whole thing
+  // // min-width: 1200px;
+  // // min-height: 800px;
   height: 100vh;
-  width: 100vw;
+  // width: 100vw;
 
   top: calc(0px - var(--fv-top));
 
@@ -42,7 +42,8 @@ body {
     width: 100%;
     height: 100%;
 
-    max-width: unset;
+    max-width: 100%;
+    // max-width: unset;
     margin: 0;
   }
 
@@ -52,45 +53,6 @@ body {
     width: 100%;
     object-fit: cover;
   }
-
-  // &_content {
-  //   font-size: fluid-text(10px, 100px);
-  //   position: absolute;
-  //   // position: relative;
-  //   text-align: center;
-
-  //   z-index: 100;
-  //   cursor: pointer;
-  //   left: auto;
-  //   transform: none;
-  //   // bottom: 65px;
-  //   bottom: 15%;
-  //   margin-left: 1em;
-  //   // width: 5em;
-  //   // height: 2.5em;
-
-  //   & .fv_text-shader {
-  //     display: block;
-  //     pointer-events: none;
-
-  //     aspect-ratio: 1/ 1;
-  //     font-size: fluid-text(10px, 100px);
-  //     text-align: center;
-  //     width: 3em;
-  //     height: 3em;
-  //   }
-  // }
-
-  // &_text {
-  //   &-shader {
-  //     display: block;
-  //     pointer-events: none;
-
-  //     aspect-ratio: 1/ 1;
-  //     font-size: fluid-text(10px, 100px);
-  //     text-align: center;
-  //   }
-  // }
 }
 
 .aspect-ratio-container {
