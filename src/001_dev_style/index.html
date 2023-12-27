@@ -333,6 +333,24 @@
             </div>
           </section>
 
+          <div id="section-template" class="section--slideshow">
+            <section id="section-template--1">
+              <div class="Slideshow Slideshow--fullscreen">
+                <div class="Slideshow__Carousel">
+                  <div class="flickity-viewport">
+                    <div class="flickity-slider">
+                      <div class="Slideshow__Slide">
+                        <div class="Slideshow__ImageContainer">
+                          <img src="/img/output0.jpg" alt="" class="Slideshow__Image">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
           <div id="section-template" class="section--home-panels">
             <section class="home-panels">
               <a href="" class="home-panel">
@@ -367,13 +385,23 @@
               </a>
               <a href="" class="home-panel-full-width">
                 <picture>
-                  <source
+                  <!-- <source
                     media="(min-width: 600px)"
-                    srcset="/img/output5.jpg"
-                  />
-                  <img src="/img/output5.jpg" alt="" class="home-panel-image" />
+                    srcset="/img/output6.jpg"
+                  /> -->
+                  <div
+                    class="fv_test-shader"
+                    data-webgl="00_template"
+                    data-tex-1="/img/output0.jpg"
+                  >
+                    <img
+                      src="/img/output6.jpg"
+                      alt=""
+                      class="home-panel-image"
+                    />
+                  </div>
                 </picture>
-                <span class="home-panel-heading">text</span>
+                <span class="home-panel-heading">text_3</span>
               </a>
             </section>
           </div>
