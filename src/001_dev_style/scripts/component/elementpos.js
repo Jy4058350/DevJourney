@@ -20,7 +20,7 @@ function init() {
   _totalHeight();
   _getHtmlHeight();
   // _getScrollContentHeight();
-  // _setRotationViewportHeight();
+  _setRotationViewportHeight();
 }
 
 function _getHtmlHeight() {
