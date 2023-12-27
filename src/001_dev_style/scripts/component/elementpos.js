@@ -20,7 +20,7 @@ function init() {
   _totalHeight();
   _getHtmlHeight();
   // _getScrollContentHeight();
-  // _setRotationViewportHeight();
+  _setRotationViewportHeight();
 }
 
 function _getHtmlHeight() {
@@ -250,7 +250,7 @@ async function handleResize() {
 
   if (isWideScreen) {
     const nextheaderHeight = iNode.getElById("header").offsetHeight;
-    // console.log("nextheaderHeight", nextheaderHeight);
+    console.log("nextheaderHeight", nextheaderHeight);
     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
@@ -266,6 +266,8 @@ async function handleResize() {
       isWideScreen
     );
   } else {
+    const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
     await iNode.setStyles(headerNav, { opacity: 0 });

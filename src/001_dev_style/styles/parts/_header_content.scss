@@ -10,7 +10,7 @@
     padding: 0 24px;
     text-align: center;
     transform: translate(-50%, -50%);
-    font-size: fluid-text(10px, 100px);
+    font-size: fluid-text(5px, 50px);
 
     z-index: 100;
 
@@ -25,12 +25,13 @@
       aspect-ratio: 1/ 1;
       font-size: fluid-text(10px, 100px);
       text-align: center;
-      width: 3em;
-      height: 3em;
+      width: 2em;
+      height: 2em;
     }
 
     &--bottomLeft {
       @include bottomLeft-style;
+      bottom: -10px;
       text-align: left;
     }
   }
