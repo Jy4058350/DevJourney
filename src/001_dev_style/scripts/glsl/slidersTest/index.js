@@ -124,7 +124,7 @@ class ExtendObject extends CustomObject {
         // console.log("Progerss", this.timeline.progress());
         const isComplete = this.timeline.progress() === 1;
         if (isComplete) {
-          // console.log("Timeline reached completion");
+          console.log("Timeline reached completion");
           this.updateCircleColors(_index);
           this.timeline.restart();
         }
@@ -150,11 +150,6 @@ class ExtendObject extends CustomObject {
               this.timeline.pause();
             });
           }
-
-          // if (circleClickedCondition) {
-          //   console.log("circleClickedCondition", circleClickedCondition);
-          //   this.timeline.pause();
-          // }
         },
       });
     }
