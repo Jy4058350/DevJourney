@@ -8,11 +8,33 @@ import { CustomObject } from "../CustomObject";
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
+    console.log(el);
+    // el.addEventListener("mouseenter", () => {
+    //   gsap.to(this.uniforms.uProgress, {
+    //     value: 1,
+    //     duration: 2,
+    //     ease: "power2.inOut",
+    //     onComplete: () => {},
+    //   });
+    // });
+    // el.addEventListener("mouseleave", () => {
+    //   gsap.to(this.uniforms.uProgress, {
+    //     value: 0,
+    //     duration: 2,
+    //     ease: "power2.inOut",
+    //     onComplete: () => {},
+    //   });
+    // });
+  }
 
+  _test() {
+    console.log("test");
+    const el = this.$.el;
+    console.log(el);
     el.addEventListener("mouseenter", () => {
       gsap.to(this.uniforms.uProgress, {
         value: 1,
-        duration: 2,
+        duration: 1,
         ease: "power2.inOut",
         onComplete: () => {},
       });
@@ -20,17 +42,11 @@ class ExtendObject extends CustomObject {
     el.addEventListener("mouseleave", () => {
       gsap.to(this.uniforms.uProgress, {
         value: 0,
-        duration: 2,
+        duration: 1,
         ease: "power2.inOut",
         onComplete: () => {},
       });
     });
-  }
-
-  _test() {
-    console.log("test");
-    const el = this.$;
-    console.log(el);
   }
 
   disv() {
