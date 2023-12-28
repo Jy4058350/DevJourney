@@ -27,6 +27,10 @@
 .home-panel {
   position: relative;
 
+  &-glsl {
+    pointer-events: visible;
+  }
+
   &:hover .home-panel-heading::after {
     transform: scaleX(1);
     transform-origin: left;

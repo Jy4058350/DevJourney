@@ -9,38 +9,32 @@ class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
 
-    console.log(el);
-
     el.addEventListener("mouseenter", () => {
-      console.log("mouse entered");
       gsap.to(this.uniforms.uProgress, {
         value: 1,
         duration: 2,
         ease: "power2.inOut",
-        onComplete: () => {
-          console.log("Animation commpleted");
-          console.log(
-            "uProgress value after animation",
-            this.uniforms.uProgress.value
-          );
-        },
+        onComplete: () => {},
       });
     });
     el.addEventListener("mouseleave", () => {
-      console.log("mouse leaved");
       gsap.to(this.uniforms.uProgress, {
         value: 0,
         duration: 2,
         ease: "power2.inOut",
-        onComplete: () => {
-          console.log("Animation commpleted");
-          console.log(
-            "uProgress value after animation",
-            this.uniforms.uProgress.value
-          );
-        },
+        onComplete: () => {},
       });
     });
+  }
+
+  _test() {
+    console.log("test");
+    const el = this.$;
+    console.log(el);
+  }
+
+  disv() {
+    this.$.el.draggable = false;
   }
 
   fixUniforms() {

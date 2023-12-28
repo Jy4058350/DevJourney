@@ -279,6 +279,7 @@ class CustomObject {
       mesh,
     } = this;
     const rect = el.getBoundingClientRect();
+
     if (newCanvasRect) {
       const { x, y } = getWorldPosition(rect, newCanvasRect);
       // mesh.position.x = x;
