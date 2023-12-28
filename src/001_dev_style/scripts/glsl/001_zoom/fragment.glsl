@@ -3,20 +3,21 @@ uniform vec2 uMouse;
 uniform vec4 uResolution;
 uniform float uHover;
 uniform sampler2D tex1;
-uniform sampler2D tex2;
+uniform float uIndex;
+uniform float uProgress;
+uniform float uTest;
+uniform float uTick;
+uniform float uRaito;
 
-vec2 coverUv(vec2 uv, vec4 resolution) {
-    return (uv - .5) * resolution.zw + .5;
-}
+#pragma glslify: coverUv = require(../shader-helper/coverUv);
+#pragma glslify: zoomUv2 = require(../shader-helper/zoomUv2);
 
 void main() {
-          // vec2 mouse = step(uMouse, vUv);
-          // gl_FragColor = vec4(mouse, uHover, 1.);
 
-    vec2 uv = coverUv(vUv, uResolution);
+    vec2 u = coverUv(vUv, uResolution, uTest);
+    vec2 zoomedUv2 = zoomUv2(u, uResolution, uProgress, uTick, uRaito);
 
-    vec4 t1 = texture2D(tex1, uv);
-    vec4 t2 = texture2D(tex2, uv);
-    vec4 color = mix(t1, t2, step(.5, uv.x));
-    gl_FragColor = color;
+    vec4 t1 = texture2D(tex1, zoomedUv2);
+
+    gl_FragColor = t1;
 }
