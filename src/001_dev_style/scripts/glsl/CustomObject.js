@@ -28,7 +28,6 @@ class CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
-   
 
     this.timeline = gsap.timeline();
     // this.setupTimeline();
@@ -46,6 +45,7 @@ class CustomObject {
     }
 
     if (!this.rect.width || !this.rect.height) {
+      console.log(this.rect.width, this.rect.height);
       if (window.debug === 1) {
         console.log("non pixel element is detected.");
       }

@@ -9,7 +9,7 @@ class ExtendObject extends CustomObject {
     const uniforms = super.fixUniforms();
 
     uniforms.uTest = { value: 1.0 };
-    return;
+    return uniforms;
   }
 
   fixVertex() {

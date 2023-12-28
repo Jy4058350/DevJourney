@@ -10,15 +10,15 @@ uniform float uTick;
 uniform float uRaito;
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
-#pragma glslify: zoomUv2 = require(../shader-helper/zoomUv2);
+#pragma glslify: zoomUv4 = require(../shader-helper/zoomUv4);
 
 void main() {
 
-    vec2 mouse = uMouse;
+    
     vec2 uv = coverUv(vUv, uResolution, uTest);
 
     
-    vec2 zoomedUv2 = zoomUv2(uv, uResolution, uProgress, uTick, uRaito);
+    vec2 zoomedUv2 = zoomUv4(uv, uResolution, uProgress, uTick, uRaito);
 
     vec4 t1 = texture2D(tex1, zoomedUv2);
 
