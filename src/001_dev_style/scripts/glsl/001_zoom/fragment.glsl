@@ -14,8 +14,11 @@ uniform float uRaito;
 
 void main() {
 
-    vec2 u = coverUv(vUv, uResolution, uTest);
-    vec2 zoomedUv2 = zoomUv2(u, uResolution, uProgress, uTick, uRaito);
+    vec2 mouse = uMouse;
+    vec2 uv = coverUv(vUv, uResolution, uTest);
+
+    
+    vec2 zoomedUv2 = zoomUv2(uv, uResolution, uProgress, uTick, uRaito);
 
     vec4 t1 = texture2D(tex1, zoomedUv2);
 

@@ -2,6 +2,7 @@ varying vec2 vUv;
 uniform vec2 uMouse;
 uniform vec4 uResolution;
 uniform float uHover;
+uniform float uTest;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform sampler2D tex3;
@@ -34,4 +35,6 @@ void main() {
     // gl_FragColor = color3;
     vec4 gray3 = mix(gray, color3, uHover);
     gl_FragColor = gray3;
+
+    gl_FragColor = t1;
 }
