@@ -28,7 +28,6 @@ class CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     this.$ = { el };
     this.texes = texes ?? new Map();
-   
 
     this.timeline = gsap.timeline();
     // this.setupTimeline();
@@ -46,6 +45,7 @@ class CustomObject {
     }
 
     if (!this.rect.width || !this.rect.height) {
+      console.log(this.rect.width, this.rect.height);
       if (window.debug === 1) {
         console.log("non pixel element is detected.");
       }
@@ -197,7 +197,7 @@ class CustomObject {
         height: texData.videoHeight,
       };
     }
-    console.log(mrect);
+    // console.log(mrect);
 
     const resolution = getResolution(this.rect, mrect, this.uniforms);
     // console.log(resolution);
@@ -279,6 +279,7 @@ class CustomObject {
       mesh,
     } = this;
     const rect = el.getBoundingClientRect();
+
     if (newCanvasRect) {
       const { x, y } = getWorldPosition(rect, newCanvasRect);
       // mesh.position.x = x;

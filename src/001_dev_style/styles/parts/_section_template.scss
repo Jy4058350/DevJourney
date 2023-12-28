@@ -27,6 +27,8 @@
 .home-panel {
   position: relative;
 
+  
+
   &:hover .home-panel-heading::after {
     transform: scaleX(1);
     transform-origin: left;

@@ -14,7 +14,7 @@ import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
 import { CustomObject } from "./glsl/CustomObject";
 
-window.debug = debugmode(0) ? 1 : 0;
+window.debug = debugmode(1) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;

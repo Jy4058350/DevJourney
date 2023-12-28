@@ -31,5 +31,4 @@ function pos(event) {
   };
 }
 
-
 export { mouse };

@@ -135,18 +135,18 @@ function raiseFv(headerHeight) {
 
 async function _setRotationViewportHeight() {
   $.rotationViewport = iNode.qs(".rotation-viewport");
-  console.log($.rotationViewport);
+  // console.log($.rotationViewport);
   const homeNewsHeight = await _getHomeNewsHeight();
-  console.log(homeNewsHeight);
+  // console.log(homeNewsHeight);
 
   $.rotationViewport.style.height = `${homeNewsHeight}px`;
-  console.log($.rotationViewport.style.height);
+  // console.log($.rotationViewport.style.height);
 }
 
 async function _getHomeNewsHeight() {
   await new Promise((resolve) => setTimeout(resolve, 100));
   $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
-  console.log($.homeNewsArticeThumbnail);
+  // console.log($.homeNewsArticeThumbnail);
   const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
   return thumbnailHeight;
 }
