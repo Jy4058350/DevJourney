@@ -13,14 +13,13 @@ function init() {
   console.log("prevButton", prevButton);
   console.log("nextButton", nextButton);
 
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListenre("DOMContentLoaded", function () {
     // Set the initial index
     let currentIndex = 0;
 
     // Function to update the slider position based on the current index
     function updateSlider() {
       const itemWidth = slider.firstElementChild.clientWidth;
-      console.log("itemWidth", itemWidth);
       const newPosition = -currentIndex * itemWidth;
       slider.style.transform = `translateX(${newPosition}px)`;
     }
