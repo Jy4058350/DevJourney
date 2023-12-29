@@ -7,6 +7,7 @@ import { theme } from "./component/theme";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
+import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
 // import { circle } from "./helper/circle";
 
@@ -14,7 +15,7 @@ import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
 import { CustomObject } from "./glsl/CustomObject";
 
-window.debug = debugmode(1) ? 1 : 0;
+window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
@@ -35,6 +36,8 @@ export async function init() {
   elementPos.wideRangeGoblin();
   await elementPos.handleResize();
   await elementPos._totalHeight();
+
+  homeNews.init();
 
   viewport.init(canvasRect);
 
