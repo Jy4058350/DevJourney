@@ -99,6 +99,7 @@ class ExtendObject extends CustomObject {
         this.timeline.progress(progress);
 
         this.uniforms.uIndex.value = Math.floor(progress * _size);
+        console.log(this.uniforms.uIndex.value);
         this.timeline.pause();
       });
     });
@@ -112,34 +113,46 @@ class ExtendObject extends CustomObject {
   }
 
   fixGsap() {
+    // console.log(uIndex);
     let _index = 0;
     const texArray = [...this.texes.values()];
     const _size = texArray.length * 2;
+    console.log(_size);
+    const isLastIndex = _index === _size - 1;
+    console.log(isLastIndex);
 
     this.timeline = gsap.timeline({
       repeat: -1,
       onUpdate: () => {
-        // console.log("Timeline reached completion");
-        // console.log("Timeline is updating");
-        // console.log("Progerss", this.timeline.progress());
-        const isComplete = this.timeline.progress() === 1;
-        if (isComplete) {
+        const isComplete = this.timeline.progress() >= 0.99;
+        // const isComplete = this.timeline.progress() === 1;
+
+        // if (isComplete) {
+        //   console.log("Timeline reached completion");
+        //   this.updateCircleColors(_index);
+        //   this.timeline.restart();
+        // }
+      },
+      onComplete: () => {
+        if (isLastIndex) {
           console.log("Timeline reached completion");
           this.updateCircleColors(_index);
           this.timeline.restart();
         }
       },
     });
-    const isLastIndex = _index === _size - 1;
+    // const isLastIndex = _index === _size + 1;
 
     for (let i = 0; i < _size; i++) {
       let _index = i;
       this.timeline.to(this.uniforms.uProgress, {
         value: 1,
         // duration: _index % 2 === 0 ? 1.0 : 2.0,
-        duration: i % 2 === 0 ? 2.0 : 5.0,
+        duration: i % 2 === 0 ? 1.0 : 2.0,
+        // duration: i % 2 === 0 ? 2.0 : 5.0,
         ease: "ease",
         onComplete: () => {
+          // console.log(_index);
           // console.log("Slide transition completed");
           this.uniforms.uIndex.value = this.goToNextSlide(i);
           this.uniforms.uProgress.value = 0;
@@ -148,6 +161,7 @@ class ExtendObject extends CustomObject {
           if (isLastIndex) {
             gsap.globalTimeline.getChildren().forEach((timeline) => {
               this.timeline.pause();
+              console.log("pause");
             });
           }
         },

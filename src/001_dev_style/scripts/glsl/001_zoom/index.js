@@ -8,7 +8,7 @@ import { CustomObject } from "../CustomObject";
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
-    console.log(el);
+    // console.log(el);
     // el.addEventListener("mouseenter", () => {
     //   gsap.to(this.uniforms.uProgress, {
     //     value: 1,
@@ -28,9 +28,9 @@ class ExtendObject extends CustomObject {
   }
 
   _test() {
-    console.log("test");
+    // console.log("test");
     const el = this.$.el;
-    console.log(el);
+    // console.log(el);
     el.addEventListener("mouseenter", () => {
       gsap.to(this.uniforms.uProgress, {
         value: 1,
