@@ -104,11 +104,14 @@ function getOs(select) {
 function render() {
   world.tick++;
   requestAnimationFrame(render);
+
+  os.forEach((o) => slide(o));
   // controls.update();
   // スクロール処理
   for (let i = os.length - 1; i >= 0; i--) {
     const o = os[i];
     o.scroll();
+
     o.render(world.tick);
   }
 
@@ -116,6 +119,8 @@ function render() {
 
   world.renderer.render(world.scene, world.camera);
 }
+
+function slide() {}
 
 function raycast() {
   // update the picking ray with the camera and pointer position
