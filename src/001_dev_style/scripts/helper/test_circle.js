@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { iNode } from "./iNode.js";
+import { homeNews } from "../component/home-news.js";
 
 const circle = {
   createCircle,
@@ -8,6 +9,9 @@ const circle = {
 document.addEventListener("DOMContentLoaded", function () {
   const slider = gsap.timeline();
   const circleContainer = iNode.getElById("circleContainer");
+
+  const { sliders, prevButton, nextButton } = homeNews.init();
+  homeNews.initEventListenres(slider, prevButton, nextButton);
 
   for (let i = 0; i < 16; i++) {
     slider.to(`.fv_holder`, {

@@ -8,15 +8,12 @@ import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import cling from "./component/cling";
 import { homeNews } from "./component/home-news";
-import { calltest } from "./component/calltest";
 import "./component/scroll-animation";
-// import { circle } from "./helper/circle";
+import { circle } from "./helper/test_circle";
 
 import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
 import { CustomObject } from "./glsl/CustomObject";
-
-calltest.initCalltest();
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -40,7 +37,7 @@ export async function init() {
   await elementPos.handleResize();
   await elementPos._totalHeight();
 
-  // homeNews.init();
+  homeNews.init();
 
   viewport.init(canvasRect);
 
