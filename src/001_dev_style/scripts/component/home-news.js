@@ -32,6 +32,7 @@ function initEventListenres(sliders, prevButton, nextButton) {
     const itemWidth = sliders.firstElementChild.clientWidth;
     const angle = 360 / numItems;
     const newRotation = -currentIndex * angle;
+    sliders.style.transition = "transform 0.4s ease-in-out";
     sliders.style.transform = `translateX(${newRotation}%)`;
   }
 
@@ -41,6 +42,15 @@ function initEventListenres(sliders, prevButton, nextButton) {
     console.log("currentIndex", currentIndex);
 
     updateSlider();
+  });
+
+  //
+  sliders.addEventListener("transitionend", function () {
+    // const itemWidth = sliders.firstElementChild.clientWidth;
+    // const angle = 360 / numItems;
+    // const newRotation = -currentIndex * angle;
+    sliders.style.transition = "none";
+    // sliders.style.transform = `translateX(${newRotation}%)`;
   });
 
   // Event listener for the next button
