@@ -122,11 +122,11 @@ class ExtendObject extends CustomObject {
       let _index = i;
       this.timeline.to(this.uniforms.uProgress, {
         value: 1,
-        duration: _index % 2 === 0 ? 2.0 : 5.0,
+        duration: _index % 2 === 0 ? 1.0 : 5.0,
         // duration: i % 2 === 0 ? 2.0 : 5.0,
         ease: "ease",
         onComplete: () => {
-          console.log(_index);
+          // console.log(_index);
           // console.log("Slide transition completed");
           this.uniforms.uIndex.value = this.goToNextSlide(_index);
           this.uniforms.uProgress.value = 0;
@@ -139,7 +139,7 @@ class ExtendObject extends CustomObject {
               this.uniforms.uIndex.value = 0;
               this.timeline.restart();
 
-              console.log("pause");
+              // console.log("pause");
             });
           }
         },

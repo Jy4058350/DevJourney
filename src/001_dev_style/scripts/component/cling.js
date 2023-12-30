@@ -39,8 +39,6 @@ function init() {
   // _setRotationViewportHeight();
 }
 
-
-
 function _scrollTriggerEnd() {
   const fvHeight = $.fv.offsetHeight;
   const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
