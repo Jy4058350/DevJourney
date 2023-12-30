@@ -106,7 +106,7 @@ function render() {
   world.tick++;
   requestAnimationFrame(render);
 
-  os.forEach((o) => slide(o));
+  os.forEach((o) => horizontalScroll(o));
   // controls.update();
   // スクロール処理
   for (let i = os.length - 1; i >= 0; i--) {
@@ -121,7 +121,7 @@ function render() {
   world.renderer.render(world.scene, world.camera);
 }
 
-function slide(o) {
+function horizontalScroll(o) {
   const {
     $: { el },
     mesh,
