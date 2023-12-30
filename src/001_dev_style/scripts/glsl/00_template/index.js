@@ -13,6 +13,10 @@ class ExtendObject extends CustomObject {
   fixFragment() {
     return fragmentShader;
   }
+
+  style() {
+    this.$.el.style.opacity = 1.0;
+  }
 }
 
 export default ExtendObject;

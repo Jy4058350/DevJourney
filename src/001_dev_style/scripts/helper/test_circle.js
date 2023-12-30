@@ -7,19 +7,19 @@ const circle = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  const slider = gsap.timeline();
-  const circleContainer = iNode.getElById("circleContainer");
+  // const slider = gsap.timeline();
+  // const circleContainer = iNode.getElById("circleContainer");
 
   const { sliders, prevButton, nextButton } = homeNews.init();
-  homeNews.initEventListenres(slider, prevButton, nextButton);
+  homeNews.initEventListenres(sliders, prevButton, nextButton);
 
-  for (let i = 0; i < 16; i++) {
-    slider.to(`.fv_holder`, {
-      x: `-${i * 100}%`,
-      duration: 1,
-    });
-    createCircle(i + 1, slider);
-  }
+  // for (let i = 0; i < 16; i++) {
+  //   slider.to(`.fv_holder`, {
+  //     x: `-${i * 100}%`,
+  //     duration: 1,
+  //   });
+  //   createCircle(i + 1, slider);
+  // }
 });
 
 function createCircle(index, slider) {

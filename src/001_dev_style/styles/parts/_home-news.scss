@@ -237,13 +237,13 @@
 
     &.Previous {
       @include mq("md") {
-        left: 24px;
-        visibility: hidden; // after js implementation
+        left: 5px;
+        // visibility: hidden; // after js implementation
       }
     }
     &.Next {
       @include mq("md") {
-        left: 91%;
+        left: 95%;
       }
     }
   }

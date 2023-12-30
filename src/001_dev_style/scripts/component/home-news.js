@@ -13,8 +13,7 @@ function init() {
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
   return { sliders, prevButton, nextButton };
-  //   initDOM(slider, prevButton, nextButton);
-  //   initEventListenres(slider, prevButton, nextButton);
+  
 }
 
 function initDOM(slider, prevButton, nextButton) {
