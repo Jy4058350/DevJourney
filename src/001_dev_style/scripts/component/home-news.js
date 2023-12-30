@@ -33,18 +33,7 @@ function initEventListenres(sliders, prevButton, nextButton) {
     const angle = 360 / numItems;
     const newRotation = -currentIndex * angle;
     sliders.style.transform = `translateX(${newRotation}%)`;
-    console.log(currentIndex);
-    // updateWebgl();
   }
-
-//   function updateWebgl() {
-//     const webGlContainer = iNode.qsa(".home-news-article-glsl");
-//     console.log(webGlContainer);
-//     forEach(webGlContainer, (container) => {
-      
-//       container.innerHTML = `Current Index: ${currentIndex}`;
-//     });
-//   }
 
   // Event listener for the previous button
   prevButton.addEventListener("click", function () {
