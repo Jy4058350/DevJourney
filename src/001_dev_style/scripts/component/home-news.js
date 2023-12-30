@@ -1,6 +1,5 @@
+import { forEach } from "lodash";
 import { iNode } from "../helper";
-
-// console.log("home-news.js");
 
 const homeNews = {
   init,
@@ -13,42 +12,55 @@ function init() {
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
   initDOM(sliders, prevButton, nextButton);
+
   return { sliders, prevButton, nextButton };
 }
 
 function initDOM(sliders, prevButton, nextButton) {
-  console.log("sliders", sliders);
+  //   console.log("sliders", sliders);
   //   console.log("prevButton", prevButton);
   //   console.log("nextButton", nextButton);
 }
 
 function initEventListenres(sliders, prevButton, nextButton) {
-  // document.addEventListener("DOMContentLoaded", function () {
   // Set the initial index
   let currentIndex = 0;
+  const numItems = sliders.children.length;
+
   // Function to update the slider position based on the current index
   function updateSlider() {
     const itemWidth = sliders.firstElementChild.clientWidth;
-    console.log("sliders.firstElementChild", sliders.firstElementChild);
-    // console.log("itemWidth", itemWidth);
-    console.log("currentIndex", currentIndex);
-    const newPosition = -currentIndex * itemWidth;
-    sliders.style.transform = `translateX(${newPosition}px)`;
-    console.log(sliders.style.transform);
+    const angle = 360 / numItems;
+    const newRotation = -currentIndex * angle;
+    sliders.style.transform = `translateX(${newRotation}%)`;
+    console.log(currentIndex);
+    updateWebgl();
+  }
+
+  function updateWebgl() {
+    const webGlContainer = iNode.qsa(".home-news-article-glsl");
+    console.log(webGlContainer);
+    forEach(webGlContainer, (container) => {
+      
+      container.innerHTML = `Current Index: ${currentIndex}`;
+    });
   }
 
   // Event listener for the previous button
   prevButton.addEventListener("click", function () {
-    currentIndex = Math.max(currentIndex - 1, 0);
+    currentIndex = (currentIndex - 1 + numItems) % numItems;
+    console.log("currentIndex", currentIndex);
+
     updateSlider();
   });
 
   // Event listener for the next button
   nextButton.addEventListener("click", function () {
-    const numItems = sliders.children.length;
-    currentIndex = Math.min(currentIndex + 1, numItems - 1);
+    currentIndex = (currentIndex + 1) % numItems;
     updateSlider();
   });
+
+  updateSlider();
 }
 
 export { homeNews };

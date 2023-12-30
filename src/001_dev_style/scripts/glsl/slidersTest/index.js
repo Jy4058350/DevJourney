@@ -139,7 +139,7 @@ class ExtendObject extends CustomObject {
               this.uniforms.uIndex.value = 0;
               this.timeline.restart();
 
-              console.log("pause");
+              // console.log("pause");
             });
           }
         },
