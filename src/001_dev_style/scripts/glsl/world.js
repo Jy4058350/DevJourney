@@ -9,6 +9,7 @@ import {
 import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
+import { getWorldPosition } from "../helper/utils";
 
 const os = [];
 
@@ -120,7 +121,15 @@ function render() {
   world.renderer.render(world.scene, world.camera);
 }
 
-function slide() {}
+function slide(o) {
+  const {
+    $: { el },
+    mesh,
+  } = o;
+  const rect = el.getBoundingClientRect();
+  const { x } = getWorldPosition(rect, viewport.newCanvasRect);
+  mesh.position.x = x;
+}
 
 function raycast() {
   // update the picking ray with the camera and pointer position
