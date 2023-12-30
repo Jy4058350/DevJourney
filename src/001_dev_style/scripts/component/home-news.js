@@ -12,28 +12,29 @@ function init() {
   const sliders = iNode.qs(".rotation-slider");
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
+  initDOM(sliders, prevButton, nextButton);
   return { sliders, prevButton, nextButton };
-  
 }
 
-function initDOM(slider, prevButton, nextButton) {
-  //   console.log("slider", slider);
+function initDOM(sliders, prevButton, nextButton) {
+  console.log("sliders", sliders);
   //   console.log("prevButton", prevButton);
   //   console.log("nextButton", nextButton);
 }
 
-function initEventListenres(slider, prevButton, nextButton) {
-  console.log("initEventListenres");
+function initEventListenres(sliders, prevButton, nextButton) {
   // document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded");
   // Set the initial index
   let currentIndex = 0;
   // Function to update the slider position based on the current index
   function updateSlider() {
-    const itemWidth = slider.firstElementChild.clientWidth;
-    console.log("itemWidth", itemWidth);
+    const itemWidth = sliders.firstElementChild.clientWidth;
+    console.log("sliders.firstElementChild", sliders.firstElementChild);
+    // console.log("itemWidth", itemWidth);
+    console.log("currentIndex", currentIndex);
     const newPosition = -currentIndex * itemWidth;
-    slider.style.transform = `translateX(${newPosition}px)`;
+    sliders.style.transform = `translateX(${newPosition}px)`;
+    console.log(sliders.style.transform);
   }
 
   // Event listener for the previous button
@@ -44,7 +45,7 @@ function initEventListenres(slider, prevButton, nextButton) {
 
   // Event listener for the next button
   nextButton.addEventListener("click", function () {
-    const numItems = slider.children.length;
+    const numItems = sliders.children.length;
     currentIndex = Math.min(currentIndex + 1, numItems - 1);
     updateSlider();
   });
