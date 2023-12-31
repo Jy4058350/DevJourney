@@ -1,4 +1,3 @@
-import { forEach } from "lodash";
 import { iNode } from "../helper";
 
 const homeNews = {
@@ -6,12 +5,23 @@ const homeNews = {
   initEventListenres,
 };
 
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let angle = 0;
+
 function init() {
   // Get necessary elements
   const sliders = iNode.qs(".rotation-slider");
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
   initDOM(sliders, prevButton, nextButton);
+
+  sliders.addEventListener("mousedown", (e) => {
+    isDragging = true; // This is the flag to check if the mouse is being draged
+    startX = e.clientX; // Get the initial position of the mouse
+    currentX = e.clientX; // It initializes the variable currentX with the same value as starX
+  });
 
   return { sliders, prevButton, nextButton };
 }
@@ -27,10 +37,47 @@ function initEventListenres(sliders, prevButton, nextButton) {
   let currentIndex = 0;
   const numItems = sliders.children.length;
 
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const diffX = e.clientX - currentX;
+      currentX = e.clientX;
+
+      if (sliders.clientWidth !== 0) {
+        const newRotation =
+          -(currentIndex * angle) + (diffX / sliders.clientWidth) * 360;
+        sliders.style.transition = "transform 0s";
+        sliders.style.transform = `translateX(${newRotation}%)`;
+      }
+    }
+  });
+
+  document.addEventListener("mouseup", (e) => {
+    if (isDragging) {
+      isDragging = false;
+
+      sliders.style.transition = "transform 0.4s ease-in-out";
+      const currentTransform = parseFloat(
+        sliders.style.transform.replace("%", "")
+      );
+      currentIndex = Math.round(-sliders.style.transform / angle) % numItems;
+      updateSlider();
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    if (isDragging) {
+      isDragging = false;
+
+      sliders.style.transition = "transform 0.4s ease-in-out";
+      currentIndex = Math.round(-sliders.style.transform / angle) % numItems;
+      updateSlider();
+    }
+  });
+
   // Function to update the slider position based on the current index
   function updateSlider() {
     const itemWidth = sliders.firstElementChild.clientWidth;
-    const angle = 360 / numItems;
+    angle = 360 / numItems;
     const newRotation = -currentIndex * angle;
     sliders.style.transition = "transform 0.4s ease-in-out";
     sliders.style.transform = `translateX(${newRotation}%)`;
