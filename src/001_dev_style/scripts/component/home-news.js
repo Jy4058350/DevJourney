@@ -34,6 +34,17 @@ function initEventListenres(sliders, prevButton, nextButton) {
     const newRotation = -currentIndex * angle;
     sliders.style.transition = "transform 0.4s ease-in-out";
     sliders.style.transform = `translateX(${newRotation}%)`;
+    console.log(currentIndex);
+    if (currentIndex === 0) {
+      prevButton.style.display = "none";
+    } else {
+      prevButton.style.display = "block";
+    }
+    if (currentIndex === 3) {
+      nextButton.style.display = "none";
+    } else {
+      nextButton.style.display = "block";
+    }
   }
 
   // Event listener for the previous button
