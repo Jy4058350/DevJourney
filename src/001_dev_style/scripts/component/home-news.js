@@ -32,18 +32,19 @@ function initEventListenres(sliders, prevButton, nextButton) {
     const itemWidth = sliders.firstElementChild.clientWidth;
     const angle = 360 / numItems;
     const newRotation = -currentIndex * angle;
+    sliders.style.transition = "transform 0.4s ease-in-out";
     sliders.style.transform = `translateX(${newRotation}%)`;
     console.log(currentIndex);
-    updateWebgl();
-  }
-
-  function updateWebgl() {
-    const webGlContainer = iNode.qsa(".home-news-article-glsl");
-    console.log(webGlContainer);
-    forEach(webGlContainer, (container) => {
-      
-      container.innerHTML = `Current Index: ${currentIndex}`;
-    });
+    if (currentIndex === 0) {
+      prevButton.style.display = "none";
+    } else {
+      prevButton.style.display = "block";
+    }
+    if (currentIndex === 3) {
+      nextButton.style.display = "none";
+    } else {
+      nextButton.style.display = "block";
+    }
   }
 
   // Event listener for the previous button
@@ -52,6 +53,15 @@ function initEventListenres(sliders, prevButton, nextButton) {
     console.log("currentIndex", currentIndex);
 
     updateSlider();
+  });
+
+  //
+  sliders.addEventListener("transitionend", function () {
+    // const itemWidth = sliders.firstElementChild.clientWidth;
+    // const angle = 360 / numItems;
+    // const newRotation = -currentIndex * angle;
+    sliders.style.transition = "none";
+    // sliders.style.transform = `translateX(${newRotation}%)`;
   });
 
   // Event listener for the next button

@@ -9,6 +9,7 @@ import {
 import { lerp } from "../helper/utils";
 import { viewport } from "../helper/viewport";
 import { mouse } from "../component/mouse";
+import { getWorldPosition } from "../helper/utils";
 
 const os = [];
 
@@ -104,17 +105,30 @@ function getOs(select) {
 function render() {
   world.tick++;
   requestAnimationFrame(render);
+
+  os.forEach((o) => horizontalScroll(o));
   // controls.update();
   // スクロール処理
   for (let i = os.length - 1; i >= 0; i--) {
     const o = os[i];
     o.scroll();
+
     o.render(world.tick);
   }
 
   raycast();
 
   world.renderer.render(world.scene, world.camera);
+}
+
+function horizontalScroll(o) {
+  const {
+    $: { el },
+    mesh,
+  } = o;
+  const rect = el.getBoundingClientRect();
+  const { x } = getWorldPosition(rect, viewport.newCanvasRect);
+  mesh.position.x = x;
 }
 
 function raycast() {
