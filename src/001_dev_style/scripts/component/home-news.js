@@ -1,3 +1,4 @@
+import { transform } from "lodash";
 import { iNode } from "../helper";
 
 const homeNews = {
@@ -8,9 +9,10 @@ const homeNews = {
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-let angle = 0;
+let angle;
 // let sliders = null;
-let numItems = 0;
+let numItems;
+
 let currentIndex = 0;
 
 const $ = {};
@@ -29,44 +31,100 @@ function init() {
 
 // from here
 
-function handleMouseDown(e, sliders) {
+document.addEventListener("mousemove", handleMouseMove);
+
+function handleMouseDown(e) {
   isDragging = true; // This is the flag to check if the mouse is being draged
   startX = e.clientX; // Get the initial position of the mouse
   currentX = e.clientX; // It initializes the variable currentX with the same value as starX
 
-  document.addEventListener("mousemove", handleMouseMove(e, sliders));
+  // Add the event listeners for mousemove and mouseup events
+  document.removeEventListener("mousemove", handleMouseMove);
+  document.addEventListener("mousemove", handleMouseMove);
 
-  //   currentX = e.clientX;
+  // Remove the event listeners for mousemove and mouseup events
+  document.removeEventListener("mouseup", handleMouseUp);
+  document.addEventListener("mouseup", handleMouseUp);
+  console.log("currentIndex", currentIndex);
+  console.log("angle", angle);
 }
 
-function handleMouseMove(e, sliders) {
-  if (isDragging && sliders) {
+function handleMouseMove(e) {
+  //   console.log("currentIndex", currentIndex);
+  //   console.log("handleMouseMove");
+  if (isDragging && $.sliders) {
+    // console.log(e.clientX, currentX);
     const diffX = e.clientX - currentX;
+    console.log("diffX", diffX);
     currentX = e.clientX;
-    console.log(e.clientX);
-    console.log(currentX);
 
-    if (sliders.clientWidth !== 0) {
-      const newRotation =
-        -(currentIndex * angle) + (diffX / sliders.clientWidth) * 360;
-      sliders.style.transition = "transform 0s";
-      sliders.style.transform = `translateX(${newRotation}%)`;
+    if ($.sliders.clientWidth !== 0) {
+      console.log("$.sliders.style.transform", $.sliders.style.transform);
+      const transformValue = $.sliders.style.transform.match(
+        /translateX\(([-\d.]+)%\)/
+      );
+      console.log("transformValue", transformValue);
+
+      //   console.log("$.sliders.style.transform", $.sliders.style.transform);
+      if (transformValue && transformValue.length === 2) {
+        const currentTransform = parseFloat(transformValue[1]);
+        console.log("currentTransform", currentTransform);
+        console.log("angle", angle);
+        console.log("numItems", numItems);
+
+        currentIndex = Math.round(-currentTransform / angle) % numItems;
+        console.log("currentIndex", currentIndex);
+
+        console.log("transformValue", transformValue);
+        console.log("currentTransform", currentTransform);
+        const newRotation =
+          currentTransform -
+          currentIndex * angle +
+          (diffX / $.sliders.clientWidth) * 360;
+
+        currentIndex = Math.round(-newRotation / angle) % numItems;
+
+        console.log("angle", angle);
+        console.log("currentIndex", currentIndex);
+        console.log(currentTransform);
+        console.log("newRotation", newRotation);
+        $.sliders.style.transition = "transform 0s";
+        $.sliders.style.transform = `translateX(${newRotation}%)`;
+        console.log("$.sliders.style.transform", $.sliders.style.transform);
+      }
     }
   }
 }
 
-document.addEventListener("mouseup", (e) => {
+function handleMouseUp() {
+  if (angle === 0) {
+    console.log("angle === 0");
+  }
+  if (numItems === 0) {
+    console.log("numItems === 0");
+  }
   if (isDragging && $.sliders) {
     isDragging = false;
 
     $.sliders.style.transition = "transform 0.4s ease-in-out";
+
     const currentTransform = parseFloat(
       $.sliders.style.transform.replace("%", "")
     );
+    console.log("currentTransform", currentTransform);
     currentIndex = Math.round(-$.sliders.style.transform / angle) % numItems;
+
+    console.log("$.sliders.style.transform", $.sliders.style.transform);
+    console.log("angle", angle);
+    console.log("numItems", numItems);
+    console.log("currentIndex", currentIndex);
     updateSlider();
   }
-});
+
+  // Remove the event listeners when the mouse is released
+  document.removeEventListener("mousemove", handleMouseMove);
+  document.removeEventListener("mouseup", handleMouseUp);
+}
 
 document.addEventListener("mouseleave", (e) => {
   if (isDragging && $.sliders) {
