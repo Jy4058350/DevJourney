@@ -80,11 +80,11 @@ class ExtendObject extends CustomObject {
         activeIndex = index;
         this.updateCircleColors(activeIndex);
 
-        console.log("click", index);
+        // console.log("click", index);
         this.uniforms.uProgress.value = 1;
 
         const progress = (index + 1) / _size;
-        console.log(progress);
+        // console.log(progress);
         this.timeline.progress(progress);
 
         // this.uniforms.uIndex.value = Math.floor(progress * _size);
