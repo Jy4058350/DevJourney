@@ -1,4 +1,4 @@
-import { transform } from "lodash";
+import { last, transform } from "lodash";
 import { iNode } from "../helper";
 
 const homeNews = {
@@ -14,6 +14,7 @@ let angle;
 let numItems;
 
 let currentIndex = 0;
+let lastCalculatedIndex = 0;
 
 const $ = {};
 
@@ -45,8 +46,8 @@ function handleMouseDown(e) {
   // Remove the event listeners for mousemove and mouseup events
   document.removeEventListener("mouseup", handleMouseUp);
   document.addEventListener("mouseup", handleMouseUp);
-  console.log("currentIndex", currentIndex);
-  console.log("angle", angle);
+  //   console.log("currentIndex", currentIndex);
+  //   console.log("angle", angle);
 }
 
 function handleMouseMove(e) {
@@ -55,75 +56,77 @@ function handleMouseMove(e) {
   if (isDragging && $.sliders) {
     // console.log(e.clientX, currentX);
     const diffX = e.clientX - currentX;
-    console.log("diffX", diffX);
+    // console.log("diffX", diffX);
     currentX = e.clientX;
 
     if ($.sliders.clientWidth !== 0) {
-      console.log("$.sliders.style.transform", $.sliders.style.transform);
+      //   console.log("$.sliders.style.transform", $.sliders.style.transform);
       const transformValue = $.sliders.style.transform.match(
         /translateX\(([-\d.]+)%\)/
       );
-      console.log("transformValue", transformValue);
-
-      //   console.log("$.sliders.style.transform", $.sliders.style.transform);
       if (transformValue && transformValue.length === 2) {
         const currentTransform = parseFloat(transformValue[1]);
-        console.log("currentTransform", currentTransform);
-        console.log("angle", angle);
-        console.log("numItems", numItems);
-
         currentIndex = Math.round(-currentTransform / angle) % numItems;
-        console.log("currentIndex", currentIndex);
-
-        console.log("transformValue", transformValue);
-        console.log("currentTransform", currentTransform);
         const newRotation =
           currentTransform -
-          currentIndex * angle +
+          currentIndex * angle +    
           (diffX / $.sliders.clientWidth) * 360;
 
         currentIndex = Math.round(-newRotation / angle) % numItems;
 
-        console.log("angle", angle);
+        lastCalculatedIndex = currentIndex;
+
+        // console.log("angle", angle);
         console.log("currentIndex", currentIndex);
-        console.log(currentTransform);
-        console.log("newRotation", newRotation);
+        console.log("lastCalculatedIndex", lastCalculatedIndex);
+        // console.log(currentTransform);
+        // console.log("newRotation", newRotation);
         $.sliders.style.transition = "transform 0s";
         $.sliders.style.transform = `translateX(${newRotation}%)`;
-        console.log("$.sliders.style.transform", $.sliders.style.transform);
+        // console.log("$.sliders.style.transform", $.sliders.style.transform);
       }
     }
   }
 }
 
 function handleMouseUp() {
-  if (angle === 0) {
-    console.log("angle === 0");
-  }
-  if (numItems === 0) {
-    console.log("numItems === 0");
-  }
   if (isDragging && $.sliders) {
     isDragging = false;
 
     $.sliders.style.transition = "transform 0.4s ease-in-out";
+    const matches = $.sliders.style.transform.match(/translateX\(([-\d.]+)%\)/);
+    console.log("matches", matches);
+    if (matches && matches.length === 2) {
+      let currentTransform = parseFloat(matches[1]);
+      console.log("currentTransform", currentTransform);
 
-    const currentTransform = parseFloat(
-      $.sliders.style.transform.replace("%", "")
-    );
-    console.log("currentTransform", currentTransform);
-    currentIndex = Math.round(-$.sliders.style.transform / angle) % numItems;
+      $.sliders.removeEventListener("transitionend", handleTransitionEnd);
 
-    console.log("$.sliders.style.transform", $.sliders.style.transform);
-    console.log("angle", angle);
-    console.log("numItems", numItems);
-    console.log("currentIndex", currentIndex);
+      if (currentTransform > 0) {
+        currentIndex = (lastCalculatedIndex + 1) % numItems;
+      } else if (currentTransform < 0) {
+        currentIndex = (lastCalculatedIndex - 1 + numItems) % numItems;
+      }
+
+      lastCalculatedIndex = currentIndex;
+
+      $.sliders.addEventListener("transitionend", handleTransitionEnd);
+
+      console.log("currentIndex", currentIndex);
+    }
+
     updateSlider();
   }
 
   // Remove the event listeners when the mouse is released
   document.removeEventListener("mousemove", handleMouseMove);
   document.removeEventListener("mouseup", handleMouseUp);
+}
+
+function handleTransitionEnd() {
+  $.sliders.style.transition = "none";
+  //   $.sliders.style.transform = `translateX(${-currentIndex * angle}%)`;
+  //   $.sliders.removeEventListener("transitionend", handleTransitionEnd);
 }
 
 document.addEventListener("mouseleave", (e) => {
