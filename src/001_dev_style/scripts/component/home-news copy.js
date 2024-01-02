@@ -51,12 +51,8 @@ function handleMouseDown(e) {
 }
 
 function handleMouseMove(e) {
-  //   console.log("currentIndex", currentIndex);
-  //   console.log("handleMouseMove");
   if (isDragging && $.sliders) {
-    // console.log(e.clientX, currentX);
     const diffX = e.clientX - currentX;
-    // console.log("diffX", diffX);
     currentX = e.clientX;
 
     if ($.sliders.clientWidth !== 0) {

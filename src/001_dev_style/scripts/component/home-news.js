@@ -41,15 +41,26 @@ function handleMouseDown(e) {
   $.sliders.addEventListener("mousemove", handleMouseMove);
 
   // Remove the event listeners for mousemove and mouseup events
-  document.removeEventListener("mouseup", handleMouseUp);
-  document.addEventListener("mouseup", handleMouseUp);
+  $.sliders.removeEventListener("mouseup", handleMouseUp);
+  $.sliders.addEventListener("mouseup", handleMouseUp);
 
-  //   document.removeEventListener("mouseleave", handleMouseLeave);
-  document.addEventListener("mouseleave", handleMouseLeave);
+  $.sliders.addEventListener("mouseleave", handleMouseLeave);
 }
 
 function handleMouseMove(e) {
-  console.log("handleMouseMove");
+  if (isDragging && $.sliders) {
+    const diffX = e.clientX - currentX;
+    currentX = e.clientX;
+
+    if (diffX > 0) {
+      console.log("diffX > 0", diffX);
+      //   currentIndex = (currentIndex - 1 + numItems) % numItems;
+    } else {
+      console.log("0 > diffX", diffX);
+      //   currentIndex = (currentIndex + 1) % numItems;
+    }
+  }
+  updateSlider();
 }
 
 function handleMouseUp(e) {
