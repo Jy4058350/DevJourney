@@ -47,20 +47,27 @@ function handleMouseDown(e) {
   $.sliders.addEventListener("mouseleave", handleMouseLeave);
 }
 
+let debounceTimer;
+
 function handleMouseMove(e) {
   if (isDragging && $.sliders) {
-    const diffX = e.clientX - currentX;
-    currentX = e.clientX;
+    const debounceDelay = 100;
+    clearTimeout(debounceTimer);
 
-    if (diffX > 0) {
-      console.log("diffX > 0", diffX);
-      //   currentIndex = (currentIndex - 1 + numItems) % numItems;
-    } else {
-      console.log("0 > diffX", diffX);
-      //   currentIndex = (currentIndex + 1) % numItems;
-    }
+    debounceTimer = setTimeout(() => {
+      const diffX = e.clientX - currentX;
+      currentX = e.clientX;
+
+      if (diffX > 0 && currentIndex > 0) {
+        currentIndex = (currentIndex - 1 + numItems) % numItems;
+      } else if (diffX < 0 && currentIndex < numItems - 1) {
+        console.log("0 > diffX", diffX);
+        currentIndex = (currentIndex + 1) % numItems;
+      }
+
+      updateSlider(currentIndex);
+    }, debounceDelay);
   }
-  updateSlider();
 }
 
 function handleMouseUp(e) {
