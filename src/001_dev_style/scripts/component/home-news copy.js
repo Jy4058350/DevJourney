@@ -32,56 +32,108 @@ function init() {
 
 // from here
 
+document.addEventListener("mousemove", handleMouseMove);
+
 function handleMouseDown(e) {
   isDragging = true; // This is the flag to check if the mouse is being draged
   startX = e.clientX; // Get the initial position of the mouse
   currentX = e.clientX; // It initializes the variable currentX with the same value as starX
 
   // Add the event listeners for mousemove and mouseup events
-  $.sliders.addEventListener("mousemove", handleMouseMove);
+  document.removeEventListener("mousemove", handleMouseMove);
+  document.addEventListener("mousemove", handleMouseMove);
 
   // Remove the event listeners for mousemove and mouseup events
-  $.sliders.removeEventListener("mouseup", handleMouseUp);
-  $.sliders.addEventListener("mouseup", handleMouseUp);
-
-  $.sliders.addEventListener("mouseleave", handleMouseLeave);
+  document.removeEventListener("mouseup", handleMouseUp);
+  document.addEventListener("mouseup", handleMouseUp);
+  //   console.log("currentIndex", currentIndex);
+  //   console.log("angle", angle);
 }
-
-let debounceTimer;
 
 function handleMouseMove(e) {
   if (isDragging && $.sliders) {
-    const debounceDelay = 100;
-    clearTimeout(debounceTimer);
+    const diffX = e.clientX - currentX;
+    currentX = e.clientX;
 
-    debounceTimer = setTimeout(() => {
-      const diffX = e.clientX - currentX;
-      currentX = e.clientX;
+    if ($.sliders.clientWidth !== 0) {
+      //   console.log("$.sliders.style.transform", $.sliders.style.transform);
+      const transformValue = $.sliders.style.transform.match(
+        /translateX\(([-\d.]+)%\)/
+      );
+      if (transformValue && transformValue.length === 2) {
+        const currentTransform = parseFloat(transformValue[1]);
+        currentIndex = Math.round(-currentTransform / angle) % numItems;
+        const newRotation =
+          currentTransform -
+          currentIndex * angle +    
+          (diffX / $.sliders.clientWidth) * 360;
 
-      if (diffX > 0 && currentIndex > 0) {
-        currentIndex = (currentIndex - 1 + numItems) % numItems;
-      } else if (diffX < 0 && currentIndex < numItems - 1) {
-        console.log("0 > diffX", diffX);
-        currentIndex = (currentIndex + 1) % numItems;
+        currentIndex = Math.round(-newRotation / angle) % numItems;
+
+        lastCalculatedIndex = currentIndex;
+
+        // console.log("angle", angle);
+        console.log("currentIndex", currentIndex);
+        console.log("lastCalculatedIndex", lastCalculatedIndex);
+        // console.log(currentTransform);
+        // console.log("newRotation", newRotation);
+        $.sliders.style.transition = "transform 0s";
+        $.sliders.style.transform = `translateX(${newRotation}%)`;
+        // console.log("$.sliders.style.transform", $.sliders.style.transform);
       }
-
-      updateSlider(currentIndex);
-    }, debounceDelay);
+    }
   }
 }
 
-function handleMouseUp(e) {
-  console.log("handleMouseUp");
-  $.sliders.removeEventListener("mousemove", handleMouseMove);
+function handleMouseUp() {
+  if (isDragging && $.sliders) {
+    isDragging = false;
+
+    $.sliders.style.transition = "transform 0.4s ease-in-out";
+    const matches = $.sliders.style.transform.match(/translateX\(([-\d.]+)%\)/);
+    console.log("matches", matches);
+    if (matches && matches.length === 2) {
+      let currentTransform = parseFloat(matches[1]);
+      console.log("currentTransform", currentTransform);
+
+      $.sliders.removeEventListener("transitionend", handleTransitionEnd);
+
+      if (currentTransform > 0) {
+        currentIndex = (lastCalculatedIndex + 1) % numItems;
+      } else if (currentTransform < 0) {
+        currentIndex = (lastCalculatedIndex - 1 + numItems) % numItems;
+      }
+
+      lastCalculatedIndex = currentIndex;
+
+      $.sliders.addEventListener("transitionend", handleTransitionEnd);
+
+      console.log("currentIndex", currentIndex);
+    }
+
+    updateSlider();
+  }
+
+  // Remove the event listeners when the mouse is released
+  document.removeEventListener("mousemove", handleMouseMove);
+  document.removeEventListener("mouseup", handleMouseUp);
 }
 
-function handleMouseLeave(e) {
-  $.sliders.removeEventListener("mousemove", handleMouseMove);
-}
-
-function handleTransitionEnd(e) {
+function handleTransitionEnd() {
   $.sliders.style.transition = "none";
+  //   $.sliders.style.transform = `translateX(${-currentIndex * angle}%)`;
+  //   $.sliders.removeEventListener("transitionend", handleTransitionEnd);
 }
+
+document.addEventListener("mouseleave", (e) => {
+  if (isDragging && $.sliders) {
+    isDragging = false;
+
+    $.sliders.style.transition = "transform 0.4s ease-in-out";
+    currentIndex = Math.round(-$.sliders.style.transform / angle) % numItems;
+    updateSlider();
+  }
+});
 
 // until here
 
