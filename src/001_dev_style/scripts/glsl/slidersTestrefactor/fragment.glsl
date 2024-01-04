@@ -72,6 +72,29 @@ vec4 transition(vec2 uv, vec2 uv1, vec2 uv2, vec2 vu3, float progress, float tex
     return color;
 }
 
+// テクスチャをブレンドするための関数を定義
+vec4 blendTextures(vec2 uv, int currentTexture, float texBlend) {
+    if(currentTexture == 0) {
+        return mix(texture2D(tex7, uv), texture2D(tex8, uv), texBlend);
+    } else if(currentTexture == 1) {
+        return mix(texture2D(tex8, uv), texture2D(tex1, uv), texBlend);
+    } else if(currentTexture == 2) {
+        return mix(texture2D(tex1, uv), texture2D(tex2, uv), texBlend);
+    } else if(currentTexture == 3) {
+        return mix(texture2D(tex2, uv), texture2D(tex3, uv), texBlend);
+    } else if(currentTexture == 4) {
+        return mix(texture2D(tex3, uv), texture2D(tex4, uv), texBlend);
+    } else if(currentTexture == 5) {
+        return mix(texture2D(tex4, uv), texture2D(tex5, uv), texBlend);
+    } else if(currentTexture == 6) {
+        return mix(texture2D(tex5, uv), texture2D(tex6, uv), texBlend);
+    } else if(currentTexture == 7) {
+        return mix(texture2D(tex6, uv), texture2D(tex1, uv), texBlend);
+    } else {
+        return texture2D(tex1, uv);
+    }
+}
+
 void main() {
 
     vec2 u = coverUv(vUv, uResolution, uTest);
