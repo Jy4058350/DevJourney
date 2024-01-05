@@ -233,6 +233,7 @@ async function handleResize() {
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   const fv = iNode.getElById("fv");
+  const header = iNode.qs("header");
   const goblin = iNode.qs(".Header__FlexItem--logo");
   const headerNav = iNode.qs(".HorizontalList");
   const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
@@ -255,6 +256,7 @@ async function handleResize() {
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
+    await iNode.setStyles(header, { height: "145px" });
     await iNode.setStyles(headerNav, { opacity: 1 });
     await iNode.setStyles(headerBtn, { display: "none" });
     await iNode.setStyles(headerMainNav, { opacity: 1 });
@@ -270,6 +272,7 @@ async function handleResize() {
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
+    await iNode.setStyles(header, { height: "68px" });
     await iNode.setStyles(headerNav, { opacity: 0 });
     await iNode.setStyles(headerBtn, { display: "block" });
     await iNode.setStyles(headerMainNav, { opacity: 0 });
