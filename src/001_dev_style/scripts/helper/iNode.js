@@ -3,6 +3,7 @@ const iNode = {
   qsa,
   getElById,
   getElement,
+  getDateSet,
   setCssProp,
   setStyles,
   toggleClass,
@@ -29,6 +30,11 @@ function getElement(elementOrSelector) {
   return isElement(elementOrSelector)
     ? elementOrSelector
     : this.qs(elementOrSelector);
+}
+
+function getDateSet(target, key) {
+  const el = this.getElement(target);
+  return el?.dataset?.[key] ?? null;
 }
 
 function setCssProp(property, value, element) {
