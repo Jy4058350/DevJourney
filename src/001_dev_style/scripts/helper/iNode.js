@@ -2,6 +2,7 @@ const iNode = {
   qs,
   qsa,
   getElById,
+  getElement,
   setCssProp,
   setStyles,
   toggleClass,
@@ -18,6 +19,16 @@ function qsa(selector, scope) {
 
 function getElById(selector, scope) {
   return (scope || document).getElementById(selector);
+}
+
+function isElement(target) {
+  return target instanceof Element || target instanceof Document;
+}
+
+function getElement(elementOrSelector) {
+  return isElement(elementOrSelector)
+    ? elementOrSelector
+    : this.qs(elementOrSelector);
 }
 
 function setCssProp(property, value, element) {
