@@ -30,8 +30,8 @@ export async function init() {
     await gui.init();
   }
 
-  import("./page/home.js").then(({ default: initHome }) => {
-    initHome({
+  await import(`./page/${pageType}.js`).then(({ default: initHome }) => {
+    return initHome({
       world,
       mouse,
       loader,

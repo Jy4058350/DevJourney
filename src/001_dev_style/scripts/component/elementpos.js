@@ -234,7 +234,7 @@ async function handleResize() {
 
   const fv = iNode.getElById("fv");
   const Header = iNode.getElById("header");
-  console.log("Header", Header);
+  // console.log("Header", Header);
   const header = iNode.qs("header");
   const goblin = iNode.qs(".Header__FlexItem--logo");
   const headerNav = iNode.qs(".HorizontalList");

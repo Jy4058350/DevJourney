@@ -61,7 +61,7 @@ function handleMouseMove(e) {
       if (diffX > 0 && currentIndex > 0) {
         currentIndex = (currentIndex - 1 + numItems) % numItems;
       } else if (diffX < 0 && currentIndex < numItems - 1) {
-        console.log("0 > diffX", diffX);
+        // console.log("0 > diffX", diffX);
         currentIndex = (currentIndex + 1) % numItems;
       }
 
@@ -71,7 +71,7 @@ function handleMouseMove(e) {
 }
 
 function handleMouseUp(e) {
-  console.log("handleMouseUp");
+  // console.log("handleMouseUp");
   $.sliders.removeEventListener("mousemove", handleMouseMove);
 }
 
@@ -119,7 +119,7 @@ function initEventListenres() {
   // Event listener for the previous button
   $.prevButton.addEventListener("click", function () {
     currentIndex = (currentIndex - 1 + numItems) % numItems;
-    console.log("currentIndex", currentIndex);
+    // console.log("currentIndex", currentIndex);
 
     updateSlider();
   });
