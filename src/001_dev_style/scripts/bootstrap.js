@@ -30,14 +30,14 @@ export async function init() {
     await gui.init();
   }
 
-  elementPos.init();
-  elementPos.resizeHeaderPos();
-  elementPos.resizingFooterPos();
-  elementPos.wideRangeGoblin();
-  await elementPos.handleResize();
-  await elementPos._totalHeight();
+  // elementPos.init();
+  // elementPos.resizeHeaderPos();
+  // elementPos.resizingFooterPos();
+  // elementPos.wideRangeGoblin();
+  // await elementPos.handleResize();
+  // await elementPos._totalHeight();
 
-  homeNews.init();
+  // homeNews.init();
 
   viewport.init(canvasRect);
 
