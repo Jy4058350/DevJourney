@@ -6,10 +6,10 @@ const circle = {
   createCircle,
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const { sliders, prevButton, nextButton } = homeNews.init();
-  homeNews.initEventListenres(sliders, prevButton, nextButton);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   const { sliders, prevButton, nextButton } = homeNews.init();
+//   homeNews.initEventListenres(sliders, prevButton, nextButton);
+// });
 
 function createCircle(index, slider) {
   const circle = document.createElement("div");
