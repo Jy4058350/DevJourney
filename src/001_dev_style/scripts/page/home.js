@@ -17,5 +17,5 @@ export default async function init({
   await elementPos.handleResize();
   await elementPos._totalHeight();
 
-  homeNews.init();
+  // homeNews.init();
 }
