@@ -179,7 +179,7 @@ function _loadingAnimation() {
   return tl;
 }
 
-function _loadingAnimationEnd() {
+async function _loadingAnimationEnd(tl) {
   return new Promise((resolve) => {
     tl.to($.p, {
       opacity: 1,
@@ -191,8 +191,10 @@ function _loadingAnimationEnd() {
   });
 }
 
-function begin() {
-  _loadingAnimation();
+async function begin() {
+  const tl = _loadingAnimation();
+  return await _loadingAnimationEnd(tl);
+
 }
 
 export { loader };
