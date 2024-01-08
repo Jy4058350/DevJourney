@@ -16,16 +16,17 @@ const $ = {};
 
 function init() {
   _calcGap();
-  totalHeight();
+  // totalHeight();
   _setRotationViewportHeight();
 }
 
 async function totalHeight() {
+  console.log("totalHeight");
   try {
-    $.fvMainHeight = await _getElementHeight($.fvMain, "fvMain is not found");
+    $.fvHeight = await _getElementHeight($.fv, "fv is not found");
     $.footerHeight = await _getElementHeight($.footer, "footer is not found");
 
-    $.totalHeight = $.fvMainHeight + $.footerHeight;
+    $.totalHeight = $.fvHeight + $.footerHeight;
     // console.log("totalHeight", $.totalHeight);
   } catch (error) {
     console.log("Error", error);
@@ -43,10 +44,11 @@ function _getElementHeight(el, errorMesg) {
 }
 
 function _calcGap() {
-  $.fvMain = iNode.getElById("fv-main");
+  // $.fv = iNode.getElById("fv-main");
+  $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
 
-  $.fvMainRect = $.fvMain.getBoundingClientRect();
+  $.fvMainRect = $.fv.getBoundingClientRect();
   $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
 
   $.footerRect = $.footer.getBoundingClientRect();
@@ -107,7 +109,7 @@ async function executeSequence() {
 function _calcGapFooterPos() {
   return new Promise((resolve) => {
     iNode.setCssProp("--footer-top", 0, $.footer);
-    const nextFvMainRect = $.fvMain.getBoundingClientRect();
+    const nextFvMainRect = $.fv.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
     // console.log(nextFvMainRect.bottom);
     // console.log(nextFooterRect.top);
