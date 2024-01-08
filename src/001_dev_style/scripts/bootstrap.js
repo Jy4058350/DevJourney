@@ -62,9 +62,6 @@ export async function init() {
 
   viewport.bindResizeEvents();
 
-  // const customObject = await CustomObject.init({ el:iNode.qs('.fv_content'), type: "text" });
-  // theme.init();
-
   await loader.init();
   theme.init();
 

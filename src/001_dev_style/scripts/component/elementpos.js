@@ -199,7 +199,6 @@ let timerIdWideRangeGoblin = null;
 
 function wideRangeGoblin() {
   window.addEventListener("resize", debounce(resizeHandler, 100));
-  console.log("wideRangeGoblin");
   handleResize(); //initial call
 }
 
@@ -253,10 +252,8 @@ async function handleResize() {
       isWideScreen
     );
   } else if (!isWideScreen) {
-    console.log("Header", Header);
     const nextheaderHeight = await _getHeaderHeight();
     // const nextheaderHeight = iNode.getElById("header").offsetHeight;
-    console.log("!isWideScreen_nextheaderHeight", nextheaderHeight);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);

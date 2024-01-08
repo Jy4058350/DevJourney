@@ -30,13 +30,8 @@ function init() {
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
-  // $.rotationViewport = iNode.qs(".rotation-viewport");
-  // console.log($.rotationViewport);
-  // $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
-  // console.log($.homeNewsArticeThumbnail);
 
   $.scrollTriggerEnd = _scrollTriggerEnd();
-  // _setRotationViewportHeight();
 }
 
 function _scrollTriggerEnd() {
