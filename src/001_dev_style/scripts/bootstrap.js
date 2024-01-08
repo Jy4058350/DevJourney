@@ -10,6 +10,7 @@ import cling from "./component/cling";
 import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
 import { iNode } from "./helper";
+// import { circle } from "./helper/test_circle";
 
 import { elementPos } from "./component/elementpos";
 
@@ -30,6 +31,7 @@ export async function init() {
     await gui.init();
   }
 
+  
   await import(`./page/${pageType}.js`).then(({ default: initHome }) => {
     return initHome({
       world,
@@ -45,6 +47,9 @@ export async function init() {
     });
   });
 
+
+
+  
   viewport.init(canvasRect);
 
   scroll.initScroller();
