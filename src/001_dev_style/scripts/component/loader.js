@@ -10,9 +10,9 @@ const loader = {
   texMap,
   addProgressAction,
   loadDom,
-  loadingAnimation,
   loadVideo,
   $,
+  begin,
 };
 
 const texLoader = new TextureLoader();
@@ -161,12 +161,12 @@ async function texMap(el) {
   return texes;
 }
 
-function loadingAnimation() {
+function _loadingAnimation() {
   const tl = gsap.timeline();
   tl.to($.l, {
     opacity: 0,
-    duration: 0.5,
-    delay: 1.5,
+    duration: 0.3,
+    delay: 0.5,
   })
     .set($.g, {
       duration: 0.5,
@@ -175,6 +175,26 @@ function loadingAnimation() {
     .set($.l, {
       display: "none",
     });
+
+  return tl;
+}
+
+async function _loadingAnimationEnd(tl) {
+  return new Promise((resolve) => {
+    tl.to($.p, {
+      opacity: 1,
+      duration: 1.0,
+      oncomplete() {
+        resolve();
+      },
+    });
+  });
+}
+
+async function begin() {
+  const tl = _loadingAnimation();
+  return await _loadingAnimationEnd(tl);
+
 }
 
 export { loader };
