@@ -161,7 +161,7 @@ async function texMap(el) {
   return texes;
 }
 
-function loadingAnimation(tl) {
+function loadingAnimation() {
   const tl = gsap.timeline();
   tl.to($.l, {
     opacity: 0,
@@ -175,6 +175,8 @@ function loadingAnimation(tl) {
     .set($.l, {
       display: "none",
     });
+
+  return tl;
 }
 
 export { loader };
