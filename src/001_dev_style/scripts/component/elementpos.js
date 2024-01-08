@@ -22,8 +22,6 @@ function init() {
 
 async function totalHeight() {
   try {
-    // $.fvMainHeight = await _getFvMainHeight();
-    // $.footerHeight = await _getFooterHeight();
     $.fvMainHeight = await _getElementHeight($.fvMain, "fvMain is not found");
     $.footerHeight = await _getElementHeight($.footer, "footer is not found");
 
@@ -41,30 +39,6 @@ function _getElementHeight(el, errorMesg) {
       reject(errorMesg);
     }
     resolve(el.offsetHeight);
-  });
-}
-
-function _getFvMainHeight() {
-  return new Promise((resolve, reject) => {
-    if (!$.fvMain) {
-      reject("fvMain is not found");
-    }
-    $.fvMainHeight = $.fvMain.offsetHeight;
-    // console.log($.fvMain);
-    // console.log($.fvMainHeight);
-    resolve($.fvMainHeight);
-  });
-}
-
-function _getFooterHeight() {
-  return new Promise((resolve, reject) => {
-    if (!$.footer) {
-      reject("footer is not found");
-    }
-    $.footerHeight = $.footer.offsetHeight;
-    // console.log($.footer);
-    // console.log($.footerHeight);
-    resolve($.footerHeight);
   });
 }
 
