@@ -9,12 +9,9 @@ import menu from "./component/menu";
 import cling from "./component/cling";
 import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
-import { circle } from "./helper/test_circle";
 import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
-import ExtendObject from "./glsl/textSlide";
-import { CustomObject } from "./glsl/CustomObject";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -61,9 +58,6 @@ export async function init() {
   });
 
   viewport.bindResizeEvents();
-
-  // const customObject = await CustomObject.init({ el:iNode.qs('.fv_content'), type: "text" });
-  // theme.init();
 
   await loader.init();
   theme.init();

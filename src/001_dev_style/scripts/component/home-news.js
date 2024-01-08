@@ -1,5 +1,5 @@
-import { last, transform } from "lodash";
 import { iNode } from "../helper";
+// import { circle } from "../helper";
 
 const homeNews = {
   init,
@@ -19,6 +19,8 @@ let lastCalculatedIndex = 0;
 const $ = {};
 
 function init() {
+  console.log("homenews init");
+
   // Get necessary elements
   $.sliders = iNode.qs(".rotation-slider");
   $.prevButton = iNode.qs(".home-news-control-button.Previous");
