@@ -116,7 +116,7 @@ function _calcGap() {
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
-function _getHeaderHeight() {
+async function _getHeaderHeight() {
   return new Promise((resolve) => {
     const headerEl = iNode.getElById("header");
     const headerHeight = headerEl.offsetHeight;
@@ -230,11 +230,11 @@ function resizeHandler() {
 }
 
 async function handleResize() {
+  // console.log("handleResize");
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   const fv = iNode.getElById("fv");
   const Header = iNode.getElById("header");
-  // console.log("Header", Header);
   const header = iNode.qs("header");
   const goblin = iNode.qs(".Header__FlexItem--logo");
   const headerNav = iNode.qs(".HorizontalList");
@@ -245,14 +245,10 @@ async function handleResize() {
   const emValue = _toEm(1280, 16);
 
   const isWideScreen = getWindowWidth() > emValue;
-  // await iNode.toggleClass(
-  //   goblin,
-  //   "Header__FlexItem--increaseSpace",
-  //   isWideScreen
-  // );
 
   if (isWideScreen) {
-    const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    console.log("isWideScreen", isWideScreen);
+    const nextheaderHeight = Header.offsetHeight;
     console.log("nextheaderHeight", nextheaderHeight);
     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
@@ -270,8 +266,10 @@ async function handleResize() {
       "Header__FlexItem--increaseSpace",
       isWideScreen
     );
-  } else {
+  } else if (!isWideScreen) {
+    console.log("!isWideScreen", isWideScreen);  
     const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    console.log("!isWideScreen_nextheaderHeight", nextheaderHeight);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
