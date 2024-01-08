@@ -25,7 +25,7 @@ function init() {
 
 function _getHtmlHeight() {
   const html = document.documentElement;
-  const t = $.totalHeight;
+  // const t = $.totalHeight;
   html.style.height = `${$.totalHeight}px`;
 }
 
@@ -231,8 +231,8 @@ async function handleResize() {
   if (isWideScreen) {
     // const nextheaderHeight = Header.offsetHeight;
     const nextheaderHeight = await _getHeaderHeight();
-    console.log("Header", Header);
-    console.log("isWideScreen_nextheaderHeight", nextheaderHeight);
+    // console.log("Header", Header);
+    // console.log("isWideScreen_nextheaderHeight", nextheaderHeight);
     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
