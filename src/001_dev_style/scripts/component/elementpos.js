@@ -58,25 +58,6 @@ async function _totalHeight() {
   }
 }
 
-// async function _getPageContainerlHeight() {
-//   $.page = iNode.getElById("pageContainer");
-//   return new Promise(async (resolve, reject) => {
-//     if (!$.page) {
-//       reject("page is not found");
-//     }
-//     const headerHeight = await _getHeaderHeight();
-//     console.log("headerHeight", headerHeight);
-//     const pageHeight = $.page.offsetHeight + headerHeight;
-//     console.log("pageHeight", pageHeight);
-
-//     $.page.style.height = `${pageHeight}px`;
-
-//     console.log("pageHeight", pageHeight);
-
-//     resolve($.pageHeight);
-//   });
-// }
-
 function _getFvMainHeight() {
   return new Promise((resolve, reject) => {
     if (!$.fvMain) {
@@ -116,7 +97,7 @@ function _calcGap() {
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
-function _getHeaderHeight() {
+async function _getHeaderHeight() {
   return new Promise((resolve) => {
     const headerEl = iNode.getElById("header");
     const headerHeight = headerEl.offsetHeight;
@@ -215,26 +196,28 @@ function getWindowWidth(rootfontsize = 16) {
 }
 
 let timerIdWideRangeGoblin = null;
+
 function wideRangeGoblin() {
   window.addEventListener("resize", debounce(resizeHandler, 100));
+  console.log("wideRangeGoblin");
   handleResize(); //initial call
 }
 
 function resizeHandler() {
   clearTimeout(timerIdWideRangeGoblin);
   timerIdWideRangeGoblin = setTimeout(async () => {
-    await handleResize();
     await executeSequence();
+    await handleResize();
     await _setRotationViewportHeight();
   }, 100);
 }
 
 async function handleResize() {
+  // console.log("handleResize");
   await new Promise((resolve) => setTimeout(resolve, 100));
 
   const fv = iNode.getElById("fv");
   const Header = iNode.getElById("header");
-  // console.log("Header", Header);
   const header = iNode.qs("header");
   const goblin = iNode.qs(".Header__FlexItem--logo");
   const headerNav = iNode.qs(".HorizontalList");
@@ -245,21 +228,20 @@ async function handleResize() {
   const emValue = _toEm(1280, 16);
 
   const isWideScreen = getWindowWidth() > emValue;
-  // await iNode.toggleClass(
-  //   goblin,
-  //   "Header__FlexItem--increaseSpace",
-  //   isWideScreen
-  // );
 
   if (isWideScreen) {
-    const nextheaderHeight = iNode.getElById("header").offsetHeight;
-    console.log("nextheaderHeight", nextheaderHeight);
+    // const nextheaderHeight = Header.offsetHeight;
+    const nextheaderHeight = await _getHeaderHeight();
+    console.log("Header", Header);
+    console.log("isWideScreen_nextheaderHeight", nextheaderHeight);
     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-    await iNode.setStyles(Header, { height: "145px" });
-    await iNode.setStyles(header, { height: "145px" });
+    await iNode.setStyles(Header, { height: "145px", maxHeight: "145px" });
+    // await iNode.setStyles(Header, { height: "145px" });
+    await iNode.setStyles(header, { height: "145px", maxHeight: "145px" });
+    // await iNode.setStyles(header, { height: "145px" });
     await iNode.setStyles(headerNav, { opacity: 1 });
     await iNode.setStyles(headerBtn, { display: "none" });
     await iNode.setStyles(headerMainNav, { opacity: 1 });
@@ -270,13 +252,18 @@ async function handleResize() {
       "Header__FlexItem--increaseSpace",
       isWideScreen
     );
-  } else {
-    const nextheaderHeight = iNode.getElById("header").offsetHeight;
+  } else if (!isWideScreen) {
+    console.log("Header", Header);
+    const nextheaderHeight = await _getHeaderHeight();
+    // const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    console.log("!isWideScreen_nextheaderHeight", nextheaderHeight);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-    await iNode.setStyles(Header, { height: "68px" });
-    await iNode.setStyles(header, { height: "68px" });
+    await iNode.setStyles(Header, { height: "68px", maxHeight: "68px" });
+    // await iNode.setStyles(header, { height: "68px" });
+    await iNode.setStyles(Header, { height: "68px", maxHeight: "68px" });
+    // await iNode.setStyles(header, { height: "68px" });
     await iNode.setStyles(headerNav, { opacity: 0 });
     await iNode.setStyles(headerBtn, { display: "block" });
     await iNode.setStyles(headerMainNav, { opacity: 0 });
