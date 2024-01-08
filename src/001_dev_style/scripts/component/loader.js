@@ -162,11 +162,12 @@ async function texMap(el) {
 }
 
 function loadingAnimation() {
+  console.log($.l.firstElementChild);
   const tl = gsap.timeline();
-  tl.to($.l, {
-    opacity: 0,
-    duration: 0.5,
-    delay: 1.5,
+  tl.to($.l.firstElementChild, {
+    opacity: 1,
+    duration: 0.3,
+    delay: 0.5,
   })
     .set($.g, {
       duration: 0.5,
