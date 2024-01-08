@@ -82,5 +82,7 @@ export async function init() {
 
   await loader.begin();
 
+  elementPos.wideRangeGoblin();
+
   gui.open();
 }
