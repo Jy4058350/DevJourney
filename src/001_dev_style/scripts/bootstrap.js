@@ -10,6 +10,7 @@ import cling from "./component/cling";
 import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
 import { circle } from "./helper/test_circle";
+import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
 import ExtendObject from "./glsl/textSlide";
@@ -24,20 +25,28 @@ function debugmode(d) {
 export async function init() {
   const canvas = document.querySelector("#canvas");
   const canvasRect = canvas.getBoundingClientRect();
-  // console.log(canvasRect);
+
+  const pageEl = iNode.getElement("#pageContainer");
+  const pageType = iNode.getDateSet(pageEl, "page");
 
   if (window.debug) {
     await gui.init();
   }
 
-  elementPos.init();
-  elementPos.resizeHeaderPos();
-  elementPos.resizingFooterPos();
-  elementPos.wideRangeGoblin();
-  await elementPos.handleResize();
-  await elementPos._totalHeight();
-
-  homeNews.init();
+  await import(`./page/${pageType}.js`).then(({ default: initHome }) => {
+    return initHome({
+      world,
+      mouse,
+      loader,
+      viewport,
+      scroll,
+      elementPos,
+      homeNews,
+      theme,
+      menu,
+      cling,
+    });
+  });
 
   viewport.init(canvasRect);
 
