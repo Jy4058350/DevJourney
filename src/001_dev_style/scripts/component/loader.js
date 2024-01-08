@@ -161,7 +161,7 @@ async function texMap(el) {
   return texes;
 }
 
-function loadingAnimation() {
+function loadingAnimation(tl) {
   const tl = gsap.timeline();
   tl.to($.l, {
     opacity: 0,

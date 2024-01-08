@@ -80,7 +80,7 @@ export async function init() {
 
   world.render();
 
-  loader.loadingAnimation();
+  loader.loadingAnimation(tl);
 
   gui.open();
 }
