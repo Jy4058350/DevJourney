@@ -32,6 +32,16 @@ async function totalHeight() {
   }
 }
 
+// integrate getFvMainHeight and getFooterHeight
+function _getElementHeight(el, errorMesg) {
+return new Promise((resolve, reject) => {
+  if(!el) {
+    reject(errorMesg);
+  }
+  resolve(el.offsetHeight);
+});
+}
+
 function _getFvMainHeight() {
   return new Promise((resolve, reject) => {
     if (!$.fvMain) {
