@@ -22,8 +22,10 @@ function init() {
 
 async function totalHeight() {
   try {
-    $.fvMainHeight = await _getFvMainHeight();
-    $.footerHeight = await _getFooterHeight();
+    // $.fvMainHeight = await _getFvMainHeight();
+    // $.footerHeight = await _getFooterHeight();
+    $.fvMainHeight = await _getElementHeight($.fvMain, "fvMain is not found");
+    $.footerHeight = await _getElementHeight($.footer, "footer is not found");
 
     $.totalHeight = $.fvMainHeight + $.footerHeight;
     // console.log("totalHeight", $.totalHeight);
@@ -34,12 +36,12 @@ async function totalHeight() {
 
 // integrate getFvMainHeight and getFooterHeight
 function _getElementHeight(el, errorMesg) {
-return new Promise((resolve, reject) => {
-  if(!el) {
-    reject(errorMesg);
-  }
-  resolve(el.offsetHeight);
-});
+  return new Promise((resolve, reject) => {
+    if (!el) {
+      reject(errorMesg);
+    }
+    resolve(el.offsetHeight);
+  });
 }
 
 function _getFvMainHeight() {
