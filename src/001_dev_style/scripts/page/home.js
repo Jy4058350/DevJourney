@@ -15,7 +15,7 @@ export default async function init({
   elementPos.resizingFooterPos();
   elementPos.wideRangeGoblin();
   await elementPos.handleResize();
-  await elementPos._totalHeight();
+  await elementPos.totalHeight();
 
 
 

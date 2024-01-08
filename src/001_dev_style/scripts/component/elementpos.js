@@ -7,7 +7,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
-  _totalHeight,
+  totalHeight,
   // _getScrollContentHeight,
   handleResize,
 };
@@ -15,37 +15,12 @@ const elementPos = {
 const $ = {};
 
 function init() {
-  _getHeaderHeight();
   _calcGap();
-  _totalHeight();
-  // _getHtmlHeight();
+  totalHeight();
   _setRotationViewportHeight();
 }
 
-// function _getHtmlHeight() {
-//   const html = document.documentElement;
-//   // const t = $.totalHeight;
-//   html.style.height = `${$.totalHeight}px`;
-// }
-
-// let scrollContentHeight = 0;
-// function _getScrollContentHeight() {
-//   const scrollContent = iNode.qs(".scroll-content");
-//   // console.log("scrollContent", scrollContent);
-//   // console.log("scrollContent", scrollContent);
-//   return new Promise((resolve, reject) => {
-//     if (!scrollContent) {
-//       reject("scrollContent is not found");
-//     }
-
-//     const scrollContentHeight = scrollContent.offsetHeight;
-//     // scrollContentHeight = scrollContent.offsetHeight;
-//     console.log("scrollContentHeight", scrollContentHeight);
-//     resolve(scrollContentHeight);
-//   });
-// }
-
-async function _totalHeight() {
+async function totalHeight() {
   try {
     $.fvMainHeight = await _getFvMainHeight();
     $.footerHeight = await _getFooterHeight();
@@ -96,6 +71,7 @@ function _calcGap() {
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
+// need to be refactored
 async function _getHeaderHeight() {
   return new Promise((resolve) => {
     const headerEl = iNode.getElById("header");
@@ -105,7 +81,7 @@ async function _getHeaderHeight() {
   });
 }
 
-function raiseFv(headerHeight) {
+function _raiseFv(headerHeight) {
   return new Promise((resolve) => {
     const fv = iNode.getElById("fv");
     iNode.setCssProp("--fv-top", headerHeight);
@@ -134,7 +110,7 @@ async function _getHomeNewsHeight() {
 async function executeSequence() {
   try {
     const headerHeight = await _getHeaderHeight();
-    await raiseFv(headerHeight);
+    await _raiseFv(headerHeight);
     await _calcGapFooterPos();
   } catch (err) {
     console.log("error", err);
@@ -185,7 +161,7 @@ function _toEm(px, rootfontsize) {
   return emValue;
 }
 
-function getWindowWidth(rootfontsize = 16) {
+function _getWindowWidth(rootfontsize = 16) {
   return (
     Math.max(
       document.documentElement.clientWidth || 0,
@@ -225,7 +201,7 @@ async function handleResize() {
   const secondNav = iNode.qs(".Header__secondaryNav");
   const emValue = _toEm(1280, 16);
 
-  const isWideScreen = getWindowWidth() > emValue;
+  const isWideScreen = _getWindowWidth() > emValue;
 
   if (isWideScreen) {
     // const nextheaderHeight = Header.offsetHeight;
