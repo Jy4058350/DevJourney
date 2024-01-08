@@ -1,9 +1,3 @@
-import cling from "../component/cling";
-import gsap from "gsap";
-import ScrollTrigger from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 export default async function init({
   world,
   mouse,
@@ -24,8 +18,4 @@ export default async function init({
   await elementPos._totalHeight();
 
   homeNews.init();
-
-  // cling.init();
-  // cling._clingTo();
-  
 }
