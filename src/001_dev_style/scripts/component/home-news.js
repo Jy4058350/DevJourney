@@ -18,14 +18,14 @@ let lastCalculatedIndex = 0;
 
 const $ = {};
 
-document.addEventListener("DOMContentLoaded", function () {
-  const { sliders, prevButton, nextButton } = homeNews.init();
-  homeNews.initEventListenres(sliders, prevButton, nextButton);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   const { sliders, prevButton, nextButton } = homeNews.init();
+//   homeNews.initEventListenres(sliders, prevButton, nextButton);
+// });
 
 function init() {
   console.log("homenews init");
-  // circle.createCircle(1, $.sliders);
+ 
   // Get necessary elements
   $.sliders = iNode.qs(".rotation-slider");
   $.prevButton = iNode.qs(".home-news-control-button.Previous");

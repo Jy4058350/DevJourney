@@ -21,5 +21,6 @@ export default async function init({
 
 
   
-  // homeNews.init();
+  homeNews.init();
+  // homeNews.initEventListenres();
 }
