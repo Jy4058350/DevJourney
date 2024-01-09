@@ -10,9 +10,8 @@ export default async function init({
   menu,
   cling,
 }) {
-  // elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
-  // elementPos.wideRangeGoblin();
-  // await elementPos.handleResize();
+  elementPosHome.wideRangeGoblin();
+  // elementPosHome.handleResize();
 }
