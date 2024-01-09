@@ -5,14 +5,14 @@ export default async function init({
   viewport,
   scroller,
   elementPos,
+  elementPosHome,
   homeNews,
   theme,
   menu,
   cling,
 }) {
-  // elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
-  // elementPos.wideRangeGoblin();
-  // await elementPos.handleResize();
+  elementPosHome.wideRangeGoblin();
+  
 }
