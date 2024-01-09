@@ -41,8 +41,8 @@ function init() {
 function _scrollTriggerEnd() {
   // const fvHeight = $.fv.offsetHeight;
   // const footerHeight = $.footer.offsetHeight;
-  const commonElHeight = commonElHeight($.fv, $.footer);
-  console.log("commonElHeight", commonElHeight);
+  const commonHeight = commonElHeight($.fv, $.footer);
+  console.log("commonHeight", commonHeight);
 
   const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
   const homeNewsHeight = $.homeNews.offsetHeight;
