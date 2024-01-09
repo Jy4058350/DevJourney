@@ -6,7 +6,9 @@ const iNode = {
   getDateSet,
   setCssProp,
   setStyles,
+  setHeightPx,
   toggleClass,
+  getElementHeight,
 };
 
 function qs(selector, scope) {
@@ -49,8 +51,25 @@ function setStyles(element, styles) {
   Object.assign(element.style, styles);
 }
 
+function setHeightPx(element, height) {
+  element.style.height = `${height}px`;
+}
+
 function toggleClass(element, className, condition) {
   element.classList.toggle(className, condition);
 }
+
+
+function getElementHeight(el, errormsg) {
+  return new Promise((resolve, reject) => {
+    if (!el) {
+      reject(errormsg);
+    }
+    resolve(el.offsetHeight);
+  });
+}
+
+
+
 
 export { iNode };

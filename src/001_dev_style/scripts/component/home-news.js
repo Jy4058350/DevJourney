@@ -19,8 +19,6 @@ let lastCalculatedIndex = 0;
 const $ = {};
 
 function init() {
-  console.log("homenews init");
-
   // Get necessary elements
   $.sliders = iNode.qs(".rotation-slider");
   $.prevButton = iNode.qs(".home-news-control-button.Previous");
