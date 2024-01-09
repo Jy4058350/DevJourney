@@ -53,6 +53,7 @@ function _raiseFv(headerHeight) {
 
 // if #fv is uesed in other pages, use this function
 function _calcGapFooterPos() {
+  console.log("calcGapFooterPos");
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
   return new Promise((resolve) => {
