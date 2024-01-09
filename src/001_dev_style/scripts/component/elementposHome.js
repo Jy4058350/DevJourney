@@ -1,8 +1,21 @@
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
 import { iNode } from "../helper";
 import { elementPos } from "./elementpos";
+import exp from "constants";
 
 const $ = {};
+
+const elementPosHome = {
+  init,
+  setRotationViewportHeight,
+  getHomeNewsHeight,
+  wideRangeGoblin,
+  handleResize,
+};
+
+function init() {
+  console.log("elementPosHome init");
+}
 
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
@@ -11,7 +24,7 @@ function _toEm(px, rootfontsize) {
 
 async function setRotationViewportHeight() {
   $.rotationViewport = iNode.qs(".rotation-viewport");
-  const homeNewsHeight = await elementPos.getHomeNewsHeight();
+  const homeNewsHeight = await getHomeNewsHeight();
 
   $.rotationViewport.style.height = iNode.setHeightPx(
     $.rotationViewport,
@@ -103,4 +116,5 @@ async function handleResize() {
   }
 }
 
-export { setRotationViewportHeight, getHomeNewsHeight, wideRangeGoblin };
+// export { setRotationViewportHeight, getHomeNewsHeight, wideRangeGoblin };
+export { elementPosHome };

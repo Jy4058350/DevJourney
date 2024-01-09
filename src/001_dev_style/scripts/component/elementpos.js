@@ -1,17 +1,17 @@
 import { debounce, set } from "lodash";
 import { iNode } from "../helper";
-import {
-  setRotationViewportHeight,
-  getHomeNewsHeight,
-  wideRangeGoblin,
-} from "./elementposHome";
+// import {
+//   setRotationViewportHeight,
+//   getHomeNewsHeight,
+//   wideRangeGoblin,
+// } from "./elementposHome";
 
 const elementPos = {
   init,
-  getHomeNewsHeight,
+  // getHomeNewsHeight,
   resizeHeaderPos,
   resizingFooterPos,
-  wideRangeGoblin,
+  // wideRangeGoblin,
   executeSequence,
   // totalHeight,
   // _getScrollContentHeight,

@@ -12,6 +12,7 @@ import "./component/scroll-animation";
 import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
+import { elementPosHome } from "./component/elementposHome";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -38,6 +39,7 @@ export async function init() {
       viewport,
       scroll,
       elementPos,
+      elementPosHome,
       homeNews,
       theme,
       menu,
@@ -76,7 +78,7 @@ export async function init() {
 
   await loader.begin();
 
-  elementPos.wideRangeGoblin();
+  // elementPos.wideRangeGoblin();
 
   gui.open();
 }
