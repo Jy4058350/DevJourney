@@ -5,6 +5,7 @@ export default async function init({
   viewport,
   scroller,
   elementPos,
+  elementPosHome,
   homeNews,
   theme,
   menu,
@@ -13,5 +14,5 @@ export default async function init({
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
   elementPosHome.wideRangeGoblin();
-  // elementPosHome.handleResize();
+  
 }

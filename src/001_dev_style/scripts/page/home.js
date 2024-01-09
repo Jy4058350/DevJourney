@@ -15,10 +15,10 @@ export default async function init({
   elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
+  elementPosHome.wideRangeGoblin();
 
   await elementPosHome.getHomeNewsHeight();
   await elementPosHome.setRotationViewportHeight();
-  elementPosHome.wideRangeGoblin();
 
   homeNews.init();
   homeNews.initEventListenres();
