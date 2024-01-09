@@ -45,6 +45,7 @@ function _scrollTriggerEnd() {
 }
 
 function _clingTo() {
+  console.log("clingTo");
   const height = $.scrollTriggerEnd;
 
   ScrollTrigger.create({
