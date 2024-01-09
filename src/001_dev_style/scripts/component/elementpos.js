@@ -58,19 +58,17 @@ async function _setRotationViewportHeight() {
   $.rotationViewport = iNode.qs(".rotation-viewport");
   const homeNewsHeight = await _getHomeNewsHeight();
 
-  $.rotationViewport.style.height = `${homeNewsHeight}px`;
-  // $.rotationViewport.style.height = iNode.setHeightPx(
-  //   $.rotationViewport,
-  //   homeNewsHeight
-  // );
-  console.log("test", $.rotationViewport.style.height);
+  $.rotationViewport.style.height = iNode.setHeightPx(
+    $.rotationViewport,
+    homeNewsHeight
+  );
 }
 // Code for home.js only
 async function _getHomeNewsHeight() {
   await new Promise((resolve) => setTimeout(resolve, 100));
-  $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
-  const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
-  return thumbnailHeight;
+  $.adjustHomeNewsElHeight = iNode.qs(".home-news-article-thumbnail");
+  const homeNewsHeight = $.adjustHomeNewsElHeight.offsetHeight;
+  return homeNewsHeight;
 }
 
 async function executeSequence() {
