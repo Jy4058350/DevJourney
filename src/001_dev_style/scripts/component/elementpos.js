@@ -59,8 +59,11 @@ function _calcGapFooterPos() {
   return new Promise((resolve) => {
     iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fv.getBoundingClientRect();
+    // console.log("nextFvMainRect", nextFvMainRect);
     const nextFooterRect = $.footer.getBoundingClientRect();
+    // console.log("nextFooterRect", nextFooterRect);
     const gap = nextFvMainRect.bottom - nextFooterRect.top;
+    console.log("gap", gap);
     iNode.setCssProp("--footer-top", `${gap}`, $.footer);
     resolve();
   });
