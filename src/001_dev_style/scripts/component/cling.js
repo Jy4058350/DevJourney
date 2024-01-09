@@ -1,3 +1,4 @@
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { iNode } from "../helper";
@@ -11,6 +12,7 @@ const cling = {
 const $ = {};
 
 function init() {
+  console.log("cling init");
   $.fv = iNode.qs(".fv");
   $.sectionTemplate = iNode.qs(".section--home-panels");
   $.homeNews = iNode.qs(".home-news");
@@ -46,7 +48,13 @@ function _scrollTriggerEnd() {
 
 function _clingTo() {
   console.log("clingTo");
+  gsap.registerPlugin(ScrollTrigger);
   const height = $.scrollTriggerEnd;
+
+  if (!ScrollTrigger) {
+    console.error("ScrollTrigger is not defined");
+    return;
+  }
 
   ScrollTrigger.create({
     trigger: $.header,
@@ -82,4 +90,5 @@ function _clingTo() {
   });
 }
 
-export default cling;
+// export default cling;
+export { cling };

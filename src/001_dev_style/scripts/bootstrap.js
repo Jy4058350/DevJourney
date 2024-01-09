@@ -6,7 +6,7 @@ import { loader } from "./component/loader";
 import { theme } from "./component/theme";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
-import cling from "./component/cling";
+import { cling } from "./component/cling";
 import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
 import { iNode } from "./helper";

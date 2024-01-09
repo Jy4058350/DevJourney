@@ -1,5 +1,3 @@
-import { elementPosHome } from "../component/elementposHome";
-
 export default async function init({
   world,
   mouse,
@@ -16,10 +14,9 @@ export default async function init({
   elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
-  // await elementPos.handleResize();
 
-  await elementPosHome.setRotationViewportHeight();
   await elementPosHome.getHomeNewsHeight();
+  await elementPosHome.setRotationViewportHeight();
   elementPosHome.wideRangeGoblin();
 
   homeNews.init();
