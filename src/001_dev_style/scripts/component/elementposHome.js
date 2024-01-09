@@ -1,8 +1,16 @@
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
 import { iNode } from "../helper";
 import { elementPos } from "./elementpos";
+import exp from "constants";
 
 const $ = {};
+
+const elementPosHome = {
+  setRotationViewportHeight,
+  getHomeNewsHeight,
+  wideRangeGoblin,
+  handleResize,
+};
 
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
@@ -103,4 +111,5 @@ async function handleResize() {
   }
 }
 
-export { setRotationViewportHeight, getHomeNewsHeight, wideRangeGoblin };
+// export { setRotationViewportHeight, getHomeNewsHeight, wideRangeGoblin };
+export { elementPosHome };

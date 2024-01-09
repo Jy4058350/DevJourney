@@ -13,15 +13,13 @@ export default async function init({
   elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
-  elementPos.wideRangeGoblin();
-  await elementPos.handleResize();
+  // elementPos.wideRangeGoblin();
+  // await elementPos.handleResize();
 
-  await setRotationViewportHeight();
-  await getHomeNewsHeight();
-  wideRangeGoblin();
+  await elementPosHome.setRotationViewportHeight();
+  await elementPosHome.getHomeNewsHeight();
+  elementPosHome.wideRangeGoblin();
 
-
-  
   homeNews.init();
   homeNews.initEventListenres();
 }
