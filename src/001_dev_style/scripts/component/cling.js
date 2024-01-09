@@ -66,6 +66,7 @@ function _clingTo() {
       const header = iNode.qs("#header");
     },
     onEnter: () => {
+      console.log("onEnter");
       iNode.toggleClass(header, "Header--white", true);
       iNode.setStyles($.logoGray, { opacity: 1 });
       iNode.setStyles($.logoWhite, { opacity: 0 });
@@ -77,6 +78,7 @@ function _clingTo() {
       iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
     },
     onLeaveBack: () => {
+      console.log("onLeaveBack");
       iNode.toggleClass(header, "Header--white", false);
       iNode.setStyles($.logoGray, { opacity: 0 });
       iNode.setStyles($.logoWhite, { opacity: 1 });

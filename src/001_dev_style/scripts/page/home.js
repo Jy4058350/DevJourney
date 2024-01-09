@@ -22,6 +22,5 @@ export default async function init({
   homeNews.init();
   homeNews.initEventListenres();
 
-  cling.init();
-  cling._clingTo();
+ 
 }
