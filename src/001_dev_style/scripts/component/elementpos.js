@@ -130,7 +130,7 @@ function resizeHandler() {
   timerIdWideRangeGoblin = setTimeout(async () => {
     await executeSequence();
     await handleResize();
-    await _setRotationViewportHeight();
+    await setRotationViewportHeight();
   }, 100);
 }
 
