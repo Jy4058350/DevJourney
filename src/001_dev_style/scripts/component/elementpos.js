@@ -15,23 +15,21 @@ const elementPos = {
 const $ = {};
 
 function init() {
-  _calcGap();
+  // _calcGap();
   _setRotationViewportHeight();
 }
 
 function _calcGap() {
-  $.fv = iNode.getElById("fv");
-  $.footer = iNode.getElById("footer");
+  // $.fv = iNode.getElById("fv");
+  // $.footer = iNode.getElById("footer");
 
-  const fvRect = $.fv.getBoundingClientRect();
-  $.fvMainAbsoluteBottom = fvRect.bottom;
+  // const fvRect = $.fv.getBoundingClientRect();
+  // $.fvMainAbsoluteBottom = fvRect.bottom;
 
-  const footerRect = $.footer.getBoundingClientRect();
-  $.footerAbsoluteTop = footerRect.top;
+  // const footerRect = $.footer.getBoundingClientRect();
+  // $.footerAbsoluteTop = footerRect.top;
 
-  $.footerHeight = $.footer.offsetHeight;
-
-  $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
+  // $.footerHeight = $.footer.offsetHeight;
 }
 
 // Code for home.js only
@@ -74,6 +72,8 @@ function _raiseFv(headerHeight) {
 }
 
 function _calcGapFooterPos() {
+  $.fv = iNode.getElById("fv");
+  $.footer = iNode.getElById("footer");
   return new Promise((resolve) => {
     iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fv.getBoundingClientRect();
@@ -137,6 +137,7 @@ function resizeHandler() {
   }, 100);
 }
 
+// Code for home.js only
 async function handleResize() {
   // console.log("handleResize");
   await new Promise((resolve) => setTimeout(resolve, 100));
