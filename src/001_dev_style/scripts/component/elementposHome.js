@@ -23,6 +23,7 @@ function _toEm(px, rootfontsize) {
 }
 
 async function setRotationViewportHeight() {
+  if(!$.rotationViewport) return;
   $.rotationViewport = iNode.qs(".rotation-viewport");
   const homeNewsHeight = await getHomeNewsHeight();
 
