@@ -44,21 +44,39 @@ function _scrollTriggerEnd() {
   const commonHeight = commonElHeight($.fv, $.footer);
   console.log("commonHeight", commonHeight);
 
-  const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
-  const homeNewsHeight = $.homeNews.offsetHeight;
-  const scrollTriggerEnd =
-    fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
+  // const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
+  // const homeNewsHeight = $.homeNews.offsetHeight;
+
+  const customHegiht = customElHeight($.sectionTemplate, $.homeNews);
+  console.log("customHegiht", customHegiht);
+  // const scrollTriggerEnd =
+  //   fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
+
+  const scrollTriggerEnd = calcScrollTriggerEnd(commonHeight, customHegiht);
   return scrollTriggerEnd;
 }
 
-function commonElHeight(fvEl, footerEl) {
-  const fvHeight = fvEl.offsetHeight;
-  const footerHeight = footerEl.offsetHeight;
+function commonElHeight(el1, el2) {
+  const fvHeight = el1.offsetHeight;
+  const footerHeight = el2.offsetHeight;
   const commonElHeight = fvHeight + footerHeight;
   return commonElHeight;
 }
 
+function customElHeight(el1, el2) {
+  if (!el1 || !el2) {
+    return;
+  }
+  const el1Height = el1.offsetHeight;
+  const el2Height = el2.offsetHeight;
+  const customElHeight = el1Height + el2Height;
+  return customElHeight;
+}
 
+function calcScrollTriggerEnd(height1, height2) {
+  const totalheight = height1 + height2;
+  return totalheight;
+}
 
 function _clingTo() {
   const scrollTriggerEnd = _scrollTriggerEnd();
