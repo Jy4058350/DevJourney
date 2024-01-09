@@ -7,7 +7,7 @@ const elementPos = {
   resizingFooterPos,
   wideRangeGoblin,
   executeSequence,
-  totalHeight,
+  // totalHeight,
   // _getScrollContentHeight,
   handleResize,
 };
@@ -16,50 +16,34 @@ const $ = {};
 
 function init() {
   _calcGap();
-  // totalHeight();
   _setRotationViewportHeight();
 }
 
-async function totalHeight() {
-  console.log("totalHeight");
-  try {
-    $.fvHeight = await _getElementHeight($.fv, "fv is not found");
-    $.footerHeight = await _getElementHeight($.footer, "footer is not found");
-
-    $.totalHeight = $.fvHeight + $.footerHeight;
-    // console.log("totalHeight", $.totalHeight);
-  } catch (error) {
-    console.log("Error", error);
-  }
-}
-
-// integrate getFvMainHeight and getFooterHeight
-function _getElementHeight(el, errorMesg) {
+async function _getElementHeight(el, errormsg) {
   return new Promise((resolve, reject) => {
     if (!el) {
-      reject(errorMesg);
+      reject(errormsg);
     }
     resolve(el.offsetHeight);
   });
 }
 
 function _calcGap() {
-  // $.fv = iNode.getElById("fv-main");
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
 
-  $.fvMainRect = $.fv.getBoundingClientRect();
-  $.fvMainAbsoluteBottom = $.fvMainRect.bottom;
+  const fvRect = $.fv.getBoundingClientRect();
+  $.fvMainAbsoluteBottom = fvRect.bottom;
 
-  $.footerRect = $.footer.getBoundingClientRect();
-  $.footerAbsoluteTop = $.footerRect.top;
+  const footerRect = $.footer.getBoundingClientRect();
+  $.footerAbsoluteTop = footerRect.top;
 
   $.footerHeight = $.footer.offsetHeight;
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
 }
 
-// need to be refactored
+// ⭐️need to be refactored
 async function _getHeaderHeight() {
   return new Promise((resolve) => {
     const headerEl = iNode.getElById("header");
@@ -69,28 +53,22 @@ async function _getHeaderHeight() {
   });
 }
 
-function _raiseFv(headerHeight) {
-  return new Promise((resolve) => {
-    const fv = iNode.getElById("fv");
-    iNode.setCssProp("--fv-top", headerHeight);
-    resolve();
-  });
-}
-
+// Code for home.js only
 async function _setRotationViewportHeight() {
   $.rotationViewport = iNode.qs(".rotation-viewport");
-  // console.log($.rotationViewport);
   const homeNewsHeight = await _getHomeNewsHeight();
-  // console.log(homeNewsHeight);
 
   $.rotationViewport.style.height = `${homeNewsHeight}px`;
-  // console.log($.rotationViewport.style.height);
+  // $.rotationViewport.style.height = iNode.setHeightPx(
+  //   $.rotationViewport,
+  //   homeNewsHeight
+  // );
+  console.log("test", $.rotationViewport.style.height);
 }
-
+// Code for home.js only
 async function _getHomeNewsHeight() {
   await new Promise((resolve) => setTimeout(resolve, 100));
   $.homeNewsArticeThumbnail = iNode.qs(".home-news-article-thumbnail");
-  // console.log($.homeNewsArticeThumbnail);
   const thumbnailHeight = $.homeNewsArticeThumbnail.offsetHeight;
   return thumbnailHeight;
 }
@@ -104,6 +82,14 @@ async function executeSequence() {
     console.log("error", err);
   }
   // console.log("End sequence");
+}
+
+function _raiseFv(headerHeight) {
+  return new Promise((resolve) => {
+    const fv = iNode.getElById("fv");
+    iNode.setCssProp("--fv-top", headerHeight);
+    resolve();
+  });
 }
 
 function _calcGapFooterPos() {

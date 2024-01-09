@@ -6,6 +6,7 @@ const iNode = {
   getDateSet,
   setCssProp,
   setStyles,
+  setHeightPx,
   toggleClass,
 };
 
@@ -49,8 +50,14 @@ function setStyles(element, styles) {
   Object.assign(element.style, styles);
 }
 
+function setHeightPx(element, height) {
+  element.style.height = `${height}px`;
+}
+
 function toggleClass(element, className, condition) {
   element.classList.toggle(className, condition);
 }
+
+
 
 export { iNode };
