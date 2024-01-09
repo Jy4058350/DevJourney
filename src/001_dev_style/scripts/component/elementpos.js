@@ -4,6 +4,7 @@ import { setRotationViewportHeight } from "./elementposHome";
 
 const elementPos = {
   init,
+  getHomeNewsHeight,
   resizeHeaderPos,
   resizingFooterPos,
   wideRangeGoblin,
@@ -31,7 +32,7 @@ await setRotationViewportHeight();
 //   );
 // }
 // Code for home.js only
-async function _getHomeNewsHeight() {
+async function getHomeNewsHeight() {
   await new Promise((resolve) => setTimeout(resolve, 100));
   $.adjustHomeNewsElHeight = iNode.qs(".home-news-article-thumbnail");
   const homeNewsHeight = $.adjustHomeNewsElHeight.offsetHeight;
