@@ -41,7 +41,8 @@ function init() {
 function _scrollTriggerEnd() {
   // const fvHeight = $.fv.offsetHeight;
   // const footerHeight = $.footer.offsetHeight;
-  commonElHeight($.fv, $.footer);
+  const commonElHeight = commonElHeight($.fv, $.footer);
+  console.log("commonElHeight", commonElHeight);
 
   const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
   const homeNewsHeight = $.homeNews.offsetHeight;
@@ -51,11 +52,13 @@ function _scrollTriggerEnd() {
 }
 
 function commonElHeight(fvEl, footerEl) {
-  const fvHeight = $.fv.offsetHeight;
-  const footerHeight = $.footer.offsetHeight;
+  const fvHeight = fvEl.offsetHeight;
+  const footerHeight = footerEl.offsetHeight;
   const commonElHeight = fvHeight + footerHeight;
   return commonElHeight;
 }
+
+
 
 function _clingTo() {
   const scrollTriggerEnd = _scrollTriggerEnd();
