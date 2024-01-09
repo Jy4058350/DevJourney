@@ -80,15 +80,11 @@ function calcScrollTriggerEnd(height1, height2) {
 
 function _clingTo() {
   const scrollTriggerEnd = _scrollTriggerEnd();
-  console.log("clingTo");
   gsap.registerPlugin(ScrollTrigger);
   const height = scrollTriggerEnd;
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
     return;
-  }
-  if (ScrollTrigger) {
-    console.log("ScrollTrigger is defined");
   }
 
   ScrollTrigger.create({
@@ -97,12 +93,7 @@ function _clingTo() {
     end: `bottom+=${height}px top`,
     pin: true,
     pinSpacing: false,
-    onUpdate: (self) => {
-      // const header = iNode.qs("#header");
-      // console.log("onUpdate");
-    },
     onEnter: () => {
-      console.log("onEnter");
       iNode.toggleClass(header, "Header--white", true);
       iNode.setStyles($.logoGray, { opacity: 1 });
       iNode.setStyles($.logoWhite, { opacity: 0 });
@@ -114,7 +105,6 @@ function _clingTo() {
       iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
     },
     onLeaveBack: () => {
-      console.log("onLeaveBack");
       iNode.toggleClass(header, "Header--white", false);
       iNode.setStyles($.logoGray, { opacity: 0 });
       iNode.setStyles($.logoWhite, { opacity: 1 });
