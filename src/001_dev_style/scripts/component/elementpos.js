@@ -1,5 +1,6 @@
-import { debounce } from "lodash";
+import { debounce, set } from "lodash";
 import { iNode } from "../helper";
+import { setRotationViewportHeight } from "./elementposHome";
 
 const elementPos = {
   init,
@@ -15,33 +16,20 @@ const elementPos = {
 const $ = {};
 
 function init() {
-  // _calcGap();
-  _setRotationViewportHeight();
+  // _setRotationViewportHeight();
 }
 
-function _calcGap() {
-  // $.fv = iNode.getElById("fv");
-  // $.footer = iNode.getElById("footer");
-
-  // const fvRect = $.fv.getBoundingClientRect();
-  // $.fvMainAbsoluteBottom = fvRect.bottom;
-
-  // const footerRect = $.footer.getBoundingClientRect();
-  // $.footerAbsoluteTop = footerRect.top;
-
-  // $.footerHeight = $.footer.offsetHeight;
-}
-
+await setRotationViewportHeight();
 // Code for home.js only
-async function _setRotationViewportHeight() {
-  $.rotationViewport = iNode.qs(".rotation-viewport");
-  const homeNewsHeight = await _getHomeNewsHeight();
+// async function _setRotationViewportHeight() {
+//   $.rotationViewport = iNode.qs(".rotation-viewport");
+//   const homeNewsHeight = await _getHomeNewsHeight();
 
-  $.rotationViewport.style.height = iNode.setHeightPx(
-    $.rotationViewport,
-    homeNewsHeight
-  );
-}
+//   $.rotationViewport.style.height = iNode.setHeightPx(
+//     $.rotationViewport,
+//     homeNewsHeight
+//   );
+// }
 // Code for home.js only
 async function _getHomeNewsHeight() {
   await new Promise((resolve) => setTimeout(resolve, 100));
@@ -63,6 +51,7 @@ async function executeSequence() {
   }
 }
 
+// if #fv is uesed in other pages, use this function
 function _raiseFv(headerHeight) {
   return new Promise((resolve) => {
     const fv = iNode.getElById("fv");
@@ -71,6 +60,7 @@ function _raiseFv(headerHeight) {
   });
 }
 
+// if #fv is uesed in other pages, use this function
 function _calcGapFooterPos() {
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
@@ -84,6 +74,7 @@ function _calcGapFooterPos() {
   });
 }
 
+// Mabye common function
 function resizeHeaderPos() {
   window.addEventListener("resize", executeResizeHeaderPos);
   executeResizeHeaderPos();
@@ -97,6 +88,7 @@ function executeResizeHeaderPos() {
     await executeSequence();
   }, 100);
 }
+// Mabye common function
 let timerIdFooter = null;
 
 function resizingFooterPos() {
@@ -107,11 +99,13 @@ function resizingFooterPos() {
   });
 }
 
+// Mabye common function
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
   return emValue;
 }
 
+// Mabye common function
 function _getWindowWidth(rootfontsize = 16) {
   return (
     Math.max(
@@ -123,11 +117,13 @@ function _getWindowWidth(rootfontsize = 16) {
 
 let timerIdWideRangeGoblin = null;
 
+// Code for home.js only
 function wideRangeGoblin() {
   window.addEventListener("resize", debounce(resizeHandler, 100));
   handleResize(); //initial call
 }
 
+// Code for home.js only
 function resizeHandler() {
   clearTimeout(timerIdWideRangeGoblin);
   timerIdWideRangeGoblin = setTimeout(async () => {
