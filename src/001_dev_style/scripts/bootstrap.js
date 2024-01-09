@@ -65,8 +65,8 @@ export async function init() {
   theme.init();
 
   menu.init();
-  cling.init();
-  cling._clingTo();
+  // cling.init();
+  // cling._clingTo();
 
   elementPos.executeSequence();
 
