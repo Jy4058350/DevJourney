@@ -25,9 +25,9 @@ function init() {
   // _setRotationViewportHeight();
 }
 
-await setRotationViewportHeight();
-await getHomeNewsHeight();
-wideRangeGoblin();
+// await setRotationViewportHeight();
+// await getHomeNewsHeight();
+// wideRangeGoblin();
 
 async function executeSequence() {
   try {

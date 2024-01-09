@@ -16,7 +16,9 @@ export default async function init({
   elementPos.wideRangeGoblin();
   await elementPos.handleResize();
 
-
+  await setRotationViewportHeight();
+  await getHomeNewsHeight();
+  wideRangeGoblin();
 
 
   
