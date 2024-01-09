@@ -73,7 +73,11 @@ async function _getHomeNewsHeight() {
 
 async function executeSequence() {
   try {
-    const headerHeight = await _getHeaderHeight();
+    // const headerHeight = await _getHeaderHeight();
+    const headerHeight = await _getElementHeight(
+      iNode.getElById("header"),
+      "Header element is not found"
+    );
     await _raiseFv(headerHeight);
     await _calcGapFooterPos();
   } catch (err) {
