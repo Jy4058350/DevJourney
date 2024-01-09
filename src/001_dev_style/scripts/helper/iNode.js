@@ -8,6 +8,7 @@ const iNode = {
   setStyles,
   setHeightPx,
   toggleClass,
+  getElementHeight,
 };
 
 function qs(selector, scope) {
@@ -57,6 +58,17 @@ function setHeightPx(element, height) {
 function toggleClass(element, className, condition) {
   element.classList.toggle(className, condition);
 }
+
+
+function getElementHeight(el, errormsg) {
+  return new Promise((resolve, reject) => {
+    if (!el) {
+      reject(errormsg);
+    }
+    resolve(el.offsetHeight);
+  });
+}
+
 
 
 

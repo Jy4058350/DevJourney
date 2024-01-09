@@ -19,15 +19,6 @@ function init() {
   _setRotationViewportHeight();
 }
 
-async function _getElementHeight(el, errormsg) {
-  return new Promise((resolve, reject) => {
-    if (!el) {
-      reject(errormsg);
-    }
-    resolve(el.offsetHeight);
-  });
-}
-
 function _calcGap() {
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
@@ -41,16 +32,6 @@ function _calcGap() {
   $.footerHeight = $.footer.offsetHeight;
 
   $.gap = $.fvMainAbsoluteBottom - $.footerAbsoluteTop - $.headerHeight;
-}
-
-// ⭐️need to be refactored
-async function _getHeaderHeight() {
-  return new Promise((resolve) => {
-    const headerEl = iNode.getElById("header");
-    const headerHeight = headerEl.offsetHeight;
-    iNode.setCssProp("--header-height", headerHeight);
-    resolve(headerHeight);
-  });
 }
 
 // Code for home.js only
@@ -73,7 +54,7 @@ async function _getHomeNewsHeight() {
 
 async function executeSequence() {
   try {
-    const headerHeight = await _getElementHeight(
+    const headerHeight = await iNode.getElementHeight(
       iNode.getElById("header"),
       "Header element is not found"
     );
@@ -103,12 +84,11 @@ function _calcGapFooterPos() {
   });
 }
 
-let timerHeaderId = null;
-
 function resizeHeaderPos() {
   window.addEventListener("resize", executeResizeHeaderPos);
   executeResizeHeaderPos();
 }
+let timerHeaderId = null;
 
 function executeResizeHeaderPos() {
   iNode.setCssProp("--header-height", 0);
@@ -175,18 +155,16 @@ async function handleResize() {
   const isWideScreen = _getWindowWidth() > emValue;
 
   if (isWideScreen) {
-    // const nextheaderHeight = Header.offsetHeight;
-    const nextheaderHeight = await _getHeaderHeight();
-    // console.log("Header", Header);
-    // console.log("isWideScreen_nextheaderHeight", nextheaderHeight);
+    const nextheaderHeight = await iNode.getElementHeight(
+      Header,
+      "Header element is not found"
+    );
     iNode.toggleClass(headerNav, "Header__MainNav--open", true);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
     iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     await iNode.setStyles(Header, { height: "145px", maxHeight: "145px" });
-    // await iNode.setStyles(Header, { height: "145px" });
     await iNode.setStyles(header, { height: "145px", maxHeight: "145px" });
-    // await iNode.setStyles(header, { height: "145px" });
     await iNode.setStyles(headerNav, { opacity: 1 });
     await iNode.setStyles(headerBtn, { display: "none" });
     await iNode.setStyles(headerMainNav, { opacity: 1 });
@@ -198,15 +176,15 @@ async function handleResize() {
       isWideScreen
     );
   } else if (!isWideScreen) {
-    const nextheaderHeight = await _getHeaderHeight();
-    // const nextheaderHeight = iNode.getElById("header").offsetHeight;
+    const nextheaderHeight = await iNode.getElementHeight(
+      Header,
+      "Header element is not found"
+    );
     iNode.setCssProp("--fv-top", nextheaderHeight, fv);
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
     await iNode.setStyles(Header, { height: "68px", maxHeight: "68px" });
-    // await iNode.setStyles(header, { height: "68px" });
     await iNode.setStyles(Header, { height: "68px", maxHeight: "68px" });
-    // await iNode.setStyles(header, { height: "68px" });
     await iNode.setStyles(headerNav, { opacity: 0 });
     await iNode.setStyles(headerBtn, { display: "block" });
     await iNode.setStyles(headerMainNav, { opacity: 0 });
