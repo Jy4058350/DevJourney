@@ -65,7 +65,7 @@ function commonElHeight(el1, el2) {
 
 function customElHeight(el1, el2) {
   if (!el1 || !el2) {
-    return;
+    return 0;
   }
   const el1Height = el1.offsetHeight;
   const el2Height = el2.offsetHeight;
