@@ -16,6 +16,7 @@ const elementPos = {
   // totalHeight,
   // _getScrollContentHeight,
   // handleResize,
+  getWindowWidth
 };
 
 const $ = {};
@@ -89,14 +90,14 @@ function resizingFooterPos() {
   });
 }
 
-// Mabye common function
-function _toEm(px, rootfontsize) {
-  const emValue = px / rootfontsize;
-  return emValue;
-}
+// Mabye common function (not used)
+// function _toEm(px, rootfontsize) {
+//   const emValue = px / rootfontsize;
+//   return emValue;
+// }
 
 // Mabye common function
-function _getWindowWidth(rootfontsize = 16) {
+function getWindowWidth(rootfontsize = 16) {
   return (
     Math.max(
       document.documentElement.clientWidth || 0,

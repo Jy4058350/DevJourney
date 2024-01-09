@@ -14,5 +14,5 @@ export default async function init({
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
   elementPos.wideRangeGoblin();
-  await elementPos.handleResize();
+  // await elementPos.handleResize();
 }
