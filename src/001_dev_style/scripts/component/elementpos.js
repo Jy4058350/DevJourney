@@ -73,7 +73,6 @@ async function _getHomeNewsHeight() {
 
 async function executeSequence() {
   try {
-    // const headerHeight = await _getHeaderHeight();
     const headerHeight = await _getElementHeight(
       iNode.getElById("header"),
       "Header element is not found"
@@ -83,7 +82,6 @@ async function executeSequence() {
   } catch (err) {
     console.log("error", err);
   }
-  // console.log("End sequence");
 }
 
 function _raiseFv(headerHeight) {
@@ -99,10 +97,7 @@ function _calcGapFooterPos() {
     iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fv.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
-    // console.log(nextFvMainRect.bottom);
-    // console.log(nextFooterRect.top);
     const gap = nextFvMainRect.bottom - nextFooterRect.top;
-    // console.log(gap);
     iNode.setCssProp("--footer-top", `${gap}`, $.footer);
     resolve();
   });
