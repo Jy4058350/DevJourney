@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { iNode } from "../helper";
 import _ from "lodash";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const cling = {
   init,
   _clingTo,
@@ -33,27 +35,39 @@ function init() {
   $.secondNav = iNode.qs(".Header__secondaryNav");
   $.windowWidth = window.innerWidth;
 
-  $.scrollTriggerEnd = _scrollTriggerEnd();
+  // $.scrollTriggerEnd = _scrollTriggerEnd();
 }
 
 function _scrollTriggerEnd() {
-  const fvHeight = $.fv.offsetHeight;
+  // const fvHeight = $.fv.offsetHeight;
+  // const footerHeight = $.footer.offsetHeight;
+  commonElHeight($.fv, $.footer);
+
   const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
   const homeNewsHeight = $.homeNews.offsetHeight;
-  const footerHeight = $.footer.offsetHeight;
   const scrollTriggerEnd =
     fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
   return scrollTriggerEnd;
 }
 
+function commonElHeight(fvEl, footerEl) {
+  const fvHeight = $.fv.offsetHeight;
+  const footerHeight = $.footer.offsetHeight;
+  const commonElHeight = fvHeight + footerHeight;
+  return commonElHeight;
+}
+
 function _clingTo() {
+  const scrollTriggerEnd = _scrollTriggerEnd();
   console.log("clingTo");
   gsap.registerPlugin(ScrollTrigger);
-  const height = $.scrollTriggerEnd;
-
+  const height = scrollTriggerEnd;
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
     return;
+  }
+  if (ScrollTrigger) {
+    console.log("ScrollTrigger is defined");
   }
 
   ScrollTrigger.create({
@@ -63,7 +77,8 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onUpdate: (self) => {
-      const header = iNode.qs("#header");
+      // const header = iNode.qs("#header");
+      // console.log("onUpdate");
     },
     onEnter: () => {
       console.log("onEnter");

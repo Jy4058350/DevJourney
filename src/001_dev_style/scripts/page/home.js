@@ -11,6 +11,7 @@ export default async function init({
   menu,
   cling,
 }) {
+  console.log("init bottom");
   elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
@@ -21,6 +22,4 @@ export default async function init({
 
   homeNews.init();
   homeNews.initEventListenres();
-
- 
 }
