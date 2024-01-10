@@ -23,9 +23,14 @@ function _toEm(px, rootfontsize) {
 }
 
 async function setRotationViewportHeight() {
-  if(!$.rotationViewport) return;
   $.rotationViewport = iNode.qs(".rotation-viewport");
+  console.log("rotationViewport", $.rotationViewport);
+  if (!$.rotationViewport) {
+    console.log("rotationViewport is not found");
+    return;
+  }
   const homeNewsHeight = await getHomeNewsHeight();
+  console.log("homeNewsHeight", homeNewsHeight);
 
   $.rotationViewport.style.height = iNode.setHeightPx(
     $.rotationViewport,
