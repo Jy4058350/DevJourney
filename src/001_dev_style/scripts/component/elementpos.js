@@ -56,21 +56,19 @@ function _calcGapFooterPos() {
   console.log("calcGapFooterPos");
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
-  $.homeNews = iNode.qs(".home-news");
+  // $.homeNews = iNode.qs(".home-news");
   console.log("$.homeNews", $.homeNews);
   return new Promise((resolve) => {
     iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fv.getBoundingClientRect();
     // console.log("nextFvMainRect", nextFvMainRect);
     const nextFooterRect = $.footer.getBoundingClientRect();
-    // console.log("nextFooterRect", nextFooterRect);
+    console.log("nextFooterRect", nextFooterRect);
 
-    const nextHomeNewsRect = $.homeNews.getBoundingClientRect();
-    const gap = nextHomeNewsRect.bottom - nextFooterRect.top;
+    // const nextHomeNewsRect = $.homeNews.getBoundingClientRect();
+    // const gap = nextHomeNewsRect.bottom - nextFooterRect.top;
 
-
-    // const gap = nextFvMainRect.bottom - nextFooterRect.top;
-
+    const gap = nextFvMainRect.bottom - nextFooterRect.top ;
 
     console.log("gap", gap);
     iNode.setCssProp("--footer-top", `${gap}`, $.footer);
