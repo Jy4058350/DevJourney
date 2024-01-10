@@ -41,7 +41,8 @@ function getDateSet(target, key) {
 
 function setCssProp(property, value, element) {
   if (!element) {
-    document.documentElement.style.setProperty(property, `${value}px`);
+    // document.documentElement.style.setProperty(property, `${value}px`);
+    throw new Error("Element is required.");
   } else {
     element.style.setProperty(property, `${value}px`);
   }
@@ -59,7 +60,6 @@ function toggleClass(element, className, condition) {
   element.classList.toggle(className, condition);
 }
 
-
 function getElementHeight(el, errormsg) {
   return new Promise((resolve, reject) => {
     if (!el) {
@@ -68,8 +68,5 @@ function getElementHeight(el, errormsg) {
     resolve(el.offsetHeight);
   });
 }
-
-
-
 
 export { iNode };

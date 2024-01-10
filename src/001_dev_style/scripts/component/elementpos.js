@@ -86,7 +86,8 @@ function resizeHeaderPos() {
 let timerHeaderId = null;
 
 function executeResizeHeaderPos() {
-  iNode.setCssProp("--header-height", 0);
+  $.header = iNode.getElById("header");
+  iNode.setCssProp("--header-height", 0, $.header);
   clearTimeout(timerHeaderId);
   timerHeaderId = setTimeout(async () => {
     await executeSequence();
@@ -96,6 +97,7 @@ function executeResizeHeaderPos() {
 let timerIdFooter = null;
 
 function resizingFooterPos() {
+  $.footer = iNode.getElById("footer");
   iNode.setCssProp("--footer-top", 0, $.footer);
   window.addEventListener("resize", () => {
     clearTimeout(timerIdFooter);
