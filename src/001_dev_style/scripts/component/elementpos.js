@@ -35,6 +35,7 @@ async function executeSequence() {
       iNode.getElById("header"),
       "Header element is not found"
     );
+    console.log("headerHeight", headerHeight);
     await _raiseFv(headerHeight);
     await _calcGapFooterPos();
   } catch (err) {
@@ -44,9 +45,10 @@ async function executeSequence() {
 
 // if #fv is uesed in other pages, use this function
 function _raiseFv(headerHeight) {
+  console.log("raiseFv");
   return new Promise((resolve) => {
     const fv = iNode.getElById("fv");
-    iNode.setCssProp("--fv-top", headerHeight);
+    iNode.setCssProp("--fv-top", headerHeight, fv);
     resolve();
   });
 }
@@ -56,7 +58,7 @@ function _calcGapFooterPos() {
   console.log("calcGapFooterPos");
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
-  // $.homeNews = iNode.qs(".home-news");
+  $.homeNews = iNode.qs(".home-news");
   console.log("$.homeNews", $.homeNews);
   return new Promise((resolve) => {
     iNode.setCssProp("--footer-top", 0, $.footer);
