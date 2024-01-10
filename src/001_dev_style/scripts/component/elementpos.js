@@ -16,7 +16,7 @@ const elementPos = {
   // totalHeight,
   // _getScrollContentHeight,
   // handleResize,
-  getWindowWidth
+  getWindowWidth,
 };
 
 const $ = {};
@@ -35,6 +35,7 @@ async function executeSequence() {
       iNode.getElById("header"),
       "Header element is not found"
     );
+    // console.log("headerHeight", headerHeight);
     await _raiseFv(headerHeight);
     await _calcGapFooterPos();
   } catch (err) {
@@ -44,22 +45,35 @@ async function executeSequence() {
 
 // if #fv is uesed in other pages, use this function
 function _raiseFv(headerHeight) {
+  // console.log("raiseFv");
   return new Promise((resolve) => {
     const fv = iNode.getElById("fv");
-    iNode.setCssProp("--fv-top", headerHeight);
+    iNode.setCssProp("--fv-top", headerHeight, fv);
     resolve();
   });
 }
 
 // if #fv is uesed in other pages, use this function
 function _calcGapFooterPos() {
+  // console.log("calcGapFooterPos");
   $.fv = iNode.getElById("fv");
   $.footer = iNode.getElById("footer");
+  $.homeNews = iNode.qs(".home-news");
+  // console.log("$.homeNews", $.homeNews);
   return new Promise((resolve) => {
-    iNode.setCssProp("--footer-top", 0, $.footer);
+    // iNode.setCssProp("--footer-top", 0, $.footer);
     const nextFvMainRect = $.fv.getBoundingClientRect();
+    const nextHomeNewsRect = $.homeNews.getBoundingClientRect();
     const nextFooterRect = $.footer.getBoundingClientRect();
-    const gap = nextFvMainRect.bottom - nextFooterRect.top;
+    // console.log("nextFvMainRect", nextFvMainRect);
+    console.log("nextHomeNewsRect", nextHomeNewsRect);
+    console.log("nextFooterRect", nextFooterRect);
+
+    // const gap = nextFvMainRect.bottom - nextFooterRect.top;
+    const gap = nextHomeNewsRect.bottom - nextFooterRect.top;
+
+
+    console.log("gap", gap);
     iNode.setCssProp("--footer-top", `${gap}`, $.footer);
     resolve();
   });
@@ -73,7 +87,8 @@ function resizeHeaderPos() {
 let timerHeaderId = null;
 
 function executeResizeHeaderPos() {
-  iNode.setCssProp("--header-height", 0);
+  $.header = iNode.getElById("header");
+  iNode.setCssProp("--header-height", 0, $.header);
   clearTimeout(timerHeaderId);
   timerHeaderId = setTimeout(async () => {
     await executeSequence();
@@ -83,6 +98,7 @@ function executeResizeHeaderPos() {
 let timerIdFooter = null;
 
 function resizingFooterPos() {
+  $.footer = iNode.getElById("footer");
   iNode.setCssProp("--footer-top", 0, $.footer);
   window.addEventListener("resize", () => {
     clearTimeout(timerIdFooter);

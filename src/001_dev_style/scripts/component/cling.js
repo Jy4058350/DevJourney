@@ -14,7 +14,7 @@ const cling = {
 const $ = {};
 
 function init() {
-  console.log("cling init");
+  // console.log("cling init");
   $.fv = iNode.qs(".fv");
   $.sectionTemplate = iNode.qs(".section--home-panels");
   $.homeNews = iNode.qs(".home-news");
@@ -42,13 +42,13 @@ function _scrollTriggerEnd() {
   // const fvHeight = $.fv.offsetHeight;
   // const footerHeight = $.footer.offsetHeight;
   const commonHeight = commonElHeight($.fv, $.footer);
-  console.log("commonHeight", commonHeight);
+  // console.log("commonHeight", commonHeight);
 
   // const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
   // const homeNewsHeight = $.homeNews.offsetHeight;
 
   const customHegiht = customElHeight($.sectionTemplate, $.homeNews);
-  console.log("customHegiht", customHegiht);
+  // console.log("customHegiht", customHegiht);
   // const scrollTriggerEnd =
   //   fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
 
