@@ -68,7 +68,7 @@ export async function init() {
   cling.init();
   cling._clingTo();
 
-  elementPos.executeSequence();
+  // elementPos.executeSequence();
 
   await world.init(canvasRect, viewport);
 

@@ -91,7 +91,7 @@ function executeResizeHeaderPos() {
   iNode.setCssProp("--header-height", 0, $.header);
   clearTimeout(timerHeaderId);
   timerHeaderId = setTimeout(async () => {
-    await executeSequence();
+    // await executeSequence();
   }, 100);
 }
 // Mabye common function

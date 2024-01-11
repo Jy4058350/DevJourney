@@ -1,3 +1,6 @@
+import { iNode } from "../helper";
+import  DOMManuipulatorClass  from "../myclasses/main";
+
 export default async function init({
   world,
   mouse,
@@ -11,8 +14,14 @@ export default async function init({
   menu,
   cling,
 }) {
-  // console.log("init bottom");
-  elementPos.init();
+  const header = iNode.getElById("header");
+  const fv = iNode.getElById("fv");
+  const footre = iNode.getElById("footer");
+
+  const domManuipulator = new DOMManuipulatorClass(header, fv, footre);
+  domManuipulator.init();
+
+  // elementPos.init();
   elementPos.resizeHeaderPos();
   elementPos.resizingFooterPos();
   elementPosHome.wideRangeGoblin();
