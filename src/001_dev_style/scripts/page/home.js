@@ -16,19 +16,19 @@ export default async function init({
 }) {
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
-  const footre = iNode.getElById("footer");
+  const footer = iNode.getElById("footer");
 
-  const domManuipulator = new DOMManuipulatorClass(header, fv, footre);
+  const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   domManuipulator.init();
 
   // elementPos.init();
-  elementPos.resizeHeaderPos();
-  elementPos.resizingFooterPos();
-  elementPosHome.wideRangeGoblin();
+  // elementPos.resizeHeaderPos();
+  // elementPos.resizingFooterPos();
+  // elementPosHome.wideRangeGoblin();
 
-  await elementPosHome.getHomeNewsHeight();
-  await elementPosHome.setRotationViewportHeight();
+  // await elementPosHome.getHomeNewsHeight();
+  // await elementPosHome.setRotationViewportHeight();
 
-  homeNews.init();
-  homeNews.initEventListenres();
+  // homeNews.init();
+  // homeNews.initEventListenres();
 }
