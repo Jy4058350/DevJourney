@@ -17,6 +17,7 @@ function init() {
   console.log("elementPosHome init");
 }
 
+// copy to class DOMManuipulatorClass
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
   return emValue;
