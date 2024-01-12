@@ -7,7 +7,8 @@ class FooterHandler {
     this.init();
   }
   init() {
-    console.log("FooterHandler is");
+   const siblings = iNode.getElById("footer").previousElementSibling;
+   console.log("siblings", siblings);
   }
 
   getFooterPos() {
