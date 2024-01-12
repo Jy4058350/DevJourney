@@ -10,9 +10,9 @@ class FooterHandler {
   init() {
     const siblings = iNode.getElById("footer").previousElementSibling;
     this.siblingsBottom = siblings.getBoundingClientRect().bottom;
-    console.log("siblingsBottom", this.siblingsBottom);
+    // console.log("siblingsBottom", this.siblingsBottom);
     this.footerTop = this.footer.getBoundingClientRect().top;
-    console.log("footerTop", this.footerTop);
+    // console.log("footerTop", this.footerTop);
     this.setFooterPos();
   }
 

@@ -31,7 +31,7 @@ class HeaderHandler {
     iNode.setStyles(this.headerMainNav, { opacity: 1 });
     iNode.setStyles(this.secondNav, { opacity: 1 });
     iNode.setStyles(this.headerLogo, { display: "none" });
-    console.log("isWideToggler called");
+    // console.log("isWideToggler called");
   }
 
   isNarrowToggler(element, isWideScreen) {
@@ -52,7 +52,7 @@ class HeaderHandler {
 
   getHeaderHeight() {
     const height = this.header.offsetHeight;
-    console.log("height", height);
+    // console.log("height", height);
     return height;
   }
 

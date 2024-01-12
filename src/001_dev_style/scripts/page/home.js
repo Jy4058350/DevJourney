@@ -1,6 +1,7 @@
 import { iNode } from "../helper";
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
+import Viewport from "../myclasses/viewport";
 
 export default async function init({
   world,
@@ -18,13 +19,18 @@ export default async function init({
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
+  const rotationViewPort = iNode.qs(".rotation-viewport");
+  console.log("rotationViewPort", rotationViewPort);
+  const homeNewsViewPort = iNode.qs(".home-news-article-thumbnail");
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
+  const newsViewport = new Viewport(rotationViewPort,homeNewsViewPort);
 
-  const height = headerHandler.getHeaderHeight();
-  console.log("updateHeaderHeight", height);
-  domManuipulator.updateHeaderHeight(height);
+  const headerHeight = headerHandler.getHeaderHeight();
+  domManuipulator.updateHeaderHeight(headerHeight);
+  const newsViewPortheight = newsViewport.getHomeNewsHeight();
+  newsViewport.setViewPort(newsViewPortheight);
 
   // elementPos.init();
   // elementPos.resizeHeaderPos();

@@ -2,8 +2,6 @@ import { iNode } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
 import FooterHandler from "./footer";
-import Viewport from "./viewport";
-import TestClass from "./testClass";
 
 const $ = {};
 
@@ -14,9 +12,7 @@ class DOMManuipulatorClass {
     this.footer = footre;
     this.headerHandler = new HeaderHandler(header);
     this.fvHandler = new FvHandler(fv);
-    this.viewport = new Viewport();
     this.footerHandler = new FooterHandler(footre);
-    this.testClass = new TestClass(); //for test class method
 
     this.init();
   }
