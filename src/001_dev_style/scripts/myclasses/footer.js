@@ -7,16 +7,16 @@ class FooterHandler {
     this.init();
   }
   init() {
-   const siblings = iNode.getElById("footer").previousElementSibling;
-   console.log("siblings", siblings);
+    const siblings = iNode.getElById("footer").previousElementSibling;
+    this.siblingsBottom = siblings.getBoundingClientRect().bottom;
+    console.log("siblingsBottom", this.siblingsBottom);
+    this.footerTop = this.footer.getBoundingClientRect().top;
+    console.log("footerTop", this.footerTop);
   }
 
-  getFooterPos() {
-    // console.log("calcGapFooterPos");
-    $.fv = iNode.getElById("fv");
-    $.footer = iNode.getElById("footer");
-    $.homeNews = iNode.qs(".home-news");
-    // console.log("$.homeNews", $.homeNews);
+  getGap() {
+
+   
     return new Promise((resolve) => {
       // iNode.setCssProp("--footer-top", 0, $.footer);
       const nextFvMainRect = $.fv.getBoundingClientRect();
