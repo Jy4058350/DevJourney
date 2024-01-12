@@ -19,8 +19,6 @@ class DOMManuipulatorClass {
   }
   init() {
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
-    // const headerHeight = this.headerHandler.getHeaderHeight();
-    // console.log("headerHeight", headerHeight);
     this.updateHeaderHeight();
     // console.log("headerHeight", headerHeight);
   }

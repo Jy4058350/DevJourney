@@ -21,14 +21,14 @@ class HeaderHandler {
   isWideToggler(isWideScreen) {
     console.log("isWideToggler called");
 
-    // iNode.toggleClass(this.headerNav, "Header__MainNav--open", true);
-    // iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", true);
-    // iNode.toggleClass(this.secondNav, "Header__secondaryNav--open", true);
-    // iNode.setStyles(this.headerNav, { opacity: 1 });
-    // iNode.setStyles(this.headerBtn, { display: "none" });
-    // iNode.setStyles(this.headerMainNav, { opacity: 1 });
-    // iNode.setStyles(this.secondNav, { opacity: 1 });
-    // iNode.setStyles(this.headerLogo, { display: "none" });
+    iNode.toggleClass(this.headerNav, "Header__MainNav--open", true);
+    iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", true);
+    iNode.toggleClass(this.secondNav, "Header__secondaryNav--open", true);
+    iNode.setStyles(this.headerNav, { opacity: 1 });
+    iNode.setStyles(this.headerBtn, { display: "none" });
+    iNode.setStyles(this.headerMainNav, { opacity: 1 });
+    iNode.setStyles(this.secondNav, { opacity: 1 });
+    iNode.setStyles(this.headerLogo, { display: "none" });
     iNode.toggleClass(
       this.goblin,
       "Header__FlexItem--increaseSpace",
@@ -39,13 +39,13 @@ class HeaderHandler {
   isNarrowToggler(element, isWideScreen) {
     console.log("isNarrowToggler called");
 
-    // iNode.toggleClass(this.headerNav, "Header__MainNav--open", false);
-    // iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", false);
-    // iNode.setStyles(this.headerNav, { opacity: 0 });
-    // iNode.setStyles(this.headerBtn, { display: "block" });
-    // iNode.setStyles(this.headerMainNav, { opacity: 0 });
-    // iNode.setStyles(this.secondNav, { opacity: 0 });
-    // iNode.setStyles(this.headerLogo, { display: "block" });
+    iNode.toggleClass(this.headerNav, "Header__MainNav--open", false);
+    iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", false);
+    iNode.setStyles(this.headerNav, { opacity: 0 });
+    iNode.setStyles(this.headerBtn, { display: "block" });
+    iNode.setStyles(this.headerMainNav, { opacity: 0 });
+    iNode.setStyles(this.secondNav, { opacity: 0 });
+    iNode.setStyles(this.headerLogo, { display: "block" });
     iNode.toggleClass(
       this.goblin,
       "Header__FlexItem--increaseSpace",
