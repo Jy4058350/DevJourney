@@ -20,17 +20,26 @@ export default async function init({
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
   const rotationViewPort = iNode.qs(".rotation-viewport");
-  console.log("rotationViewPort", rotationViewPort);
-  const homeNewsViewPort = iNode.qs(".home-news-article-thumbnail");
+  const referenceView = iNode.qs(".home-news-article-thumbnail");
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const newsViewport = new Viewport(rotationViewPort,homeNewsViewPort);
+  const newsViewport = new Viewport(rotationViewPort, referenceView);
 
   const headerHeight = headerHandler.getHeaderHeight();
-  domManuipulator.updateHeaderHeight(headerHeight);
-  const newsViewPortheight = newsViewport.getHomeNewsHeight();
-  newsViewport.setViewPort(newsViewPortheight);
+  domManuipulator.updateStyle(headerHeight);
+  const portHeight = newsViewport.getPort();
+  newsViewport.setViewPort(portHeight);
+
+  window.addEventListener("resize", {
+    handleEvent(event) {
+     
+      const headerHeight = headerHandler.getHeaderHeight();
+      domManuipulator.updateStyle(headerHeight);
+      const portHeight = newsViewport.getPort();
+      newsViewport.setViewPort(portHeight);
+    },
+  });
 
   // elementPos.init();
   // elementPos.resizeHeaderPos();

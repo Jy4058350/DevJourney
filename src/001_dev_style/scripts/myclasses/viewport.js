@@ -1,23 +1,22 @@
 import { iNode } from "../helper";
 
 class ViewPort {
-  constructor(rotationViewPort, homeNewsViewPort) {
+  constructor(rotationViewPort, referenceView) {
     this.rotationViewPort = rotationViewPort;
-    this.homeNewsViewPort = homeNewsViewPort;
+    this.referenceView = referenceView;
+    
     this.init();
   }
   init() {
-    this.getHomeNewsHeight();
+    this.getPort();
   }
 
-  getHomeNewsHeight() {
-    const height = this.homeNewsViewPort.offsetHeight;
-    console.log("homeNews_height", height);
+  getPort() {
+    const height = this.referenceView.offsetHeight;
     return height;
   }
 
   setViewPort(value) {
-    console.log("this.rotationViewPort", this.rotationViewPort);
     this.rotationViewPort.style.height = `${value}px`;
   }
 }

@@ -18,11 +18,11 @@ class DOMManuipulatorClass {
   }
   init() {
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
-    this.updateHeaderHeight();
-    // console.log("headerHeight", headerHeight);
+    // this.updateStyle();
   }
 
-  updateHeaderHeight(value) {
+  updateStyle(value) {
+    console.log("this.isWideScreen", this.isWideScreen);
     this.headerHandler.setElHeight(value);
     if (this.isWideScreen) {
       this.headerHandler.isWideToggler(this.isWideScreen);
