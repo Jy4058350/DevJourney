@@ -17,6 +17,7 @@ function init() {
   console.log("elementPosHome init");
 }
 
+// copy to class DOMManuipulatorClass
 function _toEm(px, rootfontsize) {
   const emValue = px / rootfontsize;
   return emValue;
@@ -55,7 +56,7 @@ function wideRangeGoblin() {
 function resizeHandler() {
   clearTimeout(timerIdWideRangeGoblin);
   timerIdWideRangeGoblin = setTimeout(async () => {
-    await elementPos.executeSequence();
+    // await elementPos.executeSequence();
     await handleResize();
     await setRotationViewportHeight();
   }, 100);
