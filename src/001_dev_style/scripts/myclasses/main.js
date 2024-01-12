@@ -1,6 +1,7 @@
 import { iNode } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
+import FooterHandler from "./footer";
 import TestClass from "./testClass";
 
 const $ = {};
@@ -11,11 +12,11 @@ class DOMManuipulatorClass {
     this.fv = fv;
     this.footer = footre;
     this.headerHandler = new HeaderHandler(header);
-    // this.headerHandler.getHeaderHeight();
     this.fvHandler = new FvHandler(fv);
+    this.footerHandler = new FooterHandler(footre);
     this.testClass = new TestClass(); //for test class method
 
-    // this.init();
+    this.init();
   }
   init() {
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);

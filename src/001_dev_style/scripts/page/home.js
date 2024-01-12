@@ -20,13 +20,11 @@ export default async function init({
   const footer = iNode.getElById("footer");
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
-
-  domManuipulator.init();
-
   const headerHandler = new HeaderHandler(header);
-  const updateHeaderHeight = headerHandler.getHeaderHeight();
-  console.log("updateHeaderHeight", updateHeaderHeight);
-  domManuipulator.updateHeaderHeight(updateHeaderHeight);
+
+  const height = headerHandler.getHeaderHeight();
+  console.log("updateHeaderHeight", height);
+  domManuipulator.updateHeaderHeight(height);
 
   // elementPos.init();
   // elementPos.resizeHeaderPos();

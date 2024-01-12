@@ -10,7 +10,6 @@ class FvHandler {
   init() {}
 
   raiseFv(value) {
-    // console.log("raiseFv");
     return new Promise((resolve) => {
       iNode.setCssProp("--fv-top", value, this.fv);
       resolve();
