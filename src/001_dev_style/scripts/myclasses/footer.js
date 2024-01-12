@@ -18,7 +18,7 @@ class FooterHandler {
 
   getGap() {
     const gap = this.siblingsBottom - this.footerTop;
-    console.log("gap", gap);
+    // console.log("gap", gap);
   }
 
   setFooterPos() {

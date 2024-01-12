@@ -34,7 +34,7 @@ class HeaderHandler {
     // console.log("isWideToggler called");
   }
 
-  isNarrowToggler(element, isWideScreen) {
+  isNarrowToggler(isWideScreen) {
     iNode.toggleClass(
       this.goblin,
       "Header__FlexItem--increaseSpace",
@@ -52,7 +52,9 @@ class HeaderHandler {
 
   getHeaderHeight() {
     const height = this.header.offsetHeight;
-    // console.log("height", height);
+    console.log("this.header", this.header);
+    console.log("height", height);
+    // return 145;
     return height;
   }
 

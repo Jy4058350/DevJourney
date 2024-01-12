@@ -26,6 +26,7 @@ export default async function init({
   const headerHandler = new HeaderHandler(header);
   const newsViewport = new Viewport(rotationViewPort, referenceView);
 
+  domManuipulator.init();
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();

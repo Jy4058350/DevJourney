@@ -2,6 +2,7 @@ import { iNode } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
 import FooterHandler from "./footer";
+import { head } from "lodash";
 
 const $ = {};
 
@@ -18,7 +19,17 @@ class DOMManuipulatorClass {
   }
   init() {
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
-    // this.updateStyle();
+    this.firstView();
+  }
+
+  firstView() {
+    console.log("this.isWideScreen", this.isWideScreen);
+    if (this.isWideScreen) {
+      this.headerHandler.isWideToggler(this.isWideScreen);
+    }
+    if (!this.isWideScreen) {
+      this.headerHandler.isNarrowToggler(this.isWideScreen);
+    }
   }
 
   updateStyle(value) {
