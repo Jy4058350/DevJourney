@@ -21,25 +21,20 @@ class DOMManuipulatorClass {
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
     // const headerHeight = this.headerHandler.getHeaderHeight();
     // console.log("headerHeight", headerHeight);
-    this._updateHeaderHeight();
+    this.updateHeaderHeight();
     // console.log("headerHeight", headerHeight);
-    
   }
-  
-  _updateHeaderHeight(value) {
+
+  updateHeaderHeight(value) {
+    this.headerHandler.setElHeight(value);
     if (this.isWideScreen) {
-      // const getHeaderHeight = this.headerHandler.Hight();
-      // console.log("getHeaderHeight", getHeaderHeight);
-      // this.headerHandler.Hight(value);
       this.headerHandler.isWideToggler(this.isWideScreen);
-      // this.fvHandler.raiseFv(value);
+      this.fvHandler.raiseFv(value);
     }
 
     if (!this.isWideScreen) {
-      const getHeaderHeight = this.headerHandler.Row();
-      this.headerHandler.Row();
-      this.headerHandler.isNarrowToggler(getHeaderHeight, this.isWideScreen);
-      this.fvHandler.raiseFv(getHeaderHeight);
+      this.headerHandler.isNarrowToggler(this.isWideScreen);
+      this.fvHandler.raiseFv(value);
     }
   }
 

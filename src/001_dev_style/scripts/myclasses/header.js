@@ -15,7 +15,7 @@ class HeaderHandler {
     this.headerLogo = iNode.qs(".Header__Icon");
     this.headerMainNav = iNode.qs(".Header__MainNav");
     this.secondNav = iNode.qs(".Header__secondaryNav");
-    // this.getHeaderHeight1();
+    this.getHeaderHeight();
   }
 
   isWideToggler(isWideScreen) {
@@ -59,16 +59,10 @@ class HeaderHandler {
     return height;
   }
 
-  //   Hight(value) {
-  //     this.header.style.height = `${value}px`;
-  //     this.header.style.maxHeight = `${value}px`;
-  //     return value;
-  //   }
-
-  Row() {
-    this.header.style.height = "68px";
-    this.header.style.maxHeight = "68px";
-    return 68;
+  setElHeight(value) {
+    this.header.style.height = `${value}px`;
+    this.header.style.maxHeight = `${value}px`;
+    return value;
   }
 }
 
