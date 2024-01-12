@@ -11,7 +11,7 @@ class DOMManuipulatorClass {
     this.fv = fv;
     this.footer = footre;
     this.headerHandler = new HeaderHandler(header);
-    this.headerHandler.getHeaderHeight1();
+    // this.headerHandler.getHeaderHeight();
     this.fvHandler = new FvHandler(fv);
     this.testClass = new TestClass(); //for test class method
 

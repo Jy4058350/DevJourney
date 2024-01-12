@@ -53,22 +53,17 @@ class HeaderHandler {
     );
   }
 
-  getHeaderHeight1() {
+  getHeaderHeight() {
     const height = this.header.offsetHeight;
-    console.log("height-1", height);
-    return height;
-  }
-  getHeaderHeight2() {
-    const height = this.header.offsetHeight;
-    console.log("height-2", height);
+    console.log("height", height);
     return height;
   }
 
-//   Hight(value) {
-//     this.header.style.height = `${value}px`;
-//     this.header.style.maxHeight = `${value}px`;
-//     return value;
-//   }
+  //   Hight(value) {
+  //     this.header.style.height = `${value}px`;
+  //     this.header.style.maxHeight = `${value}px`;
+  //     return value;
+  //   }
 
   Row() {
     this.header.style.height = "68px";
