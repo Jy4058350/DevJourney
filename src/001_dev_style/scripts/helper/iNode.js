@@ -61,12 +61,10 @@ function toggleClass(element, className, condition) {
 }
 
 function getElementHeight(el, errormsg) {
-  return new Promise((resolve, reject) => {
-    if (!el) {
-      reject(errormsg);
-    }
-    resolve(el.offsetHeight);
-  });
+  if (!el) {
+    throw new Error(errormsg);
+  }
+  return el.offsetHeight;
 }
 
 export { iNode };
