@@ -23,7 +23,7 @@ export default async function init({
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
 
   domManuipulator.init();
-  const updateHeaderHeight = headerHandler.getHeaderHeight();
+  export const updateHeaderHeight = headerHandler.getHeaderHeight();
   console.log("updateHeaderHeight", updateHeaderHeight);
 
   // elementPos.init();
