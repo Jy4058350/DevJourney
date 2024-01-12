@@ -1,48 +1,19 @@
 import { iNode } from "../helper";
-import HeaderHandler from "./header";
-import TestClass from "./testClass";
 
-class DOMManuipulatorClass {
-  constructor(header, fv, footre) {
-    this.header = header;
-    this.fv = fv;
-    this.footer = footre;
-    this.headerHandler = new HeaderHandler();
-    this.testClass = new TestClass();
+class HeaderHandler {
+  constructor() {}
 
-    this.init();
-  }
   init() {
-    this._updateHeaderHeight();
-    this.callHeaderHandlerMethod();
-
-    // this.callTestClassMethod();//for test class method
-  }
-  callHeaderHandlerMethod() {
-    console.log("this.testClass", this.testClass);
-    this.testClass.hellow();
+    this._isWideToggler();
+    this._isNarrowToggler();
   }
 
-  _updateHeaderHeight(headerHandler) {
-    const isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
-
-    if (isWideScreen) {
-      const nextheaderHeight = this._headerHight();
-      this._isWideToggler(nextheaderHeight, isWideScreen);
-      // headerHandler._isWideToggler(nextheaderHeight, isWideScreen);
-    }
-
-    if (!isWideScreen) {
-      const nextheaderHeight = this._headerHight();
-      this._headerRow();
-      this._isNarrowToggler(nextheaderHeight, isWideScreen);
-    }
-    console.log("this.header", this.header);
-    const headerHeight = window.getComputedStyle(this.header).height;
-    console.log("headerHeight", headerHeight);
+  hellow() {
+    console.log("hellow");
   }
 
   _isWideToggler(nextheaderHeight, isWideScreen) {
+    console.log("isWideToggler called");
     const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
     const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
@@ -80,28 +51,6 @@ class DOMManuipulatorClass {
     iNode.setStyles(headerLogo, { display: "block" });
     iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
   }
-
-  _headerHight() {
-    this.header.style.height = "145px";
-    this.header.style.maxHeight = "145px";
-  }
-
-  _headerRow() {
-    this.header.style.height = "68px";
-    this.header.style.maxHeight = "68px";
-  }
-
-  _getWindowWidth(rootfontsize = 16) {
-    return (
-      Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      ) / rootfontsize
-    );
-  }
-  _toEm(px, rootfontsize) {
-    return px / rootfontsize;
-  }
 }
 
-export default DOMManuipulatorClass;
+export default HeaderHandler;

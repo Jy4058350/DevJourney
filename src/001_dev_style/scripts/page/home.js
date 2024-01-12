@@ -1,5 +1,5 @@
 import { iNode } from "../helper";
-import  DOMManuipulatorClass  from "../myclasses/main";
+import DOMManuipulatorClass from "../myclasses/main";
 
 export default async function init({
   world,
