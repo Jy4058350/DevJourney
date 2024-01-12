@@ -1,5 +1,6 @@
 import { iNode } from "../helper";
 import HeaderHandler from "./header";
+import FvHandler from "./fv";
 import TestClass from "./testClass";
 
 class DOMManuipulatorClass {
@@ -8,36 +9,31 @@ class DOMManuipulatorClass {
     this.fv = fv;
     this.footer = footre;
     this.headerHandler = new HeaderHandler(header);
-    this.testClass = new TestClass();
+    this.fvHandler = new FvHandler(fv);
+    this.testClass = new TestClass(); //for test class method
 
     this.init();
   }
   init() {
     this._updateHeaderHeight();
-    // this.callHeaderHandlerMethod();
 
     // this.callTestClassMethod();//for test class method
-  }
-  callHeaderHandlerMethod() {
-    this.headerHandler._isWideToggler();
-    this.headerHandler._isNarrowToggler();
   }
 
   _updateHeaderHeight(headerHandler) {
     const isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
 
     if (isWideScreen) {
-      const nextheaderHeight = this.headerHight();
-      this._headerHight();
-      this.headerHandler.isWideToggler(nextheaderHeight, isWideScreen);
+      const getHeaderHeight = this.headerHandler.Hight();
+      this.headerHandler.Hight();
+      this.headerHandler.isWideToggler(getHeaderHeight, isWideScreen);
     }
 
     if (!isWideScreen) {
-      const nextheaderHeight = this.headerHandler.Row();
+      const getHeaderHeight = this.headerHandler.Row();
       this.headerHandler.Row();
-      this.headerHandler.isNarrowToggler(nextheaderHeight, isWideScreen);
+      this.headerHandler.isNarrowToggler(getHeaderHeight, isWideScreen);
     }
-    const headerHeight = window.getComputedStyle(this.header).height;
   }
 
   _getWindowWidth(rootfontsize = 16) {

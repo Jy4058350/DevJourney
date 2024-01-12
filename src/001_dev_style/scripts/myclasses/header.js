@@ -3,54 +3,46 @@ import { iNode } from "../helper";
 class HeaderHandler {
   constructor(header) {
     this.header = header;
+
+    this.init();
   }
 
   init() {
-    this.isWideToggler();
-    this.isNarrowToggler();
-    this.Hight();
-    this.Row();
+    this.goblin = iNode.qs(".Header__FlexItem--logo");
+    this.headerNav = iNode.qs(".HorizontalList");
+    this.headerBtn = iNode.qs(".btn-menu.Header__Entrance");
+    this.headerLogo = iNode.qs(".Header__Icon");
+    this.headerMainNav = iNode.qs(".Header__MainNav");
+    this.secondNav = iNode.qs(".Header__secondaryNav");
   }
 
-  isWideToggler(nextheaderHeight, isWideScreen) {
+  isWideToggler(element, isWideScreen) {
     console.log("isWideToggler called");
-    const goblin = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".HorizontalList");
-    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Icon");
-    const headerMainNav = iNode.qs(".Header__MainNav");
-    const secondNav = iNode.qs(".Header__secondaryNav");
 
-    iNode.toggleClass(headerNav, "Header__MainNav--open", true);
-    iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
-    iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
-    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-    iNode.setStyles(headerNav, { opacity: 1 });
-    iNode.setStyles(headerBtn, { display: "none" });
-    iNode.setStyles(headerMainNav, { opacity: 1 });
-    iNode.setStyles(secondNav, { opacity: 1 });
-    iNode.setStyles(headerLogo, { display: "none" });
-    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
+    iNode.toggleClass(this.headerNav, "Header__MainNav--open", true);
+    iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", true);
+    iNode.toggleClass(this.secondNav, "Header__secondaryNav--open", true);
+    iNode.setCssProp("--fv-top", element, fv);
+    iNode.setStyles(this.headerNav, { opacity: 1 });
+    iNode.setStyles(this.headerBtn, { display: "none" });
+    iNode.setStyles(this.headerMainNav, { opacity: 1 });
+    iNode.setStyles(this.secondNav, { opacity: 1 });
+    iNode.setStyles(this.headerLogo, { display: "none" });
+    iNode.toggleClass(this.goblin, "Header__FlexItem--increaseSpace", isWideScreen);
   }
 
-  isNarrowToggler(nextheaderHeight, isWideScreen) {
+  isNarrowToggler(element, isWideScreen) {
     console.log("isNarrowToggler called");
-    const goblin = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".HorizontalList");
-    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Icon");
-    const headerMainNav = iNode.qs(".Header__MainNav");
-    const secondNav = iNode.qs(".Header__secondaryNav");
 
-    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-    iNode.toggleClass(headerNav, "Header__MainNav--open", false);
-    iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-    iNode.setStyles(headerNav, { opacity: 0 });
-    iNode.setStyles(headerBtn, { display: "block" });
-    iNode.setStyles(headerMainNav, { opacity: 0 });
-    iNode.setStyles(secondNav, { opacity: 0 });
-    iNode.setStyles(headerLogo, { display: "block" });
-    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
+    iNode.setCssProp("--fv-top", element, fv);
+    iNode.toggleClass(this.headerNav, "Header__MainNav--open", false);
+    iNode.toggleClass(this.headerMainNav, "Header__MainNav--open", false);
+    iNode.setStyles(this.headerNav, { opacity: 0 });
+    iNode.setStyles(this.headerBtn, { display: "block" });
+    iNode.setStyles(this.headerMainNav, { opacity: 0 });
+    iNode.setStyles(this.secondNav, { opacity: 0 });
+    iNode.setStyles(this.headerLogo, { display: "block" });
+    iNode.toggleClass(this.goblin, "Header__FlexItem--increaseSpace", isWideScreen);
   }
   Hight() {
     this.header.style.height = "145px";

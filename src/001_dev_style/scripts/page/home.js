@@ -19,7 +19,7 @@ export default async function init({
   const footer = iNode.getElById("footer");
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
-  domManuipulator.init();
+  // domManuipulator.init();
 
   // elementPos.init();
   // elementPos.resizeHeaderPos();
