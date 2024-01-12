@@ -1,18 +1,18 @@
 import { iNode } from "../helper";
 
 class HeaderHandler {
-  constructor() {}
+  constructor(header) {
+    this.header = header;
+  }
 
   init() {
-    this._isWideToggler();
-    this._isNarrowToggler();
+    this.isWideToggler();
+    this.isNarrowToggler();
+    this.Hight();
+    this.Row();
   }
 
-  hellow() {
-    console.log("hellow");
-  }
-
-  _isWideToggler(nextheaderHeight, isWideScreen) {
+  isWideToggler(nextheaderHeight, isWideScreen) {
     console.log("isWideToggler called");
     const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
@@ -33,7 +33,8 @@ class HeaderHandler {
     iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
   }
 
-  _isNarrowToggler(nextheaderHeight, isWideScreen) {
+  isNarrowToggler(nextheaderHeight, isWideScreen) {
+    console.log("isNarrowToggler called");
     const goblin = iNode.qs(".Header__FlexItem--logo");
     const headerNav = iNode.qs(".HorizontalList");
     const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
@@ -50,6 +51,15 @@ class HeaderHandler {
     iNode.setStyles(secondNav, { opacity: 0 });
     iNode.setStyles(headerLogo, { display: "block" });
     iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
+  }
+  Hight() {
+    this.header.style.height = "145px";
+    this.header.style.maxHeight = "145px";
+  }
+
+  Row() {
+    this.header.style.height = "68px";
+    this.header.style.maxHeight = "68px";
   }
 }
 

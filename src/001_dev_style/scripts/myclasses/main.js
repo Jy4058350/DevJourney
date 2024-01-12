@@ -7,88 +7,37 @@ class DOMManuipulatorClass {
     this.header = header;
     this.fv = fv;
     this.footer = footre;
-    this.headerHandler = new HeaderHandler();
+    this.headerHandler = new HeaderHandler(header);
     this.testClass = new TestClass();
 
     this.init();
   }
   init() {
     this._updateHeaderHeight();
-    this.callHeaderHandlerMethod();
+    // this.callHeaderHandlerMethod();
 
     // this.callTestClassMethod();//for test class method
   }
   callHeaderHandlerMethod() {
-    console.log("this.testClass", this.testClass);
-    this.testClass.hellow();
+    this.headerHandler._isWideToggler();
+    this.headerHandler._isNarrowToggler();
   }
 
   _updateHeaderHeight(headerHandler) {
     const isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
 
     if (isWideScreen) {
-      const nextheaderHeight = this._headerHight();
-      this._isWideToggler(nextheaderHeight, isWideScreen);
-      // headerHandler._isWideToggler(nextheaderHeight, isWideScreen);
+      const nextheaderHeight = this.headerHight();
+      this._headerHight();
+      this.headerHandler.isWideToggler(nextheaderHeight, isWideScreen);
     }
 
     if (!isWideScreen) {
-      const nextheaderHeight = this._headerHight();
-      this._headerRow();
-      this._isNarrowToggler(nextheaderHeight, isWideScreen);
+      const nextheaderHeight = this.headerHandler.Row();
+      this.headerHandler.Row();
+      this.headerHandler.isNarrowToggler(nextheaderHeight, isWideScreen);
     }
-    console.log("this.header", this.header);
     const headerHeight = window.getComputedStyle(this.header).height;
-    console.log("headerHeight", headerHeight);
-  }
-
-  _isWideToggler(nextheaderHeight, isWideScreen) {
-    const goblin = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".HorizontalList");
-    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Icon");
-    const headerMainNav = iNode.qs(".Header__MainNav");
-    const secondNav = iNode.qs(".Header__secondaryNav");
-
-    iNode.toggleClass(headerNav, "Header__MainNav--open", true);
-    iNode.toggleClass(headerMainNav, "Header__MainNav--open", true);
-    iNode.toggleClass(secondNav, "Header__secondaryNav--open", true);
-    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-    iNode.setStyles(headerNav, { opacity: 1 });
-    iNode.setStyles(headerBtn, { display: "none" });
-    iNode.setStyles(headerMainNav, { opacity: 1 });
-    iNode.setStyles(secondNav, { opacity: 1 });
-    iNode.setStyles(headerLogo, { display: "none" });
-    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
-  }
-
-  _isNarrowToggler(nextheaderHeight, isWideScreen) {
-    const goblin = iNode.qs(".Header__FlexItem--logo");
-    const headerNav = iNode.qs(".HorizontalList");
-    const headerBtn = iNode.qs(".btn-menu.Header__Entrance");
-    const headerLogo = iNode.qs(".Header__Icon");
-    const headerMainNav = iNode.qs(".Header__MainNav");
-    const secondNav = iNode.qs(".Header__secondaryNav");
-
-    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
-    iNode.toggleClass(headerNav, "Header__MainNav--open", false);
-    iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
-    iNode.setStyles(headerNav, { opacity: 0 });
-    iNode.setStyles(headerBtn, { display: "block" });
-    iNode.setStyles(headerMainNav, { opacity: 0 });
-    iNode.setStyles(secondNav, { opacity: 0 });
-    iNode.setStyles(headerLogo, { display: "block" });
-    iNode.toggleClass(goblin, "Header__FlexItem--increaseSpace", isWideScreen);
-  }
-
-  _headerHight() {
-    this.header.style.height = "145px";
-    this.header.style.maxHeight = "145px";
-  }
-
-  _headerRow() {
-    this.header.style.height = "68px";
-    this.header.style.maxHeight = "68px";
   }
 
   _getWindowWidth(rootfontsize = 16) {
