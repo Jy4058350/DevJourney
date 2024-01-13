@@ -15,6 +15,8 @@ class HeaderHandler {
     this.headerLogo = iNode.qs(".Header__Icon");
     this.headerMainNav = iNode.qs(".Header__MainNav");
     this.secondNav = iNode.qs(".Header__secondaryNav");
+    this.white = iNode.qs(".Header--white");
+    console.log("this.white", this.white);
   }
 
   isWideToggler(isWideScreen) {
@@ -31,7 +33,6 @@ class HeaderHandler {
     iNode.setStyles(this.headerMainNav, { opacity: 1 });
     iNode.setStyles(this.secondNav, { opacity: 1 });
     iNode.setStyles(this.headerLogo, { display: "none" });
-    // console.log("isWideToggler called");
   }
 
   isNarrowToggler(isWideScreen) {
@@ -47,20 +48,18 @@ class HeaderHandler {
     iNode.setStyles(this.headerMainNav, { opacity: 0 });
     iNode.setStyles(this.secondNav, { opacity: 0 });
     iNode.setStyles(this.headerLogo, { display: "block" });
-    console.log("isNarrowToggler called");
   }
 
   getHeaderHeight() {
     const height = this.header.offsetHeight;
-    console.log("this.header", this.header);
-    console.log("height", height);
-    // return 145;
     return height;
   }
 
   setElHeight(value) {
     this.header.style.height = `${value}px`;
     this.header.style.maxHeight = `${value}px`;
+    console.log("this.header", this.header);
+
     return value;
   }
 }

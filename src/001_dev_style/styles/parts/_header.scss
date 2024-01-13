@@ -19,19 +19,16 @@
   opacity: 1;
 }
 
-nav {
-  //   display: none;
-  //   @include mq("xl") {
-  //     display: block;
-  //   }
-}
-
 .Header {
-  box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
+  // box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
 
   &--white {
     background-color: var(--color-white);
     color: var(--color-black);
+  }
+
+  &__Wrap {
+    box-shadow: 0 -1px rgba(255, 255, 255, 0.25) inset;
   }
 }
 
