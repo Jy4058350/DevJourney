@@ -34,13 +34,15 @@ class DOMManuipulatorClass {
 
   updateStyle(value) {
     console.log("this.isWideScreen", this.isWideScreen);
+    const isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
+    console.log("isWideScreen", isWideScreen);
     this.headerHandler.setElHeight(value);
-    if (this.isWideScreen) {
+    if (isWideScreen) {
       this.headerHandler.isWideToggler(this.isWideScreen);
       this.fvHandler.raiseFv(value);
     }
 
-    if (!this.isWideScreen) {
+    if (!isWideScreen) {
       this.headerHandler.isNarrowToggler(this.isWideScreen);
       this.fvHandler.raiseFv(value);
     }
