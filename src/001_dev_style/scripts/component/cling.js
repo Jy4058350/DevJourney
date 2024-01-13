@@ -23,6 +23,7 @@ function init() {
   $.header = iNode.qs("#header");
   $.logoGray = iNode.qs(".Logo__gray");
   $.logoWhite = iNode.qs(".Logo__white");
+  console.log("$.logoWhite", $.logoWhite);
   $.btnBars = iNode.qsa(".btn-menu_bar");
   $.colorGray = getComputedStyle(document.documentElement).getPropertyValue(
     "--color-gray"
