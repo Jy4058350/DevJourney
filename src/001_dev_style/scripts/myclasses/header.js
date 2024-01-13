@@ -14,8 +14,18 @@ class HeaderHandler {
     this.headerLogo = iNode.qs(".Header__Icon");
     this.headerMainNav = iNode.qs(".Header__MainNav");
     this.secondNav = iNode.qs(".Header__secondaryNav");
-    this.white = iNode.qs(".Header--white");
-    console.log("this.white", this.white);
+
+    this.logoGray = iNode.qs(".Logo__gray");
+    this.logoWhite = iNode.qs(".Logo__white");
+    console.log("this.logoWhite", this.logoWhite);
+    this.btnBars = iNode.qsa(".btn-menu_bar");
+    this.colorGray = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--color-gray");
+    this.cart = iNode.qs(".Icon--Wrap--clickable");
+    this.HeaderFlex = iNode.qs(".Header__FlexItem--logo");
+    this.btn = iNode.qs(".btn-menu");
+    this.HeaderIcon = iNode.qs(".Header__Icon");
   }
 
   isWideToggler(isWideScreen) {

@@ -34,55 +34,29 @@ function init() {
   $.HeaderIcon = iNode.qs(".Header__Icon");
   $.headerMainNav = iNode.qs(".Header__MainNav");
   $.secondNav = iNode.qs(".Header__secondaryNav");
-  $.windowWidth = window.innerWidth;
+  // $.windowWidth = window.innerWidth;
 
   // $.scrollTriggerEnd = _scrollTriggerEnd();
 }
 
 function _scrollTriggerEnd() {
-  // const fvHeight = $.fv.offsetHeight;
-  // const footerHeight = $.footer.offsetHeight;
-  const commonHeight = commonElHeight($.fv, $.footer);
-  // console.log("commonHeight", commonHeight);
+  const fvfooterHeight = sumHeight($.fv, $.footer);
+  console.log("fvfooterHeight", fvfooterHeight);
+  const customHegiht = sumHeight($.sectionTemplate, $.homeNews);
 
-  // const sectionTemplateHeight = $.sectionTemplate.offsetHeight;
-  // const homeNewsHeight = $.homeNews.offsetHeight;
-
-  const customHegiht = customElHeight($.sectionTemplate, $.homeNews);
-  // console.log("customHegiht", customHegiht);
-  // const scrollTriggerEnd =
-  //   fvHeight + sectionTemplateHeight + homeNewsHeight + footerHeight;
-
-  const scrollTriggerEnd = calcScrollTriggerEnd(commonHeight, customHegiht);
+  const scrollTriggerEnd = fvfooterHeight + customHegiht;
   return scrollTriggerEnd;
 }
 
-function commonElHeight(el1, el2) {
-  const fvHeight = el1.offsetHeight;
-  const footerHeight = el2.offsetHeight;
-  const commonElHeight = fvHeight + footerHeight;
-  return commonElHeight;
-}
-
-function customElHeight(el1, el2) {
-  if (!el1 || !el2) {
-    return 0;
-  }
-  const el1Height = el1.offsetHeight;
-  const el2Height = el2.offsetHeight;
-  const customElHeight = el1Height + el2Height;
-  return customElHeight;
-}
-
-function calcScrollTriggerEnd(height1, height2) {
-  const totalheight = height1 + height2;
-  return totalheight;
+function sumHeight(a, b) {
+  if (!a || !b) return 0;
+  return a.offsetHeight + b.offsetHeight;
 }
 
 function _clingTo() {
-  const scrollTriggerEnd = _scrollTriggerEnd();
+  const height = _scrollTriggerEnd();
+  console.log("height", height);
   gsap.registerPlugin(ScrollTrigger);
-  const height = scrollTriggerEnd;
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
     return;
