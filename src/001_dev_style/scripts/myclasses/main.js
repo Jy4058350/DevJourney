@@ -11,7 +11,8 @@ class DOMManuipulatorClass {
     this.header = header;
     this.fv = fv;
     this.footer = footre;
-    this.headerHandler = new HeaderHandler(header);
+    const headerWrap = iNode.qs(".Header__Wrap");
+    this.headerHandler = new HeaderHandler(header, headerWrap);
     this.fvHandler = new FvHandler(fv);
     this.footerHandler = new FooterHandler(footre);
 
@@ -32,17 +33,25 @@ class DOMManuipulatorClass {
     }
   }
 
-  updateStyle(value) {
+  updateStyle() {
     console.log("this.isWideScreen", this.isWideScreen);
-    this.headerHandler.setElHeight(value);
+    const headerHeight = this.headerHandler.getHeaderHeight();
+    console.log("updateStyle_headerHeight", headerHeight);
+    this.headerHandler.setElHeight(headerHeight);
     if (this.isWideScreen) {
+      console.log("this.isWideScreen is true", this.isWideScreen);
       this.headerHandler.isWideToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(value);
+      this.fvHandler.raiseFv(headerHeight);
+      iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
+      iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
     }
 
     if (!this.isWideScreen) {
+      console.log("this.isWideScreen is false", this.isWideScreen);
       this.headerHandler.isNarrowToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(value);
+      this.fvHandler.raiseFv(headerHeight);
+      iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
+      iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
     }
   }
 
