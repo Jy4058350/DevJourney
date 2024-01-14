@@ -18,21 +18,27 @@ export default async function init({
   menu,
   cling,
 }) {
+
+  
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
   const rotationViewPort = iNode.qs(".rotation-viewport");
   const referenceView = iNode.qs(".home-news-article-thumbnail");
+  const sliders = iNode.qs(".rotation-slider");
+  const prevButton = iNode.qs(".home-news-control-button.Previous");
+  const nextButton = iNode.qs(".home-news-control-button.Next");
+
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
   const fvHandler = new FvHandler(fv);
   const newsViewport = new Viewport(rotationViewPort, referenceView);
-  const homeNews = new HomeNews();
+  const homeNews = new HomeNews(sliders, prevButton, nextButton);
 
   domManuipulator.init();
   homeNews.start();
-  // homeNews.initEventListenres();
+ 
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();

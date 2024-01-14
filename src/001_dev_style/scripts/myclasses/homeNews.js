@@ -7,21 +7,23 @@ let angle;
 let debounceTimer;
 
 class HomeNews {
-  constructor() {
-    this.currentIndex = 0;
-    this.sliders = iNode.qs(".rotation-slider");
-    this.numItems = this.sliders.children.length;
-    console.log("this.numItems", this.numItems);
-    this.prevButton = iNode.qs(".home-news-control-button.Previous");
-    this.nextButton = iNode.qs(".home-news-control-button.Next");
-
+  constructor(sliders, prevButton, nextButton) {
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
 
-    this.initDOM(this.sliders, this.prevButton, this.nextButton);
+    this.initDOM(sliders, prevButton, nextButton);
+  }
+  initDOM(sliders, prevButton, nextButton) {
+    this.sliders = sliders;
+    this.prevButton = prevButton;
+    this.nextButton = nextButton;
+    this.numItems = sliders.children.length;
+    prevButton.disabled = true;
+    nextButton.disabled = false;
+    sliders.style.transform = `translateX(0%)`;
   }
 
   start() {
@@ -31,7 +33,7 @@ class HomeNews {
   }
 
   init() {
-    // this.sliders.addEventListener("mousedown", this.handleMouseDown);
+    this.sliders.addEventListener("mousedown", this.handleMouseDown);
   }
 
   handleMouseDown(e) {
@@ -89,12 +91,6 @@ class HomeNews {
 
   // until here
 
-  initDOM(sliders, prevButton, nextButton) {
-    // console.log("sliders", sliders);
-    // console.log("prevButton", prevButton);
-    // console.log("nextButton", nextButton);
-  }
-
   initEventListenres() {
     console.log("this.currentIndex", this.currentIndex);
     // Event listener for the previous button
@@ -112,7 +108,7 @@ class HomeNews {
       this.currentIndex = (this.currentIndex + 1) % this.numItems;
       console.log("beforenextBtnClicked", this.currentIndex);
       this.updateSlider();
-    //   this.updateSlider(this.currentIndex);
+      //   this.updateSlider(this.currentIndex);
       console.log("after next this.currentIndex", this.currentIndex);
     });
 
@@ -125,7 +121,6 @@ class HomeNews {
     const newRotation = -this.currentIndex * angle;
     this.sliders.style.transition = "transform 0.4s ease-in-out";
     this.sliders.style.transform = `translateX(${newRotation}%)`;
-    // console.log(currentIndex);
     if (this.currentIndex === 0) {
       this.prevButton.style.display = "none";
     } else {
