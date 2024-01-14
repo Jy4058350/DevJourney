@@ -33,6 +33,7 @@ function init() {
 // from here
 
 function handleMouseDown(e) {
+  
   isDragging = true; // This is the flag to check if the mouse is being draged
   startX = e.clientX; // Get the initial position of the mouse
   currentX = e.clientX; // It initializes the variable currentX with the same value as starX

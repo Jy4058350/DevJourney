@@ -22,12 +22,15 @@ class HomeNews {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
 
+    this.initDOM(this.sliders, this.prevButton, this.nextButton);
+  }
+
+  start() {
     this.init();
     this.initEventListenres();
   }
 
   init() {
-    this.initDOM(this.sliders, this.prevButton, this.nextButton);
     this.sliders.addEventListener("mousedown", this.handleMouseDown);
   }
 
@@ -40,7 +43,7 @@ class HomeNews {
     currentX = e.clientX; // It initializes the variable currentX with the same value as starX
 
     // Add the event listeners for mousemove and mouseup events
-    this.sliders.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    this.sliders.addEventListener("mousemove", this.handleMouseMove);
 
     // Remove the event listeners for mousemove and mouseup events
     this.sliders.removeEventListener("mouseup", this.handleMouseUp);

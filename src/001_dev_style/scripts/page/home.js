@@ -31,7 +31,7 @@ export default async function init({
   const homeNews = new HomeNews();
 
   domManuipulator.init();
-  homeNews.init();
+  homeNews.start();
   homeNews.initEventListenres();
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
