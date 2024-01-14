@@ -4,10 +4,6 @@ let isDragging = false;
 let startX = 0;
 let currentX = 0;
 let angle;
-// let sliders = null;
-// let numItems;
-
-// let currentIndex = 0;
 let debounceTimer;
 
 class HomeNews {
