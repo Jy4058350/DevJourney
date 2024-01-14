@@ -44,13 +44,9 @@ class HomeNews {
     startX = e.clientX; // Get the initial position of the mouse
     currentX = e.clientX; // It initializes the variable currentX with the same value as starX
 
-    // Add the event listeners for mousemove and mouseup events
     this.sliders.addEventListener("mousemove", this.handleMouseMove);
-
-    // Remove the event listeners for mousemove and mouseup events
     this.sliders.removeEventListener("mouseup", this.handleMouseUp);
     this.sliders.addEventListener("mouseup", this.handleMouseUp);
-
     this.sliders.addEventListener("mouseleave", this.handleMouseLeave);
   }
 
@@ -92,24 +88,15 @@ class HomeNews {
   // until here
 
   initEventListenres() {
-    console.log("this.currentIndex", this.currentIndex);
-    // Event listener for the previous button
     this.prevButton.addEventListener("click", () => {
       this.currentIndex =
         (this.currentIndex - 1 + this.numItems) % this.numItems;
-      // console.log("currentIndex", currentIndex);
-
       this.updateSlider(this.currentIndex);
-      console.log("prev this.currentIndex", this.currentIndex);
     });
 
-    // Event listener for the next button
     this.nextButton.addEventListener("click", () => {
       this.currentIndex = (this.currentIndex + 1) % this.numItems;
-      console.log("beforenextBtnClicked", this.currentIndex);
       this.updateSlider();
-      //   this.updateSlider(this.currentIndex);
-      console.log("after next this.currentIndex", this.currentIndex);
     });
 
     this.updateSlider(this.currentIndex);
@@ -117,7 +104,6 @@ class HomeNews {
 
   updateSlider() {
     angle = 360 / this.numItems;
-    console.log("updateSlider this.currentIndex", this.currentIndex);
     const newRotation = -this.currentIndex * angle;
     this.sliders.style.transition = "transform 0.4s ease-in-out";
     this.sliders.style.transform = `translateX(${newRotation}%)`;
