@@ -7,12 +7,14 @@ let angle;
 // let sliders = null;
 let numItems;
 
-let currentIndex = 0;
+// let currentIndex = 0;
 let debounceTimer;
 
 class HomeNews {
   constructor() {
+    this.currentIndex = 0;
     this.sliders = iNode.qs(".rotation-slider");
+    this.numItems = this.sliders.children.length;
     this.prevButton = iNode.qs(".home-news-control-button.Previous");
     this.nextButton = iNode.qs(".home-news-control-button.Next");
 
@@ -61,14 +63,14 @@ class HomeNews {
         const diffX = e.clientX - currentX;
         currentX = e.clientX;
 
-        if (diffX > 0 && currentIndex > 0) {
-          currentIndex = (currentIndex - 1 + numItems) % numItems;
-        } else if (diffX < 0 && currentIndex < numItems - 1) {
+        if (diffX > 0 && this.currentIndex > 0) {
+          this.currentIndex = (this.currentIndex - 1 + this.numItems) % this.numItems;
+        } else if (diffX < 0 && this.currentIndex < this.numItems - 1) {
           // console.log("0 > diffX", diffX);
-          currentIndex = (currentIndex + 1) % numItems;
+          this.currentIndex = (this.currentIndex + 1) % this.numItems;
         }
 
-        this.updateSlider(currentIndex);
+        this.updateSlider(this.currentIndex);
       }, debounceDelay);
     }
   }
@@ -96,49 +98,47 @@ class HomeNews {
 
   initEventListenres() {
     // Set the initial index
-    currentIndex = 0;
-    numItems = this.sliders.children.length;
+    // this.numItems = this.sliders.children.length;
 
     // Function to update the slider position based on the current index
-    this.updateSlider = () => {
-      const itemWidth = this.sliders.firstElementChild.clientWidth;
-      angle = 360 / numItems;
-      const newRotation = -currentIndex * angle;
-      this.sliders.style.transition = "transform 0.4s ease-in-out";
-      this.sliders.style.transform = `translateX(${newRotation}%)`;
-      // console.log(currentIndex);
-      if (currentIndex === 0) {
-        this.prevButton.style.display = "none";
-      } else {
-        this.prevButton.style.display = "block";
-      }
-      if (currentIndex === 3) {
-        this.nextButton.style.display = "none";
-      } else {
-        this.nextButton.style.display = "block";
-      }
-    };
+    // this.updateSlider = () => {
+    //   const itemWidth = this.sliders.firstElementChild.clientWidth;
+    //   angle = 360 / numItems;
+    //   const newRotation = -currentIndex * angle;
+    //   this.sliders.style.transition = "transform 0.4s ease-in-out";
+    //   this.sliders.style.transform = `translateX(${newRotation}%)`;
+    //   // console.log(currentIndex);
+    //   if (currentIndex === 0) {
+    //     this.prevButton.style.display = "none";
+    //   } else {
+    //     this.prevButton.style.display = "block";
+    //   }
+    //   if (currentIndex === 3) {
+    //     this.nextButton.style.display = "none";
+    //   } else {
+    //     this.nextButton.style.display = "block";
+    //   }
+    // };
 
     // Event listener for the previous button
     this.prevButton.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + numItems) % numItems;
+      this.currentIndex = (this.currentIndex - 1 + this.numItems) % this.numItems;
       // console.log("currentIndex", currentIndex);
-
       this.updateSlider();
     });
 
     //
-    this.sliders.addEventListener("transitionend", () => {
-      // const itemWidth = sliders.firstElementChild.clientWidth;
-      // const angle = 360 / numItems;
-      // const newRotation = -currentIndex * angle;
-      this.sliders.style.transition = "none";
-      // sliders.style.transform = `translateX(${newRotation}%)`;
-    });
+    // this.sliders.addEventListener("transitionend", () => {
+    //   // const itemWidth = sliders.firstElementChild.clientWidth;
+    //   // const angle = 360 / numItems;
+    //   // const newRotation = -currentIndex * angle;
+    //   this.sliders.style.transition = "none";
+    //   // sliders.style.transform = `translateX(${newRotation}%)`;
+    // });
 
     // Event listener for the next button
     this.nextButton.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % numItems;
+      this.currentIndex = (this.currentIndex + 1) % this.numItems;
       this.updateSlider();
     });
 
@@ -147,17 +147,17 @@ class HomeNews {
 
   updateSlider() {
     const itemWidth = this.sliders.firstElementChild.clientWidth;
-    angle = 360 / numItems;
-    const newRotation = -currentIndex * angle;
+    angle = 360 / this.numItems;
+    const newRotation = -this.currentIndex * angle;
     this.sliders.style.transition = "transform 0.4s ease-in-out";
     this.sliders.style.transform = `translateX(${newRotation}%)`;
     // console.log(currentIndex);
-    if (currentIndex === 0) {
+    if (this.currentIndex === 0) {
       this.prevButton.style.display = "none";
     } else {
       this.prevButton.style.display = "block";
     }
-    if (currentIndex === 3) {
+    if (this.currentIndex === 3) {
       this.nextButton.style.display = "none";
     } else {
       this.nextButton.style.display = "block";
