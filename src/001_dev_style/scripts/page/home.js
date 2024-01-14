@@ -3,6 +3,7 @@ import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 import Viewport from "../myclasses/viewport";
 import FvHandler from "../myclasses/fv";
+import HomeNews from "../myclasses/homeNews";
 
 export default async function init({
   world,
@@ -12,7 +13,7 @@ export default async function init({
   scroller,
   elementPos,
   elementPosHome,
-  homeNews,
+  // homeNews,
   theme,
   menu,
   cling,
@@ -27,8 +28,10 @@ export default async function init({
   const headerHandler = new HeaderHandler(header);
   const fvHandler = new FvHandler(fv);
   const newsViewport = new Viewport(rotationViewPort, referenceView);
+  const homeNews = new HomeNews();
 
   domManuipulator.init();
+  homeNews.init();
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();
