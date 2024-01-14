@@ -258,6 +258,7 @@
     border-right: 2px solid var(--color-light);
     border-bottom: 2px solid var(--color-light);
     transform: rotate(130deg);
+    z-index: 1000;
   }
 }
 
@@ -269,6 +270,7 @@
     border-right: 2px solid var(--color-light);
     border-bottom: 2px solid var(--color-light);
     transform: rotate(-45deg);
+    z-index: 1000;
   }
 }
 

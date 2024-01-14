@@ -41,7 +41,7 @@ export async function init() {
       scroll,
       elementPos,
       elementPosHome,
-      homeNews,
+      // homeNews,
       theme,
       menu,
       cling,

@@ -28,11 +28,11 @@ function init() {
 
 function _scrollTriggerEnd() {
   const fvfooterHeight = sumHeight($.fv, $.footer);
-  console.log("fvfooterHeight", fvfooterHeight);
+  // console.log("fvfooterHeight", fvfooterHeight);
   const customHegiht = sumHeight($.sectionTemplate, $.homeNews);
 
   const scrollTriggerEnd = fvfooterHeight + customHegiht;
-  console.log("scrollTriggerEnd", scrollTriggerEnd);
+  // console.log("scrollTriggerEnd", scrollTriggerEnd);
   return scrollTriggerEnd;
 }
 
@@ -42,9 +42,9 @@ function sumHeight(a, b) {
 }
 
 function _clingTo() {
-  console.log("_clingTo by cling.js");
+  // console.log("_clingTo by cling.js");
   const height = _scrollTriggerEnd();
-  console.log("height", height);
+  // console.log("height", height);
   gsap.registerPlugin(ScrollTrigger);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
