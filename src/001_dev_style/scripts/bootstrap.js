@@ -7,7 +7,7 @@ import { theme } from "./component/theme";
 import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
-import { homeNews } from "./component/home-news";
+// import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
 import { iNode } from "./helper";
 
@@ -41,7 +41,7 @@ export async function init() {
       scroll,
       elementPos,
       elementPosHome,
-      homeNews,
+      // homeNews,
       theme,
       menu,
       cling,
