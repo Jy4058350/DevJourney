@@ -1,5 +1,6 @@
-import test from "node:test";
 import { iNode } from "../helper";
+
+let value = 0;
 
 class HeaderHandler {
   constructor(header) {
@@ -15,8 +16,24 @@ class HeaderHandler {
     this.headerLogo = iNode.qs(".Header__Icon");
     this.headerMainNav = iNode.qs(".Header__MainNav");
     this.secondNav = iNode.qs(".Header__secondaryNav");
-    this.white = iNode.qs(".Header--white");
-    console.log("this.white", this.white);
+    this.fv = iNode.qs(".fv");
+    this.homeNews = iNode.qs(".home-news");
+    this.footer = iNode.qs(".Footer");
+
+    this.headerWrap = iNode.qs(".Header__Wrap");
+    this.sectionTemplate = iNode.qs(".section--home-panels");
+    this.logoGray = iNode.qs(".Logo__gray");
+    this.logoWhite = iNode.qs(".Logo__white");
+    this.btnBars = iNode.qsa(".btn-menu_bar");
+    this.colorGray = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--color-gray");
+    this.cart = iNode.qs(".Icon--Wrap--clickable");
+    this.HeaderFlex = iNode.qs(".Header__FlexItem--logo");
+    this.btn = iNode.qs(".btn-menu");
+    this.HeaderIcon = iNode.qs(".Header__Icon");
+    this.clingToStyleOnEnter();
+    this.clingToStyleOnLeaveBack();
   }
 
   isWideToggler(isWideScreen) {
@@ -51,16 +68,54 @@ class HeaderHandler {
   }
 
   getHeaderHeight() {
-    const height = this.header.offsetHeight;
+    const header = iNode.qs("#header");
+    const height = header.offsetHeight;
+
+    // const height = this.header.offsetHeight;
     return height;
   }
 
   setElHeight(value) {
     this.header.style.height = `${value}px`;
     this.header.style.maxHeight = `${value}px`;
-    console.log("this.header", this.header);
+    // console.log("this.header", this.header);
 
-    return value;
+    const pinSpacer = iNode.qs(".pin-spacer");
+    // console.log("pinSpacer", pinSpacer);
+    if (!pinSpacer) return this.header;
+
+    if (pinSpacer) {
+      pinSpacer.style.height = `${value}px`;
+      pinSpacer.style.maxHeight = `${value}px`;
+    }
+    // return this.header;
+  }
+
+  clingToStyleOnEnter() {
+    iNode.toggleClass(this.headerWrap, "Header--white", true);
+    // iNode.toggleClass(header, "Header--white", true);
+
+    iNode.setStyles(this.logoGray, { opacity: 1 });
+    iNode.setStyles(this.logoWhite, { opacity: 0 });
+    this.btnBars.forEach((btnBar) => {
+      iNode.setStyles(btnBar, { backgroundColor: "var(--color-gray)" });
+    });
+    iNode.setStyles(this.cart, { color: "var(--color-gray)" });
+    iNode.setStyles(this.headerMainNav, { color: "var(--color-gray)" });
+    iNode.setStyles(this.secondNav, { color: "var(--color-gray)" });
+  }
+
+  clingToStyleOnLeaveBack() {
+    iNode.toggleClass(this.headerWrap, "Header--white", false);
+    // iNode.toggleClass(header, "Header--white", false);
+    iNode.setStyles(this.logoGray, { opacity: 0 });
+    iNode.setStyles(this.logoWhite, { opacity: 1 });
+    this.btnBars.forEach((btnBar) => {
+      iNode.setStyles(btnBar, { backgroundColor: "var(--color-border)" });
+    });
+    iNode.setStyles(this.cart, { color: "var(--color-border)" });
+    iNode.setStyles(this.headerMainNav, { color: "var(--color-border)" });
+    iNode.setStyles(this.secondNav, { color: "var(--color-border)" });
   }
 }
 

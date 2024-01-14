@@ -2,6 +2,7 @@ import { iNode } from "../helper";
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 import Viewport from "../myclasses/viewport";
+import FvHandler from "../myclasses/fv";
 
 export default async function init({
   world,
@@ -24,6 +25,7 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
+  const fvHandler = new FvHandler(fv);
   const newsViewport = new Viewport(rotationViewPort, referenceView);
 
   domManuipulator.init();
@@ -32,16 +34,29 @@ export default async function init({
   const portHeight = newsViewport.getPort();
   newsViewport.setViewPort(portHeight);
 
+  let resizeTimer;
+
   window.addEventListener("resize", {
     handleEvent(event) {
-      domManuipulator.init();
-      const headerHeight = headerHandler.getHeaderHeight();
-      console.log("resize_headerHeight", headerHeight);
-      domManuipulator.updateStyle(headerHeight);
-      const portHeight = newsViewport.getPort();
-      newsViewport.setViewPort(portHeight);
+      clearTimeout(resizeTimer);
+
+      resizeTimer = setTimeout(() => {
+        let height = 0;
+        domManuipulator.init();
+        const headerHeight = headerHandler.getHeaderHeight();
+        console.log("resize_headerHeight", headerHeight);
+        domManuipulator.updateStyle(headerHeight);
+        height = headerHandler.getHeaderHeight();
+        console.log("resize_headerHeight", height);
+        headerHandler.setElHeight(height);
+
+        fvHandler.raiseFv(height);
+        const portHeight = newsViewport.getPort();
+        newsViewport.setViewPort(portHeight);
+      }, 200);
     },
   });
+
 
   // elementPos.init();
   // elementPos.resizeHeaderPos();
