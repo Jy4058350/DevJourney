@@ -14,6 +14,8 @@ const cling = {
 const $ = {};
 
 function init() {
+  $.headerWrap = iNode.qs(".Header__Wrap");
+
   // console.log("cling init");
   $.fv = iNode.qs(".fv");
   $.sectionTemplate = iNode.qs(".section--home-panels");
@@ -69,7 +71,9 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onEnter: () => {
-      iNode.toggleClass(header, "Header--white", true);
+      iNode.toggleClass($.headerWrap, "Header--white", true);
+      // iNode.toggleClass(header, "Header--white", true);
+
       iNode.setStyles($.logoGray, { opacity: 1 });
       iNode.setStyles($.logoWhite, { opacity: 0 });
       $.btnBars.forEach((btnBar) => {
@@ -80,7 +84,8 @@ function _clingTo() {
       iNode.setStyles($.secondNav, { color: "var(--color-gray)" });
     },
     onLeaveBack: () => {
-      iNode.toggleClass(header, "Header--white", false);
+      iNode.toggleClass($.headerWrap, "Header--white", false);
+      // iNode.toggleClass(header, "Header--white", false);
       iNode.setStyles($.logoGray, { opacity: 0 });
       iNode.setStyles($.logoWhite, { opacity: 1 });
       $.btnBars.forEach((btnBar) => {

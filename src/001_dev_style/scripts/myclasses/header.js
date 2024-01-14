@@ -1,5 +1,7 @@
 import { iNode } from "../helper";
 
+let value = 0;
+
 class HeaderHandler {
   constructor(header) {
     this.header = header;
@@ -17,7 +19,6 @@ class HeaderHandler {
 
     this.logoGray = iNode.qs(".Logo__gray");
     this.logoWhite = iNode.qs(".Logo__white");
-    console.log("this.logoWhite", this.logoWhite);
     this.btnBars = iNode.qsa(".btn-menu_bar");
     this.colorGray = getComputedStyle(
       document.documentElement
@@ -60,16 +61,37 @@ class HeaderHandler {
   }
 
   getHeaderHeight() {
-    const height = this.header.offsetHeight;
+    const header = iNode.qs("#header");
+    const height = header.offsetHeight;
+
+    // const height = this.header.offsetHeight;
     return height;
   }
 
   setElHeight(value) {
+    // console.log("value", value);
+    // const header = iNode.qs("#header");
+    // const headerClass = iNode.qs(".Header");
+
+    // headerClass.style.height = `${value}px`;
+    // headerClass.style.maxHeight = `${value}px`;
+
     this.header.style.height = `${value}px`;
     this.header.style.maxHeight = `${value}px`;
     console.log("this.header", this.header);
 
-    return value;
+    // this.header = header;
+    // console.log("this.header.height", this.header.style.height);
+
+    const test = iNode.qs(".pin-spacer");
+    console.log("test", test);
+    if (!test) return this.header;
+
+    if (test) {
+      test.style.height = `${value}px`;
+      test.style.maxHeight = `${value}px`;
+    }
+    // return this.header;
   }
 }
 
