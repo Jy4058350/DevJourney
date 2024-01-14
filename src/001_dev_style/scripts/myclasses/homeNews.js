@@ -35,9 +35,9 @@ class HomeNews {
   }
 
   handleMouseDown(e) {
-    console.log("this.sliders", this.sliders);
-    console.log("this.prevButton", this.prevButton);
-    console.log("this.nextButton", this.nextButton);
+    console.log("e.target", e.target);
+    console.log("e.type", e.type);
+    console.log("e.timeStamp", e.timeStamp);
     isDragging = true; // This is the flag to check if the mouse is being draged
     startX = e.clientX; // Get the initial position of the mouse
     currentX = e.clientX; // It initializes the variable currentX with the same value as starX
