@@ -32,6 +32,7 @@ export default async function init({
 
   domManuipulator.init();
   homeNews.init();
+  homeNews.initEventListenres();
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();
