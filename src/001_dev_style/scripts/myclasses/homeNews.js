@@ -23,13 +23,102 @@ class HomeNews {
     this.numItems = sliders.children.length;
     prevButton.disabled = true;
     nextButton.disabled = false;
+    this.prevButton.style.display = "none";
     sliders.style.transform = `translateX(0%)`;
   }
 
   start() {
     this.currentIndex = 0;
     this.init();
-    this.initEventListenres();
+    // this.initEventListenres();
+    console.log("this.currentIndex", this.currentIndex);
+
+    this.prevButton.addEventListener("click", () => {
+      this.prevButton.disabled = false;
+      this.currentIndex =
+        (this.currentIndex - 1 + this.numItems) % this.numItems;
+      this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
+
+      this.pauseAutoSlide();
+      //   this.startAutoSlide();
+    });
+
+    this.nextButton.addEventListener("click", () => {
+      console.log("nexBtnClick");
+      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
+
+      this.pauseAutoSlide();
+      //   this.startAutoSlide();
+    });
+
+    this.startAutoSlide();
+  }
+
+  startAutoSlide() {
+    const intervalTime = 3000;
+
+    this.autoSlideInterval = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
+    }, intervalTime);
+  }
+
+  pauseAutoSlide() {
+    clearInterval(this.autoSlideInterval);
+  }
+
+  updateSlider(index) {
+    if (index < 0 || index > this.sliders.children.length) {
+      console.error(`Invalid index: ${index} `);
+    }
+    for (let i = 0; i < this.sliders.children.length; i++) {
+      this.sliders.children[i].classList.remove(
+        "fade-in",
+        "show",
+        "fade-out",
+        "hide"
+      );
+    }
+
+    if (this.currentIndex !== null) {
+        this.sliders.children[this.currentIndex].classList.add("fade-out");
+
+      setTimeout(() => {
+        this.sliders.children[this.currentIndex].classList.add("hide");
+      }, 2500);
+    }
+
+    this.sliders.style.transform = `translateX(-${index * 90}%)`;
+
+    this.sliders.children[index].classList.add("fade-in");
+
+    setTimeout(() => {
+      //   this.sliders.children[index].classList.remove("fade-in");
+      this.sliders.children[index].classList.add("show");
+    }, 500);
+
+    this.currentIndex = index;
+  }
+
+  seeBtn(index) {
+    if (index === 0) {
+      this.prevButton.disabled = true;
+      this.prevButton.style.display = "none";
+    } else {
+      this.prevButton.disabled = false;
+      this.prevButton.style.display = "block";
+    }
+    if (index === this.numItems - 1) {
+      this.nextButton.disabled = true;
+      this.nextButton.style.display = "none";
+    } else {
+      this.nextButton.disabled = false;
+      this.nextButton.style.display = "block";
+    }
   }
 
   init() {
@@ -44,13 +133,9 @@ class HomeNews {
     startX = e.clientX; // Get the initial position of the mouse
     currentX = e.clientX; // It initializes the variable currentX with the same value as starX
 
-    // Add the event listeners for mousemove and mouseup events
     this.sliders.addEventListener("mousemove", this.handleMouseMove);
-
-    // Remove the event listeners for mousemove and mouseup events
     this.sliders.removeEventListener("mouseup", this.handleMouseUp);
     this.sliders.addEventListener("mouseup", this.handleMouseUp);
-
     this.sliders.addEventListener("mouseleave", this.handleMouseLeave);
   }
 
@@ -76,61 +161,17 @@ class HomeNews {
     }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp() {
     // console.log("handleMouseUp");
     this.sliders.removeEventListener("mousemove", this.handleMouseMove);
   }
 
-  handleMouseLeave(e) {
+  handleMouseLeave() {
     this.sliders.removeEventListener("mousemove", this.handleMouseMove);
   }
 
-  handleTransitionEnd(e) {
+  handleTransitionEnd() {
     this.sliders.style.transition = "none";
-  }
-
-  // until here
-
-  initEventListenres() {
-    console.log("this.currentIndex", this.currentIndex);
-    // Event listener for the previous button
-    this.prevButton.addEventListener("click", () => {
-      this.currentIndex =
-        (this.currentIndex - 1 + this.numItems) % this.numItems;
-      // console.log("currentIndex", currentIndex);
-
-      this.updateSlider(this.currentIndex);
-      console.log("prev this.currentIndex", this.currentIndex);
-    });
-
-    // Event listener for the next button
-    this.nextButton.addEventListener("click", () => {
-      this.currentIndex = (this.currentIndex + 1) % this.numItems;
-      console.log("beforenextBtnClicked", this.currentIndex);
-      this.updateSlider();
-      //   this.updateSlider(this.currentIndex);
-      console.log("after next this.currentIndex", this.currentIndex);
-    });
-
-    this.updateSlider(this.currentIndex);
-  }
-
-  updateSlider() {
-    angle = 360 / this.numItems;
-    console.log("updateSlider this.currentIndex", this.currentIndex);
-    const newRotation = -this.currentIndex * angle;
-    this.sliders.style.transition = "transform 0.4s ease-in-out";
-    this.sliders.style.transform = `translateX(${newRotation}%)`;
-    if (this.currentIndex === 0) {
-      this.prevButton.style.display = "none";
-    } else {
-      this.prevButton.style.display = "block";
-    }
-    if (this.currentIndex === 3) {
-      this.nextButton.style.display = "none";
-    } else {
-      this.nextButton.style.display = "block";
-    }
   }
 }
 
