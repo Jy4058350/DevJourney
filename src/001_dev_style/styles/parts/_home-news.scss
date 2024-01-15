@@ -29,6 +29,7 @@
 .fade-in {
   opacity: 0;
   transition: opacity 1s ease-in;
+  transition-delay: 2s;
 
   &.show {
     opacity: 1;
