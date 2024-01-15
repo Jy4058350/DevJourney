@@ -18,7 +18,6 @@ class HomeNews {
   }
   initDOM(sliders, prevButton, nextButton) {
     this.sliders = sliders;
-    console.log("this.sliders", this.sliders);
     this.prevButton = prevButton;
     this.nextButton = nextButton;
     this.numItems = sliders.children.length;
@@ -42,7 +41,7 @@ class HomeNews {
       this.seeBtn(this.currentIndex);
 
       this.pauseAutoSlide();
-      this.startAutoSlide();
+      //   this.startAutoSlide();
     });
 
     this.nextButton.addEventListener("click", () => {
@@ -52,7 +51,7 @@ class HomeNews {
       this.seeBtn(this.currentIndex);
 
       this.pauseAutoSlide();
-      this.startAutoSlide();
+      //   this.startAutoSlide();
     });
 
     this.startAutoSlide();
@@ -73,8 +72,20 @@ class HomeNews {
   }
 
   updateSlider(index) {
-    console.log("index", index);
+    if (index < 0 || index > this.sliders.children.length) {
+      console.error(`Invalid index: ${index} `);
+    }
+    for (let i = 0; i < this.sliders.children.length; i++) {
+      this.sliders.children[i].classList.remove("fade-in");
+    }
     this.sliders.style.transform = `translateX(-${index * 90}%)`;
+
+    this.sliders.children[index].classList.add("fade-in");
+    console.log("this.sliders.children[index]", this.sliders.children[index]);
+
+    setTimeout(() => {
+      this.sliders.children[index].classList.remove("fade-in");
+    }, 1000);
   }
 
   seeBtn(index) {
