@@ -20,25 +20,32 @@ class HomeNews {
     this.sliders = sliders;
     this.prevButton = prevButton;
     this.nextButton = nextButton;
-    this.numItems = sliders.children.length;
+    this.beforenumItems = sliders.children.length;
+    console.log("this.beforenumItems", this.beforenumItems);
+
     prevButton.disabled = true;
     nextButton.disabled = false;
     this.prevButton.style.display = "none";
     sliders.style.transform = `translateX(0%)`;
 
+    //roop slide
+    const firstSlide = this.sliders.children[0].cloneNode(true);
+    const lastSlide =
+      this.sliders.children[this.beforenumItems - 1].cloneNode(true);
+    this.sliders.appendChild(firstSlide);
+    this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
+    console.log("this.sliders", this.sliders);
+    this.numItems = this.sliders.children.length;
+    console.log("this.numItems", this.numItems);
+
     this.sliders.addEventListener("click", () => {
       this.pauseAutoSlide();
     });
-
-    //roop slide
-    const firstSlide = this.sliders.children[0].cloneNode(true);
-    const lastSlide = this.sliders.children[this.numItems - 1].cloneNode(true);
-    this.sliders.appendChild(firstSlide);
-    this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
   }
 
   start() {
     this.currentIndex = 1;
+
     this.updateSlider(this.currentIndex);
 
     this.init();
@@ -84,6 +91,8 @@ class HomeNews {
   }
 
   updateSlider(index) {
+    const intervalTime = 1000;
+    console.log("index", index);
     if (index === 0) {
       setTimeout(() => {
         this.sliders.style.transition = "none";
@@ -113,7 +122,6 @@ class HomeNews {
         "fade-out",
         "hide"
       );
-      console.log("this.sliders.children.length", this.sliders.children.length);
     }
 
     if (this.currentIndex !== null) {
@@ -134,7 +142,6 @@ class HomeNews {
     }, 500);
 
     this.currentIndex = index;
-    const intervalTime = 1000;
   }
 
   seeBtn(index) {
