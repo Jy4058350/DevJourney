@@ -75,17 +75,34 @@ class HomeNews {
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
+
+    if (this.currentIndex !== null) {
+        this.sliders.children[this.currentIndex].classList.add("fade-out");
+      console.log("fade-out", this.sliders.children[this.currentIndex]);
+
+      setTimeout(() => {
+        this.sliders.children[this.currentIndex].classList.add("hide");
+      }, 100);
+    }
+
     for (let i = 0; i < this.sliders.children.length; i++) {
-      this.sliders.children[i].classList.remove("fade-in");
+      this.sliders.children[i].classList.remove(
+        "fade-in",
+        "show",
+        "fade-out",
+        "hide"
+      );
     }
     this.sliders.style.transform = `translateX(-${index * 90}%)`;
 
     this.sliders.children[index].classList.add("fade-in");
-    console.log("this.sliders.children[index]", this.sliders.children[index]);
 
     setTimeout(() => {
-      this.sliders.children[index].classList.remove("fade-in");
-    }, 1000);
+      //   this.sliders.children[index].classList.remove("fade-in");
+      this.sliders.children[index].classList.add("show");
+    }, 300);
+
+    this.currentIndex = index;
   }
 
   seeBtn(index) {

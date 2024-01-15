@@ -13,16 +13,39 @@
 //   @include Button-style;
 // }
 
+// fade-in animation with only css
+// .fade-in {
+//   opacity: 0;
+//   // transition: opacity 1s;
+//   animation: fadeIn 2s forwards;
+// }
+// @keyframes fadeIn {
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+// fade-in animation with js
 .fade-in {
   opacity: 0;
-  // transition: opacity 1s;
-  animation: fadeIn 2s forwards;
-}
-@keyframes fadeIn {
-  to {
+  transition: opacity 2s;
+
+  &.show {
     opacity: 1;
   }
 }
+
+.fade-out {
+  opacity: 1;
+  transition: opacity 2s;
+  transition-delay: 0.5s;
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
+// until slide animation with only css
 
 .home-news {
   margin: 48px 0;
@@ -68,6 +91,8 @@
   }
 
   &-article {
+    opacity: 0;
+
     &-glsl {
       position: absolute;
       top: 50%;
@@ -76,11 +101,6 @@
       height: 100%;
       max-height: 100%;
       transform: translate(-50%, -50%);
-    }
-
-    .fade-in {
-      transition: opacity 1s;
-      opacity: 0;
     }
 
     width: 95%;
@@ -226,8 +246,6 @@
     // height: 216px; // after js implementation
     touch-action: pan-y;
   }
-
-  
 
   &-slider {
     position: absolute;
