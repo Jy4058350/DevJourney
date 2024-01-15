@@ -39,6 +39,9 @@ class HomeNews {
         (this.currentIndex - 1 + this.numItems) % this.numItems;
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
+
+      this.pauseAutoSlide();
+    //   this.startAutoSlide();
     });
 
     this.nextButton.addEventListener("click", () => {
@@ -46,6 +49,9 @@ class HomeNews {
       this.currentIndex = (this.currentIndex + 1) % this.numItems;
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
+
+      this.pauseAutoSlide();
+    //   this.startAutoSlide();
     });
 
     this.startAutoSlide();
@@ -54,10 +60,15 @@ class HomeNews {
   startAutoSlide() {
     const intervalTime = 3000;
 
-    setInterval(() => {
+    this.autoSlideInterval = setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.numItems;
       this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
     }, intervalTime);
+  }
+
+  pauseAutoSlide() {
+    clearInterval(this.autoSlideInterval);
   }
 
   updateSlider(index) {
