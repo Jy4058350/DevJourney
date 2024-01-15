@@ -23,13 +23,51 @@ class HomeNews {
     this.numItems = sliders.children.length;
     prevButton.disabled = true;
     nextButton.disabled = false;
+    this.prevButton.style.display = "none";
     sliders.style.transform = `translateX(0%)`;
   }
 
   start() {
     this.currentIndex = 0;
     this.init();
-    this.initEventListenres();
+    // this.initEventListenres();
+    console.log("this.currentIndex", this.currentIndex);
+
+    this.prevButton.addEventListener("click", () => {
+      this.prevButton.disabled = false;
+      this.currentIndex =
+        (this.currentIndex - 1 + this.numItems) % this.numItems;
+      this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
+    });
+
+    this.nextButton.addEventListener("click", () => {
+      console.log("nexBtnClick");
+      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateSlider(this.currentIndex);
+      this.seeBtn(this.currentIndex);
+    });
+  }
+  updateSlider(index) {
+    console.log("index", index);
+    this.sliders.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  seeBtn(index) {
+    if (index === 0) {
+      this.prevButton.disabled = true;
+      this.prevButton.style.display = "none";
+    } else {
+      this.prevButton.disabled = false;
+      this.prevButton.style.display = "block";
+    }
+    if (index === this.numItems - 1) {
+      this.nextButton.disabled = true;
+      this.nextButton.style.display = "none";
+    } else {
+      this.nextButton.disabled = false;
+      this.nextButton.style.display = "block";
+    }
   }
 
   init() {
@@ -72,51 +110,17 @@ class HomeNews {
     }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp() {
     // console.log("handleMouseUp");
     this.sliders.removeEventListener("mousemove", this.handleMouseMove);
   }
 
-  handleMouseLeave(e) {
+  handleMouseLeave() {
     this.sliders.removeEventListener("mousemove", this.handleMouseMove);
   }
 
-  handleTransitionEnd(e) {
+  handleTransitionEnd() {
     this.sliders.style.transition = "none";
-  }
-
-  // until here
-
-  initEventListenres() {
-    this.prevButton.addEventListener("click", () => {
-      this.currentIndex =
-        (this.currentIndex - 1 + this.numItems) % this.numItems;
-      this.updateSlider(this.currentIndex);
-    });
-
-    this.nextButton.addEventListener("click", () => {
-      this.currentIndex = (this.currentIndex + 1) % this.numItems;
-      this.updateSlider();
-    });
-
-    this.updateSlider(this.currentIndex);
-  }
-
-  updateSlider() {
-    angle = 360 / this.numItems;
-    const newRotation = -this.currentIndex * angle;
-    this.sliders.style.transition = "transform 0.4s ease-in-out";
-    this.sliders.style.transform = `translateX(${newRotation}%)`;
-    if (this.currentIndex === 0) {
-      this.prevButton.style.display = "none";
-    } else {
-      this.prevButton.style.display = "block";
-    }
-    if (this.currentIndex === 3) {
-      this.nextButton.style.display = "none";
-    } else {
-      this.nextButton.style.display = "block";
-    }
   }
 }
 
