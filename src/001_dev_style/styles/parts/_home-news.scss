@@ -13,6 +13,11 @@
 //   @include Button-style;
 // }
 
+.fade-in {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
 .home-news {
   margin: 48px 0;
 
@@ -65,6 +70,11 @@
       height: 100%;
       max-height: 100%;
       transform: translate(-50%, -50%);
+    }
+
+    .fade-in {
+      transition: opacity 1s;
+      opacity: 0;
     }
 
     width: 95%;
@@ -210,6 +220,8 @@
     // height: 216px; // after js implementation
     touch-action: pan-y;
   }
+
+  
 
   &-slider {
     position: absolute;
