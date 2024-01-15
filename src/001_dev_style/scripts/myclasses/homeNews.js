@@ -25,10 +25,22 @@ class HomeNews {
     nextButton.disabled = false;
     this.prevButton.style.display = "none";
     sliders.style.transform = `translateX(0%)`;
+
+    this.sliders.addEventListener("click", () => {
+      this.pauseAutoSlide();
+    });
+
+    //roop slide
+    const firstSlide = this.sliders.children[0].cloneNode(true);
+    const lastSlide = this.sliders.children[this.numItems - 1].cloneNode(true);
+    this.sliders.appendChild(firstSlide);
+    this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
   }
 
   start() {
-    this.currentIndex = 0;
+    this.currentIndex = 1;
+    this.updateSlider(this.currentIndex);
+
     this.init();
     // this.initEventListenres();
     console.log("this.currentIndex", this.currentIndex);
@@ -72,6 +84,25 @@ class HomeNews {
   }
 
   updateSlider(index) {
+    if (index === 0) {
+      setTimeout(() => {
+        this.sliders.style.transition = "none";
+        this.currentIndex = this.numItems;
+        this.updateSlider(this.currentIndex);
+        this.sliders.offsetHeight;
+        this.sliders.style.transition = "";
+      }, intervalTime);
+    }
+    if (index === this.numItems + 1) {
+      setTimeout(() => {
+        this.sliders.style.transition = "none";
+        this.currentIndex = 1;
+        this.updateSlider(this.currentIndex);
+        this.sliders.offsetHeight;
+        this.sliders.style.transition = "";
+      }, intervalTime);
+    }
+
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
@@ -82,10 +113,11 @@ class HomeNews {
         "fade-out",
         "hide"
       );
+      console.log("this.sliders.children.length", this.sliders.children.length);
     }
 
     if (this.currentIndex !== null) {
-        this.sliders.children[this.currentIndex].classList.add("fade-out");
+      this.sliders.children[this.currentIndex].classList.add("fade-out");
 
       setTimeout(() => {
         this.sliders.children[this.currentIndex].classList.add("hide");
@@ -102,6 +134,7 @@ class HomeNews {
     }, 500);
 
     this.currentIndex = index;
+    const intervalTime = 1000;
   }
 
   seeBtn(index) {
@@ -157,6 +190,7 @@ class HomeNews {
         }
 
         this.updateSlider(this.currentIndex);
+        this.seeBtn(this.currentIndex);
       }, debounceDelay);
     }
   }
