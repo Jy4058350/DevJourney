@@ -47,10 +47,22 @@ class HomeNews {
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
     });
+
+    this.startAutoSlide();
   }
+
+  startAutoSlide() {
+    const intervalTime = 3000;
+
+    setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateSlider(this.currentIndex);
+    }, intervalTime);
+  }
+
   updateSlider(index) {
     console.log("index", index);
-    this.sliders.style.transform = `translateX(-${index * 100}%)`;
+    this.sliders.style.transform = `translateX(-${index * 90}%)`;
   }
 
   seeBtn(index) {
