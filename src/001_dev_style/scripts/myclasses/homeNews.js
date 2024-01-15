@@ -18,6 +18,7 @@ class HomeNews {
   }
   initDOM(sliders, prevButton, nextButton) {
     this.sliders = sliders;
+    console.log("this.sliders", this.sliders);
     this.prevButton = prevButton;
     this.nextButton = nextButton;
     this.numItems = sliders.children.length;
@@ -41,7 +42,7 @@ class HomeNews {
       this.seeBtn(this.currentIndex);
 
       this.pauseAutoSlide();
-    //   this.startAutoSlide();
+      this.startAutoSlide();
     });
 
     this.nextButton.addEventListener("click", () => {
@@ -51,7 +52,7 @@ class HomeNews {
       this.seeBtn(this.currentIndex);
 
       this.pauseAutoSlide();
-    //   this.startAutoSlide();
+      this.startAutoSlide();
     });
 
     this.startAutoSlide();
