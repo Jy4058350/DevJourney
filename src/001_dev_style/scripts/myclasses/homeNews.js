@@ -36,7 +36,6 @@ class HomeNews {
     this.init();
     this.currentIndex = 0;
 
-
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
       this.updateIndex(-1);
@@ -67,23 +66,12 @@ class HomeNews {
     }, intervalTime);
   }
 
-  pauseAutoSlide() {
-    clearInterval(this.autoSlideInterval);
+  dispatchSlideChangeEvent() {
+    const event = new CustomEvent("slideChange", { detail: this.currentIndex });
+    window.dispatchEvent(event);
   }
 
-  fadeIn(index) {
-    this.sliders.children[index].classList.add("fade-in");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("show");
-    }, 500);
-  }
 
-  fadeOut(index) {
-    this.sliders.children[index].classList.add("fade-out");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("hide");
-    }, 2500);
-  }
 
   updateSlider(index) {
     if (index < 0 || index > this.sliders.children.length) {
@@ -106,8 +94,9 @@ class HomeNews {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
-
     this.currentIndex = index;
+
+    this.dispatchSlideChangeEvent();
   }
 
   seeBtn(index) {
@@ -153,15 +142,13 @@ class HomeNews {
     }
   }
 
-  
   setChildStyle() {
     // console.log("this.sliders", this.sliders.children);
     const x = 360 / this.numItems;
     for (let i = 0; i < this.sliders.children.length; i++) {
-    //   this.sliders.children[i].style.transform = `translateX(${i * x}%)`;
+      //   this.sliders.children[i].style.transform = `translateX(${i * x}%)`;
       this.sliders.children[i].style.left = `${i * x}%`;
       this.sliders.children[i].style.position = "absolute";
-
     }
   }
 
@@ -218,6 +205,24 @@ class HomeNews {
 
   handleTransitionEnd() {
     this.sliders.style.transition = "none";
+  }
+
+  pauseAutoSlide() {
+    clearInterval(this.autoSlideInterval);
+  }
+
+  fadeIn(index) {
+    this.sliders.children[index].classList.add("fade-in");
+    setTimeout(() => {
+      this.sliders.children[index].classList.add("show");
+    }, 500);
+  }
+
+  fadeOut(index) {
+    this.sliders.children[index].classList.add("fade-out");
+    setTimeout(() => {
+      this.sliders.children[index].classList.add("hide");
+    }, 2500);
   }
 }
 
