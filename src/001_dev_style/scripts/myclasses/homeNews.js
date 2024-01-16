@@ -20,31 +20,18 @@ class HomeNews {
     this.sliders = sliders;
     this.prevButton = prevButton;
     this.nextButton = nextButton;
-    this.beforenumItems = sliders.children.length;
-    // console.log("this.beforenumItems", this.beforenumItems);
-
+    this.numItems = sliders.children.length;
     prevButton.disabled = true;
     nextButton.disabled = false;
     this.prevButton.style.display = "none";
     sliders.style.transform = `translateX(0%)`;
-
-    //roop slide
-    const firstSlide = this.sliders.children[0].cloneNode(true);
-    const lastSlide =
-      this.sliders.children[this.beforenumItems - 1].cloneNode(true);
-    this.sliders.appendChild(firstSlide);
-    this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
-    this.numItems = this.sliders.children.length;
   }
 
   start() {
     this.currentIndex = 0;
-
-    this.updateSlider(this.currentIndex);
-
     this.init();
     // this.initEventListenres();
-    // console.log("this.currentIndex", this.currentIndex);
+    console.log("this.currentIndex", this.currentIndex);
 
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
@@ -70,13 +57,6 @@ class HomeNews {
     this.startAutoSlide();
   }
 
-  init() {
-    this.sliders.addEventListener("mousedown", this.handleMouseDown);
-    this.sliders.addEventListener("click", () => {
-      this.pauseAutoSlide();
-    });
-  }
-
   startAutoSlide() {
     const intervalTime = 3000;
 
@@ -91,52 +71,7 @@ class HomeNews {
     clearInterval(this.autoSlideInterval);
   }
 
-  //not allow function
-  //   delay(ms) {
-  //     return new Promise((resolve) => setTimeout(resolve, ms));
-  //     }
-
-  delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  async updateSlider(index) {
-    const intervalTime = 1000;
-    console.log("updateSlide_index", index);
-    console.log("updateSlide_this.currentIndex", this.currentIndex);
-
-    const updateIndexAndSlider = (newIndex) => {
-      return new Promise((resolve) => {
-        if (newIndex >= 0 && newIndex < this.sliders.children.length) {
-          this.sliders.style.transition = "none";
-          this.currentIndex = newIndex;
-          this.updateSlider(this.currentIndex);
-          this.sliders.offsetHeight;
-          this.sliders.style.transition = "";
-          resolve();
-        } else {
-          console.error(`Invalid index: ${newIndex} `);
-        }
-      });
-    };
-
-    if (index === 0) {
-      await this.delay(intervalTime);
-      await updateIndexAndSlider(this.numItems);
-      //   setTimeout(() => {
-      //     updateIndexAndSlider(this.numItems).then(() => {
-      //       console.log("at index0 this.currentIndex", this.currentIndex);
-      //     });
-      //   }, intervalTime);
-    }
-    if (index === this.numItems - 1) {
-      await this.delay(intervalTime);
-      await updateIndexAndSlider(1);
-      //   setTimeout(() => {
-      //     updateIndexAndSlider(1).then(() => {
-      //       console.log("at index5 this.currentIndex", this.currentIndex);
-      //     });
-      //   }, intervalTime);
-    }
-
+  updateSlider(index) {
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
@@ -150,7 +85,7 @@ class HomeNews {
     }
 
     if (this.currentIndex !== null) {
-      this.sliders.children[this.currentIndex].classList.add("fade-out");
+        this.sliders.children[this.currentIndex].classList.add("fade-out");
 
       setTimeout(() => {
         this.sliders.children[this.currentIndex].classList.add("hide");
@@ -170,8 +105,6 @@ class HomeNews {
   }
 
   seeBtn(index) {
-    // console.log("seeBtn_index", index);
-    // console.log("seeBtn_this.currentIndex", this.currentIndex);
     if (index === 0) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
@@ -186,6 +119,10 @@ class HomeNews {
       this.nextButton.disabled = false;
       this.nextButton.style.display = "block";
     }
+  }
+
+  init() {
+    this.sliders.addEventListener("mousedown", this.handleMouseDown);
   }
 
   handleMouseDown(e) {
@@ -220,7 +157,6 @@ class HomeNews {
         }
 
         this.updateSlider(this.currentIndex);
-        this.seeBtn(this.currentIndex);
       }, debounceDelay);
     }
   }
