@@ -17,11 +17,16 @@ class ExtendObject extends CustomObject {
 
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
-      const newIndex = event.detail;
-      this.slideIndex = newIndex;
-      console.log(newIndex);
-      console.log(this.slideIndex);
-      this.fixGsap(newIndex);
+      const currentIndex = event.detail; // 目的1のための数値
+      const otherIndices = [0, 1, 2, 3, 4, 5].filter((i) => i !== currentIndex); // 目的2のための数値
+      console.log("currentIndex", currentIndex);
+      this.uniforms.uIndex.value = currentIndex;
+      this.slideIndex = currentIndex;
+      this.fixGsap(currentIndex);
+
+      otherIndices.forEach((index) => {
+        // console.log("index", index);
+      });
     });
   }
 

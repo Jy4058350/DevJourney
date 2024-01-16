@@ -71,8 +71,6 @@ class HomeNews {
     window.dispatchEvent(event);
   }
 
-
-
   updateSlider(index) {
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);

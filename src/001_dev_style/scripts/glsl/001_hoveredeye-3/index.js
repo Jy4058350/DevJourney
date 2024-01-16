@@ -1,0 +1,93 @@
+import gsap from "gsap";
+
+import vertexShader from "./vertex.glsl";
+import fragmentShader from "./fragment.glsl";
+import { loader } from "../../component/loader";
+
+import { CustomObject } from "../CustomObject";
+
+class ExtendObject extends CustomObject {
+  static async init({ el, type }) {
+    const texes = await loader.texMap(el);
+    const i = new this({ texes, el, type });
+    return i;
+  }
+  constructor({ texes, el, type, canvasRect }) {
+    super({ texes, el, type, canvasRect });
+
+    this.slideIndex = null;
+    window.addEventListener("slideChange", (event) => {
+      const currentIndex = event.detail; // 目的1のための数値
+      const otherIndices = [0, 1, 2, 3, 4, 5].filter((i) => i !== currentIndex); // 目的2のための数値
+      console.log("currentIndex", currentIndex);
+      this.uniforms.uIndex.value = currentIndex;
+      this.slideIndex = currentIndex;
+      this.fixGsap(currentIndex);
+
+      otherIndices.forEach((index) => {
+        // console.log("index", index);
+      });
+    });
+  }
+
+  fixVertex() {
+    return vertexShader;
+  }
+
+  fixFragment() {
+    return fragmentShader;
+  }
+
+  style() {
+    this.$.el.style.opacity = 1.0;
+  }
+
+  fixGsap(index) {
+    // console.log("this.slideIndex", this.slideIndex);
+    // console.log("index", index);
+    this.uniforms.uProgress.value = 0;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 1,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        if (this.slideIndex !== index) {
+          // console.log("onUpdate");
+          this.uniforms.uProgress.value = 0;
+        }
+      },
+
+      onComplete: () => {
+        if (this.slideIndex === index) {
+          // console.log("onComplete");
+          this.uniforms.uProgress.value = 1;
+        }
+        if (this.slideIndex !== index) {
+          this.uniforms.uProgress.value = 0;
+        }
+      },
+    });
+  }
+
+  debug(toFolder) {
+    toFolder
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .name("uIndex")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
+      .name("uProgress")
+      .listen();
+
+    const datData = { next: !!this.uniforms.uProgress.value };
+    toFolder.add(datData, "next").onChange(() => {
+      gsap.to(this.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 0.5,
+        ease: "none",
+      });
+    });
+  }
+}
+
+export default ExtendObject;
