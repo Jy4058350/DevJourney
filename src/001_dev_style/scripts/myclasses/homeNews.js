@@ -137,7 +137,7 @@ class HomeNews {
     this.sliders.addEventListener("click", () => {
       this.pauseAutoSlide();
     });
-    // this.addDummySlide();
+    this.addDummySlide();
     this.setChildStyle();
   }
 
