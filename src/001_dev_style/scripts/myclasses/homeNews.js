@@ -27,31 +27,33 @@ class HomeNews {
     sliders.style.transform = `translateX(0%)`;
   }
 
+  updateIndex(increment) {
+    this.currentIndex = (this.currentIndex + increment) % this.numItems;
+  }
+
   start() {
-    this.currentIndex = 0;
     this.init();
-    // this.initEventListenres();
+    this.currentIndex = 0;
+
+    console.log("this.sliders", this.sliders);
+    console.log("this.numItems", this.numItems);
     console.log("this.currentIndex", this.currentIndex);
 
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
-      this.currentIndex =
-        (this.currentIndex - 1 + this.numItems) % this.numItems;
+      this.updateIndex(-1);
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
 
       this.pauseAutoSlide();
-      //   this.startAutoSlide();
     });
 
     this.nextButton.addEventListener("click", () => {
       console.log("nexBtnClick");
-      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateIndex(1);
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
-
       this.pauseAutoSlide();
-      //   this.startAutoSlide();
     });
 
     this.startAutoSlide();
@@ -61,7 +63,7 @@ class HomeNews {
     const intervalTime = 3000;
 
     this.autoSlideInterval = setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.numItems;
+      this.updateIndex(1);
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
     }, intervalTime);
@@ -72,6 +74,8 @@ class HomeNews {
   }
 
   updateSlider(index) {
+    console.log("updateSlider this.currentIndex", this.currentIndex);
+    console.log("Current index", index);
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
@@ -85,7 +89,7 @@ class HomeNews {
     }
 
     if (this.currentIndex !== null) {
-        this.sliders.children[this.currentIndex].classList.add("fade-out");
+      this.sliders.children[this.currentIndex].classList.add("fade-out");
 
       setTimeout(() => {
         this.sliders.children[this.currentIndex].classList.add("hide");
@@ -123,12 +127,23 @@ class HomeNews {
 
   init() {
     this.sliders.addEventListener("mousedown", this.handleMouseDown);
+    this.sliders.addEventListener("click", () => {
+      this.pauseAutoSlide();
+    });
+    this.addDummySlide();
+  }
+
+  addDummySlide() {
+    const firstSlide = this.sliders.children[0].cloneNode(true);
+    const lastSlide = this.sliders.children[this.numItems - 1].cloneNode(true);
+
+    this.sliders.appendChild(firstSlide);
+    this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
+
+    this.numItems += 2;
   }
 
   handleMouseDown(e) {
-    console.log("e.target", e.target);
-    console.log("e.type", e.type);
-    console.log("e.timeStamp", e.timeStamp);
     isDragging = true; // This is the flag to check if the mouse is being draged
     startX = e.clientX; // Get the initial position of the mouse
     currentX = e.clientX; // It initializes the variable currentX with the same value as starX
@@ -149,11 +164,10 @@ class HomeNews {
         currentX = e.clientX;
 
         if (diffX > 0 && this.currentIndex > 0) {
-          this.currentIndex =
-            (this.currentIndex - 1 + this.numItems) % this.numItems;
+          this.updateIndex(-1);
         } else if (diffX < 0 && this.currentIndex < this.numItems - 1) {
           // console.log("0 > diffX", diffX);
-          this.currentIndex = (this.currentIndex + 1) % this.numItems;
+          this.updateIndex(1);
         }
 
         this.updateSlider(this.currentIndex);
