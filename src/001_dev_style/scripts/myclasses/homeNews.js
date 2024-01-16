@@ -91,6 +91,8 @@ class HomeNews {
     clearInterval(this.autoSlideInterval);
   }
 
+  delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   updateSlider(index) {
     const intervalTime = 1000;
     console.log("updateSlide_index", index);
