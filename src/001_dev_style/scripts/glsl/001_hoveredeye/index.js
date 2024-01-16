@@ -6,26 +6,20 @@ import { loader } from "../../component/loader";
 
 import { CustomObject } from "../CustomObject";
 
-
-
 class ExtendObject extends CustomObject {
   static async init({ el, type }) {
     const texes = await loader.texMap(el);
-
     const i = new this({ texes, el, type });
-    console.log(i);
     return i;
   }
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
-    // this.texes = texes ?? new Map();
-    // this.$ = { el };
-    // this.type = type;
-    // this.canvasRect = canvasRect;
+
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
       this.slideIndex = event.detail;
       console.log("Slide changed to: ", +this.slideIndex);
+      this.fixGsap();
     });
   }
 
@@ -39,6 +33,17 @@ class ExtendObject extends CustomObject {
 
   style() {
     this.$.el.style.opacity = 1.0;
+  }
+
+  fixGsap() {
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        console.log("Slide transition completed");
+      },
+    });
   }
 }
 
