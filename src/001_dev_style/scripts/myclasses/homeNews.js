@@ -21,7 +21,7 @@ class HomeNews {
     this.prevButton = prevButton;
     this.nextButton = nextButton;
     this.beforenumItems = sliders.children.length;
-    console.log("this.beforenumItems", this.beforenumItems);
+    // console.log("this.beforenumItems", this.beforenumItems);
 
     prevButton.disabled = true;
     nextButton.disabled = false;
@@ -34,13 +34,8 @@ class HomeNews {
       this.sliders.children[this.beforenumItems - 1].cloneNode(true);
     this.sliders.appendChild(firstSlide);
     this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
-    console.log("this.sliders", this.sliders);
+    // console.log("this.sliders", this.sliders);
     this.numItems = this.sliders.children.length;
-    console.log("this.numItems", this.numItems);
-
-    this.sliders.addEventListener("click", () => {
-      this.pauseAutoSlide();
-    });
   }
 
   start() {
@@ -50,7 +45,7 @@ class HomeNews {
 
     this.init();
     // this.initEventListenres();
-    console.log("this.currentIndex", this.currentIndex);
+    // console.log("this.currentIndex", this.currentIndex);
 
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
@@ -77,6 +72,8 @@ class HomeNews {
   }
 
   startAutoSlide() {
+    console.log("startAutoSlide currentindex", this.currentIndex);
+    console.log("startAutoSlide numItems", this.numItems);
     const intervalTime = 3000;
 
     this.autoSlideInterval = setInterval(() => {
@@ -93,6 +90,7 @@ class HomeNews {
   updateSlider(index) {
     const intervalTime = 1000;
     console.log("index", index);
+    console.log("this.currentIndex", this.currentIndex);
     if (index === 0) {
       setTimeout(() => {
         this.sliders.style.transition = "none";
@@ -102,7 +100,7 @@ class HomeNews {
         this.sliders.style.transition = "";
       }, intervalTime);
     }
-    if (index === this.numItems + 1) {
+    if (index === this.numItems - 1) {
       setTimeout(() => {
         this.sliders.style.transition = "none";
         this.currentIndex = 1;
@@ -126,6 +124,10 @@ class HomeNews {
 
     if (this.currentIndex !== null) {
       this.sliders.children[this.currentIndex].classList.add("fade-out");
+      console.log(
+        "this.sliders.children[this.currentIndex]",
+        this.sliders.children[this.currentIndex]
+      );
 
       setTimeout(() => {
         this.sliders.children[this.currentIndex].classList.add("hide");
@@ -163,6 +165,9 @@ class HomeNews {
 
   init() {
     this.sliders.addEventListener("mousedown", this.handleMouseDown);
+    this.sliders.addEventListener("click", () => {
+      this.pauseAutoSlide();
+    });
   }
 
   handleMouseDown(e) {
