@@ -96,7 +96,9 @@ class HomeNews {
       }, 2500);
     }
 
-    this.sliders.style.transform = `translateX(-${index * 90}%)`;
+    let slidePercentage = 100 / this.numItems;
+    console.log("slidePercentage", slidePercentage);
+    this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
     this.sliders.children[index].classList.add("fade-in");
 
