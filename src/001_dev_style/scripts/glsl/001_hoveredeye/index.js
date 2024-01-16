@@ -17,9 +17,11 @@ class ExtendObject extends CustomObject {
 
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
-      this.slideIndex = event.detail;
-      console.log("Slide changed to: ", +this.slideIndex);
-      this.fixGsap();
+      const newIndex = event.detail;
+      this.slideIndex = newIndex;
+      console.log(newIndex);
+      console.log(this.slideIndex);
+      this.fixGsap(newIndex);
     });
   }
 
@@ -35,14 +37,50 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap() {
+  fixGsap(index) {
+    // console.log("this.slideIndex", this.slideIndex);
+    // console.log("index", index);
+    this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
       duration: 1,
       ease: "power2.inOut",
-      onComplete: () => {
-        console.log("Slide transition completed");
+      onUpdate: () => {
+        if (this.slideIndex !== index) {
+          // console.log("onUpdate");
+          this.uniforms.uProgress.value = 0;
+        }
       },
+
+      onComplete: () => {
+        if (this.slideIndex === index) {
+          // console.log("onComplete");
+          this.uniforms.uProgress.value = 1;
+        }
+        if (this.slideIndex !== index) {
+          this.uniforms.uProgress.value = 0;
+        }
+      },
+    });
+  }
+
+  debug(toFolder) {
+    toFolder
+      .add(this.uniforms.uIndex, "value", 0, 15, 1)
+      .name("uIndex")
+      .listen();
+    toFolder
+      .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
+      .name("uProgress")
+      .listen();
+
+    const datData = { next: !!this.uniforms.uProgress.value };
+    toFolder.add(datData, "next").onChange(() => {
+      gsap.to(this.uniforms.uProgress, {
+        value: datData.next ? 1 : 0,
+        duration: 0.5,
+        ease: "none",
+      });
     });
   }
 }

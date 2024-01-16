@@ -1,6 +1,7 @@
 varying vec2 vUv;
 uniform vec2 uMouse;
 uniform vec4 uResolution;
+uniform float uProgress;
 uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
@@ -18,5 +19,8 @@ void main() {
     vec4 t2 = texture2D(tex2, uv);
     vec4 color = mix(t1, t2, uHover);
     // vec4 color = mix(t1, t2, step(.5, uv.x));
+
+    color.a = uProgress;
     gl_FragColor = color;
+
 }
