@@ -38,7 +38,7 @@ class HomeNews {
   }
 
   start() {
-    this.currentIndex = 1;
+    this.currentIndex = 0;
 
     this.updateSlider(this.currentIndex);
 
@@ -93,27 +93,36 @@ class HomeNews {
 
   updateSlider(index) {
     const intervalTime = 1000;
-    console.log("index", index);
-    console.log("this.currentIndex", this.currentIndex);
-    
+    console.log("updateSlide_index", index);
+    console.log("updateSlide_this.currentIndex", this.currentIndex);
+
+    const updateIndexAndSlider = (newIndex) => {
+      return new Promise((resolve) => {
+        if (newIndex >= 0 && newIndex < this.sliders.children.length) {
+          this.sliders.style.transition = "none";
+          this.currentIndex = newIndex;
+          this.updateSlider(this.currentIndex);
+          this.sliders.offsetHeight;
+          this.sliders.style.transition = "";
+          resolve();
+        } else {
+          console.error(`Invalid index: ${newIndex} `);
+        }
+      });
+    };
+
     if (index === 0) {
       setTimeout(() => {
-        this.sliders.style.transition = "none";
-        this.currentIndex = this.numItems;
-        console.log("at index0 this.currentIndex", this.currentIndex);
-        this.updateSlider(this.currentIndex);
-        this.sliders.offsetHeight;
-        this.sliders.style.transition = "";
+        updateIndexAndSlider(this.numItems).then(() => {
+          console.log("at index0 this.currentIndex", this.currentIndex);
+        });
       }, intervalTime);
     }
     if (index === this.numItems - 1) {
       setTimeout(() => {
-        this.sliders.style.transition = "none";
-        this.currentIndex = 1;
-        console.log("at index5 this.currentIndex", this.currentIndex);
-        this.updateSlider(this.currentIndex);
-        this.sliders.offsetHeight;
-        this.sliders.style.transition = "";
+        updateIndexAndSlider(1).then(() => {
+          console.log("at index5 this.currentIndex", this.currentIndex);
+        });
       }, intervalTime);
     }
 
@@ -150,6 +159,8 @@ class HomeNews {
   }
 
   seeBtn(index) {
+    console.log("seeBtn_index", index);
+    console.log("seeBtn_this.currentIndex", this.currentIndex);
     if (index === 0) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
@@ -165,8 +176,6 @@ class HomeNews {
       this.nextButton.style.display = "block";
     }
   }
-
-  
 
   handleMouseDown(e) {
     console.log("e.target", e.target);
