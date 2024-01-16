@@ -34,7 +34,6 @@ class HomeNews {
       this.sliders.children[this.beforenumItems - 1].cloneNode(true);
     this.sliders.appendChild(firstSlide);
     this.sliders.insertBefore(lastSlide, this.sliders.children[0]);
-    // console.log("this.sliders", this.sliders);
     this.numItems = this.sliders.children.length;
   }
 
@@ -71,9 +70,14 @@ class HomeNews {
     this.startAutoSlide();
   }
 
+  init() {
+    this.sliders.addEventListener("mousedown", this.handleMouseDown);
+    this.sliders.addEventListener("click", () => {
+      this.pauseAutoSlide();
+    });
+  }
+
   startAutoSlide() {
-    console.log("startAutoSlide currentindex", this.currentIndex);
-    console.log("startAutoSlide numItems", this.numItems);
     const intervalTime = 3000;
 
     this.autoSlideInterval = setInterval(() => {
@@ -91,10 +95,12 @@ class HomeNews {
     const intervalTime = 1000;
     console.log("index", index);
     console.log("this.currentIndex", this.currentIndex);
+    
     if (index === 0) {
       setTimeout(() => {
         this.sliders.style.transition = "none";
         this.currentIndex = this.numItems;
+        console.log("at index0 this.currentIndex", this.currentIndex);
         this.updateSlider(this.currentIndex);
         this.sliders.offsetHeight;
         this.sliders.style.transition = "";
@@ -104,6 +110,7 @@ class HomeNews {
       setTimeout(() => {
         this.sliders.style.transition = "none";
         this.currentIndex = 1;
+        console.log("at index5 this.currentIndex", this.currentIndex);
         this.updateSlider(this.currentIndex);
         this.sliders.offsetHeight;
         this.sliders.style.transition = "";
@@ -124,10 +131,6 @@ class HomeNews {
 
     if (this.currentIndex !== null) {
       this.sliders.children[this.currentIndex].classList.add("fade-out");
-      console.log(
-        "this.sliders.children[this.currentIndex]",
-        this.sliders.children[this.currentIndex]
-      );
 
       setTimeout(() => {
         this.sliders.children[this.currentIndex].classList.add("hide");
@@ -163,12 +166,7 @@ class HomeNews {
     }
   }
 
-  init() {
-    this.sliders.addEventListener("mousedown", this.handleMouseDown);
-    this.sliders.addEventListener("click", () => {
-      this.pauseAutoSlide();
-    });
-  }
+  
 
   handleMouseDown(e) {
     console.log("e.target", e.target);
