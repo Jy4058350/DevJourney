@@ -91,7 +91,9 @@
     }
   }
 
-  &-article {
+
+  //⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+  &-article {   
     opacity: 0;
 
     &-glsl {
@@ -248,14 +250,15 @@
     touch-action: pan-y;
   }
 
-  &-slider {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    transform: translateX(0%);
-    transition: transform 0.5s ease-out;
-  }
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+  // &-slider {
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   left: 0;
+  //   transform: translateX(0%);
+  //   transition: transform 0.5s ease-out;
+  // }
 }
 
 .home-news-control-button {
