@@ -36,9 +36,6 @@ class HomeNews {
     this.init();
     this.currentIndex = 0;
 
-    console.log("this.sliders", this.sliders);
-    console.log("this.numItems", this.numItems);
-    console.log("this.currentIndex", this.currentIndex);
 
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
@@ -89,8 +86,6 @@ class HomeNews {
   }
 
   updateSlider(index) {
-    console.log("updateSlider this.currentIndex", this.currentIndex);
-    console.log("Current index", index);
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
@@ -158,16 +153,7 @@ class HomeNews {
     }
   }
 
-  tryGetTranslateX() {
-    // console.log("this.sliders", this.sliders.children);
-    const slidesChildren = this.sliders.children;
-    console.log("slidesChildren", slidesChildren);
-    for (let i = 0; i < this.sliders.children.length; i++) {
-      let translateX = this.calculateX(i);
-      this.sliders.children[i].style.transform = `translateX(${translateX}%)`;
-      //   this.sliders.children[i].style.transform = `translateX(${i * 90}%)`;
-    }
-  }
+  
   setChildStyle() {
     // console.log("this.sliders", this.sliders.children);
     const x = 360 / this.numItems;
@@ -177,7 +163,6 @@ class HomeNews {
       this.sliders.children[i].style.position = "absolute";
 
     }
-    console.log("this.sliders.children", this.sliders.children);
   }
 
   addDummySlide() {
