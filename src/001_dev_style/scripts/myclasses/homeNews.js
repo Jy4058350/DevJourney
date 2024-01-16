@@ -91,9 +91,14 @@ class HomeNews {
     clearInterval(this.autoSlideInterval);
   }
 
+  //not allow function
+  //   delay(ms) {
+  //     return new Promise((resolve) => setTimeout(resolve, ms));
+  //     }
+
   delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  updateSlider(index) {
+  async updateSlider(index) {
     const intervalTime = 1000;
     console.log("updateSlide_index", index);
     console.log("updateSlide_this.currentIndex", this.currentIndex);
@@ -114,18 +119,22 @@ class HomeNews {
     };
 
     if (index === 0) {
-      setTimeout(() => {
-        updateIndexAndSlider(this.numItems).then(() => {
-          console.log("at index0 this.currentIndex", this.currentIndex);
-        });
-      }, intervalTime);
+      await this.delay(intervalTime);
+      await updateIndexAndSlider(this.numItems);
+      //   setTimeout(() => {
+      //     updateIndexAndSlider(this.numItems).then(() => {
+      //       console.log("at index0 this.currentIndex", this.currentIndex);
+      //     });
+      //   }, intervalTime);
     }
     if (index === this.numItems - 1) {
-      setTimeout(() => {
-        updateIndexAndSlider(1).then(() => {
-          console.log("at index5 this.currentIndex", this.currentIndex);
-        });
-      }, intervalTime);
+      await this.delay(intervalTime);
+      await updateIndexAndSlider(1);
+      //   setTimeout(() => {
+      //     updateIndexAndSlider(1).then(() => {
+      //       console.log("at index5 this.currentIndex", this.currentIndex);
+      //     });
+      //   }, intervalTime);
     }
 
     if (index < 0 || index > this.sliders.children.length) {
@@ -161,8 +170,8 @@ class HomeNews {
   }
 
   seeBtn(index) {
-    console.log("seeBtn_index", index);
-    console.log("seeBtn_this.currentIndex", this.currentIndex);
+    // console.log("seeBtn_index", index);
+    // console.log("seeBtn_this.currentIndex", this.currentIndex);
     if (index === 0) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
