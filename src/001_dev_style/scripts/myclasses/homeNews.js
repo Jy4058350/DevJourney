@@ -63,6 +63,7 @@ class HomeNews {
     const intervalTime = 3000;
 
     this.autoSlideInterval = setInterval(() => {
+      this.isAutoSlide = true;
       this.updateIndex(1);
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
@@ -78,6 +79,21 @@ class HomeNews {
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
+    this.removeSliderClasses();
+
+    this.setSliderTransform(index);
+    this.setSliderTransition(index);
+
+    this.fadeOut(this.currentIndex, this.isAutoSlide);
+    this.fadeIn(index, this.isAutoSlide);
+
+    this.currentIndex = index;
+    console.log("this.currentIndex", this.currentIndex);
+
+    this.dispatchSlideChangeEvent();
+  }
+
+  removeSliderClasses() {
     for (let i = 0; i < this.sliders.children.length; i++) {
       this.sliders.children[i].classList.remove(
         "fade-in",
@@ -86,34 +102,40 @@ class HomeNews {
         "hide"
       );
     }
+  }
 
-    if (this.currentIndex !== null) {
-      this.fadeOut(this.currentIndex);
-    }
-    this.fadeIn(index);
-
+  setSliderTransform(index) {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
+  }
 
-    if (index === 0) {
+  setSliderTransition(index) {
+    if (index === 0 || (this.currentIndex === 5 && index === 1)) {
       this.sliders.style.transition = "none";
+      this.sliders.offsetWidth;
     } else {
       this.sliders.style.transition = "";
     }
+  }
 
-    if (this.currentIndex === 5 && index === 1) {
-      this.sliders.style.transition = "none";
-      this.sliders.style.transform = `translateX(0%)`;
-      void this.sliders.offsetWidth;
-    }
+  fadeOut(index, isAutoSlide) {
+    this.sliders.children[index].classList.add("fade-out");
+    setTimeout(
+      () => {
+        this.sliders.children[index].classList.add("hide");
+      },
+      isAutoSlide ? 2500 : 500
+    );
+  }
 
-    this.sliders.style.transition = "";
-    this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
-
-    this.currentIndex = index;
-    console.log("this.currentIndex", this.currentIndex);
-
-    this.dispatchSlideChangeEvent();
+  fadeIn(index, isAutoSlide) {
+    this.sliders.children[index].classList.add("fade-in");
+    setTimeout(
+      () => {
+        this.sliders.children[index].classList.add("show");
+      },
+      isAutoSlide ? 500 : 2500
+    );
   }
 
   seeBtn(index) {
@@ -226,20 +248,6 @@ class HomeNews {
 
   pauseAutoSlide() {
     clearInterval(this.autoSlideInterval);
-  }
-
-  fadeIn(index) {
-    this.sliders.children[index].classList.add("fade-in");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("show");
-    }, 500);
-  }
-
-  fadeOut(index) {
-    this.sliders.children[index].classList.add("fade-out");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("hide");
-    }, 2500);
   }
 }
 
