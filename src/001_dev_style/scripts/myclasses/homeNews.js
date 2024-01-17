@@ -28,7 +28,11 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    this.currentIndex = (this.currentIndex + increment) % this.numItems;
+    if (this.currentIndex === 5 && increment === 1) {
+      this.currentIndex = 1;
+    } else {
+      this.currentIndex = (this.currentIndex + increment) % this.numItems;
+    }
   }
 
   start() {
@@ -91,7 +95,7 @@ class HomeNews {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
-    if (index === 0 || index === 5) {
+    if (index === 0) {
       this.sliders.style.transition = "none";
     } else {
       this.sliders.style.transition = "";
