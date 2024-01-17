@@ -3,6 +3,7 @@ import gsap from "gsap";
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 import { loader } from "../../component/loader";
+import { iNode } from "../../helper";
 
 import { CustomObject } from "../CustomObject";
 
@@ -14,6 +15,10 @@ class ExtendObject extends CustomObject {
   }
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
+
+    const sliders = iNode.qs(".rotation-slider");
+    const prevButton = iNode.qs(".home-news-control-button.Previous");
+    const nextButton = iNode.qs(".home-news-control-button.Next");
 
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
@@ -40,11 +45,11 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap(index) {
+  fixGsap() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
-      duration: 1,
+      duration: 2,
       ease: "power2.inOut",
     });
   }

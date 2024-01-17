@@ -44,7 +44,7 @@ class ExtendObject extends CustomObject {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
-      duration: 1,
+      duration: 2,
       ease: "power2.inOut",
     });
   }

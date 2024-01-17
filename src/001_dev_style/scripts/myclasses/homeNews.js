@@ -14,7 +14,6 @@ class HomeNews {
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
-
     this.initDOM(sliders, prevButton, nextButton);
   }
   initDOM(sliders, prevButton, nextButton) {
