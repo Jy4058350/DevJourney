@@ -20,14 +20,14 @@ class ExtendObject extends CustomObject {
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
       if (currentIndex === 3) {
-        this.fixGsap();
+        this.fixGsap3_1();
       }
       if (currentIndex === 4 || currentIndex === 2) {
         this.uniforms.uProgress.value = 1;
-        this.fixGsap2();
+        this.fixGsap3_2();
       }
       if (currentIndex === 5) {
-        this.fixGsap3();
+        this.fixGsap3_3();
       }
     });
   }
@@ -44,7 +44,7 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap() {
+  fixGsap3_1() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
@@ -53,7 +53,7 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  fixGsap2() {
+  fixGsap3_2() {
     this.uniforms.uProgress.value = 1;
     this.timeline.to(this.uniforms.uProgress, {
       value: 0,
@@ -62,7 +62,7 @@ class ExtendObject extends CustomObject {
     });
   }
 
-  fixGsap3() {
+  fixGsap3_3() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
@@ -77,7 +77,7 @@ class ExtendObject extends CustomObject {
   debug(toFolder) {
     toFolder
       .add(this.uniforms.uIndex, "value", 0, 15, 1)
-      .name("uIndex-2")
+      .name("uIndex-3")
       .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
