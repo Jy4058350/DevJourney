@@ -49,6 +49,17 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
+
+animateProgress(fromValue, toValue, duration, ease="power2.inOut") {
+  this.uniforms.uProgress.value = 0;
+  this.timeline.to(this.uniforms.uProgress, {
+    value: 1,
+    duration: 2,
+    ease: "power2.inOut",
+  });
+}
+
+
   fixGsap1_1() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
