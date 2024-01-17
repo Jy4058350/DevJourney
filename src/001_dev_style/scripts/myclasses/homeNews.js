@@ -31,10 +31,6 @@ class HomeNews {
     this.currentIndex = (this.currentIndex + increment) % this.numItems;
   }
 
-  getDispatchIndex() {
-    console.log("dispatchIndex");
-  }
-
   start() {
     this.init();
     this.currentIndex = 0;

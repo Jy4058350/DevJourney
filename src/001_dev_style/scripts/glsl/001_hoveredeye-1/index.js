@@ -6,7 +6,6 @@ import { loader } from "../../component/loader";
 import { iNode } from "../../helper";
 
 import { CustomObject } from "../CustomObject";
-import HomeNews from "../../myclasses/homeNews";
 
 class ExtendObject extends CustomObject {
   static async init({ el, type }) {
@@ -20,11 +19,9 @@ class ExtendObject extends CustomObject {
     const sliders = iNode.qs(".rotation-slider");
     const prevButton = iNode.qs(".home-news-control-button.Previous");
     const nextButton = iNode.qs(".home-news-control-button.Next");
-    this.homeNews = new HomeNews(sliders, prevButton, nextButton);
 
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
-      this.homeNews.getDispatchIndex();
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
       if (currentIndex === 1 || currentIndex === 5) {
@@ -48,11 +45,11 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap(index) {
+  fixGsap() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
-      duration: 1,
+      duration: 2,
       ease: "power2.inOut",
     });
   }
