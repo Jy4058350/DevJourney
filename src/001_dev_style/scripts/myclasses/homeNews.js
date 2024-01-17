@@ -28,7 +28,11 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    this.currentIndex = (this.currentIndex + increment) % this.numItems;
+    if (this.currentIndex === 5 && increment === 1) {
+      this.currentIndex = 1;
+    } else {
+      this.currentIndex = (this.currentIndex + increment) % this.numItems;
+    }
   }
 
   start() {
@@ -91,6 +95,21 @@ class HomeNews {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
+    if (index === 0) {
+      this.sliders.style.transition = "none";
+    } else {
+      this.sliders.style.transition = "";
+    }
+
+    if (this.currentIndex === 5 && index === 1) {
+      this.sliders.style.transition = "none";
+      this.sliders.style.transform = `translateX(0%)`;
+      void this.sliders.offsetWidth;
+    }
+
+    this.sliders.style.transition = "";
+    this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
+
     this.currentIndex = index;
     console.log("this.currentIndex", this.currentIndex);
 
@@ -98,14 +117,14 @@ class HomeNews {
   }
 
   seeBtn(index) {
-    if (index === 0) {
+    if (index === 1) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
     } else {
       this.prevButton.disabled = false;
       this.prevButton.style.display = "block";
     }
-    if (index === this.numItems - 1) {
+    if (index === this.numItems - 2) {
       this.nextButton.disabled = true;
       this.nextButton.style.display = "none";
     } else {

@@ -19,10 +19,21 @@ class ExtendObject extends CustomObject {
     window.addEventListener("slideChange", (event) => {
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
-      if (currentIndex === 4 || currentIndex === 0) {
-        this.fixGsap(currentIndex);
+      if (currentIndex === 4) {
+        this.fixGsap4_1();
       }
-      if (currentIndex === 5 || currentIndex === 1) {
+      if (currentIndex === 3) {
+        // if (currentIndex === 3 || currentIndex === 1) {
+        this.uniforms.uProgress.value = 1;
+        this.fixGsap4_2();
+      }
+
+      if (currentIndex === 5) {
+        this.fixGsap4_3();
+      }
+
+      if (currentIndex === 1) {
+        // this.fixGsap4_4();
         this.uniforms.uProgress.value = 0;
       }
     });
@@ -40,7 +51,7 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap(index) {
+  fixGsap4_1() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
@@ -49,10 +60,46 @@ class ExtendObject extends CustomObject {
     });
   }
 
+  fixGsap4_2() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
+      duration: 1,
+      ease: "power2.inOut",
+    });
+  }
+
+  fixGsap4_3() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
+      duration: 1,
+      // duration: 1,
+      ease: "power2.inOut",
+      // onComplete: () => {
+      //   console.log("fixGsap4_3");
+      //   this.fixGsap4_4();
+      // },
+    });
+  }
+
+  fixGsap4_4() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
+      duration: 1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        // this.uniforms.uProgress.value = 0;
+        console.log("onComplete");
+      },
+    });
+  }
+
   debug(toFolder) {
     toFolder
       .add(this.uniforms.uIndex, "value", 0, 15, 1)
-      .name("uIndex-3")
+      .name("uIndex-4")
       .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)
