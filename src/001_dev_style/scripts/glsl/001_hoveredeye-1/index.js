@@ -24,12 +24,15 @@ class ExtendObject extends CustomObject {
     window.addEventListener("slideChange", (event) => {
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
-      if (currentIndex === 1 || currentIndex === 5) {
+      if (currentIndex === 1) {
         this.fixGsap();
       }
       if (currentIndex === 4 || currentIndex === 2 || currentIndex === 0) {
         this.uniforms.uProgress.value = 1;
         this.fixGsap2();
+      }
+      if (currentIndex === 5) {
+        this.fixGsap3();
       }
     });
   }
@@ -61,6 +64,17 @@ class ExtendObject extends CustomObject {
       value: 0,
       duration: 1,
       ease: "power2.inOut",
+    });
+  }
+  fixGsap3() {
+    this.uniforms.uProgress.value = 0;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        this.uniforms.uProgress.value = 0;
+      },
     });
   }
 

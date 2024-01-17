@@ -22,9 +22,13 @@ class ExtendObject extends CustomObject {
       if (currentIndex === 4 || currentIndex === 0) {
         this.fixGsap();
       }
-      if (currentIndex === 5 || currentIndex === 3 || currentIndex === 1) {
+      if (currentIndex === 3 || currentIndex === 1) {
         this.uniforms.uProgress.value = 1;
         this.fixGsap2();
+      }
+
+      if (currentIndex === 5) {
+        this.fixGsap3();
       }
     });
   }
@@ -54,8 +58,33 @@ class ExtendObject extends CustomObject {
     this.uniforms.uProgress.value = 1;
     this.timeline.to(this.uniforms.uProgress, {
       value: 0,
+      duration: 2,
+      ease: "power2.inOut",
+    });
+  }
+
+  fixGsap3() {
+    this.uniforms.uProgress.value = 0;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 1,
+      duration: 1.0,
+      ease: "power2.inOut",
+      onComplete: () => {
+        this.fixGsap4();
+      },
+    });
+  }
+
+  fixGsap4() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
       duration: 1,
       ease: "power2.inOut",
+      onComplete: () => {
+        this.uniforms.uProgress.value = 0;
+        console.log("onComplete");
+      },
     });
   }
 

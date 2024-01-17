@@ -15,7 +15,7 @@ import { elementPos } from "./component/elementpos";
 import { elementPosHome } from "./component/elementposHome";
 
 
-window.debug = debugmode(0) ? 1 : 0;
+window.debug = debugmode(1) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;

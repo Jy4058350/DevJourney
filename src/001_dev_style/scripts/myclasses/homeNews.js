@@ -101,6 +101,15 @@ class HomeNews {
       this.sliders.style.transition = "";
     }
 
+    if (this.currentIndex === 5 && index === 1) {
+      this.sliders.style.transition = "none";
+      this.sliders.style.transform = `translateX(0%)`;
+      void this.sliders.offsetWidth;
+    }
+
+    this.sliders.style.transition = "";
+    this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
+
     this.currentIndex = index;
     console.log("this.currentIndex", this.currentIndex);
 
