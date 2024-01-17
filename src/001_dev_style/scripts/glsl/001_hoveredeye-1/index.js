@@ -48,14 +48,6 @@ class ExtendObject extends CustomObject {
   style() {
     this.$.el.style.opacity = 1.0;
   }
-  // animateProgress(fromValue, toValue, duration, ease = "power2.inOut") {
-  //   this.uniforms.uProgress.value = fromValue;
-  //   this.timeline.to(this.uniforms.uProgress, {
-  //     value: toValue,
-  //     duration: duration,
-  //     ease: ease,
-  //   });
-  // }
 
   debug(toFolder) {
     toFolder
