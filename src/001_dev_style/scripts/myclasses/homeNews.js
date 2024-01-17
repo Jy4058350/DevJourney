@@ -79,6 +79,21 @@ class HomeNews {
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
+    this.removeSliderClasses();
+
+    this.setSliderTransform(index);
+    this.setSliderTransition(index);
+
+    this.fadeOut(this.currentIndex, this.isAutoSlide);
+    this.fadeIn(index, this.isAutoSlide);
+
+    this.currentIndex = index;
+    console.log("this.currentIndex", this.currentIndex);
+
+    this.dispatchSlideChangeEvent();
+  }
+
+  removeSliderClasses() {
     for (let i = 0; i < this.sliders.children.length; i++) {
       this.sliders.children[i].classList.remove(
         "fade-in",
@@ -87,32 +102,6 @@ class HomeNews {
         "hide"
       );
     }
-
-    this.setSliderTransform(index);
-    this.setSliderTransition(index);
-
-    this.fadeOut(this.currentIndex, this.isAutoSlide);
-    this.fadeIn(index, this.isAutoSlide);
-
-    // if (index === 0) {
-    //     this.sliders.style.transition = "none";
-    //   } else {
-    //     this.sliders.style.transition = "";
-    //   }
-
-    //   if (this.currentIndex === 5 && index === 1) {
-    //     this.sliders.style.transition = "none";
-    //     this.sliders.style.transform = `translateX(0%)`;
-    //     void this.sliders.offsetWidth;
-    //   }
-
-    //   this.sliders.style.transition = "";
-    //   this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
-
-    this.currentIndex = index;
-    console.log("this.currentIndex", this.currentIndex);
-
-    this.dispatchSlideChangeEvent();
   }
 
   setSliderTransform(index) {
@@ -148,8 +137,6 @@ class HomeNews {
       isAutoSlide ? 500 : 2500
     );
   }
-
-  
 
   seeBtn(index) {
     if (index === 1) {
