@@ -117,14 +117,14 @@ class HomeNews {
   }
 
   seeBtn(index) {
-    if (index === 0) {
+    if (index === 1) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
     } else {
       this.prevButton.disabled = false;
       this.prevButton.style.display = "block";
     }
-    if (index === this.numItems - 1) {
+    if (index === this.numItems - 2) {
       this.nextButton.disabled = true;
       this.nextButton.style.display = "none";
     } else {
