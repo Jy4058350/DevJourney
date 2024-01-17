@@ -63,6 +63,7 @@ class HomeNews {
     const intervalTime = 3000;
 
     this.autoSlideInterval = setInterval(() => {
+      this.isAutoSlide = true;
       this.updateIndex(1);
       this.updateSlider(this.currentIndex);
       this.seeBtn(this.currentIndex);
