@@ -91,6 +91,12 @@ class HomeNews {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
+    if (index === 0 || index === 5) {
+      this.sliders.style.transition = "none";
+    } else {
+      this.sliders.style.transition = "";
+    }
+
     this.currentIndex = index;
     console.log("this.currentIndex", this.currentIndex);
 
