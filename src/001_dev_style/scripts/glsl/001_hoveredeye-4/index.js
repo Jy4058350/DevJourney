@@ -20,10 +20,11 @@ class ExtendObject extends CustomObject {
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
       if (currentIndex === 4 || currentIndex === 0) {
-        this.fixGsap(currentIndex);
+        this.fixGsap();
       }
-      if (currentIndex === 5 || currentIndex === 1) {
-        this.uniforms.uProgress.value = 0;
+      if (currentIndex === 5 || currentIndex === 3 || currentIndex === 1) {
+        this.uniforms.uProgress.value = 1;
+        this.fixGsap2();
       }
     });
   }
@@ -40,11 +41,20 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap(index) {
+  fixGsap() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
       duration: 2,
+      ease: "power2.inOut",
+    });
+  }
+
+  fixGsap2() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
+      duration: 1,
       ease: "power2.inOut",
     });
   }

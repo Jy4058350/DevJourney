@@ -27,8 +27,9 @@ class ExtendObject extends CustomObject {
       if (currentIndex === 1 || currentIndex === 5) {
         this.fixGsap();
       }
-      if (currentIndex === 2 || currentIndex === 0) {
-        this.uniforms.uProgress.value = 0;
+      if (currentIndex === 4 || currentIndex === 2 || currentIndex === 0) {
+        this.uniforms.uProgress.value = 1;
+        this.fixGsap2();
       }
     });
   }
@@ -50,6 +51,15 @@ class ExtendObject extends CustomObject {
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
       duration: 2,
+      ease: "power2.inOut",
+    });
+  }
+
+  fixGsap2() {
+    this.uniforms.uProgress.value = 1;
+    this.timeline.to(this.uniforms.uProgress, {
+      value: 0,
+      duration: 1,
       ease: "power2.inOut",
     });
   }
