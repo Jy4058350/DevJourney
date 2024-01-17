@@ -25,14 +25,14 @@ class ExtendObject extends CustomObject {
       const currentIndex = event.detail; // 目的1のための数値
       this.uniforms.uProgress.value = 0;
       if (currentIndex === 1) {
-        this.fixGsap1_1();
+        this.animateProgress(0, 1, 2);
       }
       if (currentIndex === 4 || currentIndex === 2 || currentIndex === 0) {
         this.uniforms.uProgress.value = 1;
-        this.fixGsap1_2();
+        this.animateProgress(1, 0, 1);
       }
       if (currentIndex === 5) {
-        this.fixGsap1_3();
+        this.animateProgress(0, 1, 3);
       }
     });
   }
@@ -48,46 +48,42 @@ class ExtendObject extends CustomObject {
   style() {
     this.$.el.style.opacity = 1.0;
   }
-
-
 animateProgress(fromValue, toValue, duration, ease="power2.inOut") {
-  this.uniforms.uProgress.value = 0;
+  this.uniforms.uProgress.value = fromValue;
   this.timeline.to(this.uniforms.uProgress, {
-    value: 1,
-    duration: 2,
-    ease: "power2.inOut",
+    value: toValue,
+    duration: duration,
+    ease: ease,
   });
 }
+  // fixGsap1_1() {
+  //   this.uniforms.uProgress.value = 0;
+  //   this.timeline.to(this.uniforms.uProgress, {
+  //     value: 1,
+  //     duration: 2,
+  //     ease: "power2.inOut",
+  //   });
+  // }
 
-
-  fixGsap1_1() {
-    this.uniforms.uProgress.value = 0;
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1,
-      duration: 2,
-      ease: "power2.inOut",
-    });
-  }
-
-  fixGsap1_2() {
-    this.uniforms.uProgress.value = 1;
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 0,
-      duration: 1,
-      ease: "power2.inOut",
-    });
-  }
-  fixGsap1_3() {
-    this.uniforms.uProgress.value = 0;
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1,
-      duration: 3,
-      ease: "power2.inOut",
-      onComplete: () => {
-        this.uniforms.uProgress.value = 0;
-      },
-    });
-  }
+  // fixGsap1_2() {
+  //   this.uniforms.uProgress.value = 1;
+  //   this.timeline.to(this.uniforms.uProgress, {
+  //     value: 0,
+  //     duration: 1,
+  //     ease: "power2.inOut",
+  //   });
+  // }
+  // fixGsap1_3() {
+  //   this.uniforms.uProgress.value = 0;
+  //   this.timeline.to(this.uniforms.uProgress, {
+  //     value: 1,
+  //     duration: 3,
+  //     ease: "power2.inOut",
+  //     onComplete: () => {
+  //       this.uniforms.uProgress.value = 0;
+  //     },
+  //   });
+  // }
 
   debug(toFolder) {
     toFolder
