@@ -14,7 +14,6 @@ class HomeNews {
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
-
     this.initDOM(sliders, prevButton, nextButton);
   }
   initDOM(sliders, prevButton, nextButton) {
@@ -30,6 +29,10 @@ class HomeNews {
 
   updateIndex(increment) {
     this.currentIndex = (this.currentIndex + increment) % this.numItems;
+  }
+
+  getDispatchIndex() {
+    console.log("dispatchIndex");
   }
 
   start() {
