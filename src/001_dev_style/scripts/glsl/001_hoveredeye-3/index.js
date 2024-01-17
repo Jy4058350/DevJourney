@@ -18,15 +18,13 @@ class ExtendObject extends CustomObject {
     this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
       const currentIndex = event.detail; // 目的1のための数値
-      const otherIndices = [0, 1, 2, 3, 4, 5].filter((i) => i !== currentIndex); // 目的2のための数値
-      console.log("currentIndex", currentIndex);
-      this.uniforms.uIndex.value = currentIndex;
-      this.slideIndex = currentIndex;
-      this.fixGsap(currentIndex);
-
-      otherIndices.forEach((index) => {
-        // console.log("index", index);
-      });
+      this.uniforms.uProgress.value = 0;
+      if (currentIndex === 3) {
+        this.fixGsap();
+      }
+      if (currentIndex === 4) {
+        this.uniforms.uProgress.value = 0;
+      }
     });
   }
 
@@ -42,37 +40,19 @@ class ExtendObject extends CustomObject {
     this.$.el.style.opacity = 1.0;
   }
 
-  fixGsap(index) {
-    // console.log("this.slideIndex", this.slideIndex);
-    // console.log("index", index);
+  fixGsap() {
     this.uniforms.uProgress.value = 0;
     this.timeline.to(this.uniforms.uProgress, {
       value: 1,
       duration: 1,
       ease: "power2.inOut",
-      onUpdate: () => {
-        if (this.slideIndex !== index) {
-          // console.log("onUpdate");
-          this.uniforms.uProgress.value = 0;
-        }
-      },
-
-      onComplete: () => {
-        if (this.slideIndex === index) {
-          // console.log("onComplete");
-          this.uniforms.uProgress.value = 1;
-        }
-        if (this.slideIndex !== index) {
-          this.uniforms.uProgress.value = 0;
-        }
-      },
     });
   }
 
   debug(toFolder) {
     toFolder
       .add(this.uniforms.uIndex, "value", 0, 15, 1)
-      .name("uIndex")
+      .name("uIndex-2")
       .listen();
     toFolder
       .add(this.uniforms.uProgress, "value", 0, 1, 0.01)

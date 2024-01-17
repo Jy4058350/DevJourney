@@ -20,14 +20,6 @@ void main() {
     vec4 t2 = texture2D(tex2, uv);
     vec4 color = mix(t1, t2, uHover);
     // vec4 color = mix(t1, t2, step(.5, uv.x));
-
-    if(uIndex == 0.0) {
-        color.a = uProgress;
-        gl_FragColor = color;
-
-    } else {
-        color.a = 1.0 - uProgress;
-        gl_FragColor = color;
-    }
-
+    color.a = uProgress;
+    gl_FragColor = color;
 }

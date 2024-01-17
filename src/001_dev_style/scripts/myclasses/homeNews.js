@@ -93,6 +93,7 @@ class HomeNews {
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
 
     this.currentIndex = index;
+    console.log("this.currentIndex", this.currentIndex);
 
     this.dispatchSlideChangeEvent();
   }
