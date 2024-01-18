@@ -46,17 +46,31 @@
   overflow: hidden;
   color: #fff;
   background-size: cover;
+
   @include mq("md") {
     min-height: 450px;
     margin-top: 0;
     margin-bottom: 0;
+
+    min-height: calc(380px + var(--header-height) * 0);
+    min-height: calc(
+      380px + var(--header-height) * var(--header-is-transparent, 0)
+    );
+  }
+  @include mq("xl") {
+    min-height: calc(450px + var(--header-height) * 0);
+    min-height: calc(
+      450px + var(--header-height) * var(--header-is-transparent, 0)
+    );
   }
 }
 
 .PageHeader {
-  position: relative;
-  margin: 35px 0;
-  @include mq("md") {
-    margin: 50px 0;
-  }
+    position: relative;
+    margin: 35px 0;
+    @include mq("md") {
+      margin: 50px 0;
+    }
+    @include mq("xl") {
+    }
 }
