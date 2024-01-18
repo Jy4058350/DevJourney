@@ -2,7 +2,6 @@ import { iNode } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
 import FooterHandler from "./footer";
-import { head } from "lodash";
 
 const $ = {};
 
@@ -40,7 +39,9 @@ class DOMManuipulatorClass {
     if (this.isWideScreen) {
       // console.log("this.isWideScreen is true", this.isWideScreen);
       this.headerHandler.isWideToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(headerHeight);
+      if (this.fv) {
+        this.fvHandler.raiseFv(headerHeight);
+      }
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
     }
@@ -48,7 +49,9 @@ class DOMManuipulatorClass {
     if (!this.isWideScreen) {
       // console.log("this.isWideScreen is false", this.isWideScreen);
       this.headerHandler.isNarrowToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(headerHeight);
+      if (this.fv) {
+        this.fvHandler.raiseFv(headerHeight);
+      }
       iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
       iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
     }

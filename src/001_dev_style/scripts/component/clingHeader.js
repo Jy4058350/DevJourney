@@ -2,7 +2,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { iNode } from "../helper";
-import _, { head } from "lodash";
 import HeaderHandler from "../myclasses/header";
 
 const headerHandler = new HeaderHandler();
@@ -58,10 +57,11 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onEnter: () => {
+      console.log("onEnter");
       headerHandler.clingToStyleOnEnter();
-
     },
     onLeaveBack: () => {
+      console.log("onLeaveBack");
       headerHandler.clingToStyleOnLeaveBack();
     },
   });
