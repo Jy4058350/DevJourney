@@ -52,9 +52,9 @@ export default async function init({
         console.log("resize_headerHeight", height);
         headerHandler.setElHeight(height);
 
-        fvHandler.raiseFv(height);
-        const portHeight = newsViewport.getPort();
-        newsViewport.setViewPort(portHeight);
+        // fvHandler.raiseFv(height);
+        // const portHeight = newsViewport.getPort();
+        // newsViewport.setViewPort(portHeight);
       }, 200);
     },
   });

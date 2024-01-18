@@ -1,0 +1,10 @@
+.FlexboxFix {
+  display: flex;
+  flex-direction: row;
+}
+
+.PageHeader--large.PageHeader--withBackground {
+  min-height: calc(
+    520px + var(--header-height) * var(--header-is-transparent, 0)
+  );
+}
