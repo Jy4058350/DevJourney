@@ -88,7 +88,7 @@ class HomeNews {
     this.fadeIn(index, this.isAutoSlide);
 
     this.currentIndex = index;
-    console.log("this.currentIndex", this.currentIndex);
+    this.isAutoSlide = false;
 
     this.dispatchSlideChangeEvent();
   }
