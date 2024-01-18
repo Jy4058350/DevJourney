@@ -56,8 +56,9 @@ class ExtendObject extends CustomObject {
   fixUniforms() {
     const uniforms = super.fixUniforms();
     uniforms.uTest = { value: 1.0 };
-    uniforms.uRaito = { value: 0.1 };
-    uniforms.uProgress = { value: 0.0 };
+    uniforms.uRaito = { value: 0.3 };
+    // uniforms.uProgress = { value: 0.0 };
+    console.log(uniforms.uProgress);
     return uniforms;
   }
 

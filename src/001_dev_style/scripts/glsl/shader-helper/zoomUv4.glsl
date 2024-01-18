@@ -1,4 +1,4 @@
-vec2 zoomUv(vec2 vUv, vec4 resolution, float uProgress, float uTick, float uRaito) {
+vec2 zoomUv4(vec2 vUv, vec4 resolution, float uProgress, float uTick, float uRaito) {
 
     float rectWidth = resolution.x;
     float rectHeight = resolution.y;
@@ -18,6 +18,7 @@ vec2 zoomUv(vec2 vUv, vec4 resolution, float uProgress, float uTick, float uRait
     float time = uProgress * uRaito;
     // float time = uTick * 0.001;
     return (vUv - .5) * resolution.zw * (1.0 - time) + .5;
+    // return (vUv - .5) * resolution.zw * (1.0 - (1.0 * uRaito)) + .5;
 }
 
-#pragma glslify: export(zoomUv);
+#pragma glslify: export(zoomUv4);

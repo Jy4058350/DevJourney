@@ -10,17 +10,18 @@ uniform float uTick;
 uniform float uRaito;
 
 #pragma glslify: coverUv = require(../shader-helper/coverUv);
+
 #pragma glslify: zoomUv4 = require(../shader-helper/zoomUv4);
 
 void main() {
 
-    
     vec2 uv = coverUv(vUv, uResolution, uTest);
 
-    
-    vec2 zoomedUv2 = zoomUv4(uv, uResolution, uProgress, uTick, uRaito);
 
-    vec4 t1 = texture2D(tex1, zoomedUv2);
+    vec2 zoomedUv4 = zoomUv4(uv, uResolution, uProgress, uTick, uRaito);
+
+    vec4 t1 = texture2D(tex1, zoomedUv4);
 
     gl_FragColor = t1;
+
 }

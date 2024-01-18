@@ -156,6 +156,7 @@ class ExtendObject extends CustomObject {
     uniforms.uIndex = { value: 0.0 };
     uniforms.uRaito = { value: 0.1 };
     uniforms.uTest = { value: 1.0 };
+    // console.log(uniforms.uProgress);
     return uniforms;
   }
 

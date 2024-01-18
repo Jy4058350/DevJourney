@@ -64,7 +64,6 @@ class CustomObject {
       this.uniforms = this.fixTexes(this.uniforms);
       this.uniforms = this.setupResolution(this.uniforms);
       this.gsap = this.fixGsap();
-      this.gsap = this.animateProgress();
       this.vertexShader = this.fixVertex();
       this.fragmentShader = this.fixFragment();
       this.geometry = this.fixGeometry();
@@ -124,7 +123,7 @@ class CustomObject {
   }
 
   style() {
-    this.$.el.style.opacity = 0.0;
+    this.$.el.style.opacity = 1.0;
   }
 
   fixTexes(u) {
@@ -165,7 +164,7 @@ class CustomObject {
     // return {};
   }
 
-  animateProgress(fromValue, toValue, duration, ease = "power2.inOut") {
+  animateProgress(fromValue = 0, toValue = 1, duration, ease = "power2.inOut") {
     this.uniforms.uProgress.value = fromValue;
     this.timeline.to(this.uniforms.uProgress, {
       value: toValue,

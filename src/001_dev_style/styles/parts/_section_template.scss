@@ -27,8 +27,6 @@
 .home-panel {
   position: relative;
 
-  
-
   &:hover .home-panel-heading::after {
     transform: scaleX(1);
     transform-origin: left;
@@ -46,6 +44,7 @@
     width: 100%;
     aspect-ratio: 4/5;
     object-fit: cover;
+    opacity: 0;
   }
 
   .home-panel-heading {
