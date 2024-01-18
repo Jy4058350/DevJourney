@@ -123,7 +123,7 @@ class CustomObject {
   }
 
   style() {
-    this.$.el.style.opacity = 1.0;
+    this.$.el.style.opacity = 0.0;
   }
 
   fixTexes(u) {
