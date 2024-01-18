@@ -37,7 +37,7 @@ class DOMManuipulatorClass {
     // console.log("updateStyle_headerHeight", headerHeight);
     this.headerHandler.setElHeight(headerHeight);
     if (this.isWideScreen) {
-      // console.log("this.isWideScreen is true", this.isWideScreen);
+      console.log("this.isWideScreen is true", this.isWideScreen);
       this.headerHandler.isWideToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
@@ -47,7 +47,7 @@ class DOMManuipulatorClass {
     }
 
     if (!this.isWideScreen) {
-      // console.log("this.isWideScreen is false", this.isWideScreen);
+      console.log("this.isWideScreen is false", this.isWideScreen);
       this.headerHandler.isNarrowToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
