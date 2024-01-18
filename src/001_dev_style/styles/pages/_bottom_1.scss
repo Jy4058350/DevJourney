@@ -9,26 +9,29 @@
 // this shoud be used in js for variables
 // this should be used in js for media queries
 .PageHeader--large.PageHeader--withBackground {
+  @include mq("md") {
+    min-height: 480px;
+  }
+}
+.PageHeader--large.PageHeader--withBackground {
   @include mq("xl") {
     min-height: 620px;
   }
 }
 
 .PageHeader--large.PageHeader--withBackground {
-    @include mq("md") {
-        // min-height: calc(410px + var(--header-height) * 0);
-        // min-height: calc(
-            //   410px + var(--header-height) * var(--header-is-transparent, 0)
-            // );
-            min-height: 520px;
-        }
-        @include mq("xl") {
-          // min-height: calc(520px + var(--header-height) * 0);
-          // min-height: calc(
-          //   520px + var(--header-height) * var(--header-is-transparent, 0)
-          // );
-          min-height: 630px;
-        }
+  @include mq("md") {
+    min-height: calc(410px + var(--header-height) * 0);
+    min-height: calc(
+      410px + var(--header-height) * var(--header-is-transparent, 0)
+    );
+  }
+  @include mq("xl") {
+    min-height: calc(520px + var(--header-height) * 0);
+    min-height: calc(
+      520px + var(--header-height) * var(--header-is-transparent, 0)
+    );
+  }
 }
 
 // this should be used in js for media queries
