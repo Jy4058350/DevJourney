@@ -1,10 +1,59 @@
+@use "../globals" as *;
+
 .FlexboxFix {
   display: flex;
   flex-direction: row;
 }
 
+// var is not supported in scss
+// this shoud be used in js for variables
+// this should be used in js for media queries
 .PageHeader--large.PageHeader--withBackground {
-  min-height: calc(
-    520px + var(--header-height) * var(--header-is-transparent, 0)
-  );
+  @include mq("xl") {
+    min-height: 620px;
+  }
+}
+
+.PageHeader--large.PageHeader--withBackground {
+    @include mq("md") {
+        // min-height: calc(410px + var(--header-height) * 0);
+        // min-height: calc(
+            //   410px + var(--header-height) * var(--header-is-transparent, 0)
+            // );
+            min-height: 520px;
+        }
+        @include mq("xl") {
+          // min-height: calc(520px + var(--header-height) * 0);
+          // min-height: calc(
+          //   520px + var(--header-height) * var(--header-is-transparent, 0)
+          // );
+          min-height: 630px;
+        }
+}
+
+// this should be used in js for media queries
+.PageHeader--withBackground {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 450px;
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+  background-size: cover;
+  @include mq("md") {
+    min-height: 450px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.PageHeader {
+  position: relative;
+  margin: 35px 0;
+  @include mq("md") {
+    margin: 50px 0;
+  }
 }
