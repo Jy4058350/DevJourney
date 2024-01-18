@@ -58,4 +58,9 @@ export default async function init({
       }, 200);
     },
   });
+
+  // test code for bottom_1.scss
+
+  const el = iNode.qs(".PageHeader__ImageWrapper");
+  el.style.backgroundImage = "url(/img/1.jpeg)";
 }

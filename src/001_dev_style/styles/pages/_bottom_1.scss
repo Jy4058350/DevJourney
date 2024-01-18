@@ -66,11 +66,31 @@
 }
 
 .PageHeader {
-    position: relative;
-    margin: 35px 0;
-    @include mq("md") {
-      margin: 50px 0;
-    }
-    @include mq("xl") {
-    }
+  position: relative;
+  margin: 35px 0;
+  @include mq("md") {
+    margin: 50px 0;
+  }
+  @include mq("xl") {
+  }
+}
+
+.PageHeader__ImageWrapper {
+  top: 0px;
+  top: calc(
+    -1 * var(--announcement-bar-height, 0px) - var(--header-height, 0px) * var(--use-unsticky-header, 0)
+  );
+  height: calc(100% + 0px);
+  height: calc(
+    100% + var(--announcement-bar-height, 0px) + var(--header-height, 0px) *
+      var(--use-unsticky-header, 0)
+  );
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
 }
