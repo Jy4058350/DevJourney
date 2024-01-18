@@ -16,6 +16,7 @@ class ExtendObject extends CustomObject {
 
   style() {
     this.$.el.style.opacity = 1.0;
+    console.log("this.uniforms.uProgress", this.uniforms.uProgress);
   }
 }
 

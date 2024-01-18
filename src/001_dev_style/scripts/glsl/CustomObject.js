@@ -64,7 +64,7 @@ class CustomObject {
       this.uniforms = this.fixTexes(this.uniforms);
       this.uniforms = this.setupResolution(this.uniforms);
       this.gsap = this.fixGsap();
-      this.gsap = this.animateProgress();
+      // this.gsap = this.animateProgress();
       this.vertexShader = this.fixVertex();
       this.fragmentShader = this.fixFragment();
       this.geometry = this.fixGeometry();
@@ -124,7 +124,7 @@ class CustomObject {
   }
 
   style() {
-    this.$.el.style.opacity = 0.0;
+    this.$.el.style.opacity = 1.0;
   }
 
   fixTexes(u) {
