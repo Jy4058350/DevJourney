@@ -22,8 +22,8 @@ class ExtendObject extends CustomObject {
       if (currentIndex === 2) {
         this.animateProgress(0, 1, 2);
       }
-      // if (currentIndex === 3) {
-      if (currentIndex === 3 || currentIndex === 1) {
+      if (currentIndex === 3) {
+      // if (currentIndex === 3 || currentIndex === 1) {
         this.uniforms.uProgress.value = 1;
         this.animateProgress(1, 0, 1);
       }

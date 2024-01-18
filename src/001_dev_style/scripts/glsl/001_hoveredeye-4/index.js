@@ -24,8 +24,8 @@ class ExtendObject extends CustomObject {
       }
       if (currentIndex === 3) {
         // if (currentIndex === 3 || currentIndex === 1) {
-        this.uniforms.uProgress.value = 1;
-        this.animateProgress(1, 0, 1);
+        // this.uniforms.uProgress.value = 1;
+        // this.animateProgress(1, 0, 1);
       }
 
       if (currentIndex === 5) {
@@ -33,7 +33,7 @@ class ExtendObject extends CustomObject {
       }
 
       if (currentIndex === 1) {
-        this.animateProgress(1, 0, 1);
+        // this.animateProgress(1, 0, 1);
         this.uniforms.uProgress.value = 0;
       }
     });
@@ -49,33 +49,6 @@ class ExtendObject extends CustomObject {
 
   style() {
     this.$.el.style.opacity = 1.0;
-  }
-
-  fixGsap4_3() {
-    this.uniforms.uProgress.value = 1;
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 0,
-      duration: 1,
-      // duration: 1,
-      ease: "power2.inOut",
-      // onComplete: () => {
-      //   console.log("fixGsap4_3");
-      //   this.fixGsap4_4();
-      // },
-    });
-  }
-
-  fixGsap4_4() {
-    this.uniforms.uProgress.value = 1;
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 0,
-      duration: 1,
-      ease: "power2.inOut",
-      onComplete: () => {
-        // this.uniforms.uProgress.value = 0;
-        console.log("onComplete");
-      },
-    });
   }
 
   debug(toFolder) {
