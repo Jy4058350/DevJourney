@@ -56,6 +56,20 @@
     min-height: calc(
       380px + var(--header-height) * var(--header-is-transparent, 0)
     );
+
+    & .SectionHeader.SectionHeader--center {
+      position: relative;
+      padding: 60px 0 80px;
+    }
+
+    & .SectionHeader.SectionHeader--center {
+      padding: 40px 0;
+      margin-top: 50px;
+    }
+
+    & .SectionHeader.SectionHeader--center {
+      margin-top: calc(var(--header-height) * 0);
+    }
   }
   // --header-is-transparent
   @include mq("xl") {
@@ -63,6 +77,11 @@
       450px + var(--header-height) * var(--header-is-transparent, 0)
     );
     min-height: calc(450px + var(--header-height) * 1);
+  }
+
+  & .Heading {
+    color: $color-white;
+    text-decoration-color: $color-white;
   }
 }
 
@@ -73,6 +92,12 @@
     margin: 50px 0;
   }
   @include mq("xl") {
+  }
+
+  & .SectionHeader__Description {
+    @include mq("md") {
+      margin-top: 24px;
+    }
   }
 }
 
@@ -127,4 +152,84 @@
 
 .Image--lazyLoaded.Image--fadeIn {
   opacity: 1;
+}
+
+.Container {
+  padding: 0 24px;
+  margin: 0 auto;
+
+  @include mq("md") {
+    padding: 0 50px;
+  }
+  @include mq("xl") {
+    padding: 0 80px;
+  }
+}
+
+.SectionHeader--center {
+  text-align: center;
+
+  & .SectionHeader__Description {
+    margin: auto;
+    margin-left: auto;
+  }
+}
+
+.PageHeader {
+  & .SectionHeader__Heading {
+    margin-top: 0 !important;
+  }
+  & .SectionHeader__Description {
+    margin-top: 0;
+  }
+}
+
+.SectionHeader .SectionHeader__Heading {
+  margin-top: 0.325em;
+}
+
+.features--heading-normal {
+  & .u-h1 {
+    font-size: 22px;
+
+    @include mq("md") {
+      font-size: 22px;
+    }
+  }
+}
+
+.features--heading-uppercase {
+  & .u-h1 {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  & .Heading {
+    font-family: $heading-font-family;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease-in-out;
+  }
+}
+
+.SectionHeader__Description {
+  max-width: 530px;
+}
+
+.Rte {
+  word-break: break-word;
+
+  & img {
+    height: 100px;
+
+    margin-top: 2.4em;
+    margin-bottom: 2.4em;
+
+    @include mq("md") {
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+
+    display: block;
+    margin: 0 auto;
+  }
 }

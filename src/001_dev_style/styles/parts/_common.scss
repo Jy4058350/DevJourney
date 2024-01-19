@@ -51,7 +51,8 @@ html {
 }
 
 body {
-  // @include body-style;
+  font-family: $textsub-font-family;
+  font-family: $text-font-family;
   overflow: hidden;
 }
 
