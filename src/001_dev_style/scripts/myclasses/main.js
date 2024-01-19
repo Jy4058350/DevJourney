@@ -2,7 +2,6 @@ import { iNode } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
 import FooterHandler from "./footer";
-import { head } from "lodash";
 
 const $ = {};
 
@@ -35,22 +34,31 @@ class DOMManuipulatorClass {
   updateStyle() {
     // console.log("this.isWideScreen", this.isWideScreen);
     const headerHeight = this.headerHandler.getHeaderHeight();
+    console.log("headerHeight", headerHeight);
     // console.log("updateStyle_headerHeight", headerHeight);
     this.headerHandler.setElHeight(headerHeight);
     if (this.isWideScreen) {
-      // console.log("this.isWideScreen is true", this.isWideScreen);
+      console.log("this.isWideScreen is true", this.isWideScreen);
       this.headerHandler.isWideToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(headerHeight);
+      if (this.fv) {
+        this.fvHandler.raiseFv(headerHeight);
+      }
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
+      iNode.setCssProp("--header-height", 145, this.header);
+      console.log("this.header-height", this.header); 
+      
     }
 
     if (!this.isWideScreen) {
-      // console.log("this.isWideScreen is false", this.isWideScreen);
+      console.log("this.isWideScreen is false", this.isWideScreen);
       this.headerHandler.isNarrowToggler(this.isWideScreen);
-      this.fvHandler.raiseFv(headerHeight);
+      if (this.fv) {
+        this.fvHandler.raiseFv(headerHeight);
+      }
       iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
       iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
+      iNode.setCssProp("--header-height", 68, this.header);
     }
   }
 

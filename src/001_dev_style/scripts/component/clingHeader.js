@@ -2,7 +2,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { iNode } from "../helper";
-import _, { head } from "lodash";
 import HeaderHandler from "../myclasses/header";
 
 const headerHandler = new HeaderHandler();
@@ -27,13 +26,17 @@ function init() {
 }
 
 function _scrollTriggerEnd() {
-  const fvfooterHeight = sumHeight($.fv, $.footer);
+  const fvfooterHeight = sumFvFooterHeight($.fv, $.footer);
   // console.log("fvfooterHeight", fvfooterHeight);
   const customHegiht = sumHeight($.sectionTemplate, $.homeNews);
 
   const scrollTriggerEnd = fvfooterHeight + customHegiht;
   // console.log("scrollTriggerEnd", scrollTriggerEnd);
   return scrollTriggerEnd;
+}
+
+function sumFvFooterHeight(a, b) {
+  return (a?.offsetHeight || 0) + (b?.offsetHeight || 0);
 }
 
 function sumHeight(a, b) {
@@ -58,10 +61,11 @@ function _clingTo() {
     pin: true,
     pinSpacing: false,
     onEnter: () => {
+      // console.log("onEnter");
       headerHandler.clingToStyleOnEnter();
-
     },
     onLeaveBack: () => {
+      console.log("onLeaveBack");
       headerHandler.clingToStyleOnLeaveBack();
     },
   });

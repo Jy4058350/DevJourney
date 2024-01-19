@@ -105,7 +105,9 @@ async function handleResize() {
       Header,
       "Header element is not found"
     );
-    iNode.setCssProp("--fv-top", nextheaderHeight, fv);
+    if (fv) {
+      iNode.setCssProp("--fv-top", nextheaderHeight, fv);
+    }
     iNode.toggleClass(headerNav, "Header__MainNav--open", false);
     iNode.toggleClass(headerMainNav, "Header__MainNav--open", false);
     await iNode.setStyles(Header, { height: "68px", maxHeight: "68px" });

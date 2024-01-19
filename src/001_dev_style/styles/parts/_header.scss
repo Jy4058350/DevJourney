@@ -1,8 +1,8 @@
 @use "../globals" as *;
-@use "sass:math";
 @use "font" as *;
 
 #header {
+  height: var(--header-height);
   opacity: 1;
 
   @include header-style;

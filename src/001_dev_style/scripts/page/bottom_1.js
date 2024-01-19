@@ -1,9 +1,7 @@
-import { iNode } from "../helper";
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
-import Viewport from "../myclasses/viewport";
-import FvHandler from "../myclasses/fv";
-import HomeNews from "../myclasses/homeNews";
+
+import { iNode } from "../helper";
 
 export default async function init({
   world,
@@ -18,8 +16,6 @@ export default async function init({
   menu,
   cling,
 }) {
-
-  
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
@@ -29,21 +25,16 @@ export default async function init({
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
 
-
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const fvHandler = new FvHandler(fv);
-  const newsViewport = new Viewport(rotationViewPort, referenceView);
-  const homeNews = new HomeNews(sliders, prevButton, nextButton);
 
   domManuipulator.init();
-  homeNews.start();
- 
-  domManuipulator.updateStyle();
+
   const headerHeight = headerHandler.getHeaderHeight();
+
   domManuipulator.updateStyle(headerHeight);
-  const portHeight = newsViewport.getPort();
-  newsViewport.setViewPort(portHeight);
+  // const portHeight = newsViewport.getPort();
+  // newsViewport.setViewPort(portHeight);
 
   let resizeTimer;
 
@@ -61,22 +52,24 @@ export default async function init({
         console.log("resize_headerHeight", height);
         headerHandler.setElHeight(height);
 
-        fvHandler.raiseFv(height);
-        const portHeight = newsViewport.getPort();
-        newsViewport.setViewPort(portHeight);
+        // fvHandler.raiseFv(height);
+        // const portHeight = newsViewport.getPort();
+        // newsViewport.setViewPort(portHeight);
       }, 200);
     },
   });
 
+  // test code for bottom_1.scss
 
-  // elementPos.init();
-  // elementPos.resizeHeaderPos();
-  // elementPos.resizingFooterPos();
-  // elementPosHome.wideRangeGoblin();
+  const el = iNode.qs(".PageHeader");
+  el.style.background = "url(/img/3.png)";
+  // el.style.transform = "translate3d(0px, 0px, 0px)";
 
-  // await elementPosHome.getHomeNewsHeight();
-  // await elementPosHome.setRotationViewportHeight();
+  const el2 = iNode.qs(".PageHeader__ImageWrapper");
+  el2.style.backgroundImage = "url(/img/1.jpeg)";
+  el2.style.transform = "translate3d(0px, 0px, 0px)";
 
-  // homeNews.init();
-  // homeNews.initEventListenres();
+  const el3 = iNode.qs(".Rte");
+  const childEl = el3.children[1];
+  childEl.style.textAlign = "center";
 }
