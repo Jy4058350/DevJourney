@@ -27,10 +27,10 @@
     );
   }
   @include mq("xl") {
-    min-height: calc(520px + var(--header-height) * 0);
     min-height: calc(
       520px + var(--header-height) * var(--header-is-transparent, 0)
     );
+    min-height: calc(520px + var(--header-height) * 0);
   }
 }
 
@@ -57,11 +57,12 @@
       380px + var(--header-height) * var(--header-is-transparent, 0)
     );
   }
+  // --header-is-transparent
   @include mq("xl") {
-    min-height: calc(450px + var(--header-height) * 0);
     min-height: calc(
       450px + var(--header-height) * var(--header-is-transparent, 0)
     );
+    min-height: calc(450px + var(--header-height) * 1);
   }
 }
 
