@@ -11,3 +11,26 @@ $root-font-size: 16px;
 $heading-font-family: "Archivo Narrow", sans-serif;
 $text-font-family: "Archivo Narrow", sans-serif;
 $textsub-font-family: "Noto Serif JP", serif;
+
+:root {
+  /* fonts */
+  --font-istok-web: "Istok Web";
+
+  /* font sizes */
+  --font-size-xs: 12px;
+  --font-size-mini: 15px;
+  --font-size-smi: 13px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-gainsboro-100: #d9d9d9;
+  --color-gray-100: #7e7e7e;
+  --color-gray-200: #2e2e2e;
+  --color-green-100: #028a34;
+  --color-black: #000;
+
+  /* border radiuses */
+  --br-8xs: 5px;
+
+  --header-height: 945px;
+}
