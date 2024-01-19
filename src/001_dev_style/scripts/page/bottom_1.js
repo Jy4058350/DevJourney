@@ -61,7 +61,14 @@ export default async function init({
 
   // test code for bottom_1.scss
 
-  const el = iNode.qs(".PageHeader__ImageWrapper");
-  el.style.backgroundImage = "url(/img/1.jpeg)";
-  el.style.transform = "translate3d(0px, 0px, 0px)";
+  const el = iNode.qs(".PageHeader");
+  el.style.background = "url(/img/3.png)";
+  // el.style.transform = "translate3d(0px, 0px, 0px)";
+
+
+  const el2 = iNode.qs(".PageHeader__ImageWrapper");
+  el2.style.backgroundImage = "url(/img/1.jpeg)";
+  el2.style.transform = "translate3d(0px, 0px, 0px)";
+
+ 
 }
