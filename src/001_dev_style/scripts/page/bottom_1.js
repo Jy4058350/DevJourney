@@ -69,11 +69,8 @@ export default async function init({
     const childEl = el3.children[1];
     childEl.style.textAlign = "center";
 
-    const target = iNode.qs(".Image--contrast");
-    console.log("initialY", initialY);
-    const a = (target.style.transform = `translate3d(0px, ${initialY}px, 0px)`);
-    console.log("target", target);
-    console.log("a", a);
+    const el4 = iNode.qs(".Image--contrast");
+    el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
 
     const options = {
       damping: 0.1,
@@ -93,7 +90,8 @@ export default async function init({
       const newY = offset.y / 2;
       console.log("newY", newY);
 
-      target.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+      // el.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+      el4.style.transform = `translate3d(0px, ${newY}px, 0px)`;
     });
   })();
 }
