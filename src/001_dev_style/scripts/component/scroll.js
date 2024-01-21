@@ -56,7 +56,8 @@ function initScroller() {
     scroller: pageContainer,
   });
 
-  const el = document.querySelector("[data-webgl]");
+  // const el = document.querySelector("[data-webgl]");
+  return scrollBar;
 }
 
 // disable scrollbar plugin description

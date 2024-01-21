@@ -1,6 +1,8 @@
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 
+import { scroll } from "../component/scroll";
+
 import { iNode } from "../helper";
 
 export default async function init({
@@ -73,3 +75,5 @@ export default async function init({
   const childEl = el3.children[1];
   childEl.style.textAlign = "center";
 }
+const o = scroll.initScroller();
+console.log("o", o);
