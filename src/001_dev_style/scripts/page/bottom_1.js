@@ -46,10 +46,10 @@ export default async function init({
         let height = 0;
         domManuipulator.init();
         const headerHeight = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", headerHeight);
+        // console.log("resize_headerHeight", headerHeight);
         domManuipulator.updateStyle(headerHeight);
         height = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", height);
+        // console.log("resize_headerHeight", height);
         headerHandler.setElHeight(height);
 
         // fvHandler.raiseFv(height);
