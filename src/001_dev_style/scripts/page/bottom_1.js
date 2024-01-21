@@ -1,7 +1,6 @@
+import Scrollbar from "smooth-scrollbar"; //import with named import
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
-
-import { scroll } from "../component/scroll";
 
 import { iNode } from "../helper";
 
@@ -48,32 +47,53 @@ export default async function init({
         let height = 0;
         domManuipulator.init();
         const headerHeight = headerHandler.getHeaderHeight();
-        // console.log("resize_headerHeight", headerHeight);
         domManuipulator.updateStyle(headerHeight);
         height = headerHandler.getHeaderHeight();
-        // console.log("resize_headerHeight", height);
         headerHandler.setElHeight(height);
-
-        // fvHandler.raiseFv(height);
-        // const portHeight = newsViewport.getPort();
-        // newsViewport.setViewPort(portHeight);
       }, 200);
     },
   });
 
   // test code for bottom_1.scss
 
-  const el = iNode.qs(".PageHeader");
-  el.style.background = "url(/img/3.png)";
-  // el.style.transform = "translate3d(0px, 0px, 0px)";
+  (function () {
+    let initialY;
+    window.onload = function () {
+      const initialY = window.scrollY / 0.5;
+    };
+    const el = iNode.qs(".PageHeader");
+    el.style.background = "url(/img/3.png)";
+    const el2 = iNode.qs(".PageHeader__ImageWrapper");
+    el2.style.backgroundImage = "url(/img/1.jpeg)";
+    const el3 = iNode.qs(".Rte");
+    const childEl = el3.children[1];
+    childEl.style.textAlign = "center";
 
-  const el2 = iNode.qs(".PageHeader__ImageWrapper");
-  el2.style.backgroundImage = "url(/img/1.jpeg)";
-  el2.style.transform = "translate3d(0px, 0px, 0px)";
+    const target = iNode.qs(".Image--contrast");
+    console.log("initialY", initialY);
+    const a = (target.style.transform = `translate3d(0px, ${initialY}px, 0px)`);
+    console.log("target", target);
+    console.log("a", a);
 
-  const el3 = iNode.qs(".Rte");
-  const childEl = el3.children[1];
-  childEl.style.textAlign = "center";
+    const options = {
+      damping: 0.1,
+      // delegateTo: document,
+      renderByPixels: true,
+      alwaysShowTracks: false,
+      continuousScrolling: true,
+      overFlowBehavior: {
+        // x: "hidden",
+        y: "scroll",
+      },
+    };
+
+    const scrollBar = Scrollbar.init(pageContainer, options);
+    scrollBar.addListener(({ offset }) => {
+      console.log("is scrolling", offset.y);
+      const newY = offset.y / 2;
+      console.log("newY", newY);
+
+      target.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+    });
+  })();
 }
-const o = scroll.initScroller();
-console.log("o", o);
