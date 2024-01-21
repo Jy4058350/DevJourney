@@ -61,15 +61,18 @@ export default async function init({
     window.onload = function () {
       const initialY = window.scrollY / 0.5;
     };
-    const el = iNode.qs(".PageHeader");
+
+    const el = iNode.getElement(".PageHeader");
     el.style.background = "url(/img/3.png)";
-    const el2 = iNode.qs(".PageHeader__ImageWrapper");
+
+    const el2 = iNode.getElement(".PageHeader__ImageWrapper");
     el2.style.backgroundImage = "url(/img/1.jpeg)";
-    const el3 = iNode.qs(".Rte");
+
+    const el3 = iNode.getElement(".Rte");
     const childEl = el3.children[1];
     childEl.style.textAlign = "center";
 
-    const el4 = iNode.qs(".Image--contrast");
+    const el4 = iNode.getElement(".Image--contrast");
     el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
 
     const options = {
