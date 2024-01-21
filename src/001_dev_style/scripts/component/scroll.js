@@ -33,6 +33,7 @@ function initScroller() {
   scrollBar.addListener(({ offset }) => {
     const boundedOffset = Math.max(0, Math.min(offset.y, 100));
     scrollBar.setPosition(boundedOffset);
+    // console.log("is scrolling", offset.y);
   });
 
   scroll.scrollBar = scrollBar;
@@ -55,7 +56,8 @@ function initScroller() {
     scroller: pageContainer,
   });
 
-  const el = document.querySelector("[data-webgl]");
+  // const el = document.querySelector("[data-webgl]");
+  return scrollBar;
 }
 
 // disable scrollbar plugin description

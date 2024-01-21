@@ -34,6 +34,22 @@
   }
 }
 
+.PageHeader {
+  position: relative;
+  margin: 35px 0;
+  @include mq("md") {
+    margin: 50px 0;
+  }
+  @include mq("xl") {
+  }
+
+  & .SectionHeader__Description {
+    @include mq("md") {
+      margin-top: 24px;
+    }
+  }
+}
+
 // this should be used in js for media queries
 .PageHeader--withBackground {
   display: flex;
@@ -82,22 +98,6 @@
   & .Heading {
     color: $color-white;
     text-decoration-color: $color-white;
-  }
-}
-
-.PageHeader {
-  position: relative;
-  margin: 35px 0;
-  @include mq("md") {
-    margin: 50px 0;
-  }
-  @include mq("xl") {
-  }
-
-  & .SectionHeader__Description {
-    @include mq("md") {
-      margin-top: 24px;
-    }
   }
 }
 

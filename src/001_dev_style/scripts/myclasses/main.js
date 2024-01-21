@@ -34,11 +34,11 @@ class DOMManuipulatorClass {
   updateStyle() {
     // console.log("this.isWideScreen", this.isWideScreen);
     const headerHeight = this.headerHandler.getHeaderHeight();
-    console.log("headerHeight", headerHeight);
+    // console.log("headerHeight", headerHeight);
     // console.log("updateStyle_headerHeight", headerHeight);
     this.headerHandler.setElHeight(headerHeight);
     if (this.isWideScreen) {
-      console.log("this.isWideScreen is true", this.isWideScreen);
+      // console.log("this.isWideScreen is true", this.isWideScreen);
       this.headerHandler.isWideToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
@@ -46,12 +46,11 @@ class DOMManuipulatorClass {
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setCssProp("--header-height", 145, this.header);
-      console.log("this.header-height", this.header); 
-      
+      console.log("this.header-height", this.header);
     }
 
     if (!this.isWideScreen) {
-      console.log("this.isWideScreen is false", this.isWideScreen);
+      // console.log("this.isWideScreen is false", this.isWideScreen);
       this.headerHandler.isNarrowToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);

@@ -70,11 +70,11 @@ class HeaderHandler {
   getHeaderHeight() {
     const header = iNode.qs("#header");
     const height = header.offsetHeight;
-    console.log("height", height);
+    // console.log("height", height);
 
     iNode.setCssProp("--header-height", height, this.header);
 
-    console.log("this.header", this.header);
+    // console.log("this.header", this.header);
     return height;
   }
 
