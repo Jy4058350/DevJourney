@@ -3,6 +3,7 @@ import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 
 import { iNode } from "../helper";
+import { add } from "lodash";
 
 export default async function init({
   world,
@@ -56,10 +57,10 @@ export default async function init({
 
   // test code for bottom_1.scss
 
-  (function () {
+  (function (addScrollBarListener) {
     let initialY;
     window.onload = function () {
-      const initialY = window.scrollY / 0.5;
+      initialY = window.scrollY / 0.5;
     };
 
     const el = iNode.getElement(".PageHeader");
@@ -73,7 +74,6 @@ export default async function init({
     childEl.style.textAlign = "center";
 
     const el4 = iNode.getElement(".Image--contrast");
-    el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
 
     const options = {
       damping: 0.1,
@@ -88,13 +88,13 @@ export default async function init({
     };
 
     const scrollBar = Scrollbar.init(pageContainer, options);
+    addScrollBarListener(scrollBar, el4, initialY);
+  })(function (scrollBar, el4, initialY) {
     scrollBar.addListener(({ offset }) => {
       console.log("is scrolling", offset.y);
       const newY = offset.y / 2;
-      console.log("newY", newY);
-
-      // el.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+      el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
       el4.style.transform = `translate3d(0px, ${newY}px, 0px)`;
     });
-  })();
+  });
 }
