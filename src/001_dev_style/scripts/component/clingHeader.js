@@ -19,28 +19,25 @@ function init() {
   $.fv = iNode.qs(".fv");
   $.sectionTemplate = iNode.qs(".section--home-panels");
   $.homeNews = iNode.qs(".home-news");
-  getChildEls(main, footer);
 }
 
-function getChildEls(el, footer) {
+function getChildEls(el) {
   const children = el.children;
   const childArray = Array.from(children);
-  console.log("childArray", childArray);
-  const c1 = childArray[0].offsetHeight;
-  const c2 = childArray[1].offsetHeight;
-  const c3 = childArray[2].offsetHeight;
+  console.log("getChildArray", childArray);
 
-  console.log("c1+c2+c3", c1 + c2 + c3 + footer.offsetHeight);
   return childArray;
 }
 
-function _scrollTriggerEnd(footer, main) {
-  console.log("main", main);
-  const fv = main.querySelector(".fv");
-  const sectionTemplate = main.querySelector(".section--home-panels");
-  const homeNews = main.querySelector(".home-news");
+function _scrollTriggerEnd(main, footer) {
+  const ChildEls = getChildEls(main);
+  console.log("mainChildEls", ChildEls);
+  const ch1 = ChildEls[0];
+  const ch2 = ChildEls[1];
+  const ch3 = ChildEls[2];
 
-  const scrollTriggerEnd = sumELsHeight(footer, fv, sectionTemplate, homeNews);
+  const scrollTriggerEnd = sumELsHeight(footer, ch1, ch2, ch3);
+  console.log("scrollTriggerEnd", scrollTriggerEnd);
   return scrollTriggerEnd;
 }
 
@@ -51,7 +48,7 @@ function sumELsHeight(...els) {
 }
 
 function clingTo(header, footer) {
-  const height = _scrollTriggerEnd(footer, main);
+  const height = _scrollTriggerEnd(main, footer);
   gsap.registerPlugin(ScrollTrigger);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
