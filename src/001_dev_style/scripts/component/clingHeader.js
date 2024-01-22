@@ -32,16 +32,9 @@ function _scrollTriggerEnd(footer) {
 }
 
 function sumELsHeight(...els) {
-  return els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
+  const a = els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
+  return a;
 }
-// function sumELsHeight(a, b, c, d) {
-//   return (
-//     (a?.offsetHeight || 0) +
-//     (b?.offsetHeight || 0) +
-//     (c?.offsetHeight || 0) +
-//     (d?.offsetHeight || 0)
-//   );
-// }
 
 function clingTo(header, footer) {
   const height = _scrollTriggerEnd(footer);
