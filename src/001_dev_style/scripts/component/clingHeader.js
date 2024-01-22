@@ -21,13 +21,13 @@ function init() {
   $.homeNews = iNode.qs(".home-news");
 }
 
-function _scrollTriggerEnd(footer) {
-  const scrollTriggerEnd = sumELsHeight(
-    footer,
-    $.fv,
-    $.sectionTemplate,
-    $.homeNews
-  );
+function _scrollTriggerEnd(footer, main) {
+  console.log("main", main);
+  const fv = main.querySelector(".fv");
+  const sectionTemplate = main.querySelector(".section--home-panels");
+  const homeNews = main.querySelector(".home-news");
+  
+  const scrollTriggerEnd = sumELsHeight(footer, fv, sectionTemplate, homeNews);
   return scrollTriggerEnd;
 }
 
@@ -37,7 +37,7 @@ function sumELsHeight(...els) {
 }
 
 function clingTo(header, footer) {
-  const height = _scrollTriggerEnd(footer);
+  const height = _scrollTriggerEnd(footer, main);
   gsap.registerPlugin(ScrollTrigger);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
