@@ -25,7 +25,7 @@ export async function init() {
 
   const headerEl = iNode.getElement(config.$.header);
 
-  const footer = iNode.getElement(config.$.footer);
+  const footerEl = iNode.getElement(config.$.footer);
 
   const pageType = iNode.getDateSet(pageEl, "page");
 
@@ -67,8 +67,8 @@ export async function init() {
   theme.init();
 
   menu.init();
-  cling.init();
-  cling.clingTo(headerEl, footer);
+  cling.init(headerEl, footerEl);
+ 
 
   // elementPos.executeSequence();
 
