@@ -13,7 +13,6 @@ const cling = {
 };
 
 function init(header, footer) {
-  console.log(footer);
   const height = _scrollTriggerEnd(main, footer);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
@@ -50,9 +49,9 @@ function _scrollTriggerEnd(main, footer) {
 function sumELsHeight(footer, ...els) {
   console.log("footer", footer);
   console.log("els", els);
-  const h = els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
-  // const h = els.reduce((sum, el) => sum + el.offsetHeight, 0);
-  return h;
+  // const h = els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
+  const h = els.reduce((sum, el) => sum + el.offsetHeight, 0);
+  return h + footer.offsetHeight;
 }
 
 export { cling };
