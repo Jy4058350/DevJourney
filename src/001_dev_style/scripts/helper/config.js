@@ -6,6 +6,7 @@ const config = {
     globalContainer: "#globalContainer",
     pageContainer: "#pageContainer",
     header: "#header",
+    footer: "#footer",
   },
 };
 
