@@ -26,7 +26,8 @@ const world = {
 
 const raycaster = new Raycaster();
 
-async function init(canvasRect, viewport) {
+async function init(canvas, viewport) {
+  const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,

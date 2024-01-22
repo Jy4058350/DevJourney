@@ -1,19 +1,16 @@
 import world from "./glsl/world";
-import { viewport } from "./helper/viewport";
+import { viewport, gui, iNode, config } from "./helper";
 import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
 import { theme } from "./component/theme";
-import { gui } from "./helper/gui";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
 // import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
-import { iNode } from "./helper";
 
 import { elementPos } from "./component/elementpos";
 import { elementPosHome } from "./component/elementposHome";
-
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -22,10 +19,14 @@ function debugmode(d) {
 }
 
 export async function init() {
-  const canvas = document.querySelector("#canvas");
-  const canvasRect = canvas.getBoundingClientRect();
+  const canvas = iNode.getElement(config.$.canvas);
 
-  const pageEl = iNode.getElement("#pageContainer");
+  const pageEl = iNode.getElement(config.$.pageContainer);
+
+  const headerEl = iNode.getElement(config.$.header);
+
+  const footerEl = iNode.getElement(config.$.footer);
+
   const pageType = iNode.getDateSet(pageEl, "page");
 
   if (window.debug) {
@@ -48,7 +49,7 @@ export async function init() {
     });
   });
 
-  viewport.init(canvasRect);
+  viewport.init(canvas, 2000, 10, 4000);
 
   scroll.initScroller();
 
@@ -66,12 +67,12 @@ export async function init() {
   theme.init();
 
   menu.init();
-  cling.init();
-  cling._clingTo();
+  cling.init(headerEl, footerEl);
+ 
 
   // elementPos.executeSequence();
 
-  await world.init(canvasRect, viewport);
+  await world.init(canvas, viewport);
 
   mouse.init();
 

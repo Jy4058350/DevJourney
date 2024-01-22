@@ -5,7 +5,9 @@ const viewport = {
   bindResizeEvents,
 };
 
-function init(canvasRect, cameraZ = 2000, near = 10, far = 4000) {
+function init(canvas, cameraZ = 2000, near = 10, far = 4000) {
+  const canvasRect = canvas.getBoundingClientRect();
+  
   viewport.cameraWidth = canvasRect.width;
   viewport.cameraHeight = canvasRect.height;
   viewport.near = near;

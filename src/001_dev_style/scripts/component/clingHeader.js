@@ -10,65 +10,48 @@ gsap.registerPlugin(ScrollTrigger);
 
 const cling = {
   init,
-  _clingTo,
 };
 
-const $ = {};
-
-function init() {
-  // headerHandler.init();
-  $.fv = iNode.qs(".fv");
-  $.footer = iNode.qs(".Footer");
-  $.headerWrap = iNode.qs(".Header__Wrap");
-  $.sectionTemplate = iNode.qs(".section--home-panels");
-  $.homeNews = iNode.qs(".home-news");
-  $.header = iNode.qs("#header");
-}
-
-function _scrollTriggerEnd() {
-  const fvfooterHeight = sumFvFooterHeight($.fv, $.footer);
-  // console.log("fvfooterHeight", fvfooterHeight);
-  const customHegiht = sumHeight($.sectionTemplate, $.homeNews);
-
-  const scrollTriggerEnd = fvfooterHeight + customHegiht;
-  // console.log("scrollTriggerEnd", scrollTriggerEnd);
-  return scrollTriggerEnd;
-}
-
-function sumFvFooterHeight(a, b) {
-  return (a?.offsetHeight || 0) + (b?.offsetHeight || 0);
-}
-
-function sumHeight(a, b) {
-  if (!a || !b) return 0;
-  return a.offsetHeight + b.offsetHeight;
-}
-
-function _clingTo() {
-  // console.log("_clingTo by cling.js");
-  const height = _scrollTriggerEnd();
-  // console.log("height", height);
-  gsap.registerPlugin(ScrollTrigger);
+function init(header, footer) {
+  const height = _scrollTriggerEnd(main, footer);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
     return;
   }
 
   ScrollTrigger.create({
-    trigger: $.header,
+    trigger: header,
     start: "top top",
     end: `bottom+=${height}px top`,
     pin: true,
     pinSpacing: false,
     onEnter: () => {
-      // console.log("onEnter");
       headerHandler.clingToStyleOnEnter();
     },
     onLeaveBack: () => {
-      console.log("onLeaveBack");
       headerHandler.clingToStyleOnLeaveBack();
     },
   });
+}
+
+function getChildEls(el) {
+  const childArray = el.children;
+  return childArray;
+}
+
+function _scrollTriggerEnd(main, footer) {
+  const ChildEls = getChildEls(main);
+  const scrollTriggerEnd = sumELsHeight(footer, ...ChildEls);
+  console.log("scrollTriggerEnd", scrollTriggerEnd);
+  return scrollTriggerEnd;
+}
+
+function sumELsHeight(footer, ...els) {
+  console.log("footer", footer);
+  console.log("els", els);
+  // const h = els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
+  const h = els.reduce((sum, el) => sum + el.offsetHeight, 0);
+  return h + footer.offsetHeight;
 }
 
 export { cling };
