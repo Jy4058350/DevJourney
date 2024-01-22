@@ -5,6 +5,7 @@ const config = {
     canvas: "#canvas",
     globalContainer: "#globalContainer",
     pageContainer: "#pageContainer",
+    header: "#header",
   },
 };
 

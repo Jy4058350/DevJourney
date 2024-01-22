@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { iNode } from "../helper";
+import { iNode, config } from "../helper";
 import HeaderHandler from "../myclasses/header";
 
 const headerHandler = new HeaderHandler();
@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const cling = {
   init,
-  _clingTo,
+  clingTo,
 };
 
 const $ = {};
@@ -22,7 +22,7 @@ function init() {
   $.headerWrap = iNode.qs(".Header__Wrap");
   $.sectionTemplate = iNode.qs(".section--home-panels");
   $.homeNews = iNode.qs(".home-news");
-  $.header = iNode.qs("#header");
+  // const header = iNode.getElement(config.$.header);
 }
 
 function _scrollTriggerEnd() {
@@ -44,10 +44,8 @@ function sumHeight(a, b) {
   return a.offsetHeight + b.offsetHeight;
 }
 
-function _clingTo() {
-  // console.log("_clingTo by cling.js");
+function clingTo(header) {
   const height = _scrollTriggerEnd();
-  // console.log("height", height);
   gsap.registerPlugin(ScrollTrigger);
   if (!ScrollTrigger) {
     console.error("ScrollTrigger is not defined");
@@ -55,7 +53,7 @@ function _clingTo() {
   }
 
   ScrollTrigger.create({
-    trigger: $.header,
+    trigger: header,
     start: "top top",
     end: `bottom+=${height}px top`,
     pin: true,

@@ -23,6 +23,8 @@ export async function init() {
 
   const pageEl = iNode.getElement(config.$.pageContainer);
 
+  const headerEl = iNode.getElement(config.$.header);
+
   const pageType = iNode.getDateSet(pageEl, "page");
 
   if (window.debug) {
@@ -64,7 +66,7 @@ export async function init() {
 
   menu.init();
   cling.init();
-  cling._clingTo();
+  cling.clingTo(headerEl);
 
   // elementPos.executeSequence();
 
