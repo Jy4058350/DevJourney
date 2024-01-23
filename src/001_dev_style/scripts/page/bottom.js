@@ -1,22 +1,3 @@
-// export default async function init({
-//   world,
-//   mouse,
-//   loader,
-//   viewport,
-//   scroller,
-//   elementPos,
-//   elementPosHome,
-//   homeNews,
-//   theme,
-//   menu,
-//   cling,
-// }) {
-//   elementPos.resizeHeaderPos();
-//   elementPos.resizingFooterPos();
-//   elementPosHome.wideRangeGoblin();
-
-// }
-
 import Scrollbar from "smooth-scrollbar"; //import with named import
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
@@ -29,12 +10,9 @@ export default async function init({
   loader,
   viewport,
   scroller,
-  elementPos,
-  elementPosHome,
-  // homeNews,
   theme,
   menu,
-  cling,
+  clingHeader,
 }) {
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");

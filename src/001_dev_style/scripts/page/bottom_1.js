@@ -3,7 +3,6 @@ import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 
 import { iNode } from "../helper";
-import { add } from "lodash";
 
 export default async function init({
   world,
@@ -11,12 +10,9 @@ export default async function init({
   loader,
   viewport,
   scroller,
-  elementPos,
-  elementPosHome,
-  // homeNews,
   theme,
   menu,
-  cling,
+  clingHeader,
 }) {
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");

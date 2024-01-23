@@ -1,7 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { iNode } from "../helper";
 import HeaderHandler from "../myclasses/header";
 
 const headerHandler = new HeaderHandler();

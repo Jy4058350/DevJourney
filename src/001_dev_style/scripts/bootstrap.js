@@ -6,11 +6,7 @@ import { loader } from "./component/loader";
 import { theme } from "./component/theme";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
-// import { homeNews } from "./component/home-news";
 import "./component/scroll-animation";
-
-import { elementPos } from "./component/elementpos";
-import { elementPosHome } from "./component/elementposHome";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -40,9 +36,6 @@ export async function init() {
       loader,
       viewport,
       scroll,
-      elementPos,
-      elementPosHome,
-      // homeNews,
       theme,
       menu,
       cling,
@@ -68,7 +61,6 @@ export async function init() {
 
   menu.init();
   cling.init(headerEl, footerEl);
- 
 
   // elementPos.executeSequence();
 
