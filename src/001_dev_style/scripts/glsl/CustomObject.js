@@ -11,7 +11,7 @@ import {
 } from "three";
 
 import { loader } from "../component/loader";
-import { getWorldPosition, getResolution } from "../helper/utils";
+import { getWorldPosition, getResolution, iNode } from "../helper";
 import { setAspectRatio } from "../component/setaspectratio";
 
 class CustomObject {
@@ -71,7 +71,7 @@ class CustomObject {
       this.mesh = this.fixMesh();
       this.disv();
       this.style();
-      this.convertMapToArray(texes);
+      // this.convertMapToArray(texes);
 
       this.mesh.__marker = type;
     } catch (e) {
@@ -91,23 +91,6 @@ class CustomObject {
   _test() {}
 
   // setupTimeline() {}
-
-  convertMapToArray(texes) {
-    // for(let [key, value] of texes) {
-    // console.log(key, value);
-    // console.log(value);
-    // this.uniforms.textures = uniforms.textures || { value: []};
-    // this.uniforms.textures.value.push(value);
-    // }
-    // const arrayFromTexes = Array.from(texes);
-    // console.log(arrayFromTexes[0]);
-    // console.log(this.uniforms.textures.value[0]);
-
-    for (let i = 0; i < texes.size; i++) {
-      this.uniforms.textures.value.push(texes.get(`tex${i + 1}`));
-      // console.log(this.uniforms.textures.value[i]);
-    }
-  }
 
   before() {}
 

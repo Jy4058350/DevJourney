@@ -1,3 +1,4 @@
+precision mediump float;
 varying vec2 vUv;
 uniform vec2 uMouse;
 uniform vec4 uResolution;
