@@ -6,10 +6,8 @@ import {
   AxesHelper,
 } from "three";
 
-import { lerp } from "../helper/utils";
-import { viewport } from "../helper/viewport";
+import { lerp, viewport, getWorldPosition, config } from "../helper";
 import { mouse } from "../component/mouse";
-import { getWorldPosition } from "../helper/utils";
 
 const os = [];
 
@@ -50,11 +48,12 @@ async function init(canvas, viewport) {
   await initObjects(canvasRect);
 }
 
-async function initObjects(canvasRect) {
-  const els = document.querySelectorAll("[data-webgl]");
+async function initObjects() {
+  // const els = document.querySelectorAll("[data-webgl]");
+  const els = document.querySelectorAll(`[data-${config.$.webgl}]`);
   const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
-    // console.log(type);
+    console.log(type);
     // const o = await import(`./${type}/index.js`).then(
     return import(`./${type}/index.js`).then(({ default: CustomObject }) => {
       return CustomObject.init({ el, type });
