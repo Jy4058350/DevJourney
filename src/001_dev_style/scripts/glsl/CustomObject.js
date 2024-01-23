@@ -288,12 +288,9 @@ class CustomObject {
     this.uniforms.uTick.value = tick;
   }
 
-  async afterInit() {
-    // this.pauseVideo();
-    // setTimeout(() => {
-    //   this.playVideo();
-    // }, 5000);
-  }
+
+  
+  async afterInit() {}
 
   async playVideo() {
     let a = this.texes.get("tex1").source.data;
