@@ -50,7 +50,7 @@ async function init(canvas, viewport) {
 
 async function initObjects() {
   // const els = document.querySelectorAll("[data-webgl]");
-  const els = document.querySelectorAll(`[data-${config.$.webgl}]`);
+  const els = document.querySelectorAll(`[data-${config.prefix.glsl}]`);
   const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
     console.log(type);

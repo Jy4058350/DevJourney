@@ -8,14 +8,11 @@ const config = {
     header: "#header",
     main: "#main",
     footer: "#footer",
-
-    webgl: "webgl",
   },
 
   prefix: {
-    webgl: "webgl",
+    glsl: "webgl",
   },
-  
 };
 
 export { config };
