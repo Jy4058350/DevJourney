@@ -4,6 +4,7 @@ import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
 
 import { CustomObject } from "../CustomObject";
+import world from "../world";
 
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
@@ -13,30 +14,38 @@ class ExtendObject extends CustomObject {
     textureMap.set("tex2", texes.get("tex2"));
 
     let texturesArray = Array.from(textureMap.values());
-    console.log(texturesArray[0]);
+    let gl = world.renderer.getContext();
+
+    let textureUnits = [0, 1];
+    
+    for (let i = 0; i < texturesArray.length; i++) {
+      let webglTexture = texturesArray[i].texture;
+      gl.activeTexture(gl.TEXTURE0 + textureUnits[i]);
+      gl.bindTexture(gl.TEXTURE_2D, webglTexture[i]);
+    }
   }
 
-  fixGsap() {
-    this.timeline.to(this.uniforms.uProgress, {
-      value: 1,
-      duration: 2,
-      ease: "none",
-      repeat: -1,
-      onUpdate: () => {
-        if (
-          Math.abs(
-            this.uniforms.uProgress.value -
-              Math.floor(this.uniforms.uProgress.value)
-          ) < 0.01
-        ) {
-          this.uniforms.uProgress.value = 0;
-          this.uniforms.uIndex.value += 1;
-          // console.log("onComplete");
-          // console.log(this.uniforms.uIndex.value);
-        }
-      },
-    });
-  }
+  // fixGsap() {
+  //   this.timeline.to(this.uniforms.uProgress, {
+  //     value: 1,
+  //     duration: 2,
+  //     ease: "none",
+  //     repeat: -1,
+  //     onUpdate: () => {
+  //       if (
+  //         Math.abs(
+  //           this.uniforms.uProgress.value -
+  //             Math.floor(this.uniforms.uProgress.value)
+  //         ) < 0.01
+  //       ) {
+  //         this.uniforms.uProgress.value = 0;
+  //         this.uniforms.uIndex.value += 1;
+  //         // console.log("onComplete");
+  //         // console.log(this.uniforms.uIndex.value);
+  //       }
+  //     },
+  //   });
+  // }
 
   fixVertex() {
     return vertexShader;
