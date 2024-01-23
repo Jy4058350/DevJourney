@@ -8,6 +8,12 @@ import { CustomObject } from "../CustomObject";
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
+    let textureMap = new Map();
+    textureMap.set("tex1", texes.get("tex1"));
+    textureMap.set("tex2", texes.get("tex2"));
+
+    let texturesArray = Array.from(textureMap.values());
+    console.log(texturesArray[0]);
   }
 
   fixGsap() {
@@ -23,10 +29,10 @@ class ExtendObject extends CustomObject {
               Math.floor(this.uniforms.uProgress.value)
           ) < 0.01
         ) {
-          console.log("onComplete");
           this.uniforms.uProgress.value = 0;
           this.uniforms.uIndex.value += 1;
-          console.log(this.uniforms.uIndex.value);
+          // console.log("onComplete");
+          // console.log(this.uniforms.uIndex.value);
         }
       },
     });
