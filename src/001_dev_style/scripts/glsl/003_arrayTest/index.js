@@ -13,8 +13,12 @@ class ExtendObject extends CustomObject {
     super({ texes, el, type, canvasRect });
     this.convertMapToArray(texes);
 
-    const texture = loader.getTexture('/img/output6.jpg');
-    console.log(texture);
+    const texture1 = loader.getTexture('/img/output6.jpg');
+    const texture2 = loader.getTexture('/img/output7.jpg');
+    console.log(texture1);
+    console.log(texture2);
+    const textures = [texture1, texture2];
+    console.log(textures);
   }
 
   convertMapToArray(texes) {
