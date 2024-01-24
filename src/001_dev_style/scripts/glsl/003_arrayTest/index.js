@@ -6,11 +6,15 @@ import fragmentShader from "./fragment.glsl";
 import { CustomObject } from "../CustomObject";
 import { iNode } from "../../helper";
 import world from "../world";
+import { loader } from "../../component/loader";
 
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect, program }) {
     super({ texes, el, type, canvasRect });
     this.convertMapToArray(texes);
+
+    const texture = loader.getTexture('/img/output6.jpg');
+    console.log(texture);
   }
 
   convertMapToArray(texes) {

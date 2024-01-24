@@ -1,7 +1,6 @@
 import gsap from "gsap";
 import { TextureLoader, VideoTexture } from "three";
 import { iNode, config } from "../helper";
-// import { on } from "events";
 
 const $ = {};
 const loader = {
@@ -30,7 +29,7 @@ async function init() {
         const url = data[key];
         if (!box.has(url)) {
           box.set(url, null);
-          console.log("box", box);
+          // console.log("box", box);
         }
       }
     }
@@ -47,7 +46,7 @@ async function init() {
     } else {
       prms = loadTex(url).then((tex) => {
         box.set(url, tex);
-        console.log("box", box);
+        // console.log("box", box);
       });
     }
     texPrms.push(prms);
@@ -165,6 +164,7 @@ async function texMap(el) {
 }
 
 function getTexture(url) {
+  console.log("getTexture box", box);
   return box.get(url);
 }
 
