@@ -1,7 +1,6 @@
 import gsap from "gsap";
 import { TextureLoader, VideoTexture } from "three";
-import { iNode } from "../helper";
-// import { on } from "events";
+import { iNode, config } from "../helper";
 
 const $ = {};
 const loader = {
@@ -13,6 +12,7 @@ const loader = {
   loadVideo,
   $,
   begin,
+  getTexture,
 };
 
 const texLoader = new TextureLoader();
@@ -20,7 +20,7 @@ const texLoader = new TextureLoader();
 const box = new Map();
 
 async function init() {
-  const els = iNode.qsa("[data-webgl]");
+  const els = iNode.qsa(`[data-${config.prefix.glsl}]`);
   els.forEach((el) => {
     const data = el.dataset;
     for (let key in data) {
@@ -29,6 +29,7 @@ async function init() {
         const url = data[key];
         if (!box.has(url)) {
           box.set(url, null);
+          // console.log("box", box);
         }
       }
     }
@@ -45,6 +46,7 @@ async function init() {
     } else {
       prms = loadTex(url).then((tex) => {
         box.set(url, tex);
+        // console.log("box", box);
       });
     }
     texPrms.push(prms);
@@ -161,6 +163,11 @@ async function texMap(el) {
   return texes;
 }
 
+function getTexture(url) {
+  console.log("getTexture box", box);
+  return box.get(url);
+}
+
 function _loadingAnimation() {
   const tl = gsap.timeline();
   tl.to($.l, {
@@ -194,7 +201,6 @@ async function _loadingAnimationEnd(tl) {
 async function begin() {
   const tl = _loadingAnimation();
   return await _loadingAnimationEnd(tl);
-
 }
 
 export { loader };

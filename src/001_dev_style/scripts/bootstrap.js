@@ -57,6 +57,7 @@ export async function init() {
   viewport.bindResizeEvents();
 
   await loader.init();
+
   theme.init();
 
   menu.init();
@@ -71,8 +72,6 @@ export async function init() {
   world.render();
 
   await loader.begin();
-
-  // elementPos.wideRangeGoblin();
 
   gui.open();
 }

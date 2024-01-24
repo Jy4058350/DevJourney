@@ -6,6 +6,8 @@ uniform float uHover;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
 uniform float uProgress;
+uniform int uIndex;
+uniform sampler2D textures[2];
 
 vec2 coverUv(vec2 uv, vec4 resolution) {
     return (uv - .5) * resolution.zw + .5;
@@ -21,6 +23,10 @@ void main() {
     vec4 t2 = texture2D(tex2, uv);
     // vec4 color = mix(t1, t2, step(.5, uv.x));
     vec4 color = mix(t1, t2, step(uProgress, uv.x));
+
     gl_FragColor = color;
+
+    vec4 colorI = texture2D(textures[uIndex], uv);
+    gl_FragColor = colorI;
 
 }

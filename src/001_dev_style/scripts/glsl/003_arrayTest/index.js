@@ -6,16 +6,27 @@ import fragmentShader from "./fragment.glsl";
 import { CustomObject } from "../CustomObject";
 import { iNode } from "../../helper";
 import world from "../world";
+import { loader } from "../../component/loader";
 
 class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect, program }) {
     super({ texes, el, type, canvasRect });
     this.convertMapToArray(texes);
+
+    const texture1 = loader.getTexture("/img/output6.jpg");
+    const texture2 = loader.getTexture("/img/output7.jpg");
+    const textures = [texture1, texture2];
+    console.log(textures);
+    this.setTextureIndex(1);
+  }
+
+  setTextureIndex(index) {
+    this.uniforms.uIndex.value = index;
   }
 
   convertMapToArray(texes) {
-    console.log(this.$.el);
-    console.log(texes);
+    // console.log(this.$.el);
+    // console.log(texes);
     const targetEl = iNode.qs(".fv-test-shader");
 
     // Ensure this.uniforms.textures.value is an array
@@ -26,11 +37,9 @@ class ExtendObject extends CustomObject {
 
     // Add each texture from the map to the array
 
-    if (texes[0]) {
-      for (let [key, value] of texes) {
-        this.uniforms.textures.value.push(value);
-        console.log(key, value);
-      }
+    for (let [key, value] of texes) {
+      this.uniforms.textures.value.push(value);
+      // console.log(key, value);
     }
   }
 
