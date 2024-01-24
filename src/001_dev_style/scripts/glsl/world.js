@@ -59,7 +59,6 @@ async function initObjects() {
   });
   const loaderObjects = await Promise.all(prms);
   loaderObjects.forEach((o) => {
-    console.log(o);
     if (!o.mesh) return;
     addMesh(o);
     return o;

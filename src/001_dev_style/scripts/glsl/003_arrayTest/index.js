@@ -14,8 +14,8 @@ class ExtendObject extends CustomObject {
   }
 
   convertMapToArray(texes) {
-    console.log(this.$.el);
-    console.log(texes);
+    // console.log(this.$.el);
+    // console.log(texes);
     const targetEl = iNode.qs(".fv-test-shader");
 
     // Ensure this.uniforms.textures.value is an array
@@ -26,11 +26,9 @@ class ExtendObject extends CustomObject {
 
     // Add each texture from the map to the array
 
-    if (texes[0]) {
-      for (let [key, value] of texes) {
-        this.uniforms.textures.value.push(value);
-        console.log(key, value);
-      }
+    for (let [key, value] of texes) {
+      this.uniforms.textures.value.push(value);
+      // console.log(key, value);
     }
   }
 
