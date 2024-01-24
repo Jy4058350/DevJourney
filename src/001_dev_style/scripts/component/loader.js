@@ -13,6 +13,7 @@ const loader = {
   loadVideo,
   $,
   begin,
+  getTexture,
 };
 
 const texLoader = new TextureLoader();
@@ -161,6 +162,10 @@ async function texMap(el) {
   }
 
   return texes;
+}
+
+function getTexture(url) {
+  return box.get(url);
 }
 
 function _loadingAnimation() {
