@@ -9,6 +9,10 @@ const config = {
     main: "#main",
     footer: "#footer",
   },
+
+  prefix: {
+    glsl: "webgl",
+  },
 };
 
 export { config };

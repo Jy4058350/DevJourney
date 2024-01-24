@@ -6,10 +6,8 @@ import {
   AxesHelper,
 } from "three";
 
-import { lerp } from "../helper/utils";
-import { viewport } from "../helper/viewport";
+import { lerp, viewport, getWorldPosition, config } from "../helper";
 import { mouse } from "../component/mouse";
-import { getWorldPosition } from "../helper/utils";
 
 const os = [];
 
@@ -50,33 +48,28 @@ async function init(canvas, viewport) {
   await initObjects(canvasRect);
 }
 
-async function initObjects(canvasRect) {
-  const els = document.querySelectorAll("[data-webgl]");
+async function initObjects() {
+  const els = document.querySelectorAll(`[data-${config.prefix.glsl}]`);
   const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
-    // console.log(type);
-    // const o = await import(`./${type}/index.js`).then(
+    console.log(type);
     return import(`./${type}/index.js`).then(({ default: CustomObject }) => {
       return CustomObject.init({ el, type });
     });
   });
-  const _AsyncOs = await Promise.all(prms);
-  _AsyncOs.forEach((o) => {
+  const loaderObjects = await Promise.all(prms);
+  loaderObjects.forEach((o) => {
+    console.log(o);
     if (!o.mesh) return;
-    // world.scene.add(o.mesh);
-    // os.push(o);
     addMesh(o);
     return o;
   });
 
-  let first = true;
-  const prmsA = os.map(async (o) => {
-    if (first) {
-      await o.afterInit();
-      first = false;
-    }
+  //If the afterInit method performs an asynchronous operation and needs to wait for its completion, it should use await and Promise.all to wait for its completion.
+  const afterPrms = world.os.map((o) => {
+    o.afterInit();
   });
-  await Promise.all(prmsA);
+  await Promise.all(afterPrms);
 }
 
 function addMesh(o) {

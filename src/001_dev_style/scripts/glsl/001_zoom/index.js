@@ -58,7 +58,6 @@ class ExtendObject extends CustomObject {
     uniforms.uTest = { value: 1.0 };
     uniforms.uRaito = { value: 0.3 };
     uniforms.uProgress = { value: 0.0 };
-    console.log(uniforms.uProgress);
     return uniforms;
   }
 

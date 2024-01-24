@@ -46,7 +46,6 @@ class DOMManuipulatorClass {
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setCssProp("--header-height", 145, this.header);
-      console.log("this.header-height", this.header);
     }
 
     if (!this.isWideScreen) {

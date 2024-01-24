@@ -41,14 +41,10 @@ function getChildEls(el) {
 function _scrollTriggerEnd(main, footer) {
   const ChildEls = getChildEls(main);
   const scrollTriggerEnd = sumELsHeight(footer, ...ChildEls);
-  console.log("scrollTriggerEnd", scrollTriggerEnd);
   return scrollTriggerEnd;
 }
 
 function sumELsHeight(footer, ...els) {
-  console.log("footer", footer);
-  console.log("els", els);
-  // const h = els.reduce((sum, el) => sum + (el?.offsetHeight || 0), 0);
   const h = els.reduce((sum, el) => sum + el.offsetHeight, 0);
   return h + footer.offsetHeight;
 }
