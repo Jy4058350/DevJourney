@@ -12,7 +12,7 @@ import { mouse } from "../component/mouse";
 const os = [];
 
 const world = {
-  os,
+  os: [],
   init,
   render,
   osResize,
@@ -20,9 +20,8 @@ const world = {
   getOs,
   addMesh,
   removeMesh,
+  raycaster: new Raycaster(),
 };
-
-const raycaster = new Raycaster();
 
 async function init(canvas, viewport) {
   const canvasRect = canvas.getBoundingClientRect();
@@ -128,10 +127,10 @@ function raycast() {
   // update the picking ray with the camera and pointer position
   const mp = mouse.pos();
 
-  raycaster.setFromCamera(mp, world.camera);
+  world.raycaster.setFromCamera(mp, world.camera);
 
   // calculate objects intersecting the picking ray
-  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersects = world.raycaster.intersectObjects(world.scene.children);
   const intersect = intersects[0];
 
   // for (let i = 0; i < world.scene.children.length; i++) {

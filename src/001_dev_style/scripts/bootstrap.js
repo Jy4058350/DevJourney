@@ -29,8 +29,8 @@ export async function init() {
     await gui.init();
   }
 
-  await import(`./page/${pageType}.js`).then(({ default: initHome }) => {
-    return initHome({
+  await import(`./page/${pageType}.js`).then(({ default: init }) => {
+    return init({
       world,
       mouse,
       loader,
