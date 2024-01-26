@@ -6,7 +6,6 @@ const menu = {
   init,
 };
 
-// const $ = {};
 let isOpen = false,
   clickTl = null;
 

@@ -1,8 +1,11 @@
 import { iNode, config } from "../helper";
 
 const dom = {
+  canvas: iNode.qs(config.$.canvas),
   container: iNode.qs(config.$.globalContainer),
   page: iNode.qs(config.$.pageContainer),
+  header: iNode.qs(config.$.header),
+  footer: iNode.qs(config.$.footer),
 
   btn: iNode.qs(config.$.btnMenu),
   inner: iNode.qs(config.$.btnMenuInner),

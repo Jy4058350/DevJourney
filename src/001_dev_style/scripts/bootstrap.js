@@ -1,5 +1,5 @@
 import world from "./glsl/world";
-import { viewport, gui, iNode, config } from "./helper";
+import { viewport, gui, iNode, config, dom } from "./helper";
 import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
@@ -15,13 +15,11 @@ function debugmode(d) {
 }
 
 export async function init() {
-  const canvas = iNode.getElement(config.$.canvas);
+  const canvas = dom.canvas;
+  const pageEl = dom.page;
+  const headerEl = dom.header;
 
-  const pageEl = iNode.getElement(config.$.pageContainer);
-
-  const headerEl = iNode.getElement(config.$.header);
-
-  const footerEl = iNode.getElement(config.$.footer);
+  const footerEl = dom.footer;
 
   const pageType = iNode.getDateSet(pageEl, "page");
 
