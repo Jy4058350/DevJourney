@@ -1,5 +1,6 @@
 import gsap from "gsap";
-import { iNode } from "../helper";
+import { iNode, config } from "../helper";
+import { getMenuItem } from "../helper";
 import { scroll } from "./scroll.js";
 
 const menu = {
@@ -7,11 +8,12 @@ const menu = {
 };
 
 const $ = {};
-let isOpen = false;
-let tl = null;
+let isOpen = false,
+  clickTl = null;
 
 function init() {
-  $.container = iNode.qs("#global-container");
+  $.getMenuItem = getMenuItem();
+  $.container = iNode.qs("#globalContainer");
   $.btn = iNode.qs(".btn-menu");
   $.inner = iNode.qs(".btn-menu_inner");
   $.wraps = iNode.qsa(".btn-menu_wrap");
@@ -19,21 +21,21 @@ function init() {
   $.page = iNode.qs("#page-container");
 
   _handlePointerDownAndMouseEnter();
-  tl = _onClickSelector();
+  clickTl = _onClickSelector();
 }
 
 function _handlePointerDownAndMouseEnter() {
-  $.btn.addEventListener("pointerdown", _toggle);
-  $.btn.addEventListener("mouseenter", _handleMouseEnter);
+  $.btn.addEventListener(config.event.click, _toggle);
+  $.btn.addEventListener(config.event.mouseenter, _handleMouseEnter);
 }
 
 function _toggle() {
   $.container.classList.toggle("is-open");
   if (!isOpen) {
-    tl.play();
+    clickTl.play();
     scroll.disablePlugin();
   } else {
-    tl.reverse();
+    clickTl.reverse();
     scroll.enablePlugin();
   }
   isOpen = !isOpen;

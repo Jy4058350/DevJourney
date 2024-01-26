@@ -9,28 +9,24 @@ import {
 import { lerp, viewport, getWorldPosition, config } from "../helper";
 import { mouse } from "../component/mouse";
 
-const os = [];
-
 const world = {
-  os,
+  os: [],
   init,
   render,
   osResize,
   tick: 0,
-  getOs,
+  getObjByEl,
   addMesh,
   removeMesh,
+  raycaster: new Raycaster(),
 };
 
-const raycaster = new Raycaster();
-
 async function init(canvas, viewport) {
-  const canvasRect = canvas.getBoundingClientRect();
   world.renderer = new WebGLRenderer({
     canvas,
     antialias: true,
   });
-  world.renderer.setSize(canvasRect.width, canvasRect.height, false);
+  world.renderer.setSize(viewport.width, viewport.height, false);
   world.renderer.setPixelRatio(window.devicePixelRatio);
   world.renderer.setClearColor(0x000000, 0);
 
@@ -45,14 +41,13 @@ async function init(canvas, viewport) {
   );
   world.camera.position.z = viewport.cameraZ;
 
-  await initObjects(canvasRect);
+  await _initWebglObjects(viewport);
 }
 
-async function initObjects() {
+async function _initWebglObjects() {
   const els = document.querySelectorAll(`[data-${config.prefix.glsl}]`);
   const prms = [...els].map((el) => {
     const type = el.dataset.webgl;
-    console.log(type);
     return import(`./${type}/index.js`).then(({ default: CustomObject }) => {
       return CustomObject.init({ el, type });
     });
@@ -73,7 +68,7 @@ async function initObjects() {
 
 function addMesh(o) {
   world.scene.add(o.mesh);
-  os.push(o);
+  world.os.push(o);
 }
 
 function removeMesh(o, dispose = true) {
@@ -88,22 +83,21 @@ function removeMesh(o, dispose = true) {
   }
 }
 
-function getOs(select) {
-  // console.log(select);
-  const El = document.querySelector(select);
-  const o = world.os.find((o) => o.$.el === El);
-  return o;
+function getObjByEl(select) {
+  if (selector instanceof CustomObject) return selector;
+  const targetEl = document.querySelector(select);
+  return world.os.find((o) => o.$.el === targetEl);
 }
 
 function render() {
   world.tick++;
   requestAnimationFrame(render);
 
-  os.forEach((o) => horizontalScroll(o));
+  world.os.forEach((o) => horizontalScroll(o));
   // controls.update();
   // スクロール処理
-  for (let i = os.length - 1; i >= 0; i--) {
-    const o = os[i];
+  for (let i = world.os.length - 1; i >= 0; i--) {
+    const o = world.os[i];
     o.scroll();
 
     o.render(world.tick);
@@ -128,10 +122,10 @@ function raycast() {
   // update the picking ray with the camera and pointer position
   const mp = mouse.pos();
 
-  raycaster.setFromCamera(mp, world.camera);
+  world.raycaster.setFromCamera(mp, world.camera);
 
   // calculate objects intersecting the picking ray
-  const intersects = raycaster.intersectObjects(world.scene.children);
+  const intersects = world.raycaster.intersectObjects(world.scene.children);
   const intersect = intersects[0];
 
   // for (let i = 0; i < world.scene.children.length; i++) {
@@ -154,8 +148,8 @@ function raycast() {
 }
 
 function osResize() {
-  world.renderer.setSize(viewport.cameraWidth, viewport.cameraHeight, false);
-  os.forEach((o) => o.resize(o, viewport.newCanvasRect));
+  world.renderer.setSize(viewport.width, viewport.height, false);
+  world.os.forEach((o) => o.resize(o, viewport.newCanvasRect));
   world.camera.fov = viewport.fov;
   world.camera.near = viewport.near;
   world.camera.far = viewport.far;

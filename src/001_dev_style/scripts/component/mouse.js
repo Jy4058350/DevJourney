@@ -26,8 +26,8 @@ function update(event) {
 
 function pos(event) {
   return {
-    x: (current.x / viewport.cameraWidth) * 2 - 1,
-    y: -(current.y / viewport.cameraHeight) * 2 + 1,
+    x: (current.x / viewport.width) * 2 - 1,
+    y: -(current.y / viewport.height) * 2 + 1,
   };
 }
 

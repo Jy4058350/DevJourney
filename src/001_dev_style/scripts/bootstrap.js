@@ -1,3 +1,4 @@
+console.log(footer);
 import world from "./glsl/world";
 import { viewport, gui, iNode, config } from "./helper";
 import { scroll } from "./component/scroll";
@@ -7,8 +8,10 @@ import { theme } from "./component/theme";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
 import "./component/scroll-animation";
+import { getMenuItem } from "./helper";
 
 window.debug = debugmode(1) ? 1 : 0;
+
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
@@ -29,8 +32,8 @@ export async function init() {
     await gui.init();
   }
 
-  await import(`./page/${pageType}.js`).then(({ default: initHome }) => {
-    return initHome({
+  await import(`./page/${pageType}.js`).then(({ default: init }) => {
+    return init({
       world,
       mouse,
       loader,

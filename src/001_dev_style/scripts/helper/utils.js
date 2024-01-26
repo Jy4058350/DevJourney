@@ -9,8 +9,8 @@ function lerp(a, b, n, limit = 0.001) {
 }
 
 function getWorldPosition(rect, canvasRect) {
-  const x = rect.left + rect.width / 2 - viewport.cameraWidth / 2;
-  const y = -rect.top - rect.height / 2 + viewport.cameraHeight / 2;
+  const x = rect.left + rect.width / 2 - viewport.width / 2;
+  const y = -rect.top - rect.height / 2 + viewport.height / 2;
   return { x, y };
 }
 
