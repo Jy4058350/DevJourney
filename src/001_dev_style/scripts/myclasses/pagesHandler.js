@@ -14,7 +14,7 @@ class PageHandler {
     this.addResizeListener();
   }
 
-  addResizeListener(resizeTimer) {
+  addResizeListener() {
     window.addEventListener("resize", () => {
       clearTimeout(this.resizeTimer);
       this.updateHeaderStyle();
@@ -26,8 +26,8 @@ class PageHandler {
       let nextHeight = 0;
       this.domManuipulator.init();
       const headerHeight = this.headerHandler.getHeaderHeight();
-      domManuipulator.updateStyle(headerHeight);
-      nextHeight = headerHandler.getHeaderHeight();
+      this.domManuipulator.updateStyle(headerHeight);
+      nextHeight = this.headerHandler.getHeaderHeight();
       headerHandler.setElHeight(nextHeight);
     }, 200);
   }
