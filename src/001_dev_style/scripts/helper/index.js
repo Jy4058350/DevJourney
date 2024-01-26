@@ -4,3 +4,5 @@ export * from "./viewport";
 export * from "./gui";
 export * from "./gsap";
 export * from "./config";
+export * from "./dom";
+

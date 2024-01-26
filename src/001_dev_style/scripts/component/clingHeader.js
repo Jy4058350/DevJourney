@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import { iNode } from "../helper";
 import HeaderHandler from "../myclasses/header";
 
 const headerHandler = new HeaderHandler();
@@ -33,13 +33,13 @@ function init(header, footer) {
   });
 }
 
-function getChildEls(el) {
-  const childArray = el.children;
-  return childArray;
-}
+// function getChildEls(el) {
+//   const childArray = el.children;
+//   return childArray;
+// }
 
 function _scrollTriggerEnd(main, footer) {
-  const ChildEls = getChildEls(main);
+  const ChildEls = iNode.getChildEls(main);
   const scrollTriggerEnd = sumELsHeight(footer, ...ChildEls);
   return scrollTriggerEnd;
 }

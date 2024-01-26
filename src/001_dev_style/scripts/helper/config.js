@@ -13,6 +13,11 @@ const config = {
   prefix: {
     glsl: "webgl",
   },
+
+  event: {
+    click: "pointerdown",
+    mouseenter: "mouseenter",
+  },
 };
 
 export { config };

@@ -9,6 +9,7 @@ const iNode = {
   setHeightPx,
   toggleClass,
   getElementHeight,
+  getChildEls,
 };
 
 function qs(selector, scope) {
@@ -65,6 +66,11 @@ function getElementHeight(el, errormsg) {
     throw new Error(errormsg);
   }
   return el.offsetHeight;
+}
+
+function getChildEls(el) {
+  const childArray = el.children;
+  return childArray;
 }
 
 export { iNode };

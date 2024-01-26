@@ -7,14 +7,14 @@ const viewport = {
 
 function init(canvas, cameraZ = 2000, near = 10, far = 4000) {
   const canvasRect = canvas.getBoundingClientRect();
-  
-  viewport.cameraWidth = canvasRect.width;
-  viewport.cameraHeight = canvasRect.height;
+
+  viewport.width = canvasRect.width;
+  viewport.height = canvasRect.height;
   viewport.near = near;
   viewport.far = far;
-  viewport.aspect = viewport.cameraWidth / viewport.cameraHeight;
+  viewport.aspect = viewport.width / viewport.height;
   viewport.cameraZ = cameraZ;
-  viewport.radian = 2 * Math.atan(viewport.cameraHeight / 2 / viewport.cameraZ);
+  viewport.radian = 2 * Math.atan(viewport.height / 2 / viewport.cameraZ);
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   return viewport;
@@ -34,10 +34,10 @@ function bindResizeEvents() {
 function updateCanvas() {
   const newCanvasRect = canvas.getBoundingClientRect();
 
-  viewport.cameraWidth = newCanvasRect.width;
-  viewport.cameraHeight = newCanvasRect.height;
-  viewport.aspect = viewport.cameraWidth / viewport.cameraHeight;
-  viewport.radian = 2 * Math.atan(viewport.cameraHeight / 2 / viewport.cameraZ);
+  viewport.width = newCanvasRect.width;
+  viewport.height = newCanvasRect.height;
+  viewport.aspect = viewport.width / viewport.height;
+  viewport.radian = 2 * Math.atan(viewport.height / 2 / viewport.cameraZ);
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   world.osResize(world.os, newCanvasRect);
