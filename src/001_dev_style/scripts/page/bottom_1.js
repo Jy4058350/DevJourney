@@ -31,45 +31,4 @@ export default async function init({
   const headerHeight = headerHandler.getHeaderHeight();
 
   domManuipulator.updateStyle(headerHeight);
-
-  // test code for bottom_1.scss
-
-  // (function (addScrollBarListener) {
-  //   let initialY;
-  //   const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
-
-  //   window.onload = function () {
-  //     initialY = window.scrollY / 0.5;
-  //   };
-
-  //   pageHeader.style.background = "url(/img/3.png)";
-
-  //   pageWrapper.style.backgroundImage = "url(/img/1.jpeg)";
-
-  //   const childEl = rte.children[1];
-  //   childEl.style.textAlign = "center";
-
-  //   const options = {
-  //     damping: 0.1,
-  //     // delegateTo: document,
-  //     renderByPixels: true,
-  //     alwaysShowTracks: false,
-  //     continuousScrolling: true,
-  //     overFlowBehavior: {
-  //       // x: "hidden",
-  //       y: "scroll",
-  //     },
-  //   };
-
-  //   const scrollBar = Scrollbar.init(page, options);
-  //   addScrollBarListener(scrollBar, imgContrast, initialY);
-  // })(function (scrollBar, imgContrast, initialY) {
-  //   scrollBar.addListener(({ offset }) => {
-  //     console.log("is scrolling", offset.y);
-  //     const newY = offset.y / 2;
-  //     console.log("newY", newY);
-  //     imgContrast.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
-  //     imgContrast.style.transform = `translate3d(0px, ${newY}px, 0px)`;
-  //   });
-  // });
 }

@@ -12,6 +12,7 @@ class PageHandler {
     this.resizeTimer;
     this.initialY;
     this.updateHeaderStyle = this.updateHeaderStyle.bind(this);
+
     const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
     this.page = page;
     this.pageHeader = pageHeader;
@@ -58,8 +59,6 @@ class PageHandler {
 
   addScrollBarListener() {
     console.log("addScrollBarListener");
-    // let initialY;
-    // const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
 
     window.onload = function () {
       this.initialY = window.scrollY / 0.5;
@@ -72,19 +71,6 @@ class PageHandler {
     const childEl = this.rte.children[1];
     childEl.style.textAlign = "center";
 
-    const options = {
-      damping: 0.1,
-      // delegateTo: document,
-      renderByPixels: true,
-      alwaysShowTracks: false,
-      continuousScrolling: true,
-      overFlowBehavior: {
-        // x: "hidden",
-        y: "scroll",
-      },
-    };
-
-    // const scrollBar = Scrollbar.init(this.page, options);
     this.scrollBarListener(this.scrollBar, this.imgContrast, this.initialY);
   }
   scrollBarListener(initialY) {
