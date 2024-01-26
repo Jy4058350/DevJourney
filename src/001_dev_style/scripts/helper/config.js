@@ -7,6 +7,7 @@ const config = {
     pageContainer: "#pageContainer",
     header: "#header",
     main: "#main",
+    fv: "#fv",
     footer: "#footer",
 
     btnMenu: ".btn-menu",

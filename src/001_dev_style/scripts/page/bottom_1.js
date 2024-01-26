@@ -2,7 +2,7 @@ import Scrollbar from "smooth-scrollbar"; //import with named import
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 
-import { iNode } from "../helper";
+import { iNode, dom } from "../helper";
 
 export default async function init({
   world,
@@ -14,14 +14,7 @@ export default async function init({
   menu,
   clingHeader,
 }) {
-  const header = iNode.getElById("header");
-  const fv = iNode.getElById("fv");
-  const footer = iNode.getElById("footer");
-  const rotationViewPort = iNode.qs(".rotation-viewport");
-  const referenceView = iNode.qs(".home-news-article-thumbnail");
-  const sliders = iNode.qs(".rotation-slider");
-  const prevButton = iNode.qs(".home-news-control-button.Previous");
-  const nextButton = iNode.qs(".home-news-control-button.Next");
+  const { header, fv, footer } = dom;
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);

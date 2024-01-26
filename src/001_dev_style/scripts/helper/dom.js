@@ -5,6 +5,7 @@ const dom = {
   container: iNode.qs(config.$.globalContainer),
   page: iNode.qs(config.$.pageContainer),
   header: iNode.qs(config.$.header),
+  fv: iNode.qs(config.$.fv),
   footer: iNode.qs(config.$.footer),
 
   btn: iNode.qs(config.$.btnMenu),

@@ -8,7 +8,7 @@ import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
 import "./component/scroll-animation";
 
-window.debug = debugmode(1) ? 1 : 0;
+window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
