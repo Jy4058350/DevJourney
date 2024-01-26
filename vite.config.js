@@ -50,7 +50,9 @@ export default defineConfig({
     alias: [
       {
         find: "#",
-        replacement: "/scripts",
+        // replacement: "/scripts",
+        // replacement: resolve(__dirname, "src/scripts"),
+        replacement: resolve(__dirname, "src/001_dev_style/scripts"),
       },
     ],
   },
@@ -62,7 +64,6 @@ export default defineConfig({
         // bottom: resolve(root, "bottom.html"),
         // bottom_1: resolve(root, "bottom_1.html"),
         // bottom_2: resolve(root, "bottom_2.html"),
-        
       },
     },
   },
