@@ -15,13 +15,9 @@ function debugmode(d) {
 }
 
 export async function init() {
-  const canvas = dom.canvas;
-  const pageEl = dom.page;
-  const headerEl = dom.header;
+  const { canvas, page, header, footer } = dom;
 
-  const footerEl = dom.footer;
-
-  const pageType = iNode.getDateSet(pageEl, "page");
+  const pageType = iNode.getDateSet(page, "page");
 
   if (window.debug) {
     await gui.init();
@@ -59,7 +55,7 @@ export async function init() {
   theme.init();
 
   menu.init();
-  cling.init(headerEl, footerEl);
+  cling.init(header, footer);
 
   // elementPos.executeSequence();
 
