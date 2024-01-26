@@ -1,36 +1,26 @@
 import gsap from "gsap";
-import { iNode, config } from "../helper";
-import { getMenuItem } from "../helper";
+import { config, dom } from "../helper";
 import { scroll } from "./scroll.js";
 
 const menu = {
   init,
 };
 
-const $ = {};
 let isOpen = false,
   clickTl = null;
 
 function init() {
-  $.getMenuItem = getMenuItem();
-  $.container = iNode.qs("#globalContainer");
-  $.btn = iNode.qs(".btn-menu");
-  $.inner = iNode.qs(".btn-menu_inner");
-  $.wraps = iNode.qsa(".btn-menu_wrap");
-  $.bars = iNode.qsa(".btn-menu_bar");
-  $.page = iNode.qs("#page-container");
-
   _handlePointerDownAndMouseEnter();
   clickTl = _onClickSelector();
 }
 
 function _handlePointerDownAndMouseEnter() {
-  $.btn.addEventListener(config.event.click, _toggle);
-  $.btn.addEventListener(config.event.mouseenter, _handleMouseEnter);
+  dom.btn.addEventListener(config.event.click, _toggle);
+  dom.btn.addEventListener(config.event.mouseenter, _handleMouseEnter);
 }
 
 function _toggle() {
-  $.container.classList.toggle("is-open");
+  dom.container.classList.toggle("is-open");
   if (!isOpen) {
     clickTl.play();
     scroll.disablePlugin();
@@ -44,7 +34,7 @@ function _toggle() {
 function _onClickSelector() {
   const tl = gsap.timeline({ paused: true, defaults: { duration: 0.3 } });
 
-  tl.to($.bars, {
+  tl.to(dom.bars, {
     height: "3px",
     duration: 0.2,
     backgroundColor: " #dadada",
@@ -57,22 +47,22 @@ function _handleMouseEnter() {
   const tl = gsap.timeline({
     defaults: { duration: 0.2, stagger: 0.1, ease: "power1.inOut" },
   });
-  tl.set($.bars, {
+  tl.set(dom.bars, {
     transformOrigin: "right center",
   })
-    .to($.bars, {
+    .to(dom.bars, {
       scaleX: 0,
     })
-    .set($.bars, {
+    .set(dom.bars, {
       transformOrigin: "left center",
     })
-    .to($.bars, {
+    .to(dom.bars, {
       scaleX: 1,
     })
-    .set($.wraps, {
+    .set(dom.wraps, {
       rotate: 0,
     })
-    .to($.wraps, {
+    .to(dom.wraps, {
       rotate: 180,
     });
 }

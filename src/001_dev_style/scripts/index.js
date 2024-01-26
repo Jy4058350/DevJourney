@@ -1,7 +1,5 @@
-console.log(footer);
-
 import "../styles/style.scss";
 
-import { init } from "./bootstrap";
+import { init } from "#/bootstrap";
 
 init();

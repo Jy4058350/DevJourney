@@ -18,8 +18,6 @@ export default async function init({
   menu,
   cling,
 }) {
-
-  
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
@@ -29,7 +27,6 @@ export default async function init({
   const prevButton = iNode.qs(".home-news-control-button.Previous");
   const nextButton = iNode.qs(".home-news-control-button.Next");
 
-
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
   const fvHandler = new FvHandler(fv);
@@ -38,7 +35,7 @@ export default async function init({
 
   domManuipulator.init();
   homeNews.start();
- 
+
   domManuipulator.updateStyle();
   const headerHeight = headerHandler.getHeaderHeight();
   domManuipulator.updateStyle(headerHeight);
@@ -67,16 +64,4 @@ export default async function init({
       }, 200);
     },
   });
-
-
-  // elementPos.init();
-  // elementPos.resizeHeaderPos();
-  // elementPos.resizingFooterPos();
-  // elementPosHome.wideRangeGoblin();
-
-  // await elementPosHome.getHomeNewsHeight();
-  // await elementPosHome.setRotationViewportHeight();
-
-  // homeNews.init();
-  // homeNews.initEventListenres();
 }

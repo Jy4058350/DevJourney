@@ -1,6 +1,5 @@
-console.log(footer);
 import world from "./glsl/world";
-import { viewport, gui, iNode, config } from "./helper";
+import { viewport, gui, iNode, config, dom } from "./helper";
 import { scroll } from "./component/scroll";
 import { mouse } from "./component/mouse";
 import { loader } from "./component/loader";
@@ -8,25 +7,17 @@ import { theme } from "./component/theme";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
 import "./component/scroll-animation";
-import { getMenuItem } from "./helper";
 
-window.debug = debugmode(1) ? 1 : 0;
-
+window.debug = debugmode(0) ? 1 : 0;
 
 function debugmode(d) {
   return d && import.meta.env.DEV;
 }
 
 export async function init() {
-  const canvas = iNode.getElement(config.$.canvas);
+  const { canvas, page, header, footer } = dom;
 
-  const pageEl = iNode.getElement(config.$.pageContainer);
-
-  const headerEl = iNode.getElement(config.$.header);
-
-  const footerEl = iNode.getElement(config.$.footer);
-
-  const pageType = iNode.getDateSet(pageEl, "page");
+  const pageType = iNode.getDateSet(page, "page");
 
   if (window.debug) {
     await gui.init();
@@ -64,7 +55,7 @@ export async function init() {
   theme.init();
 
   menu.init();
-  cling.init(headerEl, footerEl);
+  cling.init(header, footer);
 
   // elementPos.executeSequence();
 

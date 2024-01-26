@@ -1,44 +1,24 @@
-import { iNode } from "../helper";
+import { iNode, config } from "../helper";
 
-export function getMenuItem() {
-  const container = getGlobalContainer();
-  const page = getPageContainer();
-  const btn = iNode.qsa(".btn-menu");
-  const inner = iNode.qs(".btn-menu_inner");
-  const wraps = iNode.qsa(".btn-menu_wrap");
-  const bars = iNode.qsa(".btn-menu_bar");
-  // getHeader();
-  console.log(footer);
-  getHeaderChild(header);
-  return {
-    btn,
-    inner,
-    wraps,
-    bars,
-    container,
-    page,
-  };
-}
+const dom = {
+  canvas: iNode.qs(config.$.canvas),
+  container: iNode.qs(config.$.globalContainer),
+  page: iNode.qs(config.$.pageContainer),
+  header: iNode.qs(config.$.header),
+  fv: iNode.qs(config.$.fv),
+  footer: iNode.qs(config.$.footer),
 
-export function getGlobalContainer() {
-  const container = iNode.qs("#globalContainer");
-  console.log(container);
-  return container;
-}
+  // menu
+  btn: iNode.qs(config.$.btnMenu),
+  inner: iNode.qs(config.$.btnMenuInner),
+  wraps: iNode.qs(config.$.btnMenuWrap),
+  bars: iNode.qs(config.$.btnMenuBar),
 
-export function getPageContainer() {
-  const page = iNode.qs("#pageContainer");
-  console.log(page);
-  return page;
-}
+  //bottom-1
+  pageHeader: iNode.qs(".PageHeader"),
+  pageWrapper: iNode.qs(".PageHeader__ImageWrapper"),
+  rte: iNode.qs(".Rte"),
+  imgContrast: iNode.qs(".Image--contrast"),
+};
 
-export function getHeader() {
-  const header = iNode.qs("#header");
-  return header;
-}
-
-export function getHeaderChild(header) {
-  // const header = getHeader();
-  const childEls = iNode.getChildEls(header);
-  console.log(...childEls);
-}
+export { dom };
