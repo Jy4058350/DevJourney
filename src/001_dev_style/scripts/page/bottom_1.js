@@ -27,30 +27,20 @@ export default async function init({
 
   let resizeTimer;
 
-  window.addEventListener("resize", {
-    handleEvent(event) {
-      clearTimeout(resizeTimer);
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
 
-      updateHeaderStyle();
-      // resizeTimer = setTimeout(() => {
-      //   let height = 0;
-      //   domManuipulator.init();
-      //   const headerHeight = headerHandler.getHeaderHeight();
-      //   domManuipulator.updateStyle(headerHeight);
-      //   height = headerHandler.getHeaderHeight();
-      //   headerHandler.setElHeight(height);
-      // }, 200);
-    },
+    updateHeaderStyle();
   });
 
   function updateHeaderStyle() {
     resizeTimer = setTimeout(() => {
-      let height = 0;
+      let nextHeight = 0;
       domManuipulator.init();
       const headerHeight = headerHandler.getHeaderHeight();
       domManuipulator.updateStyle(headerHeight);
-      height = headerHandler.getHeaderHeight();
-      headerHandler.setElHeight(height);
+      nextHeight = headerHandler.getHeaderHeight();
+      headerHandler.setElHeight(nextHeight);
     }, 200);
   }
 
