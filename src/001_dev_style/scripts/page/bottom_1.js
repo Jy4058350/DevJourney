@@ -31,16 +31,28 @@ export default async function init({
     handleEvent(event) {
       clearTimeout(resizeTimer);
 
-      resizeTimer = setTimeout(() => {
-        let height = 0;
-        domManuipulator.init();
-        const headerHeight = headerHandler.getHeaderHeight();
-        domManuipulator.updateStyle(headerHeight);
-        height = headerHandler.getHeaderHeight();
-        headerHandler.setElHeight(height);
-      }, 200);
+      updateHeaderStyle();
+      // resizeTimer = setTimeout(() => {
+      //   let height = 0;
+      //   domManuipulator.init();
+      //   const headerHeight = headerHandler.getHeaderHeight();
+      //   domManuipulator.updateStyle(headerHeight);
+      //   height = headerHandler.getHeaderHeight();
+      //   headerHandler.setElHeight(height);
+      // }, 200);
     },
   });
+
+  function updateHeaderStyle() {
+    resizeTimer = setTimeout(() => {
+      let height = 0;
+      domManuipulator.init();
+      const headerHeight = headerHandler.getHeaderHeight();
+      domManuipulator.updateStyle(headerHeight);
+      height = headerHandler.getHeaderHeight();
+      headerHandler.setElHeight(height);
+    }, 200);
+  }
 
   // test code for bottom_1.scss
 
@@ -72,7 +84,6 @@ export default async function init({
     };
 
     const scrollBar = Scrollbar.init(page, options);
-    console.log("scrollBar", scrollBar.addListener);
     addScrollBarListener(scrollBar, imgContrast, initialY);
   })(function (scrollBar, imgContrast, initialY) {
     scrollBar.addListener(({ offset }) => {
