@@ -155,6 +155,7 @@ function osResize() {
   world.camera.far = viewport.far;
   world.camera.aspect = viewport.aspect;
   world.camera.updateProjectionMatrix();
+  console.log("world resize");
 }
 
 export default world;
