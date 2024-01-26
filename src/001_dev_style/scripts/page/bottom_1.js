@@ -19,7 +19,7 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const pageHandler = new PageHandler(header, fv, footer);
+  const pageHandler = new PageHandler(header, fv, footer, headerHandler, domManuipulator);
   pageHandler.init();
 
   const headerHeight = headerHandler.getHeaderHeight();

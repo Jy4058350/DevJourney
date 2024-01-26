@@ -1,3 +1,5 @@
+
+
 class PageHandler {
   constructor(header, fv, footer, headerHandler, domManuipulator) {
     this.header = header;
@@ -28,7 +30,7 @@ class PageHandler {
       const headerHeight = this.headerHandler.getHeaderHeight();
       this.domManuipulator.updateStyle(headerHeight);
       nextHeight = this.headerHandler.getHeaderHeight();
-      headerHandler.setElHeight(nextHeight);
+      this.headerHandler.setElHeight(nextHeight);
     }, 200);
   }
 }
