@@ -8,6 +8,11 @@ const config = {
     header: "#header",
     main: "#main",
     footer: "#footer",
+
+    btnMenu: ".btn-menu",
+    btnMenuInner: ".btn-menu_inner",
+    btnMenuWrap: ".btn-menu_wrap",
+    btnMenuBar: ".btn-menu_bar",
   },
 
   prefix: {
