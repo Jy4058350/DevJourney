@@ -1,7 +1,7 @@
 import Scrollbar from "smooth-scrollbar"; //import with named import
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
-import PageHandler from "../myclasses/pagesHandler";
+import bottom1PageHandler from "../myclasses/bottom1PagesHandler";
 
 import { iNode, dom } from "../helper";
 
@@ -19,7 +19,7 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const pageHandler = new PageHandler(
+  const pageHandler = new bottom1PageHandler(
     header,
     fv,
     footer,
