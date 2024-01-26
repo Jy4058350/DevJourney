@@ -10,7 +10,26 @@ class PageHandler {
     this.domManuipulator = domManuipulator;
 
     this.resizeTimer;
+    this.initialY;
     this.updateHeaderStyle = this.updateHeaderStyle.bind(this);
+    const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
+    this.page = page;
+    this.pageHeader = pageHeader;
+    this.pageWrapper = pageWrapper;
+    this.rte = rte;
+    this.imgContrast = imgContrast;
+    const options = {
+      damping: 0.1,
+      // delegateTo: document,
+      renderByPixels: true,
+      alwaysShowTracks: false,
+      continuousScrolling: true,
+      overFlowBehavior: {
+        // x: "hidden",
+        y: "scroll",
+      },
+    };
+
     this.scrollBar = Scrollbar.init(page, options);
   }
 
@@ -38,18 +57,19 @@ class PageHandler {
   }
 
   addScrollBarListener() {
-    let initialY;
-    const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
+    console.log("addScrollBarListener");
+    // let initialY;
+    // const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
 
     window.onload = function () {
-      initialY = window.scrollY / 0.5;
+      this.initialY = window.scrollY / 0.5;
     };
 
-    pageHeader.style.background = "url(/img/3.png)";
+    this.pageHeader.style.background = "url(/img/3.png)";
 
-    pageWrapper.style.backgroundImage = "url(/img/1.jpeg)";
+    this.pageWrapper.style.backgroundImage = "url(/img/1.jpeg)";
 
-    const childEl = rte.children[1];
+    const childEl = this.rte.children[1];
     childEl.style.textAlign = "center";
 
     const options = {
@@ -64,16 +84,16 @@ class PageHandler {
       },
     };
 
-    const scrollBar = Scrollbar.init(page, options);
-    this.addScrollBarListener(scrollBar, imgContrast, initialY);
+    // const scrollBar = Scrollbar.init(this.page, options);
+    this.scrollBarListener(this.scrollBar, this.imgContrast, this.initialY);
   }
-  addScrollBarListener(scrollBar, imgContrast, initialY) {
-    scrollBar.addListener(({ offset }) => {
+  scrollBarListener(initialY) {
+    this.scrollBar.addListener(({ offset }) => {
       console.log("is scrolling", offset.y);
       const newY = offset.y / 2;
       console.log("newY", newY);
-      imgContrast.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
-      imgContrast.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+      this.imgContrast.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
+      this.imgContrast.style.transform = `translate3d(0px, ${newY}px, 0px)`;
     });
   }
 }
