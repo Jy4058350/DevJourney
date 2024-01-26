@@ -19,8 +19,6 @@ export default async function init({
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
 
-  domManuipulator.init();
-
   const headerHeight = headerHandler.getHeaderHeight();
 
   domManuipulator.updateStyle(headerHeight);
@@ -48,21 +46,18 @@ export default async function init({
 
   (function (addScrollBarListener) {
     let initialY;
+    const { page, pageHeader, pageWrapper, rte, imgContrast } = dom;
+
     window.onload = function () {
       initialY = window.scrollY / 0.5;
     };
 
-    const el = iNode.getElement(".PageHeader");
-    el.style.background = "url(/img/3.png)";
+    pageHeader.style.background = "url(/img/3.png)";
 
-    const el2 = iNode.getElement(".PageHeader__ImageWrapper");
-    el2.style.backgroundImage = "url(/img/1.jpeg)";
+    pageWrapper.style.backgroundImage = "url(/img/1.jpeg)";
 
-    const el3 = iNode.getElement(".Rte");
-    const childEl = el3.children[1];
+    const childEl = rte.children[1];
     childEl.style.textAlign = "center";
-
-    const el4 = iNode.getElement(".Image--contrast");
 
     const options = {
       damping: 0.1,
@@ -76,14 +71,16 @@ export default async function init({
       },
     };
 
-    const scrollBar = Scrollbar.init(pageContainer, options);
-    addScrollBarListener(scrollBar, el4, initialY);
-  })(function (scrollBar, el4, initialY) {
+    const scrollBar = Scrollbar.init(page, options);
+    console.log("scrollBar", scrollBar.addListener);
+    addScrollBarListener(scrollBar, imgContrast, initialY);
+  })(function (scrollBar, imgContrast, initialY) {
     scrollBar.addListener(({ offset }) => {
       console.log("is scrolling", offset.y);
       const newY = offset.y / 2;
-      el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
-      el4.style.transform = `translate3d(0px, ${newY}px, 0px)`;
+      console.log("newY", newY);
+      imgContrast.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
+      imgContrast.style.transform = `translate3d(0px, ${newY}px, 0px)`;
     });
   });
 }

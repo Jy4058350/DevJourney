@@ -14,8 +14,13 @@ const config = {
     btnMenuInner: ".btn-menu_inner",
     btnMenuWrap: ".btn-menu_wrap",
     btnMenuBar: ".btn-menu_bar",
-  },
 
+    //bottom-1
+    pageHeader: ".PageHeader",
+    pageWrapper: ".PageHeader__ImageWrapper",
+    rte: ".Rte",
+    imgContrast: ".Image--contrast",
+  },
   prefix: {
     glsl: "webgl",
   },
