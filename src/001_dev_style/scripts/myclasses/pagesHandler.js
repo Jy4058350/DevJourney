@@ -1,37 +1,36 @@
 class PageHandler {
-  constructor(header, fv, footer) {
+  constructor(header, fv, footer, headerHandler, domManuipulator) {
     this.header = header;
     this.fv = fv;
     this.footer = footer;
+    this.headerHandler = headerHandler;
+    this.domManuipulator = domManuipulator;
 
     this.resizeTimer;
-    // this.updateHeaderStyle = this.updateHeaderStyle.bind(this);
-
-    // this.init();
-    console.log("pageHandler constructor");
+    this.updateHeaderStyle = this.updateHeaderStyle.bind(this);
   }
 
   init() {
-    console.log("pageHandler init");
+    this.addResizeListener();
   }
 
-  //   addResizeListener(resizeTimer, updateHeaderStyle) {
-  //     window.addEventListener("resize", () => {
-  //       clearTimeout(resizeTimer);
-  //       updateHeaderStyle();
-  //     });
-  //   }
+  addResizeListener(resizeTimer) {
+    window.addEventListener("resize", () => {
+      clearTimeout(this.resizeTimer);
+      this.updateHeaderStyle();
+    });
+  }
 
-  //   updateHeaderStyle() {
-  //     resizeTimer = setTimeout(() => {
-  //       let nextHeight = 0;
-  //       domManuipulator.init();
-  //       const headerHeight = headerHandler.getHeaderHeight();
-  //       domManuipulator.updateStyle(headerHeight);
-  //       nextHeight = headerHandler.getHeaderHeight();
-  //       headerHandler.setElHeight(nextHeight);
-  //     }, 200);
-  //   }
+  updateHeaderStyle() {
+    this.resizeTimer = setTimeout(() => {
+      let nextHeight = 0;
+      this.domManuipulator.init();
+      const headerHeight = this.headerHandler.getHeaderHeight();
+      domManuipulator.updateStyle(headerHeight);
+      nextHeight = headerHandler.getHeaderHeight();
+      headerHandler.setElHeight(nextHeight);
+    }, 200);
+  }
 }
 
 export default PageHandler;

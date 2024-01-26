@@ -28,22 +28,22 @@ export default async function init({
 
   let resizeTimer;
 
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
+  // window.addEventListener("resize", () => {
+  //   clearTimeout(resizeTimer);
 
-    updateHeaderStyle();
-  });
+  //   updateHeaderStyle();
+  // });
 
-  function updateHeaderStyle() {
-    resizeTimer = setTimeout(() => {
-      let nextHeight = 0;
-      domManuipulator.init();
-      const headerHeight = headerHandler.getHeaderHeight();
-      domManuipulator.updateStyle(headerHeight);
-      nextHeight = headerHandler.getHeaderHeight();
-      headerHandler.setElHeight(nextHeight);
-    }, 200);
-  }
+  // function updateHeaderStyle() {
+  //   resizeTimer = setTimeout(() => {
+  //     let nextHeight = 0;
+  //     domManuipulator.init();
+  //     const headerHeight = headerHandler.getHeaderHeight();
+  //     domManuipulator.updateStyle(headerHeight);
+  //     nextHeight = headerHandler.getHeaderHeight();
+  //     headerHandler.setElHeight(nextHeight);
+  //   }, 200);
+  // }
 
   // test code for bottom_1.scss
 
