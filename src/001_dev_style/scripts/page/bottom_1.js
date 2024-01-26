@@ -1,6 +1,7 @@
 import Scrollbar from "smooth-scrollbar"; //import with named import
 import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
+import PageHandler from "../myclasses/pagesHandler";
 
 import { iNode, dom } from "../helper";
 
@@ -18,12 +19,12 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
+  const pageHandler = new PageHandler(header, fv, footer);
+  pageHandler.init();
 
   const headerHeight = headerHandler.getHeaderHeight();
 
   domManuipulator.updateStyle(headerHeight);
-  // const portHeight = newsViewport.getPort();
-  // newsViewport.setViewPort(portHeight);
 
   let resizeTimer;
 
