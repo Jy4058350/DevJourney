@@ -47,7 +47,6 @@ class DOMManuipulatorClass {
         this.fvHandler.raiseFv(headerHeight);
       }
       iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
-      iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
       iNode.setCssProp("--header-height", 145, this.header);
     }
 
@@ -56,7 +55,6 @@ class DOMManuipulatorClass {
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
       }
-      iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
       iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
       iNode.setCssProp("--header-height", 68, this.header);
     }

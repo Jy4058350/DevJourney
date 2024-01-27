@@ -36,9 +36,6 @@ export default async function init({
   domManuipulator.init();
   homeNews.start();
 
-  // domManuipulator.updateStyle();
-  // const headerHeight = headerHandler.getHeaderHeight();
-  // domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();
   newsViewport.setViewPort(portHeight);
 
