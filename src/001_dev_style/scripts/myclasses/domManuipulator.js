@@ -1,4 +1,4 @@
-import { iNode } from "../helper";
+import { iNode, dom } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
 import FooterHandler from "./footer";
@@ -17,29 +17,29 @@ class DOMManuipulatorClass {
     this.init();
   }
   init() {
+    // add resize event listener
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
     this.firstView();
   }
 
+  _toEm(px, rootfontsize) {
+    return px / rootfontsize;
+  }
+
   firstView() {
-    // console.log("this.isWideScreen", this.isWideScreen);
     if (this.isWideScreen) {
-      this.headerHandler.isWideToggler(this.isWideScreen);
+      this.isWideToggler(this.isWideScreen);
     }
     if (!this.isWideScreen) {
-      this.headerHandler.isNarrowToggler(this.isWideScreen);
+      this.isNarrowToggler(this.isWideScreen);
     }
   }
 
   updateStyle() {
-    // console.log("this.isWideScreen", this.isWideScreen);
-    const headerHeight = this.headerHandler.getHeaderHeight();
-    // console.log("headerHeight", headerHeight);
-    // console.log("updateStyle_headerHeight", headerHeight);
-    this.headerHandler.setElHeight(headerHeight);
+    const headerHeight = this.getHeaderHeight();
+    this.setElHeight(headerHeight);
     if (this.isWideScreen) {
-      // console.log("this.isWideScreen is true", this.isWideScreen);
-      this.headerHandler.isWideToggler(this.isWideScreen);
+      this.isWideToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
       }
@@ -49,8 +49,7 @@ class DOMManuipulatorClass {
     }
 
     if (!this.isWideScreen) {
-      // console.log("this.isWideScreen is false", this.isWideScreen);
-      this.headerHandler.isNarrowToggler(this.isWideScreen);
+      this.isNarrowToggler(this.isWideScreen);
       if (this.fv) {
         this.fvHandler.raiseFv(headerHeight);
       }
@@ -68,8 +67,37 @@ class DOMManuipulatorClass {
       ) / rootfontsize
     );
   }
-  _toEm(px, rootfontsize) {
-    return px / rootfontsize;
+
+  // related headerClass
+  isWideToggler(isWideScreen) {
+    iNode.toggleClass(
+      this.goblin,
+      "Header__FlexItem--increaseSpace",
+      isWideScreen
+    );
+    iNode.toggleClass(dom.headerHorizontalList, "Header__MainNav--open", true);
+    iNode.toggleClass(dom.headerMainNav, "Header__MainNav--open", true);
+    iNode.toggleClass(dom.headerSecondNav, "Header__secondaryNav--open", true);
+    iNode.setStyles(dom.headerHorizontalList, { opacity: 1 });
+    iNode.setStyles(dom.headerEntrance, { display: "none" });
+    iNode.setStyles(dom.headerMainNav, { opacity: 1 });
+    iNode.setStyles(dom.headerSecondNav, { opacity: 1 });
+    iNode.setStyles(dom.headerIcon, { display: "none" });
+  }
+
+  isNarrowToggler(isWideScreen) {
+    iNode.toggleClass(
+      dom.headerFlexItem,
+      "Header__FlexItem--increaseSpace",
+      isWideScreen
+    );
+    iNode.toggleClass(dom.headerHorizontalList, "Header__MainNav--open", false);
+    iNode.toggleClass(dom.headerMainNav, "Header__MainNav--open", false);
+    iNode.setStyles(dom.headerHorizontalList, { opacity: 0 });
+    iNode.setStyles(dom.headerEntrance, { display: "block" });
+    iNode.setStyles(dom.headerMainNav, { opacity: 0 });
+    iNode.setStyles(dom.headerSecondNav, { opacity: 0 });
+    iNode.setStyles(dom.headerIcon, { display: "block" });
   }
 }
 

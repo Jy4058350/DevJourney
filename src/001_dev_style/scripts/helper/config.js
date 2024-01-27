@@ -21,6 +21,20 @@ const config = {
     rte: ".Rte",
     imgContrast: ".Image--contrast",
   },
+
+  header: {
+    flexItem: ".Header__FlexItem--logo",
+    entrance: ".btn-menu.Header__Entrance",
+    mainnav: ".Header__MainNav",
+    secondNav: ".Header__secondaryNav",
+    horizontalList: ".HorizontalList",
+    icon: ".Header__Icon",
+    wrap: ".Header__Wrap",
+    logoGray: ".Logo__gray",
+    logoWhite: ".Logo__white",
+    btnBars: ".btn-menu_bar",
+  },
+
   prefix: {
     glsl: "webgl",
   },
