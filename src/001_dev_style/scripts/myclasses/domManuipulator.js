@@ -68,10 +68,11 @@ class DOMManuipulatorClass {
     );
   }
 
-  // related headerClass
+  // related headerClass follows
+
   isWideToggler(isWideScreen) {
     iNode.toggleClass(
-      this.goblin,
+      dom.headerFlexItem,
       "Header__FlexItem--increaseSpace",
       isWideScreen
     );
@@ -98,6 +99,28 @@ class DOMManuipulatorClass {
     iNode.setStyles(dom.headerMainNav, { opacity: 0 });
     iNode.setStyles(dom.headerSecondNav, { opacity: 0 });
     iNode.setStyles(dom.headerIcon, { display: "block" });
+  }
+
+  getHeaderHeight() {
+    const header = iNode.qs("#header");
+    const height = header.offsetHeight;
+
+    iNode.setCssProp("--header-height", height, this.header);
+
+    return height;
+  }
+
+  setElHeight(value) {
+    this.header.style.height = `${value}px`;
+    this.header.style.maxHeight = `${value}px`;
+
+    const pinSpacer = iNode.qs(".pin-spacer");
+    if (!pinSpacer) return this.header;
+
+    if (pinSpacer) {
+      pinSpacer.style.height = `${value}px`;
+      pinSpacer.style.maxHeight = `${value}px`;
+    }
   }
 }
 
