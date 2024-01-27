@@ -36,9 +36,9 @@ export default async function init({
   domManuipulator.init();
   homeNews.start();
 
-  domManuipulator.updateStyle();
-  const headerHeight = headerHandler.getHeaderHeight();
-  domManuipulator.updateStyle(headerHeight);
+  // domManuipulator.updateStyle();
+  // const headerHeight = headerHandler.getHeaderHeight();
+  // domManuipulator.updateStyle(headerHeight);
   const portHeight = newsViewport.getPort();
   newsViewport.setViewPort(portHeight);
 
@@ -51,12 +51,12 @@ export default async function init({
       resizeTimer = setTimeout(() => {
         let height = 0;
         domManuipulator.init();
-        const headerHeight = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", headerHeight);
+        const headerHeight = domManuipulator.getHeaderHeight();
+        console.log("resize_headerHeight before update", headerHeight);
         domManuipulator.updateStyle(headerHeight);
-        height = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", height);
-        headerHandler.setElHeight(height);
+        height = domManuipulator.getHeaderHeight();
+        console.log("resize_headerHeight after update", height);
+        domManuipulator.setElHeight(height);
 
         fvHandler.raiseFv(height);
         const portHeight = newsViewport.getPort();

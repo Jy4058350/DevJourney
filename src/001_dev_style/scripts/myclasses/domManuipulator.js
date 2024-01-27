@@ -15,6 +15,9 @@ class DOMManuipulatorClass {
     this.footerHandler = new FooterHandler(footre);
 
     this.init();
+    this.updateStyle();
+    this.getHeaderHeight();
+    this.updateStyle();
   }
   init() {
     // add resize event listener
