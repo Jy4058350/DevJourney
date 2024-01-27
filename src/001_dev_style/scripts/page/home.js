@@ -1,5 +1,5 @@
 import { iNode } from "../helper";
-import DOMManuipulatorClass from "../myclasses/main";
+import DOMManuipulatorClass from "../myclasses/domManuipulator";
 import HeaderHandler from "../myclasses/header";
 import Viewport from "../myclasses/viewport";
 import FvHandler from "../myclasses/fv";
