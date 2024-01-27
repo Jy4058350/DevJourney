@@ -15,14 +15,13 @@ class DOMManuipulatorClass {
     this.footerHandler = new FooterHandler(footre);
 
     this.init();
-    this.updateStyle();
     this.getHeaderHeight();
-    this.updateStyle();
   }
   init() {
     // add resize event listener
     this.isWideScreen = this._getWindowWidth() > this._toEm(1280, 16);
     this.firstView();
+    this.updateStyle();
   }
 
   _toEm(px, rootfontsize) {
@@ -32,8 +31,7 @@ class DOMManuipulatorClass {
   firstView() {
     if (this.isWideScreen) {
       this.isWideToggler(this.isWideScreen);
-    }
-    if (!this.isWideScreen) {
+    } else {
       this.isNarrowToggler(this.isWideScreen);
     }
   }
@@ -42,22 +40,28 @@ class DOMManuipulatorClass {
     const headerHeight = this.getHeaderHeight();
     this.setElHeight(headerHeight);
     if (this.isWideScreen) {
-      this.isWideToggler(this.isWideScreen);
-      if (this.fv) {
-        this.fvHandler.raiseFv(headerHeight);
-      }
-      iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
-      iNode.setCssProp("--header-height", 145, this.header);
+      this.updateWideScreenStyle(headerHeight);
+    } else {
+      this.updateNarrowScreenStyle(headerHeight);
     }
+  }
 
-    if (!this.isWideScreen) {
-      this.isNarrowToggler(this.isWideScreen);
-      if (this.fv) {
-        this.fvHandler.raiseFv(headerHeight);
-      }
-      iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
-      iNode.setCssProp("--header-height", 68, this.header);
+  updateWideScreenStyle(headerHeight) {
+    this.isWideToggler(this.isWideScreen);
+    if (this.fv) {
+      this.fvHandler.raiseFv(headerHeight);
     }
+    iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
+    iNode.setCssProp("--header-height", 145, this.header);
+  }
+
+  updateNarrowScreenStyle(headerHeight) {
+    this.isNarrowToggler(this.isWideScreen);
+    if (this.fv) {
+      this.fvHandler.raiseFv(headerHeight);
+    }
+    iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
+    iNode.setCssProp("--header-height", 68, this.header);
   }
 
   _getWindowWidth(rootfontsize = 16) {
@@ -116,7 +120,6 @@ class DOMManuipulatorClass {
     this.header.style.maxHeight = `${value}px`;
 
     const pinSpacer = iNode.qs(".pin-spacer");
-    if (!pinSpacer) return this.header;
 
     if (pinSpacer) {
       pinSpacer.style.height = `${value}px`;
