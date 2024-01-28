@@ -39,26 +39,26 @@ export default async function init({
   const portHeight = newsViewport.getPort();
   newsViewport.setViewPort(portHeight);
 
-  let resizeTimer;
+  // let resizeTimer;
 
-  window.addEventListener("resize", {
-    handleEvent(event) {
-      clearTimeout(resizeTimer);
+  // window.addEventListener("resize", {
+  //   handleEvent(event) {
+  //     clearTimeout(resizeTimer);
 
-      resizeTimer = setTimeout(() => {
-        let height = 0;
-        domManuipulator.init();
-        const headerHeight = domManuipulator.getHeaderHeight();
-        console.log("resize_headerHeight before update", headerHeight);
-        domManuipulator.updateStyle(headerHeight);
-        height = domManuipulator.getHeaderHeight();
-        console.log("resize_headerHeight after update", height);
-        domManuipulator.setElHeight(height);
+  //     resizeTimer = setTimeout(() => {
+  //       let height = 0;
+  //       domManuipulator.init();
+  //       const headerHeight = domManuipulator.getHeaderHeight();
+  //       console.log("resize_headerHeight before update", headerHeight);
+  //       domManuipulator.updateStyle(headerHeight);
+  //       height = domManuipulator.getHeaderHeight();
+  //       console.log("resize_headerHeight after update", height);
+  //       domManuipulator.setElHeight(height);
 
-        fvHandler.raiseFv(height);
-        const portHeight = newsViewport.getPort();
-        newsViewport.setViewPort(portHeight);
-      }, 200);
-    },
-  });
+  //       fvHandler.raiseFv(height);
+  //       const portHeight = newsViewport.getPort();
+  //       newsViewport.setViewPort(portHeight);
+  //     }, 200);
+  //   },
+  // });
 }

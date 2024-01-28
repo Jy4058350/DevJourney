@@ -13,6 +13,7 @@ class DOMManuipulatorClass {
     this.headerHandler = new HeaderHandler(header);
     this.fvHandler = new FvHandler(fv);
     this.footerHandler = new FooterHandler(footre);
+    this.resizeTimer;
 
     this.init();
     this.getHeaderHeight();
@@ -23,6 +24,7 @@ class DOMManuipulatorClass {
     // this.firstView();
     this.toggleScreen(this.isWideScreen);
     this.updateStyle();
+    this.addResizeListener();
   }
 
   _toEm(px, rootfontsize) {
@@ -48,7 +50,6 @@ class DOMManuipulatorClass {
   }
 
   updateWideScreenStyle(headerHeight) {
-    // this.isWideToggler(this.isWideScreen);
     if (this.fv) {
       this.fvHandler.raiseFv(headerHeight);
     }
@@ -57,7 +58,6 @@ class DOMManuipulatorClass {
   }
 
   updateNarrowScreenStyle(headerHeight) {
-    // this.isNarrowToggler(this.isWideScreen);
     if (this.fv) {
       this.fvHandler.raiseFv(headerHeight);
     }
@@ -104,37 +104,6 @@ class DOMManuipulatorClass {
     iNode.setStyles(dom.headerIcon, { display: displayValue });
   }
 
-  // isWideToggler(isWideScreen) {
-  //   iNode.toggleClass(
-  //     dom.headerFlexItem,
-  //     "Header__FlexItem--increaseSpace",
-  //     isWideScreen
-  //   );
-  //   iNode.toggleClass(dom.headerHorizontalList, "Header__MainNav--open", true);
-  //   iNode.toggleClass(dom.headerMainNav, "Header__MainNav--open", true);
-  //   iNode.toggleClass(dom.headerSecondNav, "Header__secondaryNav--open", true);
-  //   iNode.setStyles(dom.headerHorizontalList, { opacity: 1 });
-  //   iNode.setStyles(dom.headerEntrance, { display: "none" });
-  //   iNode.setStyles(dom.headerMainNav, { opacity: 1 });
-  //   iNode.setStyles(dom.headerSecondNav, { opacity: 1 });
-  //   iNode.setStyles(dom.headerIcon, { display: displayValue });
-  // }
-
-  // isNarrowToggler(isWideScreen) {
-  //   iNode.toggleClass(
-  //     dom.headerFlexItem,
-  //     "Header__FlexItem--increaseSpace",
-  //     isWideScreen
-  //   );
-  //   iNode.toggleClass(dom.headerHorizontalList, "Header__MainNav--open", false);
-  //   iNode.toggleClass(dom.headerMainNav, "Header__MainNav--open", false);
-  //   iNode.setStyles(dom.headerHorizontalList, { opacity: 0 });
-  //   iNode.setStyles(dom.headerEntrance, { display: "block" });
-  //   iNode.setStyles(dom.headerMainNav, { opacity: 0 });
-  //   iNode.setStyles(dom.headerSecondNav, { opacity: 0 });
-  //   iNode.setStyles(dom.headerIcon, { display: "block" });
-  // }
-
   getHeaderHeight() {
     const header = iNode.qs("#header");
     const height = header.offsetHeight;
@@ -154,6 +123,35 @@ class DOMManuipulatorClass {
       pinSpacer.style.maxHeight = `${value}px`;
     }
   }
+
+  addResizeListener() {
+    console.log("addResizeListener");
+    window.addEventListener("resize", () => {
+      clearTimeout(this.resizeTimer);
+      this.updateStyle();
+    });
+  }
+
+  // updateStyle() {
+  //   resizeTimer = setTimeout(() => {
+  //     let height = 0;
+  //     domManuipulator.init();
+  //     const headerHeight = domManuipulator.getHeaderHeight();
+  //     console.log("resize_headerHeight before update", headerHeight);
+  //     domManuipulator.updateStyle(headerHeight);
+  //     height = domManuipulator.getHeaderHeight();
+  //     console.log("resize_headerHeight after update", height);
+  //     domManuipulator.setElHeight(height);
+
+  //     fvHandler.raiseFv(height);
+  //     const portHeight = newsViewport.getPort();
+  //     newsViewport.setViewPort(portHeight);
+  //   }, 200);
+  // }
+
+  //     },
+  //   });
+  // }
 }
 
 export default DOMManuipulatorClass;
