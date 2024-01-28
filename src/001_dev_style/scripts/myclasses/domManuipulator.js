@@ -1,18 +1,19 @@
 import { iNode, dom } from "../helper";
 import HeaderHandler from "./header";
 import FvHandler from "./fv";
-import FooterHandler from "./footer";
+// import FooterHandler from "./footer";
+// import { get } from "lodash";
 
 const $ = {};
 
 class DOMManuipulatorClass {
-  constructor(header, fv, footre) {
+  constructor(header, fv, footer) {
     this.header = header;
     this.fv = fv;
-    this.footer = footre;
+    this.footer = footer;
     this.headerHandler = new HeaderHandler(header);
     this.fvHandler = new FvHandler(fv);
-    this.footerHandler = new FooterHandler(footre);
+    // this.footerHandler = new FooterHandler(footer);
     this.resizeTimer;
 
     this.init();
@@ -40,6 +41,7 @@ class DOMManuipulatorClass {
 
   updateStyle() {
     const headerHeight = this.getHeaderHeight();
+    // this.raiseElement(this.footer);
     this.setElHeight(headerHeight);
     if (this.isWideScreen) {
       this.updateWideScreenStyle(headerHeight);
@@ -132,23 +134,15 @@ class DOMManuipulatorClass {
   }
 
   // Related footer follows
-  init() {
-    const siblings = this.footer.previousElementSibling;
-    console.log("siblings", siblings);
-    const siblingsBottom = siblings.getBoundingClientRect().bottom;
-    // console.log("siblingsBottom", this.siblingsBottom);
-    this.footerTop = this.footer.getBoundingClientRect().top;
-    // console.log("footerTop", this.footerTop);
-    this.setFooterPos();
-  }
 
-  getGap() {
-    this.gap = this.siblingsBottom - this.footerTop;
-    // console.log("gap", gap);
-  }
-
-  setFooterPos() {
-    iNode.setCssProp("--footer-top", `${this.gap}`, this.footer);
+  raiseElement(el) {
+    const prevSibling =
+      el.previousElementSibling.getBoundingClientRect().bottom;
+    console.log("prevSibling", prevSibling);
+    const gap = prevSibling - this.footerTop;
+    // this.gapFooter = this.siblingsBottom - this.footerTop;
+    // console.log("gapFooter", gapFooter);
+    iNode.setCssProp("--footer-top", `${gap}`, el);
   }
 }
 
