@@ -10,8 +10,11 @@ class DOMManuipulatorClass {
     this.fv = fv;
     this.footer = footer;
     this.headerHandler = new HeaderHandler(header);
-    // this.fvHandler = new FvHandler(fv);
-    // this.footerHandler = new FooterHandler(footer);
+
+    const { flexIndicator, flexTarget } = dom;
+    this.flexIndicator = flexIndicator;
+    this.flexTarget = flexTarget;
+
     this.resizeTimer;
 
     this.init();
@@ -36,10 +39,11 @@ class DOMManuipulatorClass {
   }
 
   updateStyle() {
-    console.log("updateStyle");
     const headerHeight = this.getHeaderHeight();
     this.raiseElement(this.footer);
     this.setElHeight(headerHeight);
+    console.log(this.flexIndicator, this.flexTarget);
+    this.adjustHeigh(this.flexTarget, this.flexIndicator);
     if (this.isWideScreen) {
       this.updateWideScreenStyle(headerHeight);
     } else {
@@ -140,6 +144,16 @@ class DOMManuipulatorClass {
       resolve();
     });
   }
+
+  // Related flexView(Viewport.class) follows
+  adjustHeigh(el1, el2) {
+    const height = el1.offsetHeight;
+    el2.style.height = `${height}px`;
+  }
+
+  // setViewPort(value) {
+  //   this.rotationViewPort.style.height = `${value}px`;
+  // }
 }
 
 export default DOMManuipulatorClass;

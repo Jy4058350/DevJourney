@@ -35,6 +35,12 @@ const config = {
     btnBars: ".btn-menu_bar",
   },
 
+  // rotationSlider get element
+  flex: {
+    indicator: ".home-news-rotation-wrap",
+    target: ".home-news-article-thumbnail",
+  },
+
   prefix: {
     glsl: "webgl",
   },

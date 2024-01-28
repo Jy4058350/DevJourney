@@ -1,7 +1,7 @@
 import { iNode } from "../helper";
 import DOMManuipulatorClass from "../myclasses/domManuipulator";
 import HeaderHandler from "../myclasses/header";
-import Viewport from "../myclasses/viewport";
+// import Viewport from "../myclasses/viewport";
 import HomeNews from "../myclasses/homeNews";
 
 export default async function init({
@@ -28,14 +28,14 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const newsViewport = new Viewport(rotationViewPort, referenceView);
+  // const newsViewport = new Viewport(rotationViewPort, referenceView);
   const homeNews = new HomeNews(sliders, prevButton, nextButton);
 
   domManuipulator.init();
   homeNews.start();
 
-  const portHeight = newsViewport.getPort();
-  newsViewport.setViewPort(portHeight);
+  // const portHeight = newsViewport.getPort();
+  // newsViewport.setViewPort(portHeight);
 
   // let resizeTimer;
 

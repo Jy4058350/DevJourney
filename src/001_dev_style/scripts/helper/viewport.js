@@ -44,11 +44,7 @@ function updateCanvas(domManuipulator) {
 
   world.osResize(world.os, newCanvasRect);
 
-  const header = iNode.getElById("header");
-  const fv = iNode.getElById("fv");
-  const footer = iNode.getElById("footer");
   domManuipulator.init();
-  // domManuipulator.updateStyle();
 }
 
 export { viewport };

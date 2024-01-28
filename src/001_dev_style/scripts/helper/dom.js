@@ -32,7 +32,10 @@ const dom = {
   headerLogoGray: iNode.qs(config.header.logoGray),
   headerLogoWhite: iNode.qs(config.header.logoWhite),
   headerBtnBars: iNode.qs(config.header.btnBars),
-  
+
+  // flexEl
+  flexIndicator: iNode.qs(config.flex.indicator),
+  flexTarget: iNode.qs(config.flex.target),
 };
 
 export { dom };
