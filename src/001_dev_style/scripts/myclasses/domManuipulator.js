@@ -1,8 +1,6 @@
 import { iNode, dom } from "../helper";
 import HeaderHandler from "./header";
-import FvHandler from "./fv";
-// import FooterHandler from "./footer";
-// import { get } from "lodash";
+// import FvHandler from "./fv";
 
 const $ = {};
 
@@ -12,7 +10,7 @@ class DOMManuipulatorClass {
     this.fv = fv;
     this.footer = footer;
     this.headerHandler = new HeaderHandler(header);
-    this.fvHandler = new FvHandler(fv);
+    // this.fvHandler = new FvHandler(fv);
     // this.footerHandler = new FooterHandler(footer);
     this.resizeTimer;
 
@@ -41,7 +39,7 @@ class DOMManuipulatorClass {
 
   updateStyle() {
     const headerHeight = this.getHeaderHeight();
-    // this.raiseElement(this.footer);
+    this.raiseElement(this.footer);
     this.setElHeight(headerHeight);
     if (this.isWideScreen) {
       this.updateWideScreenStyle(headerHeight);
@@ -52,7 +50,7 @@ class DOMManuipulatorClass {
 
   updateWideScreenStyle(headerHeight) {
     if (this.fv) {
-      this.fvHandler.raiseFv(headerHeight);
+      this.raiseFv(headerHeight);
     }
     iNode.setStyles(this.header, { height: "145px", maxHeight: "145px" });
     iNode.setCssProp("--header-height", 145, this.header);
@@ -60,7 +58,7 @@ class DOMManuipulatorClass {
 
   updateNarrowScreenStyle(headerHeight) {
     if (this.fv) {
-      this.fvHandler.raiseFv(headerHeight);
+      this.raiseFv(headerHeight);
     }
     iNode.setStyles(this.header, { height: "68px", maxHeight: "68px" });
     iNode.setCssProp("--header-height", 68, this.header);
@@ -106,8 +104,8 @@ class DOMManuipulatorClass {
   }
 
   getHeaderHeight() {
-    const header = iNode.qs("#header");
-    const height = header.offsetHeight;
+    // const header = iNode.qs("#header");
+    const height = this.header.offsetHeight;
 
     iNode.setCssProp("--header-height", height, this.header);
 
@@ -143,6 +141,14 @@ class DOMManuipulatorClass {
     // this.gapFooter = this.siblingsBottom - this.footerTop;
     // console.log("gapFooter", gapFooter);
     iNode.setCssProp("--footer-top", `${gap}`, el);
+  }
+
+  // Related fv follows
+  raiseFv(value) {
+    return new Promise((resolve) => {
+      iNode.setCssProp("--fv-top", value, this.fv);
+      resolve();
+    });
   }
 }
 

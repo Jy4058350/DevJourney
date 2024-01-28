@@ -43,8 +43,8 @@ function updateCanvas() {
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   world.osResize(world.os, newCanvasRect);
-  // const domManuipulator = new DOMManuipulatorClass();
-  // domManuipulator.updateStyle();
+  const domManuipulator = new DOMManuipulatorClass();
+  domManuipulator.updateStyle();
 }
 
 export { viewport };

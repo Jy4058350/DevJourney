@@ -2,7 +2,6 @@ import { iNode } from "../helper";
 import DOMManuipulatorClass from "../myclasses/domManuipulator";
 import HeaderHandler from "../myclasses/header";
 import Viewport from "../myclasses/viewport";
-import FvHandler from "../myclasses/fv";
 import HomeNews from "../myclasses/homeNews";
 
 export default async function init({
@@ -29,7 +28,6 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const fvHandler = new FvHandler(fv);
   const newsViewport = new Viewport(rotationViewPort, referenceView);
   const homeNews = new HomeNews(sliders, prevButton, nextButton);
 
