@@ -1,8 +1,7 @@
 import { iNode } from "../helper";
-import DOMManuipulatorClass from "../myclasses/main";
+import DOMManuipulatorClass from "../myclasses/domManuipulator";
 import HeaderHandler from "../myclasses/header";
-import Viewport from "../myclasses/viewport";
-import FvHandler from "../myclasses/fv";
+// import Viewport from "../myclasses/viewport";
 import HomeNews from "../myclasses/homeNews";
 
 export default async function init({
@@ -29,39 +28,35 @@ export default async function init({
 
   const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   const headerHandler = new HeaderHandler(header);
-  const fvHandler = new FvHandler(fv);
-  const newsViewport = new Viewport(rotationViewPort, referenceView);
+  // const newsViewport = new Viewport(rotationViewPort, referenceView);
   const homeNews = new HomeNews(sliders, prevButton, nextButton);
 
   domManuipulator.init();
   homeNews.start();
 
-  domManuipulator.updateStyle();
-  const headerHeight = headerHandler.getHeaderHeight();
-  domManuipulator.updateStyle(headerHeight);
-  const portHeight = newsViewport.getPort();
-  newsViewport.setViewPort(portHeight);
+  // const portHeight = newsViewport.getPort();
+  // newsViewport.setViewPort(portHeight);
 
-  let resizeTimer;
+  // let resizeTimer;
 
-  window.addEventListener("resize", {
-    handleEvent(event) {
-      clearTimeout(resizeTimer);
+  // window.addEventListener("resize", {
+  //   handleEvent(event) {
+  //     clearTimeout(resizeTimer);
 
-      resizeTimer = setTimeout(() => {
-        let height = 0;
-        domManuipulator.init();
-        const headerHeight = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", headerHeight);
-        domManuipulator.updateStyle(headerHeight);
-        height = headerHandler.getHeaderHeight();
-        console.log("resize_headerHeight", height);
-        headerHandler.setElHeight(height);
+  //     resizeTimer = setTimeout(() => {
+  //       let height = 0;
+  //       domManuipulator.init();
+  //       const headerHeight = domManuipulator.getHeaderHeight();
+  //       console.log("resize_headerHeight before update", headerHeight);
+  //       domManuipulator.updateStyle(headerHeight);
+  //       height = domManuipulator.getHeaderHeight();
+  //       console.log("resize_headerHeight after update", height);
+  //       domManuipulator.setElHeight(height);
 
-        fvHandler.raiseFv(height);
-        const portHeight = newsViewport.getPort();
-        newsViewport.setViewPort(portHeight);
-      }, 200);
-    },
-  });
+  //       fvHandler.raiseFv(height);
+  //       const portHeight = newsViewport.getPort();
+  //       newsViewport.setViewPort(portHeight);
+  //     }, 200);
+  //   },
+  // });
 }

@@ -6,7 +6,8 @@ import { loader } from "./component/loader";
 import { theme } from "./component/theme";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
-import "./component/scroll-animation";
+// import "./component/scroll-animation";
+import DOMManuipulatorClass from "./myclasses/domManuipulator";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -15,7 +16,9 @@ function debugmode(d) {
 }
 
 export async function init() {
-  const { canvas, page, header, footer } = dom;
+  const { canvas, page, header, footer, fv } = dom;
+
+  const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
 
   const pageType = iNode.getDateSet(page, "page");
 
@@ -48,7 +51,7 @@ export async function init() {
     loader.$.b.style.width = `${percent}%`;
   });
 
-  viewport.bindResizeEvents();
+  viewport.bindResizeEvents(domManuipulator);
 
   await loader.init();
 
