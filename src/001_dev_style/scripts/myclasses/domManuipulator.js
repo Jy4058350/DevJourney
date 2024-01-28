@@ -11,6 +11,7 @@ class DOMManuipulatorClass {
     this.footer = footer;
     this.headerHandler = new HeaderHandler(header);
 
+    // sliderのために必要になった変数２つ
     const { flexIndicator, flexTarget } = dom;
     this.flexIndicator = flexIndicator;
     this.flexTarget = flexTarget;
@@ -42,7 +43,6 @@ class DOMManuipulatorClass {
     const headerHeight = this.getHeaderHeight();
     this.raiseElement(this.footer);
     this.setElHeight(headerHeight);
-    console.log(this.flexIndicator, this.flexTarget);
     this.adjustHeigh(this.flexTarget, this.flexIndicator);
     if (this.isWideScreen) {
       this.updateWideScreenStyle(headerHeight);
@@ -145,15 +145,11 @@ class DOMManuipulatorClass {
     });
   }
 
-  // Related flexView(Viewport.class) follows
+  // Related flexView(Viewport.class) follows for flexEl use
   adjustHeigh(el1, el2) {
     const height = el1.offsetHeight;
     el2.style.height = `${height}px`;
   }
-
-  // setViewPort(value) {
-  //   this.rotationViewPort.style.height = `${value}px`;
-  // }
 }
 
 export default DOMManuipulatorClass;
