@@ -1,5 +1,4 @@
 import world from "../glsl/world";
-import DOMManuipulatorClass from "../myclasses/domManuipulator";
 import { iNode } from "../helper";
 
 const viewport = {
@@ -24,17 +23,17 @@ function init(canvas, cameraZ = 2000, near = 10, far = 4000) {
 
 let timerId = null;
 
-function bindResizeEvents() {
+function bindResizeEvents(domManuipulator) {
   window.addEventListener("resize", () => {
     clearTimeout(timerId);
     timerId = setTimeout(() => {
       // console.log("resize");
-      updateCanvas();
+      updateCanvas(domManuipulator);
     }, 500);
   });
 }
 
-function updateCanvas() {
+function updateCanvas(domManuipulator) {
   const newCanvasRect = canvas.getBoundingClientRect();
 
   viewport.width = newCanvasRect.width;
@@ -48,8 +47,8 @@ function updateCanvas() {
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
   const footer = iNode.getElById("footer");
-  const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
-  domManuipulator.updateStyle();
+  domManuipulator.init();
+  // domManuipulator.updateStyle();
 }
 
 export { viewport };

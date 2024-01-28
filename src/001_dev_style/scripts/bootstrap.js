@@ -16,9 +16,9 @@ function debugmode(d) {
 }
 
 export async function init() {
-  const { canvas, page, header, footer } = dom;
+  const { canvas, page, header, footer, fv } = dom;
 
-  // const domManuipulator = new DOMManuipulatorClass();
+  const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
 
   const pageType = iNode.getDateSet(page, "page");
 
@@ -51,7 +51,7 @@ export async function init() {
     loader.$.b.style.width = `${percent}%`;
   });
 
-  viewport.bindResizeEvents();
+  viewport.bindResizeEvents(domManuipulator);
 
   await loader.init();
 
