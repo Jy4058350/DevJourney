@@ -1,5 +1,6 @@
 import world from "../glsl/world";
 import DOMManuipulatorClass from "../myclasses/domManuipulator";
+import { iNode } from "../helper";
 
 const viewport = {
   init,
@@ -43,7 +44,11 @@ function updateCanvas() {
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   world.osResize(world.os, newCanvasRect);
-  const domManuipulator = new DOMManuipulatorClass();
+
+  const header = iNode.getElById("header");
+  const fv = iNode.getElById("fv");
+  const footer = iNode.getElById("footer");
+  const domManuipulator = new DOMManuipulatorClass(header, fv, footer);
   domManuipulator.updateStyle();
 }
 

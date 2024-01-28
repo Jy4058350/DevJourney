@@ -1,3 +1,4 @@
+import { bind } from "lodash";
 import { iNode, dom } from "../helper";
 import HeaderHandler from "./header";
 // import FvHandler from "./fv";
@@ -105,6 +106,7 @@ class DOMManuipulatorClass {
 
   getHeaderHeight() {
     // const header = iNode.qs("#header");
+    console.log("this.header", this.header);
     const height = this.header.offsetHeight;
 
     iNode.setCssProp("--header-height", height, this.header);
