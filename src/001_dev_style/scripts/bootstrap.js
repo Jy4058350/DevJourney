@@ -6,7 +6,8 @@ import { loader } from "./component/loader";
 import { theme } from "./component/theme";
 import menu from "./component/menu";
 import { cling } from "./component/clingHeader";
-import "./component/scroll-animation";
+// import "./component/scroll-animation";
+import DOMManuipulatorClass from "./myclasses/domManuipulator";
 
 window.debug = debugmode(0) ? 1 : 0;
 
@@ -16,6 +17,8 @@ function debugmode(d) {
 
 export async function init() {
   const { canvas, page, header, footer } = dom;
+
+  // const domManuipulator = new DOMManuipulatorClass();
 
   const pageType = iNode.getDateSet(page, "page");
 

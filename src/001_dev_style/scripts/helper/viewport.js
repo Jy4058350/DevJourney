@@ -1,4 +1,5 @@
 import world from "../glsl/world";
+import DOMManuipulatorClass from "../myclasses/domManuipulator";
 
 const viewport = {
   init,
@@ -21,6 +22,7 @@ function init(canvas, cameraZ = 2000, near = 10, far = 4000) {
 }
 
 let timerId = null;
+
 function bindResizeEvents() {
   window.addEventListener("resize", () => {
     clearTimeout(timerId);
@@ -41,7 +43,8 @@ function updateCanvas() {
   viewport.fov = viewport.radian * (180 / Math.PI);
 
   world.osResize(world.os, newCanvasRect);
-  // console.log(newCanvasRect);
+  // const domManuipulator = new DOMManuipulatorClass();
+  // domManuipulator.updateStyle();
 }
 
 export { viewport };

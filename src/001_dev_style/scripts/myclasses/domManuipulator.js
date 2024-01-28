@@ -24,7 +24,6 @@ class DOMManuipulatorClass {
     // this.firstView();
     this.toggleScreen(this.isWideScreen);
     this.updateStyle();
-    this.addResizeListener();
   }
 
   _toEm(px, rootfontsize) {
@@ -132,26 +131,25 @@ class DOMManuipulatorClass {
     });
   }
 
-  // updateStyle() {
-  //   resizeTimer = setTimeout(() => {
-  //     let height = 0;
-  //     domManuipulator.init();
-  //     const headerHeight = domManuipulator.getHeaderHeight();
-  //     console.log("resize_headerHeight before update", headerHeight);
-  //     domManuipulator.updateStyle(headerHeight);
-  //     height = domManuipulator.getHeaderHeight();
-  //     console.log("resize_headerHeight after update", height);
-  //     domManuipulator.setElHeight(height);
+  // Related footer follows
+  init() {
+    const siblings = this.footer.previousElementSibling;
+    console.log("siblings", siblings);
+    const siblingsBottom = siblings.getBoundingClientRect().bottom;
+    // console.log("siblingsBottom", this.siblingsBottom);
+    this.footerTop = this.footer.getBoundingClientRect().top;
+    // console.log("footerTop", this.footerTop);
+    this.setFooterPos();
+  }
 
-  //     fvHandler.raiseFv(height);
-  //     const portHeight = newsViewport.getPort();
-  //     newsViewport.setViewPort(portHeight);
-  //   }, 200);
-  // }
+  getGap() {
+    this.gap = this.siblingsBottom - this.footerTop;
+    // console.log("gap", gap);
+  }
 
-  //     },
-  //   });
-  // }
+  setFooterPos() {
+    iNode.setCssProp("--footer-top", `${this.gap}`, this.footer);
+  }
 }
 
 export default DOMManuipulatorClass;
