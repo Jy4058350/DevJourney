@@ -27,6 +27,10 @@ class HomeNews {
   }
 
   updateIndex(increment) {
+    console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
+    console.log("Increment:", increment); // Debug code
+    console.log("Num items:", this.sliders.children.length); // Debug code
+
     if (SlideIndexManager.getIndex() === 5 && increment === 1) {
       SlideIndexManager.setIndex(1);
     } else {
@@ -35,6 +39,7 @@ class HomeNews {
           this.sliders.children.length
       );
     }
+    console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }
 
   start() {
@@ -79,7 +84,7 @@ class HomeNews {
   }
 
   updateSlider(index) {
-    console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
+    // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
