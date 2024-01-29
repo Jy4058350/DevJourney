@@ -1,5 +1,4 @@
-import { set } from "lodash";
-import { iNode } from "../helper";
+import SlideIndexManager from "./slideIndexManager";
 
 let isDragging = false;
 let startX = 0;
@@ -28,31 +27,32 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    if (this.currentIndex === 5 && increment === 1) {
-      this.currentIndex = 1;
+    if (SlideIndexManager.getIndex() === 5 && increment === 1) {
+      SlideIndexManager.setIndex(1);
     } else {
-      this.currentIndex = (this.currentIndex + increment) % this.numItems;
+      SlideIndexManager.setIndex(
+        (SlideIndexManager.getIndex() + increment) % this.numItems
+      );
     }
   }
 
   start() {
     this.init();
-    this.currentIndex = 0;
 
     this.prevButton.addEventListener("click", () => {
       this.prevButton.disabled = false;
-      this.updateIndex(-1);
-      this.updateSlider(this.currentIndex);
-      this.seeBtn(this.currentIndex);
+      SlideIndexManager.updateIndex(-1);
+      this.updateSlider(SlideIndexManager.getIndex());
+      this.seeBtn(SlideIndexManager.getIndex());
 
       this.pauseAutoSlide();
     });
 
     this.nextButton.addEventListener("click", () => {
       console.log("nexBtnClick");
-      this.updateIndex(1);
-      this.updateSlider(this.currentIndex);
-      this.seeBtn(this.currentIndex);
+      SlideIndexManager.updateIndex(1);
+      this.updateSlider(SlideIndexManager.getIndex());
+      this.seeBtn(SlideIndexManager.getIndex());
       this.pauseAutoSlide();
     });
 
@@ -64,14 +64,16 @@ class HomeNews {
 
     this.autoSlideInterval = setInterval(() => {
       this.isAutoSlide = true;
-      this.updateIndex(1);
-      this.updateSlider(this.currentIndex);
-      this.seeBtn(this.currentIndex);
+      SlideIndexManager.updateIndex(1);
+      this.updateSlider(SlideIndexManager.getIndex());
+      this.seeBtn(SlideIndexManager.getIndex());
     }, intervalTime);
   }
 
   dispatchSlideChangeEvent() {
-    const event = new CustomEvent("slideChange", { detail: this.currentIndex });
+    const event = new CustomEvent("slideChange", {
+      detail: SlideIndexManager.getIndex(),
+    });
     window.dispatchEvent(event);
   }
 
@@ -84,10 +86,10 @@ class HomeNews {
     this.setSliderTransform(index);
     this.setSliderTransition(index);
 
-    this.fadeOut(this.currentIndex, this.isAutoSlide);
+    this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide);
     this.fadeIn(index, this.isAutoSlide);
 
-    this.currentIndex = index;
+    SlideIndexManager.setIndex(index);
     this.isAutoSlide = false;
 
     this.dispatchSlideChangeEvent();
@@ -110,7 +112,7 @@ class HomeNews {
   }
 
   setSliderTransition(index) {
-    if (index === 0 || (this.currentIndex === 5 && index === 1)) {
+    if (index === 0 || (SlideIndexManager.getIndex() === 5 && index === 1)) {
       this.sliders.style.transition = "none";
       this.sliders.offsetWidth;
     } else {
@@ -221,14 +223,17 @@ class HomeNews {
         const diffX = e.clientX - currentX;
         currentX = e.clientX;
 
-        if (diffX > 0 && this.currentIndex > 0) {
-          this.updateIndex(-1);
-        } else if (diffX < 0 && this.currentIndex < this.numItems - 1) {
+        if (diffX > 0 && SlideIndexManager.getIndex() > 0) {
+          SlideIndexManager.updateIndex(-1);
+        } else if (
+          diffX < 0 &&
+          SlideIndexManager.getIndex() < this.numItems - 1
+        ) {
           // console.log("0 > diffX", diffX);
-          this.updateIndex(1);
+          SlideIndexManager.updateIndex(1);
         }
 
-        this.updateSlider(this.currentIndex);
+        this.updateSlider(SlideIndexManager.getIndex());
       }, debounceDelay);
     }
   }
