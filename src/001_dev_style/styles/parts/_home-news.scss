@@ -94,6 +94,7 @@
   //⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   &-article {
     opacity: 0;
+   
 
     &-glsl {
       position: absolute;
@@ -143,6 +144,7 @@
         font-weight: 700;
         line-height: 100%;
         color: var(--color-main);
+        color: black;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
