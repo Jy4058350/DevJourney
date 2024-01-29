@@ -7,6 +7,7 @@ let angle;
 let debounceTimer;
 
 class HomeNews {
+  // constructor(sliders, prevButton, nextButton, SlideIndexManager, increment) {
   constructor(sliders, prevButton, nextButton) {
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -31,13 +32,22 @@ class HomeNews {
     console.log("Increment:", increment); // Debug code
     console.log("Num items:", this.sliders.children.length); // Debug code
 
-    if (SlideIndexManager.getIndex() === 5 && increment === 1) {
+    // if (SlideIndexManager.getIndex() === 5 && increment === 1) {
+    //   SlideIndexManager.setIndex(1);
+    // } else {
+    //   SlideIndexManager.setIndex(
+    //     (SlideIndexManager.getIndex() + increment) %
+    //       this.sliders.children.length
+    //   );
+    // }
+
+    let newIndex =
+      (this.SlideIndexManager.getIndex() + increment) %
+      this.sliders.children.length;
+    if (newIndex % 6 === 0) {
       SlideIndexManager.setIndex(1);
     } else {
-      SlideIndexManager.setIndex(
-        (SlideIndexManager.getIndex() + increment) %
-          this.sliders.children.length
-      );
+      SlideIndexManager.setIndex(newIndex);
     }
     console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }

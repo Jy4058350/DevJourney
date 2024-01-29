@@ -1,4 +1,3 @@
-import { set } from "lodash";
 
 class SlideIndexManager {
   constructor() {
