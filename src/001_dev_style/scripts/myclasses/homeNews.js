@@ -79,6 +79,7 @@ class HomeNews {
   }
 
   updateSlider(index) {
+    console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
     }
