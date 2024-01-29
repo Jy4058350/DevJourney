@@ -31,7 +31,8 @@ class HomeNews {
       SlideIndexManager.setIndex(1);
     } else {
       SlideIndexManager.setIndex(
-        (SlideIndexManager.getIndex() + increment) % this.numItems
+        (SlideIndexManager.getIndex() + increment) %
+          this.sliders.children.length
       );
     }
   }
