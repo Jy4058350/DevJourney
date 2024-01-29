@@ -1,4 +1,3 @@
-
 class SlideIndexManager {
   constructor() {
     this.currentIndex = 0;

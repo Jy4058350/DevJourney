@@ -29,13 +29,15 @@ class HomeNews {
 
   updateIndex(increment) {
     console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
-    console.log("Increment:", increment); // Debug code
-    console.log("Num items:", this.sliders.children.length); // Debug code
+    // console.log("Increment:", increment); // Debug code
+    // console.log("Num items:", this.sliders.children.length); // Debug code
 
     let newIndex =
-      (SlideIndexManager.getIndex() + increment) % this.sliders.children.length;
+      ((SlideIndexManager.getIndex() - 1 + increment) %
+        this.sliders.children.length) +
+      1;
 
-    if (newIndex < 0) {
+    if (newIndex < 1) {
       newIndex += this.sliders.children.length;
     }
     SlideIndexManager.setIndex(newIndex);
@@ -104,17 +106,6 @@ class HomeNews {
     this.dispatchSlideChangeEvent();
   }
 
-  removeSliderClasses() {
-    for (let i = 0; i < this.sliders.children.length; i++) {
-      this.sliders.children[i].classList.remove(
-        "fade-in",
-        "show",
-        "fade-out",
-        "hide"
-      );
-    }
-  }
-
   setSliderTransform(index) {
     let slidePercentage = 360 / this.numItems;
     this.sliders.style.transform = `translateX(-${index * slidePercentage}%)`;
@@ -126,6 +117,17 @@ class HomeNews {
       this.sliders.offsetWidth;
     } else {
       this.sliders.style.transition = "";
+    }
+  }
+
+  removeSliderClasses() {
+    for (let i = 0; i < this.sliders.children.length; i++) {
+      this.sliders.children[i].classList.remove(
+        "fade-in",
+        "show",
+        "fade-out",
+        "hide"
+      );
     }
   }
 
