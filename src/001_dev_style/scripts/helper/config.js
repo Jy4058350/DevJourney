@@ -37,7 +37,8 @@ const config = {
 
   // rotationSlider get element
   flex: {
-    indicator: ".home-news-rotation-wrap",
+    // indicator: ".home-news-rotation-wrap",
+    indicator: ".rotation-viewport",
     target: ".home-news-article-thumbnail",
   },
 
