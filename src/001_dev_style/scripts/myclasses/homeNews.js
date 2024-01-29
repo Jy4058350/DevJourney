@@ -37,7 +37,7 @@ class HomeNews {
         this.sliders.children.length) +
       1;
 
-    if (newIndex < 1) {
+    if (newIndex < 1 && increment < 0) {
       newIndex += this.sliders.children.length;
     }
     SlideIndexManager.setIndex(newIndex);
