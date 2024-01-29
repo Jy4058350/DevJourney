@@ -32,27 +32,14 @@ class HomeNews {
     console.log("Increment:", increment); // Debug code
     console.log("Num items:", this.sliders.children.length); // Debug code
 
-    // if (SlideIndexManager.getIndex() === 5 && increment === 1) {
-    //   SlideIndexManager.setIndex(1);
-    // } else {
-    //   SlideIndexManager.setIndex(
-    //     (SlideIndexManager.getIndex() + increment) %
-    //       this.sliders.children.length
-    //   );
-    // }
-
     let newIndex =
-      (this.SlideIndexManager.getIndex() + increment) %
-      this.sliders.children.length;
+      (SlideIndexManager.getIndex() + increment) % this.sliders.children.length;
 
     if (newIndex < 0) {
       newIndex += this.sliders.children.length;
     }
-    if (newIndex % 6 === 0) {
-      SlideIndexManager.setIndex(1);
-    } else {
-      SlideIndexManager.setIndex(newIndex);
-    }
+    SlideIndexManager.setIndex(newIndex);
+
     console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }
 
@@ -84,7 +71,7 @@ class HomeNews {
 
     this.autoSlideInterval = setInterval(() => {
       this.isAutoSlide = true;
-      SlideIndexManager.updateIndex(1);
+      this.updateIndex(1);
       this.updateSlider(SlideIndexManager.getIndex());
       this.seeBtn(SlideIndexManager.getIndex());
     }, intervalTime);
@@ -101,6 +88,7 @@ class HomeNews {
     // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index} `);
+      return;
     }
     this.removeSliderClasses();
 
@@ -142,7 +130,7 @@ class HomeNews {
   }
 
   fadeOut(index, isAutoSlide) {
-    if (!isAutoSlide) {
+    if (!isAutoSlide || index < 0 || index > this.sliders.children.length) {
       return;
     }
     this.sliders.children[index].classList.add("fade-out");
