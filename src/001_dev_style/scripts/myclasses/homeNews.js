@@ -44,6 +44,10 @@ class HomeNews {
     let newIndex =
       (this.SlideIndexManager.getIndex() + increment) %
       this.sliders.children.length;
+
+    if (newIndex < 0) {
+      newIndex += this.sliders.children.length;
+    }
     if (newIndex % 6 === 0) {
       SlideIndexManager.setIndex(1);
     } else {
