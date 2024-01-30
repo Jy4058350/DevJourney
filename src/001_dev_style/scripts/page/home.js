@@ -16,6 +16,7 @@ export default async function init({
   theme,
   menu,
   cling,
+  SlideIndexManager,
 }) {
   const header = iNode.getElById("header");
   const fv = iNode.getElById("fv");
