@@ -63,23 +63,27 @@ class HomeNews {
 
   updateIndex(increment) {
     // console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
-
+    let newIndex = SlideIndexManager.getIndex();
     if (SlideIndexManager.getIndex() === 6) {
       console.log("pauseAutoSlide");
       this.pauseAutoSlide();
     }
-    let newIndex =
-      ((SlideIndexManager.getIndex() -
-        1 +
-        increment +
-        this.sliders.children.length) %
-        this.sliders.children.length) +
-      1;
+
+    if (SlideIndexManager.getIndex() !== 6) {
+      newIndex =
+        ((SlideIndexManager.getIndex() -
+          1 +
+          increment +
+          this.sliders.children.length) %
+          this.sliders.children.length) +
+        1;
+    }
 
     // console.log("newIndex", newIndex);
     if (
       increment > 0 &&
-      SlideIndexManager.getIndex() === this.sliders.children.length
+      SlideIndexManager.getIndex() === this.sliders.children.length &&
+      SlideIndexManager.getIndex() !== 6
     ) {
       newIndex = 2;
       // console.log("Eye newIndex 2 defined", newIndex);
