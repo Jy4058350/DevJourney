@@ -63,8 +63,6 @@ class HomeNews {
 
   updateIndex(increment) {
     console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
-    // console.log("Increment:", increment); // Debug code
-    // console.log("Num items:", this.sliders.children.length); // Debug code
 
     let newIndex =
       ((SlideIndexManager.getIndex() -
@@ -74,25 +72,20 @@ class HomeNews {
         this.sliders.children.length) +
       1;
 
-    if (newIndex > this.sliders.children.length) {
-      newIndex = 1;
+    console.log("newIndex", newIndex);
+    if (
+      increment > 0 &&
+      SlideIndexManager.getIndex() === this.sliders.children.length
+    ) {
+      newIndex = 2;
+      console.log("Eye newIndex 2 defined", newIndex);
     } else if (newIndex < 1 && increment < 0) {
       newIndex = this.sliders.children.length;
     }
 
-    // if (newIndex < 1 && increment < 0) {
-    //   newIndex += this.sliders.children.length;
-    // }
     SlideIndexManager.setIndex(newIndex);
 
     console.log("After update:", SlideIndexManager.getIndex()); // Debug code
-  }
-
-  dispatchSlideChangeEvent() {
-    const event = new CustomEvent("slideChange", {
-      detail: SlideIndexManager.getIndex(),
-    });
-    window.dispatchEvent(event);
   }
 
   updateSlider(index) {
@@ -111,10 +104,17 @@ class HomeNews {
 
     this.fadeIn(index, this.isAutoSlide);
 
-    SlideIndexManager.setIndex(index + 1);
+    // SlideIndexManager.setIndex(index + 1);
     this.isAutoSlide = false;
 
     this.dispatchSlideChangeEvent();
+  }
+
+  dispatchSlideChangeEvent() {
+    const event = new CustomEvent("slideChange", {
+      detail: SlideIndexManager.getIndex(),
+    });
+    window.dispatchEvent(event);
   }
 
   setSliderTransform(index) {

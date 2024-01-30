@@ -26,19 +26,19 @@ class ExtendObject extends CustomObject {
       // const currentIndex = event.detail; // 目的1のための数値
       let currentIndex = SlideIndexManager.getIndex(); // 目的1のための数値
 
-      console.log("index.js_currentIndex", currentIndex);
-      this.uniforms.uProgress.value = 0;
-      if (currentIndex === 0) {
-        this.animateProgress(0, 1, 2);
-      }
-      // if (currentIndex === 4 || currentIndex === 2 || currentIndex === 0) {
-      if (currentIndex === 1 || currentIndex === -1) {
-        this.uniforms.uProgress.value = 1;
-        this.animateProgress(1, 0, 1);
-      }
-      if (currentIndex === 4) {
-        this.animateProgress(0, 1, 2);
-      }
+      // // console.log("index.js_currentIndex", currentIndex);
+      // this.uniforms.uProgress.value = 0;
+      // if (currentIndex === 0) {
+      //   this.animateProgress(0, 1, 2);
+      // }
+      // // if (currentIndex === 4 || currentIndex === 2 || currentIndex === 0) {
+      // if (currentIndex === 1 || currentIndex === -1) {
+      //   this.uniforms.uProgress.value = 1;
+      //   this.animateProgress(1, 0, 1);
+      // }
+      // if (currentIndex === 4) {
+      //   this.animateProgress(0, 1, 2);
+      // }
     });
   }
 
