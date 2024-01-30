@@ -23,6 +23,7 @@ class ExtendObject extends CustomObject {
 
     window.addEventListener("slideChange", (event) => {
       let currentIndex = SlideIndexManager.getIndex();
+      console.log("currentIndex", currentIndex);
       if (currentIndex === 2 || currentIndex === 6) {
         gsap.to(this.uniforms.uProgress, {
           value: 1.0,

@@ -81,7 +81,7 @@ class HomeNews {
         1;
     }
 
-    console.log("newIndex", newIndex);
+    // console.log("newIndex", newIndex);
     if (
       increment > 0 &&
       SlideIndexManager.getIndex() === this.sliders.children.length &&
@@ -95,7 +95,7 @@ class HomeNews {
 
     SlideIndexManager.setIndex(newIndex);
 
-    console.log("After update:", SlideIndexManager.getIndex()); // Debug code
+    // console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }
 
   updateSlider(index) {
@@ -111,26 +111,27 @@ class HomeNews {
     this.setSliderTransition(index);
 
     console.log("index", index);
-    if (index === 5) {
+    if (index === 6) {
       if (this.pauseAutoSlide()) {
         this.isPaused = true;
         console.log("pauseAutoSlide", index);
       }
     }
-    console.log("isPaused", this.isPaused);
+    // console.log("isPaused", this.isPaused);
     this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
     this.fadeIn(index, this.isAutoSlide, this.isPaused);
 
-    // if (index === 5) {
-    //   if (this.pauseAutoSlide()) {
-    //     this.isPaused = true;
-    //     console.log("pauseAutoSlide");
+    if (index === 6) {
+      if (this.pauseAutoSlide()) {
+        this.isPaused = true;
+        // console.log("pauseAutoSlide");
 
-    //     this.setSliderTransform(0);
+        this.setSliderTransform(1);
 
-    //     this.updateSlider(2);
-    //   }
-    // }
+        this.updateSlider(0);
+        console.log("updateSlider(2)", index);
+      }
+    }
 
     this.isAutoSlide = false;
 
