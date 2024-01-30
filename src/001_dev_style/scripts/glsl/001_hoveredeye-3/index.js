@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import SlideIndexManager from "../../myclasses/slideIndexManager";
 
 import vertexShader from "./vertex.glsl";
 import fragmentShader from "./fragment.glsl";
@@ -15,20 +16,14 @@ class ExtendObject extends CustomObject {
   constructor({ texes, el, type, canvasRect }) {
     super({ texes, el, type, canvasRect });
 
-    this.slideIndex = null;
     window.addEventListener("slideChange", (event) => {
-      const currentIndex = event.detail; // 目的1のための数値
-      this.uniforms.uProgress.value = 0;
-      if (currentIndex === 3) {
-        this.animateProgress(0, 1, 2);
-      }
+      let currentIndex = SlideIndexManager.getIndex();
       if (currentIndex === 4) {
-        // if (currentIndex === 4 || currentIndex === 2) {
-        this.uniforms.uProgress.value = 1;
-        this.animateProgress(1, 0, 1);
-      }
-      if (currentIndex === 5) {
-        this.animateProgress(0, 1, 3);
+        console.log(this.uniforms.uProgress.value);
+        this.uniforms.uProgress.value = 1.0;
+        console.log(this.uniforms.uProgress.value);
+      } else {
+        this.uniforms.uProgress.value = 0.0;
       }
     });
   }
