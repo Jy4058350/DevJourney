@@ -109,18 +109,29 @@ class HomeNews {
 
     this.setSliderTransform(index);
     this.setSliderTransition(index);
+
     console.log("index", index);
     if (index === 5) {
       if (this.pauseAutoSlide()) {
         this.isPaused = true;
-        console.log("pauseAutoSlide");
+        console.log("pauseAutoSlide", index);
       }
     }
     console.log("isPaused", this.isPaused);
     this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
     this.fadeIn(index, this.isAutoSlide, this.isPaused);
 
-    // SlideIndexManager.setIndex(index + 1);
+    // if (index === 5) {
+    //   if (this.pauseAutoSlide()) {
+    //     this.isPaused = true;
+    //     console.log("pauseAutoSlide");
+
+    //     this.setSliderTransform(0);
+
+    //     this.updateSlider(2);
+    //   }
+    // }
+
     this.isAutoSlide = false;
 
     this.dispatchSlideChangeEvent();
