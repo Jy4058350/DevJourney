@@ -62,8 +62,12 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
+    // console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
 
+    if (SlideIndexManager.getIndex() === 6) {
+      console.log("pauseAutoSlide");
+      this.pauseAutoSlide();
+    }
     let newIndex =
       ((SlideIndexManager.getIndex() -
         1 +
@@ -72,13 +76,13 @@ class HomeNews {
         this.sliders.children.length) +
       1;
 
-    console.log("newIndex", newIndex);
+    // console.log("newIndex", newIndex);
     if (
       increment > 0 &&
       SlideIndexManager.getIndex() === this.sliders.children.length
     ) {
       newIndex = 2;
-      console.log("Eye newIndex 2 defined", newIndex);
+      // console.log("Eye newIndex 2 defined", newIndex);
     } else if (newIndex < 1 && increment < 0) {
       newIndex = this.sliders.children.length;
     }
@@ -164,14 +168,14 @@ class HomeNews {
   }
 
   seeBtn(index) {
-    if (index === 1) {
+    if (index === 2) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
     } else {
       this.prevButton.disabled = false;
       this.prevButton.style.display = "block";
     }
-    if (index === this.numItems - 2) {
+    if (index === this.numItems - 1) {
       this.nextButton.disabled = true;
       this.nextButton.style.display = "none";
     } else {

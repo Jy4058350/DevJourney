@@ -1,6 +1,6 @@
 class SlideIndexManager {
   constructor() {
-    this.currentIndex = 0;
+    this.currentIndex = 1;
   }
 
   updateIndex(increment) {
