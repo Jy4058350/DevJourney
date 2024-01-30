@@ -15,6 +15,8 @@ class HomeNews {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
     this.initDOM(sliders, prevButton, nextButton);
+
+    this.isPaused = false;
   }
   initDOM(sliders, prevButton, nextButton) {
     this.sliders = sliders;
@@ -108,9 +110,12 @@ class HomeNews {
     this.setSliderTransform(index);
     this.setSliderTransition(index);
 
-    this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide);
+    if (this.pauseAutoSlide()) {
+      this.isPaused = true;
+    }
 
-    this.fadeIn(index, this.isAutoSlide);
+    this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
+    this.fadeIn(index, this.isAutoSlide, this.isPaused);
 
     // SlideIndexManager.setIndex(index + 1);
     this.isAutoSlide = false;
@@ -150,9 +155,14 @@ class HomeNews {
     }
   }
 
-  fadeOut(index, isAutoSlide) {
+  fadeOut(index, isAutoSlide, isPaused) {
     index -= 1;
-    if (!isAutoSlide || index < 0 || index >= this.sliders.children.length) {
+    if (
+      !isAutoSlide ||
+      index < 0 ||
+      index >= this.sliders.children.length ||
+      isPaused
+    ) {
       return;
     }
     this.sliders.children[index].classList.add("fade-out");
@@ -161,7 +171,10 @@ class HomeNews {
     }, 2500);
   }
 
-  fadeIn(index, isAutoSlide) {
+  fadeIn(index, isAutoSlide, isPaused) {
+    if (isPaused) {
+      return;
+    }
     this.sliders.children[index].classList.add("fade-in");
     setTimeout(
       () => {
@@ -172,6 +185,13 @@ class HomeNews {
   }
 
   seeBtn(index) {
+    let newIndex =
+      ((SlideIndexManager.getIndex() -
+        1 +
+        increment +
+        this.sliders.children.length) %
+        this.sliders.children.length) +
+      1;
     if (index === 2) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
