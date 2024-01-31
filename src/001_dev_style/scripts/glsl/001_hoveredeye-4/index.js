@@ -18,7 +18,7 @@ class ExtendObject extends CustomObject {
 
     window.addEventListener("slideChange", (event) => {
       let currentIndex = SlideIndexManager.getIndex();
-      if (currentIndex === 5 || currentIndex === 1) {
+      if (currentIndex === 4 || currentIndex === 0) {
         gsap.to(this.uniforms.uProgress, {
           value: 1.0,
           duration: 1.0,

@@ -67,18 +67,18 @@ class HomeNews {
     const currentIndex = SlideIndexManager.getIndex();
     const totalSlides = this.sliders.children.length;
 
-    let newIndex = (currentIndex + increment + totalSlides) % totalSlides;
-
-    if (newIndex === 6) {
-      // this.pauseAutoSlide();
+    let newIndex;
+    if (currentIndex === totalSlides - 1) {
       newIndex = 1;
+    } else {
+      newIndex = (currentIndex + increment) % totalSlides;
     }
     SlideIndexManager.setIndex(newIndex);
   }
 
   updateSlider(index) {
     console.log("updateSlider index", index);
-    index -= 1;
+
     // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index + 1} `);
@@ -142,7 +142,7 @@ class HomeNews {
   }
 
   fadeOut(index, isAutoSlide, isPaused) {
-    index -= 1;
+    // index -= 1;
     if (
       !isAutoSlide ||
       index < 0 ||
