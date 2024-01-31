@@ -64,41 +64,20 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    // console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
-    let newIndex = SlideIndexManager.getIndex();
-    if (SlideIndexManager.getIndex() === 6) {
-      console.log("pauseAutoSlide");
-      this.pauseAutoSlide();
-    }
+    const currentIndex = SlideIndexManager.getIndex();
+    const totalSlides = this.sliders.children.length;
 
-    if (SlideIndexManager.getIndex() !== 6) {
-      newIndex =
-        ((SlideIndexManager.getIndex() -
-          1 +
-          increment +
-          this.sliders.children.length) %
-          this.sliders.children.length) +
-        1;
-    }
+    let newIndex = (currentIndex + increment + totalSlides) % totalSlides;
 
-    // console.log("newIndex", newIndex);
-    if (
-      increment > 0 &&
-      SlideIndexManager.getIndex() === this.sliders.children.length &&
-      SlideIndexManager.getIndex() !== 6
-    ) {
-      newIndex = 2;
-      // console.log("Eye newIndex 2 defined", newIndex);
-    } else if (newIndex < 1 && increment < 0) {
-      newIndex = this.sliders.children.length;
+    if (newIndex === 6) {
+      // this.pauseAutoSlide();
+      newIndex = 1;
     }
-
     SlideIndexManager.setIndex(newIndex);
-
-    // console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }
 
   updateSlider(index) {
+    console.log("updateSlider index", index);
     index -= 1;
     // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
@@ -110,28 +89,20 @@ class HomeNews {
     this.setSliderTransform(index);
     this.setSliderTransition(index);
 
-    console.log("index", index);
-    if (index === 6) {
-      if (this.pauseAutoSlide()) {
-        this.isPaused = true;
-        console.log("pauseAutoSlide", index);
-      }
-    }
-    // console.log("isPaused", this.isPaused);
+    // // console.log("index", index);
+    // if (index === 5) {
+    //   // this.pauseAutoSlide();
+    //   if (this.isPaused) {
+    //     this.isPaused = true;
+    //     console.log("pauseAutoSlide", index);
+    //     this.setSliderTransform(1);
+    //     this.updateSlider(5);
+    //   }
+    // }
+
+    // console.log("isPaused", this.isPaused, index);
     this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
     this.fadeIn(index, this.isAutoSlide, this.isPaused);
-
-    if (index === 6) {
-      if (this.pauseAutoSlide()) {
-        this.isPaused = true;
-        // console.log("pauseAutoSlide");
-
-        this.setSliderTransform(1);
-
-        this.updateSlider(0);
-        console.log("updateSlider(2)", index);
-      }
-    }
 
     this.isAutoSlide = false;
 
@@ -319,6 +290,7 @@ class HomeNews {
 
   pauseAutoSlide() {
     clearInterval(this.autoSlideInterval);
+    this.isPaused = true;
     return true;
   }
 }
