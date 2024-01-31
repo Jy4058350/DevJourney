@@ -1,4 +1,3 @@
-import e from "express";
 import SlideIndexManager from "./slideIndexManager";
 
 let isDragging = false;
@@ -146,12 +145,12 @@ class HomeNews {
       console.log("fadeOut nothing return", index);
       return;
     }
-    if (index === !5) {
+    if (index !== 5) {
       this.sliders.children[index].classList.add("fade-out");
       setTimeout(() => {
         this.sliders.children[index].classList.add("hide");
       }, 2500);
-    } else {
+    } else if (index == 5) {
       console.log("fadeOut nothing return", index);
     }
   }
@@ -161,14 +160,16 @@ class HomeNews {
     //   return;
     // }
     this.sliders.children[index].classList.add("fade-in");
-    if (index === !1) {
+    if (index !== 1) {
+      console.log("index==!1");
       setTimeout(
         () => {
           this.sliders.children[index].classList.add("show");
         },
         isAutoSlide ? 500 : 100
       );
-    } else {
+    } else if (index == 1) {
+      console.log("index==1");
       this.sliders.children[index].classList.add("show");
     }
   }
