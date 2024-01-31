@@ -15,6 +15,8 @@ class HomeNews {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
     this.initDOM(sliders, prevButton, nextButton);
+
+    this.isPaused = false;
   }
   initDOM(sliders, prevButton, nextButton) {
     this.sliders = sliders;
@@ -62,34 +64,21 @@ class HomeNews {
   }
 
   updateIndex(increment) {
-    console.log("Before update:", SlideIndexManager.getIndex()); // Debug code
+    const currentIndex = SlideIndexManager.getIndex();
+    const totalSlides = this.sliders.children.length;
 
-    let newIndex =
-      ((SlideIndexManager.getIndex() -
-        1 +
-        increment +
-        this.sliders.children.length) %
-        this.sliders.children.length) +
-      1;
-
-    console.log("newIndex", newIndex);
-    if (
-      increment > 0 &&
-      SlideIndexManager.getIndex() === this.sliders.children.length
-    ) {
-      newIndex = 2;
-      console.log("Eye newIndex 2 defined", newIndex);
-    } else if (newIndex < 1 && increment < 0) {
-      newIndex = this.sliders.children.length;
+    let newIndex;
+    if (currentIndex === totalSlides - 1) {
+      newIndex = 1;
+    } else {
+      newIndex = (currentIndex + increment) % totalSlides;
     }
-
     SlideIndexManager.setIndex(newIndex);
-
-    console.log("After update:", SlideIndexManager.getIndex()); // Debug code
   }
 
   updateSlider(index) {
-    index -= 1;
+    // console.log("updateSlider index", index);
+
     // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
       console.error(`Invalid index: ${index + 1} `);
@@ -100,11 +89,10 @@ class HomeNews {
     this.setSliderTransform(index);
     this.setSliderTransition(index);
 
-    this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide);
+    // console.log("isPaused", this.isPaused, index);
+    this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
+    this.fadeIn(index, this.isAutoSlide, this.isPaused);
 
-    this.fadeIn(index, this.isAutoSlide);
-
-    // SlideIndexManager.setIndex(index + 1);
     this.isAutoSlide = false;
 
     this.dispatchSlideChangeEvent();
@@ -123,7 +111,10 @@ class HomeNews {
   }
 
   setSliderTransition(index) {
-    if (index === 0 || (SlideIndexManager.getIndex() === 5 && index === 1)) {
+    const currentIndex = SlideIndexManager.getIndex();
+    // console.log("currentIndex, index", currentIndex, index);
+    if (currentIndex === 1 && index === 1) {
+      console.log("setSliderTransition", index);
       this.sliders.style.transition = "none";
       this.sliders.offsetWidth;
     } else {
@@ -142,36 +133,63 @@ class HomeNews {
     }
   }
 
-  fadeOut(index, isAutoSlide) {
-    index -= 1;
-    if (!isAutoSlide || index < 0 || index >= this.sliders.children.length) {
+  fadeOut(index, isAutoSlide, isPaused) {
+    // index -= 1;
+    if (
+      !isAutoSlide ||
+      index < 0 ||
+      index >= this.sliders.children.length ||
+      isPaused ||
+      index === 5
+    ) {
+      console.log("fadeOut nothing return", index);
       return;
     }
-    this.sliders.children[index].classList.add("fade-out");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("hide");
-    }, 2500);
+    if (index !== 5) {
+      this.sliders.children[index].classList.add("fade-out");
+      setTimeout(() => {
+        this.sliders.children[index].classList.add("hide");
+      }, 2500);
+    } else if (index == 5) {
+      console.log("fadeOut nothing return", index);
+    }
   }
 
   fadeIn(index, isAutoSlide) {
+    // if (isPaused) {
+    //   return;
+    // }
     this.sliders.children[index].classList.add("fade-in");
-    setTimeout(
-      () => {
-        this.sliders.children[index].classList.add("show");
-      },
-      isAutoSlide ? 500 : 100
-    );
+    if (index !== 1) {
+      console.log("index==!1");
+      setTimeout(
+        () => {
+          this.sliders.children[index].classList.add("show");
+        },
+        isAutoSlide ? 500 : 100
+      );
+    } else if (index == 1) {
+      console.log("index==1");
+      this.sliders.children[index].classList.add("show");
+    }
   }
 
-  seeBtn(index) {
-    if (index === 1) {
+  seeBtn(index, increment = 1) {
+    let newIndex =
+      ((SlideIndexManager.getIndex() -
+        1 +
+        increment +
+        this.sliders.children.length) %
+        this.sliders.children.length) +
+      1;
+    if (index === 2) {
       this.prevButton.disabled = true;
       this.prevButton.style.display = "none";
     } else {
       this.prevButton.disabled = false;
       this.prevButton.style.display = "block";
     }
-    if (index === this.numItems - 2) {
+    if (index === this.numItems - 1) {
       this.nextButton.disabled = true;
       this.nextButton.style.display = "none";
     } else {
@@ -276,6 +294,8 @@ class HomeNews {
 
   pauseAutoSlide() {
     clearInterval(this.autoSlideInterval);
+    this.isPaused = true;
+    return true;
   }
 }
 
