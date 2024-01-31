@@ -1,3 +1,4 @@
+import e from "express";
 import SlideIndexManager from "./slideIndexManager";
 
 let isDragging = false;
@@ -77,7 +78,7 @@ class HomeNews {
   }
 
   updateSlider(index) {
-    console.log("updateSlider index", index);
+    // console.log("updateSlider index", index);
 
     // console.log("Current index: ", SlideIndexManager.getIndex()); //Debug code
     if (index < 0 || index > this.sliders.children.length) {
@@ -88,17 +89,6 @@ class HomeNews {
 
     this.setSliderTransform(index);
     this.setSliderTransition(index);
-
-    // // console.log("index", index);
-    // if (index === 5) {
-    //   // this.pauseAutoSlide();
-    //   if (this.isPaused) {
-    //     this.isPaused = true;
-    //     console.log("pauseAutoSlide", index);
-    //     this.setSliderTransform(1);
-    //     this.updateSlider(5);
-    //   }
-    // }
 
     // console.log("isPaused", this.isPaused, index);
     this.fadeOut(SlideIndexManager.getIndex(), this.isAutoSlide, this.isPaused);
@@ -122,7 +112,10 @@ class HomeNews {
   }
 
   setSliderTransition(index) {
-    if (index === 0 || (SlideIndexManager.getIndex() === 5 && index === 1)) {
+    const currentIndex = SlideIndexManager.getIndex();
+    // console.log("currentIndex, index", currentIndex, index);
+    if (currentIndex === 1 && index === 1) {
+      console.log("setSliderTransition", index);
       this.sliders.style.transition = "none";
       this.sliders.offsetWidth;
     } else {
@@ -147,27 +140,37 @@ class HomeNews {
       !isAutoSlide ||
       index < 0 ||
       index >= this.sliders.children.length ||
-      isPaused
+      isPaused ||
+      index === 5
     ) {
+      console.log("fadeOut nothing return", index);
       return;
     }
-    this.sliders.children[index].classList.add("fade-out");
-    setTimeout(() => {
-      this.sliders.children[index].classList.add("hide");
-    }, 2500);
+    if (index === !5) {
+      this.sliders.children[index].classList.add("fade-out");
+      setTimeout(() => {
+        this.sliders.children[index].classList.add("hide");
+      }, 2500);
+    } else {
+      console.log("fadeOut nothing return", index);
+    }
   }
 
-  fadeIn(index, isAutoSlide, isPaused) {
+  fadeIn(index, isAutoSlide) {
     // if (isPaused) {
     //   return;
     // }
     this.sliders.children[index].classList.add("fade-in");
-    setTimeout(
-      () => {
-        this.sliders.children[index].classList.add("show");
-      },
-      isAutoSlide ? 500 : 100
-    );
+    if (index === !1) {
+      setTimeout(
+        () => {
+          this.sliders.children[index].classList.add("show");
+        },
+        isAutoSlide ? 500 : 100
+      );
+    } else {
+      this.sliders.children[index].classList.add("show");
+    }
   }
 
   seeBtn(index, increment = 1) {
