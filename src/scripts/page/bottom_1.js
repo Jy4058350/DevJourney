@@ -1,5 +1,4 @@
 import Scrollbar from "smooth-scrollbar"; //import with named import
-import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 import bottom1PageHandler from "../myclasses/bottom1PagesHandler";
 

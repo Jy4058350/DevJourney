@@ -1,5 +1,4 @@
 import Scrollbar from "smooth-scrollbar"; //import with named import
-import DOMManuipulatorClass from "../myclasses/main";
 import HeaderHandler from "../myclasses/header";
 
 import { iNode } from "../helper";
@@ -87,12 +86,10 @@ export default async function init({
     addScrollBarListener(scrollBar, el4, initialY);
   })(function (scrollBar, el4, initialY) {
     scrollBar.addListener(({ offset }) => {
-      console.log("is scrolling", offset.y);
+      // console.log("is scrolling", offset.y);
       const newY = offset.y / 2;
       // el4.style.transform = `translate3d(0px, ${initialY}px, 0px)`;
       // el4.style.transform = `translate3d(0px, ${newY}px, 0px)`;
     });
   });
-
-  
 }
